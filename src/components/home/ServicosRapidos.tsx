@@ -52,11 +52,10 @@ export default async function ServicosRapidos() {
     });
 
     return (
-        <section className="pb-24 bg-transparent relative z-20 -mt-36 md:-mt-52" id="servicos" aria-labelledby="servicos-titulo">
+        <section className="py-12 bg-white border-b border-gray-100 relative z-10" id="servicos" aria-labelledby="servicos-titulo">
             <div className="max-w-[1240px] mx-auto px-6">
 
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     {servicos.map((s, idx) => {
                         const Icon = s.icon;
                         const identifier =
@@ -77,32 +76,32 @@ export default async function ServicosRapidos() {
                                 href={finalHref}
                                 target={isExternal ? "_blank" : undefined}
                                 rel={isExternal ? "noopener noreferrer" : undefined}
-                                className={`group flex flex-col p-8 rounded-[2.5rem] bg-white border-t-4 ${s.accentColor} shadow-xl ${s.hoverGlow} hover:shadow-2xl transition-all duration-500 hover:-translate-y-3`}
+                                className={`group flex flex-col p-6 rounded-2xl bg-white border border-gray-100 border-t-4 ${s.accentColor} shadow-md ${s.hoverGlow} hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
                             >
-                                <div className={`w-16 h-16 ${s.bgColor} ${s.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm relative`}>
-                                    <Icon size={34} strokeWidth={1.5} />
+                                <div className={`w-11 h-11 ${s.bgColor} ${s.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-all duration-300 relative`}>
+                                    <Icon size={22} strokeWidth={1.5} />
                                     {isExternal && (
-                                        <div className="absolute -top-2 -right-2 bg-primary-500 text-white p-1.5 rounded-lg shadow-lg border-2 border-white">
-                                            <FaExternalLinkAlt size={12} />
+                                        <div className="absolute -top-2 -right-2 bg-primary-500 text-white p-1 rounded-md shadow-lg border-2 border-white">
+                                            <FaExternalLinkAlt size={9} />
                                         </div>
                                     )}
                                 </div>
 
-                                <h3 className="font-black text-[#002241] text-lg uppercase tracking-tight mb-2 group-hover:text-primary-600 transition-colors leading-tight">
+                                <h3 className="font-black text-[#002241] text-sm uppercase tracking-tight mb-1.5 group-hover:text-primary-600 transition-colors leading-tight">
                                     {s.label}
                                 </h3>
-                                <p className="text-gray-500 font-medium text-sm leading-relaxed mb-6 flex-1">
+                                <p className="text-gray-500 font-medium text-xs leading-relaxed mb-4 flex-1">
                                     {s.desc}
                                 </p>
-                                <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${s.color} py-2.5 px-5 bg-gray-50 group-hover:bg-primary-500 group-hover:text-white rounded-full w-fit transition-all duration-300 shadow-sm`}>
-                                    {isExternal ? "Portal Externo" : "Acessar"} <span className="text-base">→</span>
+                                <div className={`flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest ${s.color} py-1.5 px-3 bg-gray-50 group-hover:bg-primary-500 group-hover:text-white rounded-full w-fit transition-all duration-300`}>
+                                    {isExternal ? "Portal Externo" : "Acessar"} <span className="text-sm">→</span>
                                 </div>
                             </Link>
                         );
                     })}
                 </div>
 
-                <div className="mt-16 flex justify-center">
+                <div className="mt-8 flex justify-center">
                     <Link
                         href="/servicos"
                         className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 hover:text-primary-500 transition-all border-b-2 border-gray-200 hover:border-primary-500 pb-1"

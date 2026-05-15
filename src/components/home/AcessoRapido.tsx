@@ -53,7 +53,7 @@ export default async function AcessoRapido() {
     });
 
     return (
-        <section className="bg-section-dark py-24 relative overflow-hidden" aria-labelledby="acesso-rapido-titulo">
+        <section className="bg-section-dark py-14 relative overflow-hidden" aria-labelledby="acesso-rapido-titulo">
             {/* Decorative circles */}
             <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-primary-500/10 blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-secondary-400/10 blur-3xl pointer-events-none" />
@@ -65,7 +65,7 @@ export default async function AcessoRapido() {
                         <span className="text-secondary-400 font-black text-[10px] uppercase tracking-[0.4em]">Facilidade ao Cidadão</span>
                         <div className="w-6 h-0.5 bg-secondary-400/60 rounded-full" />
                     </div>
-                    <h2 id="acesso-rapido-titulo" className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter">
+                    <h2 id="acesso-rapido-titulo" className="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter">
                         Acesso <span className="text-primary-400 italic">Rápido</span>
                     </h2>
                 </div>
@@ -84,10 +84,10 @@ export default async function AcessoRapido() {
                                 href={finalHref}
                                 target={isExternal ? "_blank" : undefined}
                                 rel={isExternal ? "noopener noreferrer" : undefined}
-                                className="group flex flex-col items-center p-8 bg-white/5 hover:bg-white/10 rounded-[2.5rem] border border-white/10 hover:border-white/25 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 backdrop-blur-sm"
+                                className="group flex flex-col items-center p-6 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/10 hover:border-white/25 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
                             >
-                                <div className={`w-20 h-20 ${item.bg} ${item.color} rounded-2xl flex items-center justify-center mb-5 ${item.hoverBg} group-hover:text-white transition-all duration-500 relative shadow-inner`}>
-                                    <item.icon size={38} strokeWidth={1.5} />
+                                <div className={`w-14 h-14 ${item.bg} ${item.color} rounded-xl flex items-center justify-center mb-4 ${item.hoverBg} group-hover:text-white transition-all duration-300 relative shadow-inner`}>
+                                    <item.icon size={28} strokeWidth={1.5} />
                                     {isExternal && (
                                         <div className="absolute -top-1.5 -right-1.5 bg-secondary-400 text-[#002241] p-1 rounded-lg shadow-lg">
                                             <FaExternalLinkAlt size={9} />

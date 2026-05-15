@@ -33,8 +33,8 @@ export default function HeroSection() {
             <div className="absolute bottom-1/3 right-[-4rem] w-72 h-72 rounded-full bg-secondary-400/20 blur-[80px] pointer-events-none z-0" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-primary-600/10 blur-[120px] pointer-events-none z-0" />
 
-            {/* Content - Text removed to show only video */}
-            <div className="relative z-10 w-full max-w-[1240px] mx-auto px-6 flex flex-col items-center text-center animate-fade-in-up mt-28 md:mt-32 pb-36 md:pb-52">
+            {/* Content */}
+            <div className="relative z-10 w-full max-w-[1240px] mx-auto px-6 flex flex-col items-center text-center animate-fade-in-up">
             </div>
 
             {/* Bottom fade */}
