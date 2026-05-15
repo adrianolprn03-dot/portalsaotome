@@ -1,0 +1,81 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env*.local
+.env.production
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# prisma
+/prisma/*.db
+/prisma/*.db-journal
+
+# build logs
+build_err.log
+build_error.txt
+build_error_final.txt
+build_error_last.txt
+build_log.txt
+build_output*.log
+dirs.txt
+
+# temp files
+/tmp/
+*.html
+prefeitura_redesign*.png
+tmp_seed.ts
+old_seed.ts
+test_api.js
+test_prisma.js
+legis.json
+deploy.zip
+deploy_vps.zip
+*.zip
+*.tar.gz
+*.txt
+scratch/
+cocal*.html
+build*.log
+build_v2.log
+build_utf8.log
+
+# uploads (arquivos PDF/imagens - gerenciados pelo servidor em produção)
+/public/uploads/
+
+# deploy artifacts
+deploy_final/
+deploy_vps/
+site_pronto.zip
+site_vps*.zip
+docker_build_test.txt
+
+.vercel
+.env*.local
