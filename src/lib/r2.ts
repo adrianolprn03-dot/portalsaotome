@@ -1,57 +1,28 @@
-import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
-
-// Configuração centralizada do Cloudflare R2
-export const r2Client = new S3Client({
-    region: "auto",
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-    credentials: {
-        accessKeyId: process.env.R2_ACCESS_KEY_ID || "",
-        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
-    },
-});
-
 /**
- * Extrai a chave (key) do R2 a partir da URL pública do arquivo.
- * Exemplo: "https://pub-xxx.r2.dev/uploads/123-foto.webp" → "uploads/123-foto.webp"
+ * Módulo de compatibilidade: anteriormente usava Cloudflare R2.
+ * Agora delega para Vercel Blob Storage.
+ * Os imports em outras rotas (deleteFileFromR2) continuam funcionando sem mudança.
  */
-function extractKeyFromUrl(fileUrl: string): string | null {
-    try {
-        const publicBase = process.env.R2_PUBLIC_URL?.replace(/\/$/, "") || "";
-        if (publicBase && fileUrl.startsWith(publicBase)) {
-            // Remove a base pública e o "/" inicial
-            return fileUrl.slice(publicBase.length).replace(/^\//, "");
-        }
-        // Fallback: tenta extrair tudo após o domínio
-        const url = new URL(fileUrl);
-        return url.pathname.replace(/^\//, "");
-    } catch {
-        return null;
-    }
-}
+import { del } from "@vercel/blob";
 
 /**
- * Deleta um arquivo do Cloudflare R2 a partir da sua URL pública.
- * Falha silenciosamente (log no console) para não bloquear a exclusão do registro.
+ * Deleta um arquivo do Vercel Blob a partir da sua URL pública.
+ * Falha silenciosamente para não bloquear a exclusão do registro no banco.
  */
 export async function deleteFileFromR2(fileUrl: string): Promise<void> {
-    if (!fileUrl) return;
+  if (!fileUrl) return;
 
-    const key = extractKeyFromUrl(fileUrl);
-    if (!key) {
-        console.warn(`⚠️ R2: Não foi possível extrair a chave de: ${fileUrl}`);
-        return;
-    }
+  // Não tenta deletar URLs locais ou do site antigo
+  if (fileUrl.startsWith("/") || fileUrl.includes("saotome.rn.gov.br")) {
+    console.warn(`⚠️ Storage: URL local ou legada, ignorando delete: ${fileUrl}`);
+    return;
+  }
 
-    try {
-        await r2Client.send(
-            new DeleteObjectCommand({
-                Bucket: process.env.R2_BUCKET_NAME,
-                Key: key,
-            })
-        );
-        console.log(`🗑️ R2: Arquivo removido com sucesso: ${key}`);
-    } catch (error: any) {
-        console.error(`❌ R2: Erro ao deletar arquivo ${key}:`, error.message);
-        // Não relança o erro para não bloquear a exclusão do registro no banco
-    }
+  try {
+    await del(fileUrl);
+    console.log(`🗑️ Blob: Arquivo removido com sucesso: ${fileUrl}`);
+  } catch (error: any) {
+    console.error(`❌ Blob: Erro ao deletar arquivo ${fileUrl}:`, error.message);
+    // Não relança o erro para não bloquear a exclusão do registro
+  }
 }
