@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -112,11 +112,11 @@ export default function Header() {
             <div className={`w-full transition-all duration-500 flex items-center justify-between gap-8 px-4 md:px-10 lg:px-16 shadow-xl ${scrolled ? 'h-14 bg-white/90 backdrop-blur-2xl border-b border-primary-100 shadow-primary-900/5' : 'h-20 md:h-24 bg-white/80 backdrop-blur-xl border-b border-white/50 shadow-none'} relative`}>
                 {/* Logo */}
                 <div className="flex-shrink-0">
-                    <Link href="/" className="flex items-center group">
+                    <Link href="/" className="flex items-center gap-3 group">
                         <img
                             src={logo}
                             alt="Prefeitura de São Tomé"
-                            className="object-contain h-10 w-auto md:h-12 group-hover:scale-105 transition-transform duration-500"
+                            className="object-contain h-10 w-auto md:h-12 group-hover:scale-105 transition-transform duration-500 flex-shrink-0"
                         />
                     </Link>
                 </div>
@@ -199,7 +199,7 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {mobileOpen && (
-                <div className="lg:hidden fixed inset-0 top-[110px] bg-white/95 backdrop-blur-xl z-40 overflow-y-auto animate-fade-in px-6 py-10">
+                <div className="lg:hidden fixed inset-0 top-[134px] bg-white/95 backdrop-blur-xl z-40 overflow-y-auto animate-fade-in px-6 py-10">
                     <div className="flex flex-col gap-8">
                         {navItems.map((item, index) => (
                             <div key={index} className="flex flex-col gap-4">

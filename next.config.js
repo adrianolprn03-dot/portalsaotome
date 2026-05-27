@@ -7,7 +7,8 @@ const nextConfig = {
   },
   experimental: {
     serverActions: { allowedOrigins: ['*'] },
-    serverComponentsExternalPackages: ["@vercel/blob"]
+    serverComponentsExternalPackages: ["@vercel/blob"],
+    optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion']
   }
 }
 

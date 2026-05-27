@@ -11,7 +11,7 @@
   --secondary: #FDB913;
   --secondary-light: #fadb6f;
   --accent: #FDB913;
-  --font-size-base: 15px; /* Reduzindo levemente o tamanho base */
+  --font-size-base: 15px;
 }
 
 /* === ACESSIBILIDADE === */
@@ -177,6 +177,17 @@ html.font-xlarge {
   }
 }
 
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
 }
@@ -187,6 +198,10 @@ html.font-xlarge {
 
 .animate-slide-in {
   animation: slideInLeft 0.6s ease forwards;
+}
+
+.animate-dropdown-fade {
+  animation: dropdownFade 0.2s ease forwards;
 }
 
 /* === HERO GRADIENT === */
@@ -236,7 +251,7 @@ html.font-xlarge {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-/* === BARRA GOV (Baseada no estilo de topo das prefeituras do Piauí/Gov) === */
+/* === BARRA GOV === */
 .barra-gov {
   background: #002241;
 }
@@ -250,7 +265,7 @@ html.font-xlarge {
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* === CARD SIMPLES DESTAQUE (Serviços e Transparência) === */
+/* === CARD SIMPLES DESTAQUE === */
 .service-card {
   @apply rounded-3xl p-8 bg-white text-gray-800 shadow-sm border border-gray-100 hover:shadow-2xl hover:border-primary/20 transition-all duration-300 hover:-translate-y-2 flex flex-col items-center justify-center text-center;
 }

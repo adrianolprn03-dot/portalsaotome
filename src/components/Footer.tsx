@@ -49,8 +49,12 @@ const footerLinks = [
 ];
 
 async function getConfig(chave: string, padrao: string) {
-    const config = await prisma.configuracao.findUnique({ where: { chave } });
-    return config?.valor || padrao;
+    try {
+        const config = await prisma.configuracao.findUnique({ where: { chave } });
+        return config?.valor || padrao;
+    } catch {
+        return padrao;
+    }
 }
 
 export default async function Footer() {
@@ -115,11 +119,6 @@ export default async function Footer() {
                                     alt="Brasão Oficial de São Tomé"
                                     className="h-16 md:h-20 w-auto object-contain drop-shadow-md max-w-[200px]"
                                 />
-                            </div>
-                            <div className="text-white font-black text-2xl leading-[1.1] uppercase tracking-tighter">
-                                Prefeitura Municipal <br />
-                                <span className="text-[#FDB913] drop-shadow-sm">São Tomé</span>
-                                <div className="text-[10px] text-blue-100/30 mt-2 font-black tracking-[0.3em]">Rio Grande do Norte</div>
                             </div>
                         </div>
                         
