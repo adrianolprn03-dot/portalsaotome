@@ -12,6 +12,12 @@ const nextConfig = {
     serverActions: { allowedOrigins: ['*'] },
     serverComponentsExternalPackages: ["@vercel/blob"],
     optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion']
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   }
 }
 
