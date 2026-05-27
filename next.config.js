@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // Usa 'standalone' apenas quando NEXT_OUTPUT_STANDALONE=true (para VPS/Docker)
+  // Na Vercel, não define output para usar o modo padrão
+  ...(process.env.NEXT_OUTPUT_STANDALONE === 'true' ? { output: 'standalone' } : {}),
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
@@ -12,7 +14,5 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion']
   }
 }
-
-
 
 module.exports = nextConfig
