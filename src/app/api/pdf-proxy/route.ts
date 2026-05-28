@@ -9,10 +9,15 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "URL não fornecida" }, { status: 400 });
     }
 
+    let targetUrl = url;
+    if (url.startsWith("/")) {
+        targetUrl = `${req.nextUrl.origin}${url}`;
+    }
+
     // Validar formato básico da URL
     let parsedUrl;
     try {
-        parsedUrl = new URL(url);
+        parsedUrl = new URL(targetUrl);
     } catch (e) {
         return NextResponse.json({ error: "URL inválida" }, { status: 400 });
     }
@@ -22,7 +27,7 @@ export async function GET(req: NextRequest) {
     }
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(targetUrl);
 
         if (!response.ok) {
             return NextResponse.json({ error: "Arquivo não encontrado ou inacessível" }, { status: response.status });
@@ -34,12 +39,12 @@ export async function GET(req: NextRequest) {
         const isOctetStream = contentType.includes("application/octet-stream") || contentType.includes("application/force-download") || contentType.includes("application/download");
 
         if (!isPdfOrImage && !isOctetStream) {
-            console.warn(`Proxy interceptou tipo de conteúdo alternativo (${contentType}) para a URL: ${url}. Redirecionando iframe para a URL original.`);
+            console.warn(`Proxy interceptou tipo de conteúdo alternativo (${contentType}) para a URL: ${targetUrl}. Redirecionando iframe para a URL original.`);
             
             // Em vez de mostrar a mensagem de erro ou uma tela intermediária, 
             // redirecionamos o iframe para a URL original. Se for uma página HTML (ex: Diário Oficial),
             // o navegador tentará renderizá-la dentro do iframe normalmente.
-            return NextResponse.redirect(url);
+            return NextResponse.redirect(targetUrl);
         }
 
         const buffer = await response.arrayBuffer();
