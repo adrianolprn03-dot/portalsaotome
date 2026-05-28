@@ -11,7 +11,10 @@ const nextConfig = {
   experimental: {
     serverActions: { allowedOrigins: ['*'] },
     serverComponentsExternalPackages: ["@vercel/blob"],
-    optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion']
+    optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion'],
+    outputFileTracingExcludes: {
+      '*': ['public/uploads/**/*']
+    }
   },
   eslint: {
     ignoreDuringBuilds: true,
