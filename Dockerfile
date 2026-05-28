@@ -33,7 +33,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_OUTPUT_STANDALONE=true
 
 # Gera o client do Prisma
-RUN npx prisma generate
+RUN npx --no-install prisma generate
 
 # Limita a memória do Node.js para evitar travamento no VPS
 ENV NODE_OPTIONS="--max-old-space-size=1024"
