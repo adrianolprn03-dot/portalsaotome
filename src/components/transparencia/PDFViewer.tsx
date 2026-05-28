@@ -53,7 +53,7 @@ export default function PDFViewer({ url, titulo, onClose }: PDFViewerProps) {
 
                     <div className="flex items-center gap-2 shrink-0">
                         <a
-                            href={url}
+                            href={viewerUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-xl text-xs font-bold hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/20"
