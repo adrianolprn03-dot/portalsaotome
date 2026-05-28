@@ -68,7 +68,7 @@ build_v2.log
 build_utf8.log
 
 # uploads (arquivos PDF/imagens - gerenciados pelo servidor em produção)
-/public/uploads/
+# /public/uploads/
 
 # deploy artifacts
 deploy_final/
