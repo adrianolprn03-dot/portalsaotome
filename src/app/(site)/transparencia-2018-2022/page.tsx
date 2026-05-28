@@ -152,14 +152,60 @@ export default function TransparenciaPage() {
     };
 
     // Filter modules based on search
-    const filteredCategories = categoriasDeModulos.map(cat => ({
-        ...cat,
-        modulos: cat.modulos.filter(m => 
+    // Filter modules based on search and apply overrides
+    const usedLinkIds = new Set<string>();
+
+    const filteredCategories = categoriasDeModulos.map(cat => {
+        const processedModulos = cat.modulos.map(m => {
+            const identifier = m.href.split("/").pop()?.toLowerCase() || "";
+            const override = linksExternos.find((l: any) => 
+                l.moduloAlvo?.toLowerCase() === `${identifier}-2018` ||
+                l.moduloAlvo?.toLowerCase() === `${identifier}-2018-2022` ||
+                l.moduloAlvo?.toLowerCase() === identifier
+            );
+            if (override) usedLinkIds.add(override.id);
+            return {
+                ...m,
+                finalHref: override ? override.url : m.href,
+                isExternal: !!override
+            };
+        }).filter(m => 
             m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
             m.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
             m.badge.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-    })).filter(cat => cat.modulos.length > 0);
+        );
+
+        return {
+            ...cat,
+            modulos: processedModulos
+        };
+    }).filter(cat => cat.modulos.length > 0);
+
+    const unusedLinks = linksExternos.filter((l: any) => l.categoria === "transparencia" && (!l.moduloAlvo || l.moduloAlvo.trim() === "") && !usedLinkIds.has(l.id));
+
+    if (unusedLinks.length > 0) {
+        const extraModulos = unusedLinks.map((l: any) => ({
+            icon: ExternalLink,
+            titulo: l.titulo,
+            desc: l.descricao || "Acesse o portal externo.",
+            href: l.url,
+            finalHref: l.url,
+            isExternal: true,
+            cor: "from-slate-700 to-slate-900",
+            badge: "NOVO SERVIÇO"
+        })).filter((m: any) => 
+            m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            m.desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        if (extraModulos.length > 0) {
+            filteredCategories.push({
+                tituloCategoria: "Outros Portais e Serviços",
+                desc: "Serviços adicionais e links externos vinculados à transparência.",
+                modulos: extraModulos
+            });
+        }
+    }
 
     return (
         <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
@@ -270,26 +316,17 @@ export default function TransparenciaPage() {
                             </div>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                                {categoria.modulos.map((m, idx) => {
-                                    const identifier = m.href.split("/").pop()?.toLowerCase() || "";
-                                    const override = linksExternos.find((l: any) => 
-                                        l.moduloAlvo?.toLowerCase() === `${identifier}-2018` ||
-                                        l.moduloAlvo?.toLowerCase() === `${identifier}-2018-2022` ||
-                                        l.moduloAlvo?.toLowerCase() === identifier
-                                    );
-                                    const finalHref = override ? override.url : m.href;
-                                    const isExternal = !!override;
-
+                                {categoria.modulos.map((m: any, idx) => {
                                     return (
                                         <motion.div
-                                            key={m.href}
+                                            key={m.titulo}
                                             variants={itemVariants}
                                             whileHover={{ y: -10, transition: { duration: 0.4 } }}
                                         >
                                             <Link 
-                                                href={finalHref} 
-                                                target={isExternal ? "_blank" : undefined}
-                                                rel={isExternal ? "noopener noreferrer" : undefined}
+                                                href={m.finalHref} 
+                                                target={m.isExternal ? "_blank" : undefined}
+                                                rel={m.isExternal ? "noopener noreferrer" : undefined}
                                                 className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(51,65,85,0.15)] hover:border-orange-600/20 transition-all duration-700 overflow-hidden"
                                             >
                                                 {/* Header Visuality */}
@@ -328,7 +365,7 @@ export default function TransparenciaPage() {
                                                     </div>
                                                 </div>
                                                 
-                                                {isExternal && (
+                                                {m.isExternal && (
                                                     <div className="absolute bottom-4 left-8">
                                                         <span className="flex items-center gap-1.5 text-[8px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
                                                             <ExternalLink size={8} /> PORTAL TERCEIRIZADO
