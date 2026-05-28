@@ -11,7 +11,7 @@ interface PDFViewerProps {
 }
 
 export default function PDFViewer({ url, titulo, onClose }: PDFViewerProps) {
-    const viewerUrl = `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
+    const viewerUrl = url.startsWith("/") ? url : `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };

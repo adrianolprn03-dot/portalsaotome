@@ -1,7 +1,5 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
@@ -9,35 +7,6 @@ export async function GET(req: NextRequest) {
 
     if (!url) {
         return NextResponse.json({ error: "URL não fornecida" }, { status: 400 });
-    }
-
-    // Se a URL for um caminho local (ex: /uploads/migracao/...)
-    if (url.startsWith("/")) {
-        try {
-            const filePath = path.join(process.cwd(), "public", url);
-            if (fs.existsSync(filePath)) {
-                const fileBuffer = fs.readFileSync(filePath);
-                const ext = path.extname(filePath).toLowerCase();
-                let contentType = "application/octet-stream";
-                if (ext === ".pdf") contentType = "application/pdf";
-                else if (ext === ".jpg" || ext === ".jpeg") contentType = "image/jpeg";
-                else if (ext === ".png") contentType = "image/png";
-
-                return new NextResponse(fileBuffer, {
-                    status: 200,
-                    headers: {
-                        "Content-Type": contentType,
-                        "Content-Disposition": "inline",
-                        "Cache-Control": "public, max-age=86400",
-                    },
-                });
-            } else {
-                return NextResponse.json({ error: "Arquivo local não encontrado" }, { status: 404 });
-            }
-        } catch (e) {
-            console.error("Erro ao ler arquivo local:", e);
-            return NextResponse.json({ error: "Erro ao ler arquivo local" }, { status: 500 });
-        }
     }
 
     // Para URLs externas
