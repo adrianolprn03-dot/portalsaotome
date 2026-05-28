@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ const servidoresLinks = [
         title: "Diárias e Passagens",
         description: "Relatórios de gastos com deslocamentos e hospedagens a serviço da municipalidade.",
         icon: <FaFileInvoiceDollar size={24} />,
-        href: "/transparencia/servidores/diarias",
+        href: "/transparencia/diarias",
         category: "Despesas",
         color: "amber"
     },
