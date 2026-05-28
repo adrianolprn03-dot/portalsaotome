@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaBuilding, FaUserTie, FaSave, FaSpinner, FaMapMarker, FaClock, FaEnvelope, FaPhone, FaCamera } from "react-icons/fa";
+import { FaBuilding, FaUserTie, FaSave, FaSpinner, FaMapMarker, FaClock, FaEnvelope, FaPhone, FaCamera, FaWhatsapp, FaFacebook, FaInstagram, FaYoutube, FaGlobe } from "react-icons/fa";
 import toast from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 
@@ -29,9 +29,15 @@ export default function AdminConfiguracoesPage() {
         municipio_nome: "",
         cnpj: "",
         endereco_sede: "",
+        cep: "",
         horario_funcionamento: "",
         contato_email: "",
-        contato_telefone: ""
+        contato_telefone: "",
+        site_url: "",
+        contato_whatsapp: "",
+        redes_facebook: "",
+        redes_instagram: "",
+        redes_youtube: ""
     });
 
     useEffect(() => {
@@ -351,29 +357,57 @@ export default function AdminConfiguracoesPage() {
                                 className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                             />
                         </div>
-                        <div className="md:col-span-2 space-y-1">
-                            <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
-                                <FaMapMarker /> Endereço Completo (Sede)
-                            </label>
-                            <input
-                                name="endereco_sede"
-                                value={form.endereco_sede}
-                                onChange={handleChange}
-                                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                            />
-                        </div>
-                        <div className="space-y-1">
-                            <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
-                                <FaClock /> Horário de Funcionamento
-                            </label>
-                            <input
-                                name="horario_funcionamento"
-                                value={form.horario_funcionamento}
-                                onChange={handleChange}
-                                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                            />
+                        <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="md:col-span-2 space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaMapMarker /> Endereço Completo (Sede)
+                                </label>
+                                <input
+                                    name="endereco_sede"
+                                    value={form.endereco_sede}
+                                    onChange={handleChange}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaGlobe /> CEP
+                                </label>
+                                <input
+                                    name="cep"
+                                    value={form.cep}
+                                    onChange={handleChange}
+                                    placeholder="Ex: 59.400-000"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:col-span-2 gap-6">
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaClock /> Horário de Funcionamento
+                                </label>
+                                <input
+                                    name="horario_funcionamento"
+                                    value={form.horario_funcionamento}
+                                    onChange={handleChange}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaGlobe /> Site Oficial (URL)
+                                </label>
+                                <input
+                                    name="site_url"
+                                    value={form.site_url}
+                                    onChange={handleChange}
+                                    placeholder="Ex: www.saotome.rn.gov.br"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 md:col-span-2 gap-6">
                             <div className="space-y-1">
                                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
                                     <FaEnvelope /> E-mail Oficial
@@ -393,6 +427,56 @@ export default function AdminConfiguracoesPage() {
                                     name="contato_telefone"
                                     value={form.contato_telefone}
                                     onChange={handleChange}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaWhatsapp className="text-emerald-500" /> WhatsApp de Contato
+                                </label>
+                                <input
+                                    name="contato_whatsapp"
+                                    value={form.contato_whatsapp}
+                                    onChange={handleChange}
+                                    placeholder="Ex: (84) 99999-9999"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 md:col-span-2 gap-6">
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaFacebook className="text-blue-600" /> Link do Facebook
+                                </label>
+                                <input
+                                    name="redes_facebook"
+                                    value={form.redes_facebook}
+                                    onChange={handleChange}
+                                    placeholder="Ex: https://facebook.com/prefeitura"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaInstagram className="text-pink-600" /> Link do Instagram
+                                </label>
+                                <input
+                                    name="redes_instagram"
+                                    value={form.redes_instagram}
+                                    onChange={handleChange}
+                                    placeholder="Ex: https://instagram.com/prefeitura"
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
+                                    <FaYoutube className="text-red-600" /> Link do YouTube
+                                </label>
+                                <input
+                                    name="redes_youtube"
+                                    value={form.redes_youtube}
+                                    onChange={handleChange}
+                                    placeholder="Ex: https://youtube.com/prefeitura"
                                     className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                                 />
                             </div>
