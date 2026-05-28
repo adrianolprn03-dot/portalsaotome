@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { 
@@ -273,6 +273,8 @@ export default function TransparenciaPage() {
                                 {categoria.modulos.map((m, idx) => {
                                     const identifier = m.href.split("/").pop()?.toLowerCase() || "";
                                     const override = linksExternos.find((l: any) => 
+                                        l.moduloAlvo?.toLowerCase() === `${identifier}-2018` ||
+                                        l.moduloAlvo?.toLowerCase() === `${identifier}-2018-2022` ||
                                         l.moduloAlvo?.toLowerCase() === identifier
                                     );
                                     const finalHref = override ? override.url : m.href;
