@@ -14,7 +14,9 @@ export async function GET(request: NextRequest) {
 
     const where: any = { ativo: true };
     if (tipo) {
-        if (tipo.includes(",")) {
+        if (tipo === "portaria") {
+            where.tipo = { in: ["portaria", "portaria_diaria"] };
+        } else if (tipo.includes(",")) {
             where.tipo = { in: tipo.split(",").map(t => t.trim()) };
         } else {
             where.tipo = tipo;
