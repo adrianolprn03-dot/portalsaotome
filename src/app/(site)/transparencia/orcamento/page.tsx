@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -134,7 +134,7 @@ export default function OrcamentoPage() {
             "Título": d.titulo
         }));
         const filename = `planejamento_orcamentario_lajes_pintadas`;
-        const title = `Relatório de Planejamento e Orçamento – São Tomé/RN`;
+        const title = `Relatório de Planejamento e Orçamento – Lajes Pintadas/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -370,7 +370,7 @@ export default function OrcamentoPage() {
                         </div>
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] leading-relaxed">
                             LEI DE RESPONSABILIDADE FISCAL • LC 101/2000 <br/>
-                            <span className="opacity-40">São Tomé/RN • Planejamento e Gestão de Resultados</span>
+                            <span className="opacity-40">Lajes Pintadas/RN • Planejamento e Gestão de Resultados</span>
                         </p>
                     </div>
                 </div>
@@ -378,4 +378,3 @@ export default function OrcamentoPage() {
         </div>
     );
 }
-

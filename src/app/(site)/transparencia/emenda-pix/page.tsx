@@ -1,10 +1,10 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import EmendaPixClientPage from "./EmendaPixClientPage";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Emendas PIX | Transparência São Tomé",
+  title: "Emendas PIX | Transparência Lajes Pintadas",
   description: "Detalhamento das transferências especiais (Emendas PIX) recebidas pelo município.",
 };
 
@@ -71,4 +71,3 @@ export default async function EmendaPixPage() {
     </main>
   );
 }
-

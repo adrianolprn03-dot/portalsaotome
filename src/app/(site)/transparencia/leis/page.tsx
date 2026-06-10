@@ -1,12 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import LegislacaoClient from "../legislacao/_LegislacaoClient";
 import { prisma } from "@/lib/prisma";
 import { FaExternalLinkAlt, FaGlobe, FaGavel } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Leis Municipais | Prefeitura de São Tomé – RN",
-    description: "Consulta às Leis Municipais e Leis Orgânicas da Prefeitura de São Tomé – RN.",
+    title: "Leis Municipais | Prefeitura de Lajes Pintadas – RN",
+    description: "Consulta às Leis Municipais e Leis Orgânicas da Prefeitura de Lajes Pintadas – RN.",
 };
 
 export default async function LeisPage() {
@@ -79,4 +79,3 @@ export default async function LeisPage() {
         </div>
     );
 }
-

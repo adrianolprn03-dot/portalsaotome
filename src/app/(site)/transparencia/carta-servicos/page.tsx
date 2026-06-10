@@ -1,4 +1,4 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import PageHeader from "@/components/PageHeader";
 import { FaBook } from "react-icons/fa";
 import ExportButtons from "@/components/transparencia/ExportButtons";
@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Carta de Serviços | Portal da Transparência",
-    description: "Guia completo de serviços prestados pela Prefeitura de São Tomé – RN ao cidadão conforme o PNTP 2026.",
+    description: "Guia completo de serviços prestados pela Prefeitura de Lajes Pintadas – RN ao cidadão conforme o PNTP 2026.",
 };
 
 export default async function CartaServicosTransparencyPage() {
@@ -54,4 +54,3 @@ export default async function CartaServicosTransparencyPage() {
         </div>
     );
 }
-

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { 
@@ -98,7 +98,7 @@ export default function ContratosPage() {
         }));
 
         const filename = `contratos_${ano}`;
-        const title = `Relatório de Contratos Administrativos – São Tomé/RN (${ano})`;
+        const title = `Relatório de Contratos Administrativos – Lajes Pintadas/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -370,7 +370,7 @@ export default function ContratosPage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            GESTÃO CONTRATUAL • PREFEITURA DE São Tomé/RN <br/>
+                            GESTÃO CONTRATUAL • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com o PNTP e a Lei de Transparência.</span>
                         </p>
                     </div>
@@ -379,4 +379,3 @@ export default function ContratosPage() {
         </div>
     );
 }
-

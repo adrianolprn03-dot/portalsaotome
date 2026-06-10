@@ -1,4 +1,4 @@
-﻿import PageHeader from "@/components/PageHeader";
+import PageHeader from "@/components/PageHeader";
 import { FaMoneyCheck, FaFilePdf, FaArrowRight } from "react-icons/fa";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
@@ -93,11 +93,10 @@ export default function CargosSalariosPage() {
                 <BannerPNTP />
                 
                 <div className="max-w-7xl mx-auto px-6 mt-16 text-center">
-                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">Lei de Responsabilidade Fiscal • Município de São Tomé</p>
+                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">Lei de Responsabilidade Fiscal • Município de Lajes Pintadas</p>
                     <div className="w-12 h-1 bg-indigo-500/20 mx-auto rounded-full mt-4" />
                 </div>
             </div>
         </div>
     );
 }
-

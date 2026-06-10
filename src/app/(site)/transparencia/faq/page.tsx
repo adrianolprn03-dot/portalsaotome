@@ -1,4 +1,4 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import PageHeader from "@/components/PageHeader";
 import { FaChevronDown, FaLightbulb, FaHeadset, FaQuestionCircle } from "react-icons/fa";
 import { FaFileLines, FaMagnifyingGlass } from "react-icons/fa6";
@@ -7,8 +7,8 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Perguntas Frequentes | Transparência Premium — São Tomé",
-    description: "Respostas para as dúvidas mais comuns dos cidadãos de São Tomé – RN, em conformidade com o PNTP 2026.",
+    title: "Perguntas Frequentes | Transparência Premium — Lajes Pintadas",
+    description: "Respostas para as dúvidas mais comuns dos cidadãos de Lajes Pintadas – RN, em conformidade com o PNTP 2026.",
 };
 
 export default async function FAQPage() {
@@ -142,4 +142,3 @@ export default async function FAQPage() {
         </div>
     );
 }
-

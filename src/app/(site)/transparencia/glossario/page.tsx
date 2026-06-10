@@ -1,10 +1,10 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import GlossarioClientPage from "./GlossarioClientPage";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Glossário | Prefeitura de São Tomé",
+  title: "Glossário | Prefeitura de Lajes Pintadas",
   description: "Dicionário de termos técnicos da administração pública municipal.",
 };
 
@@ -15,4 +15,3 @@ export default async function GlossarioPage() {
 
   return <GlossarioClientPage initialData={termos} />;
 }
-

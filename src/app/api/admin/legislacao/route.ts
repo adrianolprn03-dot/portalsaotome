@@ -11,13 +11,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     const where: Record<string, unknown> = {};
-    if (tipo) {
-        if (tipo === "portaria") {
-            where.tipo = { in: ["portaria", "portaria_diaria"] };
-        } else {
-            where.tipo = tipo;
-        }
-    }
+    if (tipo) where.tipo = tipo;
     if (ano) where.ano = parseInt(ano);
 
     const [items, total] = await Promise.all([

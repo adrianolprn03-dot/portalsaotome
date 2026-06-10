@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
 import { FaShieldAlt, FaLock, FaExclamationTriangle, FaInfoCircle, FaFile, FaCalendar, FaCheckCircle, FaUserShield, FaChevronRight, FaBalanceScale, FaSpinner, FaArrowCircleRight } from "react-icons/fa";
@@ -68,7 +68,7 @@ export default function SICRelatoriosComSigiloPage() {
         }));
 
         const filename = `pedidos_esic_classificados_${ano}`;
-        const title = `Relatório e-SIC: Informações Classificadas (Sigilo) – São Tomé/RN (${ano})`;
+        const title = `Relatório e-SIC: Informações Classificadas (Sigilo) – Lajes Pintadas/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -245,4 +245,3 @@ export default function SICRelatoriosComSigiloPage() {
         </div>
     );
 }
-

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
@@ -131,7 +131,7 @@ export default function IntegridadePage() {
                                 Governança & <br/> <span className="text-blue-400 not-italic">Integridade Pública</span>
                             </h2>
                             <p className="text-white/40 font-bold leading-relaxed max-w-2xl text-lg mb-10">
-                                O Programa de Integridade de São Tomé é o conjunto de medidas institucionalizadas com o objetivo de prevenir, detectar e remediar atos de corrupção, fraude e desvio de conduta.
+                                O Programa de Integridade de Lajes Pintadas é o conjunto de medidas institucionalizadas com o objetivo de prevenir, detectar e remediar atos de corrupção, fraude e desvio de conduta.
                             </p>
                             
                             <div className="flex flex-wrap gap-12 items-center border-t border-white/5 pt-10">
@@ -287,7 +287,7 @@ export default function IntegridadePage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PROGRAMA DE INTEGRIDADE • PREFEITURA DE São Tomé/RN <br/>
+                            PROGRAMA DE INTEGRIDADE • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="opacity-40 font-bold italic">Cultura da transparência em conformidade com o Programa Nacional de Transparência Pública.</span>
                         </p>
                     </div>
@@ -296,4 +296,3 @@ export default function IntegridadePage() {
         </div>
     );
 }
-

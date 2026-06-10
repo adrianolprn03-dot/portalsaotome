@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { Building2, User, MapPin, Phone, Mail, Clock, ShieldCheck, Info } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export const metadata: Metadata = {
     title: "Institucional do SIC | Portal da Transparência",
-    description: "Informações sobre o Serviço de Informação ao Cidadão (SIC) de São Tomé – RN.",
+    description: "Informações sobre o Serviço de Informação ao Cidadão (SIC) de Lajes Pintadas – RN.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -15,10 +15,10 @@ async function getConfig(chave: string, padrao: string) {
 }
 
 export default async function InstitucionalSICPage() {
-    const municipio = await getConfig("municipio_nome", "Prefeitura Municipal de São Tomé");
+    const municipio = await getConfig("municipio_nome", "Prefeitura Municipal de Lajes Pintadas");
     const endereco = await getConfig("endereco_sede", "Rua São Francisco, nº 275 – Centro – CEP: 59.235-000");
     const horario = await getConfig("horario_funcionamento", "Segunda a Sexta, das 07:00 às 13:00");
-    const email = await getConfig("contato_email_sic", "ouvidoria@saotome.rn.gov.br");
+    const email = await getConfig("contato_email_sic", "ouvidoria@lajespintadas.rn.gov.br");
     const telefone = await getConfig("contato_telefone", "(84) 9.8748 – 0287 (WhatsApp)");
     const autoridade = await getConfig("sic_autoridade", "Sidcley Gomes da Silva (Ouvidoria)");
 
@@ -162,4 +162,3 @@ export default async function InstitucionalSICPage() {
         </div>
     );
 }
-

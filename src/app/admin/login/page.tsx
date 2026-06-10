@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { MUNICIPIO } from "@/config/municipio";
 
 export default function AdminLoginPage() {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function AdminLoginPage() {
 
     useEffect(() => {
         if (status === "authenticated") {
-            window.location.href = "/admin";
+            router.push("/admin");
         }
     }, [status, router]);
 
@@ -29,7 +30,7 @@ export default function AdminLoginPage() {
             });
             if (result?.ok) {
                 toast.success("Bem-vindo ao Painel Administrativo!");
-                window.location.href = "/admin";
+                router.push("/admin");
             } else {
                 toast.error("E-mail ou senha inválidos.");
             }
@@ -39,65 +40,86 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-                <img src="/images/hero-bg.jpg" alt="Background São Tomé" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-sm" />
-            </div>
+        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950 font-sans">
+            {/* Imagem de fundo com desfoque e overlay escuro */}
+            <div 
+                className="absolute inset-0 bg-cover bg-center transition-all duration-1000 scale-105"
+                style={{ 
+                    backgroundImage: "url('/images/hero-bg.jpg')",
+                }}
+            />
+            {/* Overlay escuro e desfoque */}
+            <div className="absolute inset-0 bg-[#0a1424]/75 backdrop-blur-sm z-0" />
 
-            <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden">
-                {/* Branding Side */}
-                <div className="hidden md:flex md:w-5/12 bg-gradient-to-br from-primary-700 to-primary-950 p-12 flex-col justify-between relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20" />
-                    <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl -ml-20 -mb-20" />
+            {/* Cartão de Login */}
+            <div className="relative z-10 w-full max-w-4xl mx-4 flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-white/10">
+                
+                {/* Lado Esquerdo: Painel de marca com gradiente */}
+                <div className="hidden md:flex md:w-[45%] bg-gradient-to-br from-[#005C8A] to-[#002C45] p-10 flex-col justify-between relative overflow-hidden text-white">
+                    {/* Efeito de luz radial */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_60%)]" />
                     
+                    {/* Topo: Logo / Brasão dentro de uma pill de vidro */}
                     <div className="relative z-10">
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-3xl inline-block shadow-xl">
-                            <img 
-                                src="/logo_oficial.png" 
-                                alt="Prefeitura Municipal de São Tomé" 
-                                className="h-14 w-auto object-contain drop-shadow-xl" 
+                        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-3 w-fit shadow-inner shadow-white/5">
+                            <img
+                                src="/logo_v2_white.png"
+                                alt={`Brasão de ${MUNICIPIO.nome}`}
+                                className="h-10 w-auto object-contain"
                             />
                         </div>
                     </div>
-                    
-                    <div className="relative z-10 mt-12">
-                        <h1 className="text-white font-black text-4xl mb-6 tracking-tighter leading-[1.1]">
-                            Painel <br />Administrativo
+
+                    {/* Centro: Título e Descrição */}
+                    <div className="relative z-10 my-auto py-8">
+                        <h1 className="text-3xl font-black tracking-tight uppercase mb-4 leading-tight">
+                            Painel <br />
+                            <span className="text-[#01b0ef]">Administrativo</span>
                         </h1>
-                        <p className="text-primary-100 text-sm leading-relaxed font-medium opacity-80">
-                            Gestão municipal transparente, eficiente e integrada. 
-                            Acesso exclusivo para servidores autorizados da Prefeitura de São Tomé – RN.
+                        <p className="text-xs text-blue-100/70 font-medium leading-relaxed">
+                            Gestão municipal transparente, eficiente e integrada. Acesso exclusivo para servidores autorizados da Prefeitura de {MUNICIPIO.nome} – {MUNICIPIO.uf}.
                         </p>
                     </div>
-                    
-                    <div className="relative z-10 mt-16">
-                        <div className="flex items-center gap-3 px-4 py-2 bg-white/10 rounded-full border border-white/10 w-max">
+
+                    {/* Rodapé: Indicador de Ambiente Seguro */}
+                    <div className="relative z-10 flex items-center">
+                        <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5 flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-white/80 text-[9px] font-black uppercase tracking-widest">Ambiente Seguro</span>
+                            <span className="text-[10px] font-black tracking-wider uppercase text-blue-100/90">
+                                Ambiente Seguro
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Login Form Side */}
-                <div className="w-full md:w-7/12 bg-white p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-                    <div className="md:hidden mb-10 flex justify-center">
-                        <img 
-                            src="/logo_oficial.png" 
-                            alt="Prefeitura Municipal de São Tomé" 
-                            className="h-16 w-auto object-contain" 
-                        />
+                {/* Lado Direito: Formulário */}
+                <div className="w-full md:w-[55%] bg-white p-8 md:p-12 flex flex-col justify-between min-h-[480px]">
+                    
+                    {/* Logo Mobile no topo do formulário */}
+                    <div className="md:hidden flex items-center justify-center mb-6">
+                        <div className="bg-[#0088b9]/10 rounded-2xl p-3 inline-flex items-center gap-2 border border-[#0088b9]/10">
+                            <img
+                                src="/logo_v2.png"
+                                alt={`Prefeitura de ${MUNICIPIO.nome}`}
+                                className="h-10 w-auto object-contain"
+                            />
+                        </div>
                     </div>
 
-                    <div className="mb-10 text-center md:text-left">
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Acesse sua conta</h2>
-                        <p className="text-slate-500 text-sm mt-2 font-medium">Insira suas credenciais institucionais para continuar</p>
+                    {/* Título e Subtítulo */}
+                    <div className="mb-6 text-center md:text-left">
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-[#0a1c30] tracking-tight mb-2">
+                            Acesse sua conta
+                        </h2>
+                        <p className="text-sm text-gray-500 font-semibold leading-snug">
+                            Insira suas credenciais institucionais para continuar
+                        </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Corpo do Formulário */}
+                    <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
                         <div>
-                            <label htmlFor="email-login" className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">
+                            <label htmlFor="email-login" className="block text-[10px] font-bold text-[#0a1c30]/60 tracking-widest uppercase mb-2">
                                 E-mail Institucional
                             </label>
                             <input
@@ -107,13 +129,13 @@ export default function AdminLoginPage() {
                                 autoComplete="username"
                                 value={form.email}
                                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                                placeholder="usuario@saotome.rn.gov.br"
-                                className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-6 py-4 text-sm font-bold text-slate-900 placeholder:text-slate-300 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/10 transition-all"
+                                placeholder="usuario@lajespintadas.rn.gov.br"
+                                className="w-full bg-[#f3f7fd] border border-transparent focus:border-[#0088b9] focus:bg-white focus:ring-4 focus:ring-[#0088b9]/10 transition-all duration-300 rounded-2xl py-3.5 px-4 text-sm font-semibold text-gray-800 outline-none placeholder-gray-400"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="senha-login" className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">
+                            <label htmlFor="senha-login" className="block text-[10px] font-bold text-[#0a1c30]/60 tracking-widest uppercase mb-2">
                                 Senha de Acesso
                             </label>
                             <div className="relative">
@@ -125,37 +147,40 @@ export default function AdminLoginPage() {
                                     value={form.password}
                                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                                     placeholder="••••••••"
-                                    className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl pl-6 pr-14 py-4 text-sm font-bold text-slate-900 placeholder:text-slate-300 outline-none focus:border-primary-500 focus:bg-white focus:ring-4 focus:ring-primary-500/10 transition-all"
+                                    className="w-full bg-[#f3f7fd] border border-transparent focus:border-[#0088b9] focus:bg-white focus:ring-4 focus:ring-[#0088b9]/10 transition-all duration-300 rounded-2xl py-3.5 px-4 text-sm font-semibold text-gray-800 outline-none placeholder-gray-400 pr-12"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPass(!showPass)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-all"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                    aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
                                 >
-                                    {showPass ? <FaEyeSlash /> : <FaEye />}
+                                    {showPass ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                                 </button>
                             </div>
                         </div>
 
+                        {/* Botão de Envio */}
                         <button
                             type="submit"
                             disabled={carregando}
-                            className="w-full bg-slate-900 hover:bg-primary-600 text-white rounded-2xl px-6 py-5 text-[11px] font-black uppercase tracking-widest transition-all shadow-xl shadow-slate-900/20 hover:shadow-primary-600/30 hover:-translate-y-1 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0 mt-4"
+                            className="w-full bg-[#0a1c30] hover:bg-[#061221] active:bg-[#030911] text-white font-bold text-xs uppercase tracking-widest py-4 px-6 rounded-2xl shadow-lg shadow-blue-950/10 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                         >
-                            {carregando && <FaSpinner className="animate-spin" size={16} />}
-                            {carregando ? "Autenticando..." : "Entrar no Sistema"}
+                            {carregando && <FaSpinner className="animate-spin" />}
+                            {carregando ? "ENTRANDO NO SISTEMA..." : "ENTRAR NO SISTEMA"}
                         </button>
-
-                        <div className="pt-8 mt-8 border-t border-slate-100">
-                            <p className="text-center text-[10px] leading-relaxed font-bold text-slate-400 uppercase tracking-widest opacity-60">
-                                Sistema de uso exclusivo autorizado.<br/>
-                                Acesso indevido sujeito às penalidades da Lei.
-                            </p>
-                        </div>
                     </form>
+
+                    {/* Texto Legal de Rodapé */}
+                    <div className="mt-8 text-center">
+                        <p className="text-[9px] font-bold text-gray-400/80 tracking-wider uppercase leading-relaxed max-w-sm mx-auto">
+                            Sistema de uso exclusivo autorizado. <br />
+                            Acesso indevido sujeito às penalidades da lei.
+                        </p>
+                    </div>
                 </div>
+
             </div>
         </div>
     );
 }
-

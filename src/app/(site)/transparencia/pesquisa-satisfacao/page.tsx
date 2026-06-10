@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
@@ -15,7 +15,7 @@ const opcoesAvaliacao = [
 ];
 
 const perguntas = [
-    { id: "avaliacaoGestao", label: "Como você avalia a gestão municipal de São Tomé de forma geral?" },
+    { id: "avaliacaoGestao", label: "Como você avalia a gestão municipal de Lajes Pintadas de forma geral?" },
     { id: "avaliacaoOuvidoria", label: "Qual seu nível de satisfação com o atendimento da Ouvidoria Municipal?" },
     { id: "satisfacaoTransparencia", label: "O Portal da Transparência atende às suas necessidades de informação?" },
     { id: "avaliacaoSaude", label: "Como você avalia os serviços de Saúde Pública (Postos, atendimentos)?" },
@@ -256,4 +256,3 @@ export default function PesquisaSatisfacaoPage() {
         </main>
     );
 }
-

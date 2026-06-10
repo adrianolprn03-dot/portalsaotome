@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -182,7 +182,7 @@ export default function EditarConselhoPage({ params }: { params: { id: string } 
                         <div>
                             <label className="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">E-mail do Conselho</label>
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                className="input-field" placeholder="conselho@saotome.rn.gov.br" />
+                                className="input-field" placeholder="conselho@lajesPintadas.rn.gov.br" />
                         </div>
                         <div className="md:col-span-2">
                             <label className="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Descrição *</label>

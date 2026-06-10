@@ -43,7 +43,7 @@ const modulosAlvo = [
     { value: "decretos", label: "Card: Decretos" },
     { value: "desoneracoes", label: "Card: Desonerações" },
     { value: "despesas", label: "Card: Despesas Públicas" },
-    { value: "diarias", label: "Card: Diárias e Passagens" },
+    { value: "diarias", label: "Card: Diárias" },
     { value: "divida-ativa", label: "Card: Dívida Ativa" },
     { value: "acordos-firmados", label: "Card: Acordos Firmados" },
     { value: "passiva", label: "Card: E-sic" },
@@ -245,7 +245,7 @@ export default function NovoLinkExternoPage() {
                             <option key={m.value} value={m.value}>{m.label}</option>
                         ))}
                     </select>
-                    <p className="text-[10px] text-gray-400 mt-1 italic">Ao escolher um módulo, você substitui o link padrão dele. Se deixar como "Nenhum", um NOVO CARD será criado automaticamente na página.</p>
+                    <p className="text-[10px] text-gray-400 mt-1 italic">Ao escolher um módulo, clicar no ícone dele no site levará direto para o link externo cadastrado acima.</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">

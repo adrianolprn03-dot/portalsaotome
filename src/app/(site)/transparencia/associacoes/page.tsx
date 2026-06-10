@@ -1,9 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ListaDocumentosClient from "@/components/ListaDocumentosClient";
 
 export const metadata: Metadata = {
-    title: "Associações e Parcerias | Prefeitura de São Tomé – RN",
+    title: "Associações e Parcerias | Prefeitura de Lajes Pintadas – RN",
     description: "Relação de associações municipais parcerias da prefeitura.",
 };
 
@@ -32,4 +32,3 @@ export default function AssociacoesPage() {
         </div>
     );
 }
-

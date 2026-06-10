@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaSpinner, FaHandHoldingDollar } from "react-icons/fa6";
@@ -16,7 +16,7 @@ export default function NovoEmendaPixPage() {
         formaRepasse: "Transferência Especial - PIX",
         numeroEmenda: "",
         autor: "",
-        beneficiario: "Prefeitura Municipal de São Tomé",
+        beneficiario: "Prefeitura Municipal de Lajes Pintadas",
         cnpjBeneficiario: "08.150.150/0001-40",
         valorPrevisto: "0",
         valorRecebido: "0",
@@ -232,4 +232,3 @@ export default function NovoEmendaPixPage() {
         </div>
     );
 }
-

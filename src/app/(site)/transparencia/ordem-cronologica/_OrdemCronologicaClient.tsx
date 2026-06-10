@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { FaListOl, FaSpinner, FaBuilding, FaCalendarCheck, FaInfoCircle } from "react-icons/fa";
 import PageHeader from "@/components/PageHeader";
@@ -115,7 +115,7 @@ export default function OrdemCronologicaClient() {
         }));
 
         const filename = `ordem_cronologica_${mes}_${ano}`;
-        const title = `Ordem Cronológica de Pagamentos – São Tomé/RN (${mes}/${ano})`;
+        const title = `Ordem Cronológica de Pagamentos – Lajes Pintadas/RN (${mes}/${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -269,4 +269,3 @@ export default function OrdemCronologicaClient() {
         </div>
     );
 }
-

@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { prisma } from "@/lib/prisma";
 import { 
@@ -11,8 +11,8 @@ import {
 } from "react-icons/hi2";
 
 export const metadata: Metadata = {
-    title: "Conselhos Municipais | Prefeitura de São Tomé",
-    description: "Espaço de participação social e controle da gestão pública municipal em São Tomé – RN.",
+    title: "Conselhos Municipais | Prefeitura de Lajes Pintadas",
+    description: "Espaço de participação social e controle da gestão pública municipal em Lajes Pintadas – RN.",
 };
 
 const defaultCores = [
@@ -36,7 +36,7 @@ export default async function ConselhosPage() {
         <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Conselhos Municipais"
-                subtitle="Espaço de participação social e controle da gestão pública municipal em São Tomé."
+                subtitle="Espaço de participação social e controle da gestão pública municipal em Lajes Pintadas."
                 variant="premium"
                 icon={<HiOutlineUsers className="w-8 h-8" />}
                 breadcrumbs={[
@@ -189,7 +189,7 @@ export default async function ConselhosPage() {
                     <div className="relative z-10 max-w-2xl">
                         <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter leading-none">Participação Social</h3>
                         <p className="text-blue-200/80 mb-10 font-medium text-sm leading-relaxed">
-                            Os conselhos municipais são ferramentas fundamentais para que a sociedade civil organizada possa fiscalizar e ajudar a decidir o futuro das políticas públicas de São Tomé. Participe!
+                            Os conselhos municipais são ferramentas fundamentais para que a sociedade civil organizada possa fiscalizar e ajudar a decidir o futuro das políticas públicas de Lajes Pintadas. Participe!
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <a href="/servicos/ouvidoria" className="w-full sm:w-auto bg-[#FDB913] hover:bg-[#ffc841] text-blue-950 px-8 py-4 rounded-full font-black uppercase text-[10px] tracking-widest shadow-xl hover:scale-105 transition-all">
@@ -205,4 +205,3 @@ export default async function ConselhosPage() {
         </div>
     );
 }
-

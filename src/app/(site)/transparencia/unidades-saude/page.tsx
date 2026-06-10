@@ -1,11 +1,11 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import PageHeader from "@/components/PageHeader";
 import { FaHospital, FaMapPin, FaClock, FaPhone } from "react-icons/fa";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Unidades de Saúde | Portal da Transparência",
-    description: "Relação de UBSs, Hospitais e clínicas da rede municipal de São Tomé.",
+    description: "Relação de UBSs, Hospitais e clínicas da rede municipal de Lajes Pintadas.",
 };
 
 export default async function UnidadesSaudePage() {
@@ -101,4 +101,3 @@ export default async function UnidadesSaudePage() {
         </div>
     );
 }
-

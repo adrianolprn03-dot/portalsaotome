@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaSave, FaArrowLeft } from "react-icons/fa";
@@ -101,7 +101,7 @@ export default function AdminNovoUsuarioPage() {
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="email@saotome.rn.gov.br"
+                            placeholder="email@lajespintadas.rn.gov.br"
                         />
                     </div>
 
@@ -183,4 +183,3 @@ export default function AdminNovoUsuarioPage() {
         </div>
     );
 }
-

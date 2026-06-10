@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { FaNewspaper, FaSpinner, FaDownload, FaSearch, FaCalendar, FaTag, FaFilter } from "react-icons/fa";
 import { FileText } from "lucide-react";
@@ -122,7 +122,7 @@ export default function PublicacoesPage() {
             "Descrição": p.descricao,
         }));
         const filename = `publicacoes_oficiais_${ano}`;
-        const title = `Publicações Oficiais – São Tomé/RN (${ano})`;
+        const title = `Publicações Oficiais – Lajes Pintadas/RN (${ano})`;
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
         else if (format === "xlsx") exportToXLSX(payload, filename);
@@ -243,4 +243,3 @@ export default function PublicacoesPage() {
         </div>
     );
 }
-

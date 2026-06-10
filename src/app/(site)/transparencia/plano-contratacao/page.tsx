@@ -1,9 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ListaDocumentosClient from "@/components/ListaDocumentosClient";
 
 export const metadata: Metadata = {
-    title: "Plano Anual de Contratação | Prefeitura de São Tomé – RN",
+    title: "Plano Anual de Contratação | Prefeitura de Lajes Pintadas – RN",
     description: "Plano Anual de Contratações (PAC) da Administração Municipal.",
 };
 
@@ -32,4 +32,3 @@ export default function PlanoContratacaoPage() {
         </div>
     );
 }
-

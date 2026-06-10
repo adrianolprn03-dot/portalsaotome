@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import {
     Smartphone, Globe, Shield, Users, Zap, CheckCircle2,
@@ -8,8 +8,8 @@ import {
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Governo Digital | Portal da Transparência – São Tomé/RN",
-    description: "Plano e iniciativas de transformação digital da Prefeitura Municipal de São Tomé, em conformidade com a Lei 14.129/2021 e o PNTP 2026.",
+    title: "Governo Digital | Portal da Transparência – Lajes Pintadas/RN",
+    description: "Plano e iniciativas de transformação digital da Prefeitura Municipal de Lajes Pintadas, em conformidade com a Lei 14.129/2021 e o PNTP 2026.",
 };
 
 const pilares = [
@@ -69,7 +69,7 @@ const acoes = [
     { label: "Publicação de datasets em formato aberto", status: "em-andamento", ano: "2025" },
     { label: "Assinatura Eletrônica Interna (Gov.br)", status: "em-andamento", ano: "2025" },
     { label: "Cadastro Único Digital de Serviços", status: "planejado", ano: "2026" },
-    { label: "APP Cidadão – São Tomé Mobile", status: "planejado", ano: "2026" },
+    { label: "APP Cidadão – Lajes Pintadas Mobile", status: "planejado", ano: "2026" },
 ];
 
 const statusMap: Record<string, { label: string; dot: string; text: string }> = {
@@ -114,7 +114,7 @@ export default function GovernoDigitalPage() {
                             Transformação Digital<br />a serviço do Cidadão
                         </h2>
                         <p className="text-white/70 font-medium text-lg leading-relaxed mb-8">
-                            O Município de São Tomé adota os princípios da nova Lei do Governo Digital para
+                            O Município de Lajes Pintadas adota os princípios da nova Lei do Governo Digital para
                             desburocratizar o acesso a serviços, reduzir custos operacionais e oferecer mais
                             transparência e agilidade ao cidadão. A transformação digital não é apenas tecnologia —
                             é a reengenharia do relacionamento entre o Estado e a sociedade.
@@ -213,10 +213,9 @@ export default function GovernoDigitalPage() {
                 </section>
 
                 <p className="text-center text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] pb-8">
-                    Portal da Transparência · Prefeitura de São Tomé/RN · PNTP 2026
+                    Portal da Transparência · Prefeitura de Lajes Pintadas/RN · PNTP 2026
                 </p>
             </div>
         </div>
     );
 }
-

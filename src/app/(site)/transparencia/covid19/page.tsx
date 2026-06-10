@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { FaVirus, FaHandsWash, FaHospital, FaMoneyBillWave, FaExternalLinkAlt, FaInfoCircle, FaCheckCircle, FaFilePdf } from "react-icons/fa";
 import { Shield } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
@@ -6,8 +6,8 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Covid-19 | Portal da Transparência – Prefeitura de São Tomé",
-    description: "Transparência das ações, gastos e medidas adotadas durante a pandemia de Covid-19 em São Tomé/RN.",
+    title: "Covid-19 | Portal da Transparência – Prefeitura de Lajes Pintadas",
+    description: "Transparência das ações, gastos e medidas adotadas durante a pandemia de Covid-19 em Lajes Pintadas/RN.",
 };
 
 const ACOES = [
@@ -67,7 +67,7 @@ export default function Covid19Page() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Ações de Enfrentamento à Covid-19"
-                subtitle="Transparência total sobre os recursos públicos aplicados e as medidas adotadas durante a pandemia no município de São Tomé."
+                subtitle="Transparência total sobre os recursos públicos aplicados e as medidas adotadas durante a pandemia no município de Lajes Pintadas."
                 variant="premium"
                 icon={<Shield />}
                 breadcrumbs={[
@@ -87,7 +87,7 @@ export default function Covid19Page() {
                         </p>
                         <p className="text-red-700 text-sm font-medium leading-relaxed">
                             Em cumprimento à Lei Complementar nº 173/2020 e aos art. 3º e 4º da Lei 13.979/2020, 
-                            o Município de São Tomé publica todas as contratações e gastos realizados durante 
+                            o Município de Lajes Pintadas publica todas as contratações e gastos realizados durante 
                             o período de enfrentamento à pandemia de Covid-19. As informações permanecem disponíveis 
                             para consulta pública permanente.
                         </p>
@@ -226,4 +226,3 @@ export default function Covid19Page() {
         </div>
     );
 }
-

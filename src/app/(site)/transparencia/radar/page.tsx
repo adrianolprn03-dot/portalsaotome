@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { FaChartBar, FaExternalLinkAlt, FaShieldAlt, FaCheckCircle, FaStar, FaInfoCircle, FaArrowRight } from "react-icons/fa";
 import { Activity } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
@@ -6,7 +6,7 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Radar da Transparência | Portal da Transparência – Prefeitura de São Tomé",
+    title: "Radar da Transparência | Portal da Transparência – Prefeitura de Lajes Pintadas",
     description: "Informações sobre a avaliação do município no Radar Nacional de Transparência Pública (ATRICON/PNTP).",
 };
 
@@ -109,7 +109,7 @@ export default function RadarPage() {
                     <FaInfoCircle className="text-amber-500 mt-1 shrink-0" size={18} />
                     <p className="text-amber-700 text-sm font-medium">
                         A avaliação completa e oficial do município é realizada periodicamente pelos técnicos da ATRICON e TCU por meio de 
-                        robôs de verificação automática e análise manual. Acesse o link oficial para verificar a pontuação atual de São Tomé/RN.
+                        robôs de verificação automática e análise manual. Acesse o link oficial para verificar a pontuação atual de Lajes Pintadas/RN.
                     </p>
                 </div>
 
@@ -194,4 +194,3 @@ export default function RadarPage() {
         </div>
     );
 }
-

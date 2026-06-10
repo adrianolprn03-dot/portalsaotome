@@ -60,7 +60,7 @@ const servidoresLinks = [
         title: "Diárias e Passagens",
         description: "Relatórios de gastos com deslocamentos e hospedagens a serviço da municipalidade.",
         icon: <FaFileInvoiceDollar size={24} />,
-        href: "/transparencia/diarias",
+        href: "/transparencia/servidores/diarias",
         category: "Despesas",
         color: "amber"
     },
@@ -255,7 +255,7 @@ export default function ServidoresHub() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE São Tomé/RN <br/>
+                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="opacity-40 font-bold italic">Portal auditado conforme as normas da Controladoria Geral do Município.</span>
                         </p>
                     </div>
@@ -264,4 +264,3 @@ export default function ServidoresHub() {
         </div>
     );
 }
-

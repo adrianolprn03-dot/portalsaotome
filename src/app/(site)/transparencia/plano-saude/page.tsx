@@ -1,9 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import ListaDocumentosClient from "@/components/ListaDocumentosClient";
 
 export const metadata: Metadata = {
-    title: "Plano Municipal de Saúde | Prefeitura de São Tomé – RN",
+    title: "Plano Municipal de Saúde | Prefeitura de Lajes Pintadas – RN",
     description: "Diretrizes e metas do Plano Municipal de Saúde do Município.",
 };
 
@@ -32,4 +32,3 @@ export default function PlanoSaudePage() {
         </div>
     );
 }
-

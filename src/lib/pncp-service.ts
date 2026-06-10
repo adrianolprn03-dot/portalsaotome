@@ -1,6 +1,6 @@
-﻿/**
+/**
  * Serviço de Integração com o PNCP (Portal Nacional de Contratações Públicas)
- * Município de São Tomé | CNPJ: 08159394000137 | Cód. IBGE: 2406809
+ * Município de Lajes Pintadas | CNPJ: 08159394000137 | Cód. IBGE: 2406809
  *
  * API Base: https://pncp.gov.br/api/consulta/v1
  * Documentação: https://pncp.gov.br/api/pncp/swagger-ui/index.html
@@ -16,12 +16,12 @@
  *  8 = Dispensa de Licitação
  *  9 = Inexigibilidade
  * 10 = Manifestação de Interesse
- * 11 = Pré-qualificação
  * 12 = Credenciamento
  */
+import { MUNICIPIO } from "@/config/municipio";
 
 const BASE_URL = "https://pncp.gov.br/api/consulta/v1";
-const CNPJ_LAJES = "08159394000137";
+const CNPJ_LAJES = MUNICIPIO.cnpj.replace(/\D/g, "");
 
 // ──────────────────────────────────────────
 // Tipos
@@ -223,4 +223,3 @@ export async function getOrgaoPNCP() {
         dataValidacao: string;
     }>(url);
 }
-

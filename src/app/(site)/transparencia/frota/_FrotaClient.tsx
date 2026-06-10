@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
@@ -53,7 +53,7 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
         }));
 
         const filename = `frota_municipal_lajes_pintadas`;
-        const title = `Inventário da Frota Municipal – São Tomé/RN`;
+        const title = `Inventário da Frota Municipal – Lajes Pintadas/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -294,7 +294,7 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
                         </div>
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] leading-relaxed">
                             INVENTÁRIO CONSOLIDADO DO PATRIMÔNIO MÓVEL <br/>
-                            <span className="opacity-40">São Tomé/RN • Gestão Pública Transparente • LAI 12.527/2011</span>
+                            <span className="opacity-40">Lajes Pintadas/RN • Gestão Pública Transparente • LAI 12.527/2011</span>
                         </p>
                     </div>
                 </motion.div>
@@ -302,4 +302,3 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
         </div>
     );
 }
-

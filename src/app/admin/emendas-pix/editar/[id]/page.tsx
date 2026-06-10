@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FaArrowLeft, FaSpinner, FaHandHoldingDollar } from "react-icons/fa6";
@@ -18,7 +18,7 @@ export default function EditarEmendaPixPage() {
         formaRepasse: "Transferência Especial - PIX",
         numeroEmenda: "",
         autor: "",
-        beneficiario: "Prefeitura Municipal de S\u00e3o Tom\u00e9",
+        beneficiario: "Prefeitura Municipal de Lajes Pintadas",
         cnpjBeneficiario: "08.150.150/0001-40",
         valorPrevisto: "0",
         valorRecebido: "0",

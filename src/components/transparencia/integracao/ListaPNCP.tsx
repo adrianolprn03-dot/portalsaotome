@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { 
     FileText, Calendar, Landmark, ExternalLink, 
@@ -285,11 +285,10 @@ export default function ListaPNCP() {
             {filteredItems.length === 0 && !loading && (
                 <div className="bg-white rounded-[3rem] p-20 text-center border-2 border-dashed border-gray-100">
                     <p className="text-gray-300 font-black uppercase tracking-widest text-xs">
-                        Nenhum processo federal encontrado para São Tomé em {anoFiltro}.
+                        Nenhum processo federal encontrado para Lajes Pintadas em {anoFiltro}.
                     </p>
                 </div>
             )}
         </div>
     );
 }
-

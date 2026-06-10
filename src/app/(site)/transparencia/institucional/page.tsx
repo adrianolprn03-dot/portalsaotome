@@ -8,10 +8,11 @@ import {
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import LeiEstruturaButtons from "@/components/transparencia/LeiEstruturaButtons";
 
 export const metadata: Metadata = {
-    title: "Dados Institucionais | Portal da Transparência – São Tomé/RN",
-    description: "Informações oficiais da Prefeitura Municipal de São Tomé – RN: CNPJ, endereço, organograma, competências e símbolos municipais, em conformidade com a PNTP 2026.",
+    title: "Dados Institucionais | Portal da Transparência – Lajes Pintadas/RN",
+    description: "Informações oficiais da Prefeitura Municipal de Lajes Pintadas – RN: CNPJ, endereço, organograma, competências e símbolos municipais, em conformidade com a PNTP 2026.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -28,7 +29,7 @@ async function getSecretarias() {
         return await prisma.secretaria.findMany({
             where: { ativa: true },
             orderBy: { ordem: "asc" },
-            select: { id: true, slug: true, nome: true, secretario: true, email: true, telefone: true }
+            select: { id: true, nome: true, secretario: true, email: true, telefone: true }
         });
     } catch {
         return [];
@@ -41,16 +42,16 @@ export default async function InstitucionalPage() {
         prefeitoNome, viceNome, secretarias,
         simboloBrasao, simboloBandeira, simboloHino, simboloHinoAudio
     ] = await Promise.all([
-        getConfig("municipio_nome", "Prefeitura Municipal de São Tomé"),
-        getConfig("cnpj", "08.080.210/0001-49"),
-        getConfig("endereco_sede", "Praça Antônio Assunção, s/n – Centro"),
-        getConfig("cep", "59.400-000"),
-        getConfig("horario_funcionamento", "Segunda a Sexta, das 07h30 às 13h30"),
-        getConfig("contato_email", "ouvidoria@saotome.rn.gov.br"),
-        getConfig("contato_telefone", "(84) 99211-5922"),
-        getConfig("site_url", "www.saotome.rn.gov.br"),
-        getConfig("prefeito_nome", "Josinaldo Amaro de Lima (Gá)"),
-        getConfig("vice_nome", "Lucinário Félix de Carvalho (Naro)"),
+        getConfig("municipio_nome", "Prefeitura Municipal de Lajes Pintadas"),
+        getConfig("cnpj", "08.106.505/0001-24"),
+        getConfig("endereco_sede", "Rua São Francisco, nº 275 – Centro"),
+        getConfig("cep", "59.235-000"),
+        getConfig("horario_funcionamento", "Segunda a Sexta, das 07h às 13h"),
+        getConfig("contato_email", "contato@lajespintadas.rn.gov.br"),
+        getConfig("contato_telefone", "(84) 3000-0000"),
+        getConfig("site_url", "www.lajespintadas.rn.gov.br"),
+        getConfig("prefeito_nome", "Luciano da Cunha"),
+        getConfig("vice_nome", "João Maria Silva"),
         getSecretarias(),
         getConfig("simbolo_brasao", ""),
         getConfig("simbolo_bandeira", ""),
@@ -61,7 +62,7 @@ export default async function InstitucionalPage() {
     const fichaBasica = [
         { label: "Razão Social", value: razaoSocial, icon: Building2 },
         { label: "CNPJ", value: cnpj, icon: FileText },
-        { label: "Endereço da Sede", value: `${endereco} – São Tomé/RN`, icon: MapPin },
+        { label: "Endereço da Sede", value: `${endereco} – Lajes Pintadas/RN`, icon: MapPin },
         { label: "CEP", value: cep, icon: Globe },
         { label: "Horário de Atendimento", value: horario, icon: Clock },
         { label: "E-mail Oficial", value: email, icon: Mail },
@@ -83,7 +84,7 @@ export default async function InstitucionalPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Dados Institucionais"
-                subtitle="Identificação, competências, estrutura organizacional e localização da Prefeitura Municipal de São Tomé/RN."
+                subtitle="Identificação, competências, estrutura organizacional e localização da Prefeitura Municipal de Lajes Pintadas/RN."
                 variant="premium"
                 icon={<Landmark />}
                 breadcrumbs={[
@@ -153,6 +154,23 @@ export default async function InstitucionalPage() {
                                 </span>
                                 Competências Institucionais
                             </h2>
+
+                            {/* Base Legal - Lei da Estrutura */}
+                            <div className="mb-8 p-6 bg-gradient-to-r from-emerald-50 to-teal-50/30 rounded-3xl border border-emerald-100 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm group hover:border-emerald-200 transition-all">
+                                <div className="flex items-start gap-4 w-full">
+                                    <div className="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md">
+                                        <FileText size={22} className="text-white" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-sm font-black text-slate-800 uppercase tracking-tight">Lei da Estrutura Organizacional</h4>
+                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Municipal nº 246/2013 — Dispõe sobre a organização administrativa do município.</p>
+                                    </div>
+                                </div>
+                                <div className="shrink-0 w-full md:w-auto">
+                                    <LeiEstruturaButtons pdfUrl="/uploads/lei-estrutura-organizacional.pdf" />
+                                </div>
+                            </div>
+
                             <p className="text-gray-500 text-sm font-medium mb-6 leading-relaxed italic">
                                 Conforme a Lei Orgânica Municipal e o Art. 8º, I da Lei nº 12.527/2011.
                             </p>
@@ -177,6 +195,22 @@ export default async function InstitucionalPage() {
                                 Estrutura Organizacional
                             </h2>
 
+                            {/* Base Legal - Lei de Criação da Estrutura */}
+                            <div className="mb-8 p-6 bg-gradient-to-r from-indigo-50 to-blue-50/50 rounded-3xl border border-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm group hover:border-indigo-200 transition-all">
+                                <div className="flex items-start gap-4 w-full">
+                                    <div className="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md">
+                                        <FileText size={22} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-sm font-black text-slate-800 uppercase tracking-tight">Lei da Estrutura Organizacional</h4>
+                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Municipal nº 246/2013 — Dispõe sobre a organização administrativa do município.</p>
+                                    </div>
+                                </div>
+                                <div className="shrink-0 w-full md:w-auto">
+                                    <LeiEstruturaButtons pdfUrl="/uploads/lei-estrutura-organizacional.pdf" />
+                                </div>
+                            </div>
+
                             {/* Gestores */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                                 {[
@@ -200,7 +234,7 @@ export default async function InstitucionalPage() {
                                 <div className="space-y-2">
                                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Secretarias Municipais</p>
                                     {secretarias.map((s) => (
-                                        <Link href={`/secretarias/${s.slug}`} key={s.id} className="group flex items-center justify-between bg-gray-50 hover:bg-indigo-50 rounded-xl px-5 py-3 border border-gray-100 hover:border-indigo-200 transition-all">
+                                        <div key={s.id} className="group flex items-center justify-between bg-gray-50 hover:bg-indigo-50 rounded-xl px-5 py-3 border border-gray-100 hover:border-indigo-200 transition-all">
                                             <div>
                                                 <p className="text-sm font-bold text-gray-700 group-hover:text-indigo-700">{s.nome}</p>
                                                 {s.secretario && (
@@ -208,7 +242,7 @@ export default async function InstitucionalPage() {
                                                 )}
                                             </div>
                                             <ChevronRight size={14} className="text-gray-300 group-hover:text-indigo-400" />
-                                        </Link>
+                                        </div>
                                     ))}
                                 </div>
                             ) : (
@@ -306,8 +340,8 @@ export default async function InstitucionalPage() {
                             {/* Mapa embed */}
                             <div className="rounded-2xl overflow-hidden mb-6 border border-white/10">
                                 <iframe
-                                    title="Localização da Prefeitura de São Tomé"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5!2d-35.93!3d-5.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwNTMnMjQuMCJTIDM1wrA1NSc0OC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1"
+                                    title="Localização da Prefeitura de Lajes Pintadas"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.6!2d-36.01!3d-6.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMDAuMCJTIDM2wrAwMCcwMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1"
                                     width="100%"
                                     height="180"
                                     style={{ border: 0 }}
@@ -321,7 +355,7 @@ export default async function InstitucionalPage() {
                                     <MapPin size={14} className="text-blue-400 shrink-0 mt-1" />
                                     <p className="text-sm font-medium text-white/70 leading-snug">
                                         {endereco}<br />
-                                        São Tomé – RN<br />
+                                        Lajes Pintadas – RN<br />
                                         CEP: {cep}
                                     </p>
                                 </div>
@@ -355,6 +389,7 @@ export default async function InstitucionalPage() {
                                     { label: "Gestores Municipais", href: "/transparencia/gestores", desc: "Prefeito e Vice-Prefeito" },
                                     { label: "Carta de Serviços", href: "/transparencia/carta-servicos", desc: "Serviços ao Cidadão" },
                                     { label: "Estrutura Organizacional", href: "/a-prefeitura/estrutura", desc: "Organograma completo" },
+                                    { label: "Lei da Estrutura (PDF)", href: "/uploads/lei-estrutura-organizacional.pdf", desc: "Lei Municipal nº 246/2013", target: "_blank" },
                                     { label: "Símbolos Municipais", href: "/transparencia/simbolos", desc: "Brasão, bandeira e hino" },
                                     { label: "Lei Orgânica", href: "/transparencia/leis", desc: "Legislação base do município" },
                                     { label: "Ouvidoria", href: "/servicos/ouvidoria", desc: "Fale com a gestão" },
@@ -362,6 +397,8 @@ export default async function InstitucionalPage() {
                                     <Link
                                         key={l.href}
                                         href={l.href}
+                                        target={"target" in l ? l.target : undefined}
+                                        rel={"target" in l && l.target === "_blank" ? "noopener noreferrer" : undefined}
                                         className="group flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-indigo-50 border border-gray-100 hover:border-indigo-200 transition-all"
                                     >
                                         <div>
@@ -388,4 +425,3 @@ export default async function InstitucionalPage() {
         </div>
     );
 }
-

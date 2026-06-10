@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
 import { Info, FileText, GraduationCap, Briefcase, UserCheck, UserPlus, Building } from "lucide-react";
@@ -68,7 +68,7 @@ export default function TerceirizadosPage() {
         }));
 
         const filename = `terceirizados_lajes_pintadas`;
-        const title = `Relatório de Terceirizados – Município de São Tomé/RN`;
+        const title = `Relatório de Terceirizados – Município de Lajes Pintadas/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -140,7 +140,7 @@ export default function TerceirizadosPage() {
                             <p className="text-red-700 font-bold text-lg md:text-xl">
                                 {busca || mes !== "" 
                                     ? "Nenhum terceirizado encontrado para os filtros aplicados."
-                                    : `A Prefeitura Municipal de São Tomé informa que NÃO POSSUÍMOS PESSOAL TERCEIRIZADO em nosso quadro de colaboradores para o período selecionado (${mes ? mes + '/' : ''}${ano}).`
+                                    : `A Prefeitura Municipal de Lajes Pintadas informa que NÃO POSSUÍMOS PESSOAL TERCEIRIZADO em nosso quadro de colaboradores para o período selecionado (${mes ? mes + '/' : ''}${ano}).`
                                 }
                             </p>
                         </div>
@@ -246,4 +246,3 @@ export default function TerceirizadosPage() {
         </div>
     );
 }
-

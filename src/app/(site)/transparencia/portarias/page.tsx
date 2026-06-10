@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import LegislacaoClient from "../legislacao/_LegislacaoClient";
 import { prisma } from "@/lib/prisma";
@@ -6,8 +6,8 @@ import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 import { FaFileCircleCheck } from "react-icons/fa6";
 
 export const metadata: Metadata = {
-    title: "Portarias Municipais | Prefeitura de São Tomé – RN",
-    description: "Consulta às Portarias da Prefeitura de São Tomé – RN.",
+    title: "Portarias Municipais | Prefeitura de Lajes Pintadas – RN",
+    description: "Consulta às Portarias da Prefeitura de Lajes Pintadas – RN.",
 };
 
 export default async function PortariasPage() {
@@ -80,4 +80,3 @@ export default async function PortariasPage() {
         </div>
     );
 }
-

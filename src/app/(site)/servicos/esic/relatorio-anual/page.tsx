@@ -1,12 +1,12 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import { FaChartBar, FaCheckCircle, FaDownload, FaFilePdf, FaFileExcel } from "react-icons/fa";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Relatório Anual do SIC | e-SIC – Prefeitura de São Tomé",
-    description: "Relatório anual de solicitações de acesso à informação do Serviço de Informação ao Cidadão (SIC) de São Tomé, conforme art. 30 da Lei 12.527/2011.",
+    title: "Relatório Anual do SIC | e-SIC – Prefeitura de Lajes Pintadas",
+    description: "Relatório anual de solicitações de acesso à informação do Serviço de Informação ao Cidadão (SIC) de Lajes Pintadas, conforme art. 30 da Lei 12.527/2011.",
 };
 
 type EstatisticaAnual = {
@@ -208,4 +208,3 @@ export default function RelatorioAnualSICPage() {
         </div>
     );
 }
-

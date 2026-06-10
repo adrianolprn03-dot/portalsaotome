@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
@@ -220,7 +220,7 @@ export default function QuadroServidoresClient({
                                 de transparência ativa previstos na matriz de avaliação do <strong>PNTP 2026</strong>.
                             </p>
                             <p className="text-slate-500 font-medium leading-relaxed">
-                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de São Tomé, 
+                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de Lajes Pintadas, 
                                 refletindo a situação atualizada dos vínculos estatutários, comissionados e contratados.
                             </p>
                         </div>
@@ -230,4 +230,3 @@ export default function QuadroServidoresClient({
         </div>
     );
 }
-

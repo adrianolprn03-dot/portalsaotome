@@ -1,4 +1,4 @@
-﻿export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { FaEnvelope, FaBalanceScale } from "react-icons/fa";
@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
     title: "Prefeito e Vice | Portal da Transparência",
-    description: "Identificação institucional dos gestores municipais de São Tomé – RN.",
+    description: "Identificação institucional dos gestores municipais de Lajes Pintadas – RN.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -25,7 +25,7 @@ export default async function GestoresTransparencyPage() {
         getConfig("prefeito_foto", ""),
         getConfig("prefeito_mandato", "2021 — 2024"),
         getConfig("prefeito_partido", "Não Informado"),
-        getConfig("prefeito_naturalidade", "São Tomé/RN"),
+        getConfig("prefeito_naturalidade", "Lajes Pintadas/RN"),
         getConfig("prefeito_nascimento", "--/--/----"),
         getConfig("prefeito_profissao", "Gestor Público"),
         getConfig("prefeito_escolaridade", "Ensino Superior"),
@@ -34,11 +34,11 @@ export default async function GestoresTransparencyPage() {
         getConfig("vice_foto", ""),
         getConfig("vice_mandato", "2021 — 2024"),
         getConfig("vice_partido", "Não Informado"),
-        getConfig("vice_naturalidade", "São Tomé/RN"),
+        getConfig("vice_naturalidade", "Lajes Pintadas/RN"),
         getConfig("vice_nascimento", "--/--/----"),
         getConfig("vice_profissao", "Gestor Público"),
         getConfig("vice_escolaridade", "Ensino Superior"),
-        getConfig("contato_email", "gabinete@saotome.rn.gov.br")
+        getConfig("contato_email", "gabinete@lajespintadas.rn.gov.br")
     ]);
 
     const renderInfoItem = (emoji: string, label: string, value: string) => (
@@ -55,7 +55,7 @@ export default async function GestoresTransparencyPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Gestores Municipais"
-                subtitle="Conheça o Perfil, Trajetória e Atribuições dos Chefes do Poder Executivo de São Tomé."
+                subtitle="Conheça o Perfil, Trajetória e Atribuições dos Chefes do Poder Executivo de Lajes Pintadas."
                 variant="premium"
                 breadcrumbs={[
                     { label: "Início", href: "/" },
@@ -181,4 +181,3 @@ export default async function GestoresTransparencyPage() {
         </div>
     );
 }
-

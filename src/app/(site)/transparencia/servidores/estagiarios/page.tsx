@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { FaSpinner, FaBuilding, FaCheckCircle, FaWallet, FaUserGraduate } from "react-icons/fa";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
@@ -76,7 +76,7 @@ export default function EstagiariosPage() {
         }));
 
         const filename = `estagiarios_${mes}_${ano}`;
-        const title = `Relação de Estagiários - São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
+        const title = `Relação de Estagiários - Lajes Pintadas/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -248,4 +248,3 @@ export default function EstagiariosPage() {
         </div>
     );
 }
-

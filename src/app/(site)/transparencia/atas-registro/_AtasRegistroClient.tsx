@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { 
     FaSpinner, FaCalendar, FaBuilding, 
@@ -103,7 +103,7 @@ export default function AtasRegistroClient() {
         }));
 
         const filename = `atas_registro_precos_${ano}`;
-        const title = `Relatório de Atas de Registro de Preços – São Tomé/RN (${ano})`;
+        const title = `Relatório de Atas de Registro de Preços – Lajes Pintadas/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -328,4 +328,3 @@ export default function AtasRegistroClient() {
         </div>
     );
 }
-

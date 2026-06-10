@@ -1,10 +1,10 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import RenunciasClientPage from "./RenunciasClientPage";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Renúncias de Receitas | Transparência São Tomé",
+  title: "Renúncias de Receitas | Transparência Lajes Pintadas",
   description: "Demonstrativo de isenções, reduções de alíquotas, anistias e subsídios fiscais.",
 };
 
@@ -32,4 +32,3 @@ export default async function RenunciasFiscaisPage() {
 
   return <RenunciasClientPage initialData={initialData} />;
 }
-

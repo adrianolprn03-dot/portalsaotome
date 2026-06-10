@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { FaFilePdf, FaMagnifyingGlass, FaCalendarDays, FaChartLine, FaDownload, FaFileExcel, FaFileCsv, FaXmark, FaEye } from "react-icons/fa6";
@@ -129,7 +129,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
         }));
 
         const filename = `relatorios_${tipo.toLowerCase()}${anoFiltro ? `_${anoFiltro}` : ""}`;
-        const exportTitle = `Relatórios de Transparência Fiscal - ${title}${anoFiltro ? ` (${anoFiltro})` : ""} – São Tomé/RN`;
+        const exportTitle = `Relatórios de Transparência Fiscal - ${title}${anoFiltro ? ` (${anoFiltro})` : ""} – Lajes Pintadas/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -449,4 +449,3 @@ const ChevronDown = () => (
         </svg>
     </div>
 );
-

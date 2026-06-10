@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import PageHeader from "@/components/PageHeader";
@@ -67,7 +67,7 @@ export default function ESICPage() {
         endereco: "",
         numero: "",
         bairro: "",
-        cidade: "São Tomé",
+        cidade: "Lajes Pintadas",
         uf: "RN",
         dataAbertura: "",
         concordo: false 
@@ -316,7 +316,7 @@ export default function ESICPage() {
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Contatos do Ouvidoria</p>
                                                     <p className="font-bold text-gray-700">(84) 9.8748 – 0287</p>
                                                     <p className="font-bold text-gray-700">Whatsapp: (84) 9 8748 – 0287</p>
-                                                    <p className="font-bold text-gray-700 break-all">Email: ouvidoria@saotome.rn.gov.br</p>
+                                                    <p className="font-bold text-gray-700 break-all">Email: ouvidoria@lajespintadas.rn.gov.br</p>
                                                 </div>
                                             </div>
                                             <div className="space-y-6">
@@ -601,4 +601,3 @@ export default function ESICPage() {
         </div>
     );
 }
-

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { 
@@ -114,8 +114,8 @@ export default function FolhaPagamentoPage() {
             "T. Líquido": fmt(s.totalLiquido)
         }));
 
-        const filename = `folha_saotome_${mes}_${ano}`;
-        const title = `Relatório de Servidores e Folha de Pagamento - São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
+        const filename = `folha_lajespintadas_${mes}_${ano}`;
+        const title = `Relatório de Servidores e Folha de Pagamento - Lajes Pintadas/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -413,7 +413,7 @@ export default function FolhaPagamentoPage() {
                                         <td className="px-10 py-10 text-right">
                                             <div className="flex flex-col items-end">
                                                 <span className="text-4xl font-black text-emerald-400 tracking-tighter tabular-nums mb-1">{fmt(totalLiquidoValue)}</span>
-                                                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">São Tomé • Recursos Próprios</span>
+                                                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Lajes Pintadas • Recursos Próprios</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -454,7 +454,7 @@ export default function FolhaPagamentoPage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE São Tomé/RN <br/>
+                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="opacity-40 font-bold italic">Base de dados sincronizada conforme as diretrizes do Tribunal de Contas do Estado.</span>
                         </p>
                     </div>
@@ -463,4 +463,3 @@ export default function FolhaPagamentoPage() {
         </div>
     );
 }
-

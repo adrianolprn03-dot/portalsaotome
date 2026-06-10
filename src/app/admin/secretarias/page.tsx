@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { FaBuilding, FaPlus, FaEdit, FaTrash, FaSpinner, FaSearch, FaImage, FaMapMarker, FaPhone, FaEnvelope, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -291,7 +291,7 @@ export default function AdminSecretariasPage() {
                                         value={form.email}
                                         onChange={(e) => setForm({...form, email: e.target.value})}
                                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                                        placeholder="saude@saotome.rn.gov.br"
+                                        placeholder="saude@lajespintadas.rn.gov.br"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -383,4 +383,3 @@ export default function AdminSecretariasPage() {
         </div>
     );
 }
-
