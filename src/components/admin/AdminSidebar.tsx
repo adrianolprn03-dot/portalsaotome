@@ -140,6 +140,7 @@ export default function AdminSidebar({ userRole = "admin" }: { userRole?: string
 
     // Expandir por padrão a categoria que contém o link ativo
     useEffect(() => {
+        if (!pathname) return;
         const activeCategory = categories.find(cat =>
             cat.items.some(item =>
                 item.exact ? pathname === item.href : pathname.startsWith(item.href)
@@ -153,8 +154,10 @@ export default function AdminSidebar({ userRole = "admin" }: { userRole?: string
         }
     }, [pathname]);
 
-    const isActive = (href: string, exact?: boolean) =>
-        exact ? pathname === href : pathname.startsWith(href);
+    const isActive = (href: string, exact?: boolean) => {
+        if (!pathname) return false;
+        return exact ? pathname === href : pathname.startsWith(href);
+    };
 
     const toggleCategory = (title: string) => {
         setExpandedCategories(prev => ({

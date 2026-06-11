@@ -124,7 +124,7 @@ export default function Header() {
                 {/* Desktop Menu */}
                 <nav className="hidden lg:flex items-center gap-1">
                     {navItems.map((item, index) => {
-                        const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                        const isActive = pathname ? (pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))) : false;
                         const isDropdownOpen = openDropdown === index;
 
                         return (
