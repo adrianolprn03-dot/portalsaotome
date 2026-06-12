@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-    title: "Tabela de Valores de Diárias | Prefeitura de Lajes Pintadas",
+    title: "Tabela de Valores de Diárias | Prefeitura de São Tomé",
     description: "Tabela de valores vigentes para pagamento de diárias de viagens no Município.",
 };
 

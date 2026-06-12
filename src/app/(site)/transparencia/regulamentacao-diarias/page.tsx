@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 
 export const metadata: Metadata = {
-    title: "Regulamentação das Diárias | Prefeitura de Lajes Pintadas",
+    title: "Regulamentação das Diárias | Prefeitura de São Tomé",
     description: "Legislação e normas relativas à concessão de diárias no Município.",
 };
 

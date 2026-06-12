@@ -58,10 +58,10 @@ async function getConfig(chave: string, padrao: string) {
 }
 
 export default async function Footer() {
-    const cnpj = await getConfig("cnpj", "08.080.210/0001-49");
-    const endereco = await getConfig("endereco_sede", "Praça Antônio Assunção, s/n, Centro, São Tomé/RN");
+    const cnpj = await getConfig("cnpj", "08.159.394/0001-37");
+    const endereco = await getConfig("endereco_sede", "Rua São Francisco, 275, Centro, São Tomé/RN");
     const email = await getConfig("contato_email", "ouvidoria@saotome.rn.gov.br");
-    const telefone = await getConfig("contato_telefone", "(84) 99211-5922");
+    const telefone = await getConfig("contato_telefone", "(84) 98748-0287");
     const razaoSocial = await getConfig("municipio_nome", "Prefeitura Municipal de São Tomé");
     const whatsapp = await getConfig("contato_whatsapp", "");
     const brasao = await getConfig("simbolo_brasao", "/logo_v2_white.png");

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Unidades de Saúde | Portal da Transparência",
-    description: "Relação de UBSs, Hospitais e clínicas da rede municipal de Lajes Pintadas.",
+    description: "Relação de UBSs, Hospitais e clínicas da rede municipal de São Tomé.",
 };
 
 export default async function UnidadesSaudePage() {

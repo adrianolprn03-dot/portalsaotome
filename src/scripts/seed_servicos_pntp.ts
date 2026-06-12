@@ -14,7 +14,7 @@ const servicosObrigatorios = [
         previsaoEspera: "Até 30 dias (prorrogáveis por mais 30).",
         status: "ATIVO",
         linkAcesso: "https://ouvidoria.lajespintadas.rn.gov.br",
-        local: "Prefeitura Municipal de Lajes Pintadas",
+        local: "Prefeitura Municipal de São Tomé",
         prazo: "30 dias",
         documentos: "RG, CPF e comprovante de residência (se necessário)."
     },

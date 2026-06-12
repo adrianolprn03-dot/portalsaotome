@@ -66,7 +66,7 @@ export default function SICRelatoriosSemSigiloPage() {
         }));
 
         const filename = `pedidos_esic_sem_sigilo_${ano}`;
-        const title = `Relatório e-SIC: Pedidos sem Sigilo – Lajes Pintadas/RN (${ano})`;
+        const title = `Relatório e-SIC: Pedidos sem Sigilo – São Tomé/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

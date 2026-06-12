@@ -129,7 +129,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
         }));
 
         const filename = `relatorios_${tipo.toLowerCase()}${anoFiltro ? `_${anoFiltro}` : ""}`;
-        const exportTitle = `Relatórios de Transparência Fiscal - ${title}${anoFiltro ? ` (${anoFiltro})` : ""} – Lajes Pintadas/RN`;
+        const exportTitle = `Relatórios de Transparência Fiscal - ${title}${anoFiltro ? ` (${anoFiltro})` : ""} – São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

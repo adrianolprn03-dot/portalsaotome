@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export const metadata: Metadata = {
     title: "Institucional do SIC | Portal da Transparência",
-    description: "Informações sobre o Serviço de Informação ao Cidadão (SIC) de Lajes Pintadas – RN.",
+    description: "Informações sobre o Serviço de Informação ao Cidadão (SIC) de São Tomé – RN.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -15,7 +15,7 @@ async function getConfig(chave: string, padrao: string) {
 }
 
 export default async function InstitucionalSICPage() {
-    const municipio = await getConfig("municipio_nome", "Prefeitura Municipal de Lajes Pintadas");
+    const municipio = await getConfig("municipio_nome", "Prefeitura Municipal de São Tomé");
     const endereco = await getConfig("endereco_sede", "Rua São Francisco, nº 275 – Centro – CEP: 59.235-000");
     const horario = await getConfig("horario_funcionamento", "Segunda a Sexta, das 07:00 às 13:00");
     const email = await getConfig("contato_email_sic", "ouvidoria@lajespintadas.rn.gov.br");

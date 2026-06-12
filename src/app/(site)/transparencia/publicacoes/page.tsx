@@ -122,7 +122,7 @@ export default function PublicacoesPage() {
             "Descrição": p.descricao,
         }));
         const filename = `publicacoes_oficiais_${ano}`;
-        const title = `Publicações Oficiais – Lajes Pintadas/RN (${ano})`;
+        const title = `Publicações Oficiais – São Tomé/RN (${ano})`;
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
         else if (format === "xlsx") exportToXLSX(payload, filename);

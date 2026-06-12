@@ -60,7 +60,7 @@ export default function SICPerguntasPage() {
                     </motion.div>
                     <h2 className="text-4xl font-black text-gray-800 uppercase tracking-tighter mb-6">Como podemos ajudar?</h2>
                     <p className="text-gray-500 font-medium max-w-2xl mx-auto">
-                        Confira abaixo as principais informações sobre como exercer seu direito de acesso à informação pública no município de Lajes Pintadas.
+                        Confira abaixo as principais informações sobre como exercer seu direito de acesso à informação pública no município de São Tomé.
                     </p>
                 </div>
 

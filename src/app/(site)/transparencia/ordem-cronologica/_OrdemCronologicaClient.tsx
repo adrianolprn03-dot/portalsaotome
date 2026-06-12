@@ -115,7 +115,7 @@ export default function OrdemCronologicaClient() {
         }));
 
         const filename = `ordem_cronologica_${mes}_${ano}`;
-        const title = `Ordem Cronológica de Pagamentos – Lajes Pintadas/RN (${mes}/${ano})`;
+        const title = `Ordem Cronológica de Pagamentos – São Tomé/RN (${mes}/${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

@@ -3,7 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import ListaDocumentosClient from "@/components/ListaDocumentosClient";
 
 export const metadata: Metadata = {
-    title: "Plano Municipal de Educação | Prefeitura de Lajes Pintadas – RN",
+    title: "Plano Municipal de Educação | Prefeitura de São Tomé – RN",
     description: "Plano Municipal de Educação (PME) com metas e diretrizes educacionais.",
 };
 

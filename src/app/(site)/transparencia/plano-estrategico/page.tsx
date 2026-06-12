@@ -3,7 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import ListaDocumentosClient from "@/components/ListaDocumentosClient";
 
 export const metadata: Metadata = {
-    title: "Plano Estratégico | Prefeitura de Lajes Pintadas – RN",
+    title: "Plano Estratégico | Prefeitura de São Tomé – RN",
     description: "Plano Estratégico Institucional do Município.",
 };
 

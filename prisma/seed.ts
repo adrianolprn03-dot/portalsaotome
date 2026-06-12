@@ -21,17 +21,17 @@ async function main() {
 
     // --- Secretarias ---
     const secretarias = [
-        { nome: "Gabinete do Prefeito", slug: "gabinete-prefeito", secretario: "José Miguel de Menezes Junior", email: "gabinete@saotome.rn.gov.br", telefone: "(84) 99169-3066", endereco: "Praça Antônio Assunção, s/n, Centro", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Controladoria Municipal", slug: "controladoria-municipal", secretario: "Lindomar Pereira da Silva", email: "controladoria@saotome.rn.gov.br", telefone: "(84) 99421-3736", endereco: "Praça Antônio Assunção, s/n, Centro", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Procuradoria Municipal", slug: "procuradoria-municipal", secretario: "Débora Vieira Fonseca", email: "procuradoria@saotome.rn.gov.br", telefone: "(84) 99417-1690", endereco: "Praça Antônio Assunção, s/n, Centro", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Secretaria de Administração e Planejamento", slug: "administracao-planejamento", secretario: "Teresa Cristina da Silva", email: "administracao@saotome.rn.gov.br", telefone: "(84) 99452-4900", endereco: "Praça Antônio Assunção, s/n, Centro", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Secretaria de Finanças e Tributação", slug: "financas-tributacao", secretario: "Jorge César Silva Ribeiro", email: "financas@saotome.rn.gov.br", telefone: "(84) 99467-3609", endereco: "Praça Antônio Assunção, s/n, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Gabinete do Prefeito", slug: "gabinete-prefeito", secretario: "José Miguel de Menezes Junior", email: "gabinete@saotome.rn.gov.br", telefone: "(84) 99169-3066", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Controladoria Municipal", slug: "controladoria-municipal", secretario: "Lindomar Pereira da Silva", email: "controladoria@saotome.rn.gov.br", telefone: "(84) 99421-3736", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Procuradoria Municipal", slug: "procuradoria-municipal", secretario: "Débora Vieira Fonseca", email: "procuradoria@saotome.rn.gov.br", telefone: "(84) 99417-1690", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Secretaria de Administração e Planejamento", slug: "administracao-planejamento", secretario: "Teresa Cristina da Silva", email: "administracao@saotome.rn.gov.br", telefone: "(84) 99452-4900", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Secretaria de Finanças e Tributação", slug: "financas-tributacao", secretario: "Jorge César Silva Ribeiro", email: "financas@saotome.rn.gov.br", telefone: "(84) 99467-3609", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
         { nome: "Secretaria de Educação, Cultura e Desporto", slug: "educacao-cultura-desporto", secretario: "Ana Edileuza Dantas", email: "educacao@saotome.rn.gov.br", telefone: "(84) 99415-8614", endereco: "Rua Coronel João Rodrigues, s/n", horarioFuncionamento: "07h30 às 17h00" },
         { nome: "Secretaria de Saúde", slug: "saude", secretario: "Katia Cristina Câmara de Oliveira", email: "saude@saotome.rn.gov.br", telefone: "(84) 99112-9423", endereco: "Rua Felinto Elísio, s/n", horarioFuncionamento: "07h00 às 17h00" },
         { nome: "Secretaria de Trabalho, Habitação e Assistência Social", slug: "assistencia-social", secretario: "Lucicarla Pereira da Silva", email: "social@saotome.rn.gov.br", telefone: "(84) 99218-3838", endereco: "Rua São Francisco, s/n", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Secretaria de Obras, Transporte e Serviços Urbanos", slug: "obras-servicos-urbanos", secretario: "Marithon Macário Santos de Andrade", email: "obras@saotome.rn.gov.br", telefone: "(84) 99168-5300", endereco: "Praça Antônio Assunção, s/n", horarioFuncionamento: "07h00 às 13h00" },
-        { nome: "Secretaria de Agricultura, Meio Ambiente e Turismo", slug: "agricultura-meio-ambiente", secretario: "Jadiel Esdras Andrade", email: "agricultura@saotome.rn.gov.br", telefone: "(84) 99229-3714", endereco: "Praça Antônio Assunção, s/n", horarioFuncionamento: "07h30 às 13h30" },
-        { nome: "Ouvidoria Municipal", slug: "ouvidoria-municipal", secretario: "Thamara Xavier Dias", email: "ouvidoria@saotome.rn.gov.br", telefone: "(84) 99211-5922", endereco: "Praça Antônio Assunção, s/n", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Secretaria de Obras, Transporte e Serviços Urbanos", slug: "obras-servicos-urbanos", secretario: "Marithon Macário Santos de Andrade", email: "obras@saotome.rn.gov.br", telefone: "(84) 99168-5300", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h00 às 13h00" },
+        { nome: "Secretaria de Agricultura, Meio Ambiente e Turismo", slug: "agricultura-meio-ambiente", secretario: "Jadiel Esdras Andrade", email: "agricultura@saotome.rn.gov.br", telefone: "(84) 99229-3714", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
+        { nome: "Ouvidoria Municipal", slug: "ouvidoria-municipal", secretario: "Thamara Xavier Dias", email: "ouvidoria@saotome.rn.gov.br", telefone: "(84) 98748-0287", endereco: "Rua São Francisco, 275, Centro", horarioFuncionamento: "07h30 às 13h30" },
     ];
 
     for (const s of secretarias) {
@@ -51,12 +51,12 @@ async function main() {
     // --- Configurações Detalhadas ---
     const configuracoes = [
         { chave: "municipio_nome", valor: "São Tomé", grupo: "geral" },
-        { chave: "municipio_cnpj", valor: "08.080.210/0001-49", grupo: "geral" },
-        { chave: "prefeitura_endereco", valor: "Praça Antônio Assunção, s/n, Centro, São Tomé/RN", grupo: "geral" },
-        { chave: "prefeitura_telefone", valor: "(84) 99211-5922", grupo: "geral" },
+        { chave: "municipio_cnpj", valor: "08.159.394/0001-37", grupo: "geral" },
+        { chave: "prefeitura_endereco", valor: "Rua São Francisco, 275, Centro, São Tomé/RN", grupo: "geral" },
+        { chave: "prefeitura_telefone", valor: "(84) 98748-0287", grupo: "geral" },
         { chave: "prefeitura_email", valor: "ouvidoria@saotome.rn.gov.br", grupo: "geral" },
         { chave: "prefeito_nome", valor: "Josinaldo Amaro de Lima (Gá)", grupo: "gestao" },
-        { chave: "prefeito_descricao", valor: "Josinaldo Amaro de Lima, conhecido como Gá, é o atual prefeito de São Tomé/RN, focado em promover o desenvolvimento sustentável e o bem-estar de toda a população são-tomeense.", grupo: "gestao" },
+        { chave: "prefeito_descricao", valor: "Josinaldo Amaro de Lima, conhecido como Gá, é the actual prefeito de São Tomé/RN, focado em promover o desenvolvimento sustentável e o bem-estar de toda a população são-tomeense.", grupo: "gestao" },
         { chave: "prefeito_mandato", valor: "2021 — 2024", grupo: "gestao" },
         { chave: "prefeito_partido", valor: "PSD", grupo: "gestao" },
         { chave: "prefeito_naturalidade", valor: "São Tomé/RN", grupo: "gestao" },
@@ -65,7 +65,7 @@ async function main() {
         { chave: "vice_mandato", valor: "2021 — 2024", grupo: "gestao" },
         { chave: "gestao_slogan", valor: "O TRABALHO SEGUE EM FRENTE", grupo: "gestao" },
         { chave: "contato_email", valor: "ouvidoria@saotome.rn.gov.br", grupo: "geral" },
-        { chave: "contato_telefone", valor: "(84) 99211-5922", grupo: "geral" },
+        { chave: "contato_telefone", valor: "(84) 98748-0287", grupo: "geral" },
         
         // Símbolos
         { chave: "simbolo_brasao", valor: "/logo_oficial.png", grupo: "simbolos" },

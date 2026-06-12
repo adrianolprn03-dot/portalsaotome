@@ -4,7 +4,7 @@ import QuadroServidoresClient from "./_QuadroServidoresClient";
 
 export const metadata: Metadata = {
     title: "Quadro de Pessoal | Portal da Transparência",
-    description: "Consulte o quadro geral de pessoal da Prefeitura de Lajes Pintadas, com vagas ocupadas e disponíveis.",
+    description: "Consulte o quadro geral de pessoal da Prefeitura de São Tomé, com vagas ocupadas e disponíveis.",
 };
 
 export default async function QuadroServidoresPage() {

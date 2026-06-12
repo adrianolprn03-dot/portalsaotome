@@ -110,7 +110,7 @@ export default function LicitacoesClient() {
         }));
 
         const filename = `licitacoes_municipais_${anoFiltro}`;
-        const title = `Relatório de Licitações e Processos – Lajes Pintadas/RN (${anoFiltro})`;
+        const title = `Relatório de Licitações e Processos – São Tomé/RN (${anoFiltro})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -452,7 +452,7 @@ export default function LicitacoesClient() {
                                         </div>
                                         <h3 className="text-5xl font-black tracking-tighter mb-6 leading-none italic">Integração <span className="text-blue-400 not-italic">Nacional</span></h3>
                                         <p className="text-slate-400 text-lg font-bold italic leading-relaxed max-w-3xl opacity-80 group-hover:opacity-100 transition-opacity">
-                                            Acompanhe em tempo real todos os processos públicos de Lajes Pintadas registrados no Portal Nacional de Contratações Públicas. Conformidade total com a Nova Lei de Licitações (14.133/2021).
+                                            Acompanhe em tempo real todos os processos públicos de São Tomé registrados no Portal Nacional de Contratações Públicas. Conformidade total com a Nova Lei de Licitações (14.133/2021).
                                         </p>
                                     </div>
                                 </div>
@@ -470,7 +470,7 @@ export default function LicitacoesClient() {
                      <BannerPNTP />
                      <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PORTAL DE LICITAÇÕES • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PORTAL DE LICITAÇÕES • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com as diretrizes do PNCP e PNTP.</span>
                         </p>
                     </div>

@@ -67,7 +67,7 @@ export default function QuadroServidoresClient({
             "Vagas Livres": i.vagasLivres,
         }));
 
-        const filename = `quadro_pessoal_lajes_pintadas`;
+        const filename = `quadro_pessoal_sao_tome`;
         const title = `Portal da Transparência - Quadro Geral de Pessoal`;
 
         if (format === "pdf") exportToPDF(dataToExport, filename, title);
@@ -220,7 +220,7 @@ export default function QuadroServidoresClient({
                                 de transparência ativa previstos na matriz de avaliação do <strong>PNTP 2026</strong>.
                             </p>
                             <p className="text-slate-500 font-medium leading-relaxed">
-                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de Lajes Pintadas, 
+                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de São Tomé, 
                                 refletindo a situação atualizada dos vínculos estatutários, comissionados e contratados.
                             </p>
                         </div>

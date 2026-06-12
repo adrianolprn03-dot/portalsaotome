@@ -16,7 +16,7 @@ export default function NovoEmendaPixPage() {
         formaRepasse: "Transferência Especial - PIX",
         numeroEmenda: "",
         autor: "",
-        beneficiario: "Prefeitura Municipal de Lajes Pintadas",
+        beneficiario: "Prefeitura Municipal de São Tomé",
         cnpjBeneficiario: "08.150.150/0001-40",
         valorPrevisto: "0",
         valorRecebido: "0",

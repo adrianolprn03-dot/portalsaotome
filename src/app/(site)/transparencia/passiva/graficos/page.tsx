@@ -39,7 +39,7 @@ export default function SICGraficosPage() {
                                 Transparência através de <span className="text-blue-600">Dados Abertos</span>
                             </h2>
                             <p className="text-gray-500 font-medium leading-relaxed mb-8">
-                                A Prefeitura Municipal de Lajes Pintadas disponibiliza estes gráficos para facilitar o controle social. Aqui você pode acompanhar o volume de pedidos por secretaria, a eficiência nas respostas e a natureza das informações solicitadas.
+                                A Prefeitura Municipal de São Tomé disponibiliza estes gráficos para facilitar o controle social. Aqui você pode acompanhar o volume de pedidos por secretaria, a eficiência nas respostas e a natureza das informações solicitadas.
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <div className="flex items-center gap-2 text-xs font-bold text-gray-700 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
@@ -92,7 +92,7 @@ export default function SICGraficosPage() {
                             <h3 className="font-black text-gray-800 uppercase text-xs tracking-widest">Dados para Download</h3>
                         </div>
                         <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                            Você pode baixar a base de dados bruta destas estatísticas em formatos abertos na página de Dados Abertos de Lajes Pintadas.
+                            Você pode baixar a base de dados bruta destas estatísticas em formatos abertos na página de Dados Abertos de São Tomé.
                         </p>
                         <a href="/transparencia/dados-abertos" className="mt-6 inline-flex items-center gap-2 text-blue-600 font-black uppercase text-[10px] tracking-widest hover:underline">
                             Ir para Dados Abertos →

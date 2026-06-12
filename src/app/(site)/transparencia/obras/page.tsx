@@ -84,8 +84,8 @@ export default function ObrasPublicasPage() {
             "Status": o.status
         }));
 
-        const filename = `obras_publicas_lajes_pintadas`;
-        const title = `Relatório de Acompanhamento de Obras Públicas – Lajes Pintadas/RN`;
+        const filename = `obras_publicas_sao_tome`;
+        const title = `Relatório de Acompanhamento de Obras Públicas – São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -113,7 +113,7 @@ export default function ObrasPublicasPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Acompanhamento de Obras"
-                subtitle="Painel interativo de transparência sobre o desenvolvimento urbano e rural de Lajes Pintadas."
+                subtitle="Painel interativo de transparência sobre o desenvolvimento urbano e rural de São Tomé."
                 variant="premium"
                 icon={<FaHammer />}
                 breadcrumbs={[
@@ -385,7 +385,7 @@ export default function ObrasPublicasPage() {
 
                     <div className="text-center pt-8">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="opacity-40 font-bold italic">Processamento de dados em tempo real conforme Lei de Acesso à Informação (Lei 12.527/11).</span>
                         </p>
                     </div>

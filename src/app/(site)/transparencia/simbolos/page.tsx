@@ -64,7 +64,7 @@ export default function SimbolosPage() {
                     <div className="flex flex-col items-center">
                         <div className="bg-white p-12 rounded-[3rem] shadow-2xl shadow-gray-200 border border-gray-100 flex items-center justify-center w-full aspect-square max-w-sm group hover:-translate-y-2 transition-all duration-500">
                             {configs.simbolo_brasao ? (
-                                <img src={configs.simbolo_brasao} alt="Brasão de Lajes Pintadas" className="w-full h-full object-contain" />
+                                <img src={configs.simbolo_brasao} alt="Brasão de São Tomé" className="w-full h-full object-contain" />
                             ) : (
                                 <div className="text-gray-300 flex flex-col items-center gap-4">
                                     <FaImage size={64} className="opacity-20" />
@@ -80,7 +80,7 @@ export default function SimbolosPage() {
                     <div className="flex flex-col items-center">
                         <div className="bg-white p-12 rounded-[3rem] shadow-2xl shadow-gray-200 border border-gray-100 flex items-center justify-center w-full aspect-square max-w-sm group hover:-translate-y-2 transition-all duration-500 overflow-hidden">
                              {configs.simbolo_bandeira ? (
-                                <img src={configs.simbolo_bandeira} alt="Bandeira de Lajes Pintadas" className="w-full h-full object-contain shadow-sm" />
+                                <img src={configs.simbolo_bandeira} alt="Bandeira de São Tomé" className="w-full h-full object-contain shadow-sm" />
                             ) : (
                                 <div className="text-gray-300 flex flex-col items-center gap-4">
                                     <FaGlobe size={64} className="opacity-20" />
@@ -124,7 +124,7 @@ export default function SimbolosPage() {
 
                     <div className="mt-20 flex flex-col items-center gap-4 opacity-40">
                          <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-                         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Prefeitura de Lajes Pintadas · RN</span>
+                         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Prefeitura de São Tomé · RN</span>
                     </div>
                 </div>
 

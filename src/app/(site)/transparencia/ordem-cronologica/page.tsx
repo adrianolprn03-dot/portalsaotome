@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import OrdemCronologicaClient from "./_OrdemCronologicaClient";
 
 export const metadata: Metadata = {
-    title: "Ordem Cronológica de Pagamentos | Portal da Transparência – Prefeitura de Lajes Pintadas",
-    description: "Acompanhe a fila de pagamentos a fornecedores da Prefeitura de Lajes Pintadas/RN, em conformidade com a Lei 14.133/2021.",
+    title: "Ordem Cronológica de Pagamentos | Portal da Transparência – Prefeitura de São Tomé",
+    description: "Acompanhe a fila de pagamentos a fornecedores da Prefeitura de São Tomé/RN, em conformidade com a Lei 14.133/2021.",
 };
 
 export default function OrdemCronologicaPage() {

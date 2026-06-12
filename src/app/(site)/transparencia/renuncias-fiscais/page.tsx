@@ -4,7 +4,7 @@ import RenunciasClientPage from "./RenunciasClientPage";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Renúncias de Receitas | Transparência Lajes Pintadas",
+  title: "Renúncias de Receitas | Transparência São Tomé",
   description: "Demonstrativo de isenções, reduções de alíquotas, anistias e subsídios fiscais.",
 };
 

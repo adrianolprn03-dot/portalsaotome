@@ -76,7 +76,7 @@ export default function TerceirizadosPage() {
         }));
 
         const filename = `terceirizados_${mes}_${ano}`;
-        const title = `Relação de Terceirizados - Lajes Pintadas/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
+        const title = `Relação de Terceirizados - São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

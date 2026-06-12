@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Lista de Medicamentos SUS (REMUME) | Portal da Transparência",
-    description: "Relação Municipal de Medicamentos Essenciais (REMUME) disponíveis nas unidades de saúde de Lajes Pintadas/RN.",
+    description: "Relação Municipal de Medicamentos Essenciais (REMUME) disponíveis nas unidades de saúde de São Tomé/RN.",
 };
 
 export default async function MedicamentosSUSPage() {
@@ -46,7 +46,7 @@ export default async function MedicamentosSUSPage() {
                                 Assistência <span className="text-rose-600">Farmacêutica</span>
                             </h2>
                             <p className="text-gray-500 leading-relaxed font-medium text-lg max-w-2xl mb-8 italic">
-                                "Garantindo o acesso equitativo e o uso racional de medicamentos para toda a população de Lajes Pintadas."
+                                "Garantindo o acesso equitativo e o uso racional de medicamentos para toda a população de São Tomé."
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <div className="flex items-center gap-2 bg-rose-50 px-4 py-2 rounded-xl text-rose-700 text-[10px] font-black uppercase tracking-widest border border-rose-100">
@@ -172,7 +172,7 @@ export default async function MedicamentosSUSPage() {
                     <div className="mt-20 space-y-4 text-center">
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] leading-loose">
                             SISTEMA ÚNICO DE SAÚDE • GESTÃO FARMACÊUTICA <br/>
-                            <span className="opacity-50">Lajes Pintadas/RN • Transparência em Saúde Pública</span>
+                            <span className="opacity-50">São Tomé/RN • Transparência em Saúde Pública</span>
                         </p>
                         <div className="flex justify-center gap-2">
                              <div className="w-2 h-2 rounded-full bg-rose-500/20" />
