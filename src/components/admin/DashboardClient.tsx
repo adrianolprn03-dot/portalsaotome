@@ -29,7 +29,8 @@ import {
     BookOpen,
     Eye,
     Calendar,
-    ArrowUpRight
+    ArrowUpRight,
+    Compass
 } from "lucide-react";
 
 interface DashboardClientProps {
@@ -49,6 +50,7 @@ interface DashboardClientProps {
         glossario: number;
         legislacao: number;
         unidades: number;
+        documentos?: number;
     };
     ultimasNoticias: any[];
     ultimasObras: any[];

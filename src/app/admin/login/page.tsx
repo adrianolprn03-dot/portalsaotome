@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
                     <div className="relative z-10">
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-3 w-fit shadow-inner shadow-white/5">
                             <img
-                                src="/logo_v2_white.png"
+                                src="/logo_oficial.png"
                                 alt={`Brasão de ${MUNICIPIO.nome}`}
                                 className="h-10 w-auto object-contain"
                             />
@@ -99,7 +99,7 @@ export default function AdminLoginPage() {
                     <div className="md:hidden flex items-center justify-center mb-6">
                         <div className="bg-[#0088b9]/10 rounded-2xl p-3 inline-flex items-center gap-2 border border-[#0088b9]/10">
                             <img
-                                src="/logo_v2.png"
+                                src="/logo_oficial.png"
                                 alt={`Prefeitura de ${MUNICIPIO.nome}`}
                                 className="h-10 w-auto object-contain"
                             />
@@ -129,7 +129,7 @@ export default function AdminLoginPage() {
                                 autoComplete="username"
                                 value={form.email}
                                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                                placeholder="usuario@lajespintadas.rn.gov.br"
+                                placeholder="usuario@saotome.rn.gov.br"
                                 className="w-full bg-[#f3f7fd] border border-transparent focus:border-[#0088b9] focus:bg-white focus:ring-4 focus:ring-[#0088b9]/10 transition-all duration-300 rounded-2xl py-3.5 px-4 text-sm font-semibold text-gray-800 outline-none placeholder-gray-400"
                             />
                         </div>
