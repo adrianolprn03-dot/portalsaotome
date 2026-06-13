@@ -46,23 +46,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: "Protocolo não permitido" }, { status: 403 });
     }
 
-    // Se a URL pertence à mesma origem (arquivo local), verificamos se o arquivo existe fisicamente
-    // na pasta public antes de redirecionar, para evitar que o visualizador mostre a página 404 do site.
+    // Se a URL pertence à mesma origem (arquivo local), redirecionamos diretamente para que a CDN da Vercel
+    // ou o servidor Next.js sirva o arquivo estático diretamente, evitando a dependência de sistema de arquivos local.
     if (parsedUrl.origin === origin) {
-        try {
-            const fs = await import("fs");
-            const path = await import("path");
-            const filePath = path.join(process.cwd(), "public", parsedUrl.pathname);
-            
-            if (!fs.existsSync(filePath)) {
-                return NextResponse.json({ error: "Arquivo local não encontrado no servidor. Por favor, envie o arquivo PDF no painel de administração." }, { status: 404 });
-            }
-            
-            return NextResponse.redirect(parsedUrl.toString());
-        } catch (e) {
-            console.error("Erro ao verificar arquivo local:", e);
-            return NextResponse.redirect(parsedUrl.toString());
-        }
+        return NextResponse.redirect(parsedUrl.toString());
     }
 
     try {
