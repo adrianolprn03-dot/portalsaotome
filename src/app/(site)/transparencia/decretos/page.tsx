@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { FaExternalLinkAlt, FaGlobe, FaGavel } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Decretos do Executivo | Prefeitura de Lajes Pintadas – RN",
-    description: "Consulta aos Decretos do poder executivo da Prefeitura de Lajes Pintadas – RN.",
+    title: "Decretos do Executivo | Prefeitura de São Tomé – RN",
+    description: "Consulta aos Decretos do poder executivo da Prefeitura de São Tomé – RN.",
 };
 
 export default async function DecretosPage() {

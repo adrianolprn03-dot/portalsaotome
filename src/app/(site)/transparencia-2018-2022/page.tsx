@@ -436,7 +436,7 @@ export default function TransparenciaPage() {
                     
                     <div className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
                         <p className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em]">
-                            © {new Date().getFullYear()} PREFEITURA DE São Tomé/RN • CNPJ: 08.106.505/0001-24
+                            © {new Date().getFullYear()} PREFEITURA DE São Tomé/RN • CNPJ: 08.080.210/0001-49
                         </p>
                         <div className="flex gap-10">
                             {["Privacidade", "Termos", "Ouvidoria"].map(l => (

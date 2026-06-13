@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 
-const CNPJ_LAJES = "08159394000137";
+const CNPJ_MUNICIPIO = "08080210000149";
 
 export interface PNCPArquivo {
     uri: string;
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Parâmetros 'ano' e 'seq' são obrigatórios." }, { status: 400 });
     }
 
-    const url = `https://pncp.gov.br/api/pncp/v1/orgaos/${CNPJ_LAJES}/compras/${ano}/${seq}/arquivos`;
+    const url = `https://pncp.gov.br/api/pncp/v1/orgaos/${CNPJ_MUNICIPIO}/compras/${ano}/${seq}/arquivos`;
 
     try {
         const res = await fetch(url, {

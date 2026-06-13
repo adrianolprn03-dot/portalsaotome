@@ -11,8 +11,8 @@ import Link from "next/link";
 import LeiEstruturaButtons from "@/components/transparencia/LeiEstruturaButtons";
 
 export const metadata: Metadata = {
-    title: "Dados Institucionais | Portal da Transparência – Lajes Pintadas/RN",
-    description: "Informações oficiais da Prefeitura Municipal de Lajes Pintadas – RN: CNPJ, endereço, organograma, competências e símbolos municipais, em conformidade com a PNTP 2026.",
+    title: "Dados Institucionais | Portal da Transparência – São Tomé/RN",
+    description: "Informações oficiais da Prefeitura Municipal de São Tomé – RN: CNPJ, endereço, organograma, competências e símbolos municipais, em conformidade com a PNTP 2026.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -42,16 +42,16 @@ export default async function InstitucionalPage() {
         prefeitoNome, viceNome, secretarias,
         simboloBrasao, simboloBandeira, simboloHino, simboloHinoAudio
     ] = await Promise.all([
-        getConfig("municipio_nome", "Prefeitura Municipal de Lajes Pintadas"),
-        getConfig("cnpj", "08.106.505/0001-24"),
-        getConfig("endereco_sede", "Rua São Francisco, nº 275 – Centro"),
-        getConfig("cep", "59.235-000"),
+        getConfig("municipio_nome", "Prefeitura Municipal de São Tomé"),
+        getConfig("cnpj", "08.080.210/0001-49"),
+        getConfig("endereco_sede", "Praça Antônio Assunção, s/n – Centro"),
+        getConfig("cep", "59.400-000"),
         getConfig("horario_funcionamento", "Segunda a Sexta, das 07h às 13h"),
-        getConfig("contato_email", "contato@lajespintadas.rn.gov.br"),
-        getConfig("contato_telefone", "(84) 3000-0000"),
-        getConfig("site_url", "www.lajespintadas.rn.gov.br"),
-        getConfig("prefeito_nome", "Luciano da Cunha"),
-        getConfig("vice_nome", "João Maria Silva"),
+        getConfig("contato_email", "contato@saotome.rn.gov.br"),
+        getConfig("contato_telefone", "(84) 99211-5922"),
+        getConfig("site_url", "www.saotome.rn.gov.br"),
+        getConfig("prefeito_nome", "Josinaldo Amaro de Lima (Gá)"),
+        getConfig("vice_nome", "Lucinário Félix de Carvalho (Naro)"),
         getSecretarias(),
         getConfig("simbolo_brasao", ""),
         getConfig("simbolo_bandeira", ""),
@@ -62,7 +62,7 @@ export default async function InstitucionalPage() {
     const fichaBasica = [
         { label: "Razão Social", value: razaoSocial, icon: Building2 },
         { label: "CNPJ", value: cnpj, icon: FileText },
-        { label: "Endereço da Sede", value: `${endereco} – Lajes Pintadas/RN`, icon: MapPin },
+        { label: "Endereço da Sede", value: `${endereco} – São Tomé/RN`, icon: MapPin },
         { label: "CEP", value: cep, icon: Globe },
         { label: "Horário de Atendimento", value: horario, icon: Clock },
         { label: "E-mail Oficial", value: email, icon: Mail },
@@ -84,7 +84,7 @@ export default async function InstitucionalPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Dados Institucionais"
-                subtitle="Identificação, competências, estrutura organizacional e localização da Prefeitura Municipal de Lajes Pintadas/RN."
+                subtitle="Identificação, competências, estrutura organizacional e localização da Prefeitura Municipal de São Tomé/RN."
                 variant="premium"
                 icon={<Landmark />}
                 breadcrumbs={[
@@ -340,7 +340,7 @@ export default async function InstitucionalPage() {
                             {/* Mapa embed */}
                             <div className="rounded-2xl overflow-hidden mb-6 border border-white/10">
                                 <iframe
-                                    title="Localização da Prefeitura de Lajes Pintadas"
+                                    title="Localização da Prefeitura de São Tomé"
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.6!2d-36.01!3d-6.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMDAuMCJTIDM2wrAwMCcwMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1"
                                     width="100%"
                                     height="180"
@@ -355,7 +355,7 @@ export default async function InstitucionalPage() {
                                     <MapPin size={14} className="text-blue-400 shrink-0 mt-1" />
                                     <p className="text-sm font-medium text-white/70 leading-snug">
                                         {endereco}<br />
-                                        Lajes Pintadas – RN<br />
+                                        São Tomé – RN<br />
                                         CEP: {cep}
                                     </p>
                                 </div>

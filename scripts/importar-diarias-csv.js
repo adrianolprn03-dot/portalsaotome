@@ -1,7 +1,7 @@
 /**
  * Importador de Diárias - CSV → PostgreSQL (via Prisma)
  * Suporte a encoding Windows-1252 (latin1)
- * Prefeitura de Lajes Pintadas/RN
+ * Prefeitura de São Tomé/RN
  */
 
 const { PrismaClient } = require('@prisma/client');
@@ -110,7 +110,7 @@ function parseCsvLine(line) {
 
 async function main() {
     console.log('═══════════════════════════════════════════');
-    console.log('  IMPORTADOR DE DIÁRIAS — Lajes Pintadas  ');
+    console.log('  IMPORTADOR DE DIÁRIAS — São Tomé  ');
     console.log('═══════════════════════════════════════════');
     console.log(`📂 Arquivo: ${CSV_PATH}\n`);
 

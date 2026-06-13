@@ -13,7 +13,7 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Idosos, gestantes e pessoas com deficiência conforme Lei 10.048/2000.",
         previsaoEspera: "Até 30 dias (prorrogáveis por mais 30).",
         status: "ATIVO",
-        linkAcesso: "https://ouvidoria.lajespintadas.rn.gov.br",
+        linkAcesso: "https://ouvidoria.saotome.rn.gov.br",
         local: "Prefeitura Municipal de São Tomé",
         prazo: "30 dias",
         documentos: "RG, CPF e comprovante de residência (se necessário)."
@@ -28,7 +28,7 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Ordem cronológica de solicitação.",
         previsaoEspera: "Até 20 dias (prorrogáveis por mais 10).",
         status: "ATIVO",
-        linkAcesso: "https://transparencia.lajespintadas.rn.gov.br/esic",
+        linkAcesso: "https://transparencia.saotome.rn.gov.br/esic",
         local: "Setor de Protocolo / Online",
         prazo: "20 dias",
         documentos: "Formulário preenchido e identificação básica."
@@ -43,7 +43,7 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Padrão Legal (Preferencial).",
         previsaoEspera: "Imediato (Online) ou 15 min (Presencial).",
         status: "ATIVO",
-        linkAcesso: "https://lajespintadas.rn.gov.br/portal-contribuinte",
+        linkAcesso: "https://saotome.rn.gov.br/portal-contribuinte",
         local: "Setor de Tributos",
         prazo: "Imediato",
         documentos: "Inscrição do Imóvel."
@@ -58,8 +58,8 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Acesso Universal.",
         previsaoEspera: "Disponível 24h.",
         status: "ATIVO",
-        linkAcesso: "https://transparencia.lajespintadas.rn.gov.br",
-        local: "Online (transparencia.lajespintadas.rn.gov.br)",
+        linkAcesso: "https://transparencia.saotome.rn.gov.br",
+        local: "Online (transparencia.saotome.rn.gov.br)",
         prazo: "Tempo Real / Mensal",
         documentos: "Nenhum documento exigido."
     },
@@ -73,7 +73,7 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Acesso Digital.",
         previsaoEspera: "Imediato.",
         status: "ATIVO",
-        linkAcesso: "https://lajespintadas.rn.gov.br/portal-servidor",
+        linkAcesso: "https://saotome.rn.gov.br/portal-servidor",
         local: "Secretaria de Administração / Online",
         prazo: "Imediato",
         documentos: "CPF e Senha."
@@ -102,7 +102,7 @@ const servicosObrigatorios = [
         prioridadesAtendimento: "Acesso Público e Universal.",
         previsaoEspera: "Imediato.",
         status: "ATIVO",
-        linkAcesso: "https://transparencia.lajespintadas.rn.gov.br/legislacao",
+        linkAcesso: "https://transparencia.saotome.rn.gov.br/legislacao",
         local: "Prefeitura Online",
         prazo: "Imediato",
         documentos: "Nenhum."

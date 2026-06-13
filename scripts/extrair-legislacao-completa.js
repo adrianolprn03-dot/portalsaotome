@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://lajespintadas.rn.gov.br/wp-json/wp/v2';
+const BASE_URL = 'https://saotome.rn.gov.br/wp-json/wp/v2';
 const OUTPUT_FILE = path.join(__dirname, 'legislacao-completa.json');
 
 async function fetchAllFromEndpoint(endpoint, queryParams = '') {

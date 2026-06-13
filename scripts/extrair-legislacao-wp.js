@@ -1,5 +1,5 @@
 /**
- * Script de Extração de Legislação - Portal de Lajes Pintadas/RN
+ * Script de Extração de Legislação - Portal de São Tomé/RN
  * 
  * Extrai via WP REST API:
  * - Decretos
@@ -14,12 +14,12 @@ const path = require('path');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const WP_URL = 'https://lajespintadas.rn.gov.br';
+const WP_URL = 'https://saotome.rn.gov.br';
 const HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'Accept': 'application/json',
     'Accept-Language': 'pt-BR,pt;q=0.9',
-    'Referer': 'https://lajespintadas.rn.gov.br/'
+    'Referer': 'https://saotome.rn.gov.br/'
 };
 
 function decodeHtmlEntities(str) {

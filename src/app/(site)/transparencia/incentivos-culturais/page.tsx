@@ -5,7 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
 export const metadata: Metadata = {
-    title: "Incentivos Culturais e Esportivos | Portal da Transparência – Prefeitura de Lajes Pintadas",
+    title: "Incentivos Culturais e Esportivos | Portal da Transparência – Prefeitura de São Tomé",
     description: "Editais, recursos e resultados dos programas de fomento à cultura, esporte e lazer do município.",
 };
 
@@ -80,7 +80,7 @@ export default function IncentivosCulturaisPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Incentivos Culturais e Esportivos"
-                subtitle="Editais, programas de fomento e recursos destinados à cultura, esporte e lazer da comunidade de Lajes Pintadas."
+                subtitle="Editais, programas de fomento e recursos destinados à cultura, esporte e lazer da comunidade de São Tomé."
                 variant="premium"
                 icon={<Star />}
                 breadcrumbs={[

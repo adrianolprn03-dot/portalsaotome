@@ -4,7 +4,7 @@ import ConcursosClient from "../concursos/_ConcursosClient";
 
 export const metadata: Metadata = {
     title: "Editais Diversos | Portal da Transparência",
-    description: "Acompanhe todos os editais de chamamento, notificações e outros processos públicos da Prefeitura de Lajes Pintadas.",
+    description: "Acompanhe todos os editais de chamamento, notificações e outros processos públicos da Prefeitura de São Tomé.",
 };
 
 export default async function EditaisTransparencyPage() {

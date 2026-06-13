@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { FaExternalLinkAlt, FaGlobe, FaGavel } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Leis Municipais | Prefeitura de Lajes Pintadas – RN",
-    description: "Consulta às Leis Municipais e Leis Orgânicas da Prefeitura de Lajes Pintadas – RN.",
+    title: "Leis Municipais | Prefeitura de São Tomé – RN",
+    description: "Consulta às Leis Municipais e Leis Orgânicas da Prefeitura de São Tomé – RN.",
 };
 
 export default async function LeisPage() {

@@ -277,7 +277,7 @@ export default function DadosAbertosPage() {
                         </div>
                         <h4 className="text-2xl font-black uppercase tracking-tighter mb-4">Licenciamento de Uso Livre</h4>
                         <p className="text-slate-400 font-bold text-sm max-w-2xl leading-relaxed mb-8">
-                            Os dados são publicados sob a Licença <strong className="text-white">Creative Commons CC BY 4.0</strong>. Você tem liberdade para compartilhar, adaptar e usar para fins comerciais, desde que atribua o crédito à Prefeitura de Lajes Pintadas.
+                            Os dados são publicados sob a Licença <strong className="text-white">Creative Commons CC BY 4.0</strong>. Você tem liberdade para compartilhar, adaptar e usar para fins comerciais, desde que atribua o crédito à Prefeitura de São Tomé.
                         </p>
                         <div className="flex gap-4">
                             <Link href="/servicos/esic" className="h-14 flex items-center px-10 bg-white text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-100 transition-all">

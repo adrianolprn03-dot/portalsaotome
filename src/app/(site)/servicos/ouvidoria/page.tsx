@@ -225,7 +225,7 @@ export default function OuvidoriaPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Contatos da Ouvidoria</p>
-                                        <p className="text-sm font-bold text-gray-700">(084) 98748 - 0287</p>
+                                        <p className="text-sm font-bold text-gray-700">(84) 99211-5922</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
@@ -234,7 +234,7 @@ export default function OuvidoriaPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">E-mail</p>
-                                        <p className="text-sm font-bold text-gray-700 break-all">ouvidoria@lajespintadas.rn.gov.br</p>
+                                        <p className="text-sm font-bold text-gray-700 break-all">ouvidoria@saotome.rn.gov.br</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
@@ -243,8 +243,8 @@ export default function OuvidoriaPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Endereço da Ouvidoria</p>
-                                        <p className="text-sm font-bold text-gray-700">São Francisco, 275,  centro</p>
-                                        <p className="text-xs text-gray-400 mt-0.5">Lajes Pintadas - RN, 59235-000</p>
+                                        <p className="text-sm font-bold text-gray-700">Praça Antônio Assunção, s/n, Centro</p>
+                                        <p className="text-xs text-gray-400 mt-0.5">São Tomé - RN, 59400-000</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">

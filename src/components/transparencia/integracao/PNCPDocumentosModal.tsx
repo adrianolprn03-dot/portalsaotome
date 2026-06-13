@@ -332,7 +332,7 @@ export default function PNCPDocumentosModal({ anoCompra, sequencialCompra, numer
                                         Fonte: Portal Nacional de Contratações Públicas
                                     </p>
                                     <a
-                                        href={`https://pncp.gov.br/app/editais/08159394000137-1-${String(sequencialCompra).padStart(6, "0")}/${anoCompra}`}
+                                        href={`https://pncp.gov.br/app/editais/08080210000149-1-${String(sequencialCompra).padStart(6, "0")}/${anoCompra}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1.5 text-[9px] font-black text-blue-600 hover:text-blue-800 uppercase tracking-widest transition-colors"

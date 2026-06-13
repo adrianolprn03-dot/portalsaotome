@@ -5,7 +5,7 @@ async function purge() {
     console.log("🔥 Iniciando limpeza de registros de São Tomé...");
 
     // IBGE de São Tomé: 2412203
-    // IBGE de Lajes Pintadas: 2406601
+    // IBGE de São Tomé: 2406601
 
     const models = [
         'usuario', 'secretaria', 'fAQ', 'legislacao', 

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
     title: "Prefeito e Vice | Portal da Transparência",
-    description: "Identificação institucional dos gestores municipais de Lajes Pintadas – RN.",
+    description: "Identificação institucional dos gestores municipais de São Tomé – RN.",
 };
 
 async function getConfig(chave: string, padrao: string) {
@@ -20,25 +20,25 @@ export default async function GestoresTransparencyPage() {
         viceNome, viceDesc, viceFoto, viceMandato, vicePartido, viceNaturalidade, viceNascimento, viceProfissao, viceEscolaridade,
         emailGabinete
     ] = await Promise.all([
-        getConfig("prefeito_nome", "Luciano da Cunha"),
+        getConfig("prefeito_nome", "Josinaldo Amaro de Lima (Gá)"),
         getConfig("prefeito_descricao", "Gestor municipal."),
         getConfig("prefeito_foto", ""),
         getConfig("prefeito_mandato", "2021 — 2024"),
         getConfig("prefeito_partido", "Não Informado"),
-        getConfig("prefeito_naturalidade", "Lajes Pintadas/RN"),
+        getConfig("prefeito_naturalidade", "São Tomé/RN"),
         getConfig("prefeito_nascimento", "--/--/----"),
         getConfig("prefeito_profissao", "Gestor Público"),
         getConfig("prefeito_escolaridade", "Ensino Superior"),
-        getConfig("vice_nome", "João Maria Silva"),
+        getConfig("vice_nome", "Lucinário Félix de Carvalho (Naro)"),
         getConfig("vice_descricao", "Vice-Prefeito."),
         getConfig("vice_foto", ""),
         getConfig("vice_mandato", "2021 — 2024"),
         getConfig("vice_partido", "Não Informado"),
-        getConfig("vice_naturalidade", "Lajes Pintadas/RN"),
+        getConfig("vice_naturalidade", "São Tomé/RN"),
         getConfig("vice_nascimento", "--/--/----"),
         getConfig("vice_profissao", "Gestor Público"),
         getConfig("vice_escolaridade", "Ensino Superior"),
-        getConfig("contato_email", "gabinete@lajespintadas.rn.gov.br")
+        getConfig("contato_email", "gabinete@saotome.rn.gov.br")
     ]);
 
     const renderInfoItem = (emoji: string, label: string, value: string) => (
@@ -55,7 +55,7 @@ export default async function GestoresTransparencyPage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Gestores Municipais"
-                subtitle="Conheça o Perfil, Trajetória e Atribuições dos Chefes do Poder Executivo de Lajes Pintadas."
+                subtitle="Conheça o Perfil, Trajetória e Atribuições dos Chefes do Poder Executivo de São Tomé."
                 variant="premium"
                 breadcrumbs={[
                     { label: "Início", href: "/" },

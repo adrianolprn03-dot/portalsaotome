@@ -7,7 +7,7 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
 export const metadata: Metadata = {
     title: "Emendas Parlamentares | Portal da Transparência",
-    description: "Acompanhamento de emendas parlamentares destinadas ao município de Lajes Pintadas. Dados importados de bases oficiais do Governo Federal.",
+    description: "Acompanhamento de emendas parlamentares destinadas ao município de São Tomé. Dados importados de bases oficiais do Governo Federal.",
 };
 
 export const dynamic = "force-dynamic";
@@ -35,7 +35,7 @@ export default async function EmendasTransparencyPage() {
         <div className="min-h-screen bg-[#fcfdfe] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Emendas Parlamentares"
-                subtitle="Transparência total sobre os recursos destinados ao desenvolvimento de Lajes Pintadas por emendas federais e estaduais."
+                subtitle="Transparência total sobre os recursos destinados ao desenvolvimento de São Tomé por emendas federais e estaduais."
                 variant="premium"
                 icon={<FaHandshake />}
                 breadcrumbs={[

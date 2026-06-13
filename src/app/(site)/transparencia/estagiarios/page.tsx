@@ -67,8 +67,8 @@ export default function EstagiariosPage() {
             "Status": e.status
         }));
 
-        const filename = `estagiarios_lajes_pintadas`;
-        const title = `Relatório de Estagiários – Município de Lajes Pintadas/RN`;
+        const filename = `estagiarios_sao_tome`;
+        const title = `Relatório de Estagiários – Município de São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -142,7 +142,7 @@ export default function EstagiariosPage() {
                             <p className="text-red-700 font-bold text-lg md:text-xl">
                                 {busca || mes !== "" 
                                     ? "Nenhum estagiário encontrado para os filtros aplicados."
-                                    : `A Prefeitura Municipal de Lajes Pintadas informa que NÃO POSSUÍMOS ESTAGIÁRIOS em nosso quadro de colaboradores para o período selecionado (${mes ? mes + '/' : ''}${ano}).`
+                                    : `A Prefeitura Municipal de São Tomé informa que NÃO POSSUÍMOS ESTAGIÁRIOS em nosso quadro de colaboradores para o período selecionado (${mes ? mes + '/' : ''}${ano}).`
                                 }
                             </p>
                         </div>

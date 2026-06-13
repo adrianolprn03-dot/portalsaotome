@@ -138,7 +138,7 @@ export default function DiariasPage() {
         }));
 
         const filename = `diarias_lajespintadas_${mes}_${ano}`;
-        const title = `Relatório de Concessão de Diárias – Lajes Pintadas/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
+        const title = `Relatório de Concessão de Diárias – São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

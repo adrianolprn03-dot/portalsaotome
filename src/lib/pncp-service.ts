@@ -1,6 +1,6 @@
 /**
  * Serviço de Integração com o PNCP (Portal Nacional de Contratações Públicas)
- * Município de São Tomé | CNPJ: 08159394000137 | Cód. IBGE: 2406809
+ * Município de São Tomé | CNPJ: 08080210000149 | Cód. IBGE: 2412005
  *
  * API Base: https://pncp.gov.br/api/consulta/v1
  * Documentação: https://pncp.gov.br/api/pncp/swagger-ui/index.html
@@ -21,7 +21,7 @@
 import { MUNICIPIO } from "@/config/municipio";
 
 const BASE_URL = "https://pncp.gov.br/api/consulta/v1";
-const CNPJ_LAJES = MUNICIPIO.cnpj.replace(/\D/g, "");
+const CNPJ_MUNICIPIO = MUNICIPIO.cnpj.replace(/\D/g, "");
 
 // ──────────────────────────────────────────
 // Tipos
@@ -144,7 +144,7 @@ export async function getLicitacoesPNCP(
 
     const tam = Math.max(tamanhoPagina, 10); // API exige mínimo 10
 
-    const url = `${BASE_URL}/contratacoes/publicacao?dataInicial=${dataInicial}&dataFinal=${dataFinal}&codigoModalidadeContratacao=${modalidade}&cnpj=${CNPJ_LAJES}&pagina=${pagina}&tamanhoPagina=${tam}`;
+    const url = `${BASE_URL}/contratacoes/publicacao?dataInicial=${dataInicial}&dataFinal=${dataFinal}&codigoModalidadeContratacao=${modalidade}&cnpj=${CNPJ_MUNICIPIO}&pagina=${pagina}&tamanhoPagina=${tam}`;
 
     const data = await fetchPNCP<PNCPResponsePage>(url);
     return data ?? { data: [], totalRegistros: 0, totalPaginas: 0, numeroPagina: 1, paginasRestantes: 0, empty: true };
@@ -190,13 +190,13 @@ export async function getLicitacoesTodasModalidades(
 /**
  * Busca os detalhes de uma compra específica pelo seu número de controle PNCP.
  * Formato: {cnpj}-{unidade}-{sequencial}/{ano}
- * Ex: "08159394000137-1-000002/2024" -> ano=2024, sequencial=2
+ * Ex: "08080210000149-1-000002/2024" -> ano=2024, sequencial=2
  */
 export async function getContratacaoPNCP(
     anoCompra: number,
     sequencialCompra: number
 ): Promise<PNCPContratacao | null> {
-    const url = `${BASE_URL}/orgaos/${CNPJ_LAJES}/compras/${anoCompra}/${sequencialCompra}`;
+    const url = `${BASE_URL}/orgaos/${CNPJ_MUNICIPIO}/compras/${anoCompra}/${sequencialCompra}`;
     return fetchPNCP<PNCPContratacao>(url);
 }
 
@@ -213,7 +213,7 @@ export async function getUltimasLicitacoesPNCP(quantidade: number = 5): Promise<
  * Busca informações do órgão/prefeitura cadastrado no PNCP.
  */
 export async function getOrgaoPNCP() {
-    const url = `https://pncp.gov.br/api/pncp/v1/orgaos/${CNPJ_LAJES}`;
+    const url = `https://pncp.gov.br/api/pncp/v1/orgaos/${CNPJ_MUNICIPIO}`;
     return fetchPNCP<{
         cnpj: string;
         razaoSocial: string;

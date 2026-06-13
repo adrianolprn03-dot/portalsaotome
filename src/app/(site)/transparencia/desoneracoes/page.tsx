@@ -4,7 +4,7 @@ import DesoneracoesClientPage from "./DesoneracoesClientPage";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Desonerações Fiscais | Transparência Lajes Pintadas",
+  title: "Desonerações Fiscais | Transparência São Tomé",
   description: "Detalhamento de incentivos, isenções e anistias fiscais concedidas pelo município.",
 };
 

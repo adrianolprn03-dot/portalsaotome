@@ -67,7 +67,7 @@ export default function ESICPage() {
         endereco: "",
         numero: "",
         bairro: "",
-        cidade: "Lajes Pintadas",
+        cidade: "São Tomé",
         uf: "RN",
         dataAbertura: "",
         concordo: false 
@@ -273,11 +273,11 @@ export default function ESICPage() {
                             <div className="space-y-4">
                                 <div className="flex gap-3">
                                     <FaMapMarker className="text-gray-400 mt-1" size={14} />
-                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">Rua São Francisco, nº 275 – Centro<br/>CEP: 59.235-000</p>
+                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">Praça Antônio Assunção, s/n – Centro<br/>CEP: 59.400-000</p>
                                 </div>
                                 <div className="flex gap-3">
                                     <FaPhone className="text-gray-400 mt-1" size={14} />
-                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">(84) 9.8748 – 0287</p>
+                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">(84) 99211-5922</p>
                                 </div>
                                 <div className="flex gap-3">
                                     <FaClock className="text-gray-400 mt-1" size={14} />
@@ -314,15 +314,15 @@ export default function ESICPage() {
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Contatos do Ouvidoria</p>
-                                                    <p className="font-bold text-gray-700">(84) 9.8748 – 0287</p>
+                                                    <p className="font-bold text-gray-700">(84) 99211-5922</p>
                                                     <p className="font-bold text-gray-700">Whatsapp: (84) 9 8748 – 0287</p>
-                                                    <p className="font-bold text-gray-700 break-all">Email: ouvidoria@lajespintadas.rn.gov.br</p>
+                                                    <p className="font-bold text-gray-700 break-all">Email: ouvidoria@saotome.rn.gov.br</p>
                                                 </div>
                                             </div>
                                             <div className="space-y-6">
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Endereço</p>
-                                                    <p className="font-bold text-gray-700 uppercase">Rua São Francisco, nº 275 – Centro<br/>CEP: 59.235-000</p>
+                                                    <p className="font-bold text-gray-700 uppercase">Praça Antônio Assunção, s/n – Centro<br/>CEP: 59.400-000</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Horário</p>

@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 
 const prisma = new PrismaClient();
 
-const WP_API_BASE = 'https://lajespintadas.rn.gov.br/wp-json/wp/v2';
+const WP_API_BASE = 'https://saotome.rn.gov.br/wp-json/wp/v2';
 const PER_PAGE = 50;
 
 // Função auxiliar para remover HTML de strings (como o resumo)

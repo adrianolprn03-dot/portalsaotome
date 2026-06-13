@@ -8,12 +8,12 @@ async function main() {
         { chave: "prefeito_nome", valor: "Luciano da Cunha", grupo: "gestores", descricao: "Nome do Prefeito Atual" },
         { chave: "prefeito_descricao", valor: "Gestor com longa trajetória no serviço público, focado em transparência, modernização da infraestrutura e humanização do atendimento em saúde.", grupo: "gestores" },
         { chave: "vice_nome", valor: "João Maria Silva", grupo: "gestores", descricao: "Nome do Vice-Prefeito Atual" },
-        { chave: "vice_descricao", valor: "Líder comunitário com foco no desenvolvimento rural e preservação ambiental das serras de Lajes Pintadas.", grupo: "gestores" },
-        { chave: "municipio_nome", valor: "Prefeitura Municipal de Lajes Pintadas", grupo: "institucional" },
+        { chave: "vice_descricao", valor: "Líder comunitário com foco no desenvolvimento rural e preservação ambiental das serras de São Tomé.", grupo: "gestores" },
+        { chave: "municipio_nome", valor: "Prefeitura Municipal de São Tomé", grupo: "institucional" },
         { chave: "cnpj", valor: "08.000.000/0001-00", grupo: "institucional" },
-        { chave: "endereco_sede", valor: "Palácio Municipal Prefeito Alcebíades Bezerra, Praça Central, s/n - Centro, Lajes Pintadas - RN", grupo: "institucional" },
+        { chave: "endereco_sede", valor: "Palácio Municipal Prefeito Alcebíades Bezerra, Praça Central, s/n - Centro, São Tomé - RN", grupo: "institucional" },
         { chave: "horario_funcionamento", valor: "Segunda a Sexta, das 08h às 13h", grupo: "institucional" },
-        { chave: "contato_email", valor: "contato@lajespintadas.rn.gov.br", grupo: "institucional" },
+        { chave: "contato_email", valor: "contato@saotome.rn.gov.br", grupo: "institucional" },
         { chave: "contato_telefone", valor: "(84) 3000-0000", grupo: "institucional" }
     ];
 

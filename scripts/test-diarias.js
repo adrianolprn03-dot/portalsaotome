@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 
 async function testFetch() {
     try {
-        const response = await fetch('https://lajespintadas.rn.gov.br/diarias/', {
+        const response = await fetch('https://saotome.rn.gov.br/diarias/', {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }

@@ -4,7 +4,7 @@ import EmendaPixClientPage from "./EmendaPixClientPage";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Emendas PIX | Transparência Lajes Pintadas",
+  title: "Emendas PIX | Transparência São Tomé",
   description: "Detalhamento das transferências especiais (Emendas PIX) recebidas pelo município.",
 };
 

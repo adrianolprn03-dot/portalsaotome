@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CNPJ_LAJES = "08159394000137";
+const CNPJ_MUNICIPIO = "08080210000149";
 const BASE_URL = "https://pncp.gov.br/api/consulta/v1";
 
 const MODALIDADES = [
@@ -40,7 +40,7 @@ async function fetchAll() {
         for (const mod of MODALIDADES) {
             let pagina = 1;
             while (true) {
-                const url = `${BASE_URL}/contratacoes/publicacao?dataInicial=${dIni}&dataFinal=${dFin}&codigoModalidadeContratacao=${mod.id}&cnpj=${CNPJ_LAJES}&pagina=${pagina}&tamanhoPagina=50`;
+                const url = `${BASE_URL}/contratacoes/publicacao?dataInicial=${dIni}&dataFinal=${dFin}&codigoModalidadeContratacao=${mod.id}&cnpj=${CNPJ_MUNICIPIO}&pagina=${pagina}&tamanhoPagina=50`;
                 const res = await fetchWithTimeout(url);
                 
                 if (!res || !res.ok) break;

@@ -99,7 +99,7 @@ export default function ConveniosPage() {
         }));
 
         const filename = `convenios_${ano}`;
-        const title = `Relatório de Convênios e Repasses – Lajes Pintadas/RN (${ano})`;
+        const title = `Relatório de Convênios e Repasses – São Tomé/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

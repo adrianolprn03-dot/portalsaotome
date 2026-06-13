@@ -10,7 +10,7 @@ import { getSecretariaIcon } from "@/lib/icons";
 
 export const metadata: Metadata = {
     title: "Competências e Atribuições | Portal da Transparência",
-    description: "Atribuições e funções legais da Prefeitura Municipal de Lajes Pintadas – RN e de suas respectivas secretarias.",
+    description: "Atribuições e funções legais da Prefeitura Municipal de São Tomé – RN e de suas respectivas secretarias.",
 };
 
 const competenciasGerais = [

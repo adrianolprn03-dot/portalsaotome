@@ -131,7 +131,7 @@ export default function IntegridadePage() {
                                 Governança & <br/> <span className="text-blue-400 not-italic">Integridade Pública</span>
                             </h2>
                             <p className="text-white/40 font-bold leading-relaxed max-w-2xl text-lg mb-10">
-                                O Programa de Integridade de Lajes Pintadas é o conjunto de medidas institucionalizadas com o objetivo de prevenir, detectar e remediar atos de corrupção, fraude e desvio de conduta.
+                                O Programa de Integridade de São Tomé é o conjunto de medidas institucionalizadas com o objetivo de prevenir, detectar e remediar atos de corrupção, fraude e desvio de conduta.
                             </p>
                             
                             <div className="flex flex-wrap gap-12 items-center border-t border-white/5 pt-10">

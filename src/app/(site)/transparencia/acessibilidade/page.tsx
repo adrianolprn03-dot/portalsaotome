@@ -9,8 +9,8 @@ import {
 } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Acessibilidade Digital | Portal da Transparência – Prefeitura de Lajes Pintadas",
-    description: "Recursos de acessibilidade digital, declaração de conformidade WCAG 2.1 AA e e-MAG disponíveis no portal da Prefeitura Municipal de Lajes Pintadas.",
+    title: "Acessibilidade Digital | Portal da Transparência – Prefeitura de São Tomé",
+    description: "Recursos de acessibilidade digital, declaração de conformidade WCAG 2.1 AA e e-MAG disponíveis no portal da Prefeitura Municipal de São Tomé.",
 };
 
 const recursos = [
@@ -70,7 +70,7 @@ export default function AcessibilidadePage() {
         <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Acessibilidade Digital"
-                subtitle="Declaração de conformidade e recursos de acessibilidade do Portal da Prefeitura Municipal de Lajes Pintadas."
+                subtitle="Declaração de conformidade e recursos de acessibilidade do Portal da Prefeitura Municipal de São Tomé."
                 variant="premium"
                 icon={<FaUniversalAccess />}
                 breadcrumbs={[
@@ -92,7 +92,7 @@ export default function AcessibilidadePage() {
                         <div className="flex flex-col lg:flex-row gap-10">
                             <div className="flex-1">
                                 <p className="text-gray-600 leading-relaxed font-medium mb-6">
-                                    A Prefeitura Municipal de Lajes Pintadas tem o compromisso de garantir a acessibilidade 
+                                    A Prefeitura Municipal de São Tomé tem o compromisso de garantir a acessibilidade 
                                     do seu portal eletrônico em conformidade com as normas vigentes de acessibilidade digital. 
                                     Este portal foi desenvolvido seguindo as diretrizes do <strong>WCAG 2.1 Nível AA</strong> (Web Content 
                                     Accessibility Guidelines) e do <strong>e-MAG 3.1</strong> (Modelo de Acessibilidade em Governo Eletrônico).
@@ -218,9 +218,9 @@ export default function AcessibilidadePage() {
                                 resolver o problema em até <strong>15 dias úteis</strong>.
                             </p>
                             <div className="space-y-3">
-                                <a href="mailto:acessibilidade@lajespintadas.rn.gov.br" className="flex items-center gap-3 text-amber-800 font-bold text-sm hover:text-amber-900 transition-colors">
+                                <a href="mailto:acessibilidade@saotome.rn.gov.br" className="flex items-center gap-3 text-amber-800 font-bold text-sm hover:text-amber-900 transition-colors">
                                     <FaEnvelope className="text-amber-500" />
-                                    acessibilidade@lajespintadas.rn.gov.br
+                                    acessibilidade@saotome.rn.gov.br
                                 </a>
                             </div>
                         </div>

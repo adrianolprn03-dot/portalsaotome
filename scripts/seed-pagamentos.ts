@@ -6,7 +6,7 @@ const FORNECEDORES = [
     { nome: 'Distribuidora de Alimentos Santa Luzia', cnpj: '01.234.567/0001-89' },
     { nome: 'Construtora Vale do Rio SA', cnpj: '11.222.333/0001-44' },
     { nome: 'Farmácia Central de Lajes LTDA', cnpj: '22.333.444/0001-55' },
-    { nome: 'Auto Posto Lajes Pintadas', cnpj: '33.444.555/0001-66' },
+    { nome: 'Auto Posto São Tomé', cnpj: '33.444.555/0001-66' },
     { nome: 'Papelaria e Livraria Estudante', cnpj: '44.555.666/0001-77' },
     { nome: 'Cooperativa de Transporte Potiguar', cnpj: '55.666.777/0001-88' },
     { nome: 'Serviços de Manutenção Predial EIRELI', cnpj: '66.777.888/0001-99' },

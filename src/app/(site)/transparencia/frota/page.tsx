@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Frota Municipal | Portal da Transparência",
-    description: "Relação de veículos e máquinas pesadas pertencentes ao patrimônio do município de Lajes Pintadas – RN.",
+    description: "Relação de veículos e máquinas pesadas pertencentes ao patrimônio do município de São Tomé – RN.",
 };
 
 export default async function FrotaTransparencyPage() {

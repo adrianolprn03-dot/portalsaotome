@@ -88,7 +88,7 @@ export default function NovoConselhoPage() {
                     <div>
                         <label className="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">E-mail do Conselho</label>
                         <input name="email" type="email" value={form.email} onChange={handleChange}
-                            className="input-field" placeholder="conselho@lajesPintadas.rn.gov.br" />
+                            className="input-field" placeholder="conselho@saotome.rn.gov.br" />
                     </div>
                     <div className="md:col-span-2">
                         <label className="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wider">Descrição *</label>

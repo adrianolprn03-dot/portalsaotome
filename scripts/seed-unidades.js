@@ -63,7 +63,7 @@ const unidades = [
         nome: "ESCOLA MUNICIPAL DERVAL OLIVAR COSTA",
         tipo: "Educação",
         descricao: "Unidade Escolar Municipal",
-        endereco: "Rua: São Francisco, centro, Lajes Pintadas/RN",
+        endereco: "Praça Antônio Assunção, s/n, Centro, São Tomé/RN",
         horario: "Segunda a Sexta",
         telefone: "98796-9881 (dervalolivarcosta@gmail.com.br)",
         ativa: true
@@ -128,7 +128,7 @@ const unidades = [
         nome: "CENTRO CONVIVENCIA ESTEVAM GABRIEL DE LIMA",
         tipo: "Socioassistencial",
         descricao: "Centro de Convivência",
-        endereco: "Rua José Varela, 01, centro - Lajes Pintadas",
+        endereco: "Rua José Varela, 01, centro - São Tomé",
         horario: "Segunda a Sexta: 07h as 17h",
         telefone: "(84) 98675-7255 (assistenciasocial.lajesp@gmail.com)",
         ativa: true
@@ -137,7 +137,7 @@ const unidades = [
         nome: "CENTRO DE REFERÊNCIA DE ASSISTÊNCIA SOCIAL - CRAS",
         tipo: "Socioassistencial",
         descricao: "Centro de Referência de Assistência Social (CRAS)",
-        endereco: "Rua José Varela, 01, centro - Lajes Pintadas",
+        endereco: "Rua José Varela, 01, centro - São Tomé",
         horario: "Segunda a Sexta: 07h as 17h",
         telefone: "lajespintadascras@gmail.com",
         ativa: true
@@ -146,7 +146,7 @@ const unidades = [
         nome: "CONSELHO TUTELAR",
         tipo: "Socioassistencial",
         descricao: "Órgão Permanente e Autônomo (Socioassistencial)",
-        endereco: "Rua Joaquim Bernardino da Silva, Lajes Pintadas/RN",
+        endereco: "Rua Joaquim Bernardino da Silva, São Tomé/RN",
         horario: "Segunda a Sexta: 07h as 17h",
         telefone: "ctlprn2020@gmail.com",
         ativa: true

@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import * as cheerio from 'cheerio';
 
 const prisma = new PrismaClient();
-const WP_API_BASE = 'https://lajespintadas.rn.gov.br/wp-json/wp/v2';
+const WP_API_BASE = 'https://saotome.rn.gov.br/wp-json/wp/v2';
 
 function unescapeHtml(text: string): string {
   if (!text) return '';

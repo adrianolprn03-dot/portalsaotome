@@ -4,9 +4,9 @@ import * as cheerio from 'cheerio';
 const prisma = new PrismaClient();
 
 const fontes = [
-    { url: 'https://lajespintadas.rn.gov.br/decretos/', tipo: 'decreto' },
-    { url: 'https://lajespintadas.rn.gov.br/leis-municipais/', tipo: 'lei' },
-    { url: 'https://lajespintadas.rn.gov.br/portarias-municipais/', tipo: 'portaria' }
+    { url: 'https://saotome.rn.gov.br/decretos/', tipo: 'decreto' },
+    { url: 'https://saotome.rn.gov.br/leis-municipais/', tipo: 'lei' },
+    { url: 'https://saotome.rn.gov.br/portarias-municipais/', tipo: 'portaria' }
 ];
 
 async function extrairTabela(url: string, tipo: string) {

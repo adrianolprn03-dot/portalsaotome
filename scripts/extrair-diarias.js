@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const crypto = require('crypto');
 const prisma = new PrismaClient();
 
-const URL_DIARIAS = 'https://lajespintadas.rn.gov.br/diarias/';
+const URL_DIARIAS = 'https://saotome.rn.gov.br/diarias/';
 
 function generateCuid() {
     return crypto.randomBytes(12).toString('hex');

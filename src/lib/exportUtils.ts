@@ -52,7 +52,7 @@ export function exportToPDF(data: any[], filename: string, title?: string) {
 
     // Logo Mockup/Text (PNTP Requisito: Identificação da Entidade)
     doc.setFontSize(18);
-    doc.setTextColor(1, 136, 185); // Azul Lajes Pintadas
+    doc.setTextColor(1, 136, 185); // Azul São Tomé
     doc.text(MUNICIPIO.nomeCompleto, 14, 20);
     
     doc.setFontSize(10);

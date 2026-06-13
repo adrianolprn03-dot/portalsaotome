@@ -460,7 +460,7 @@ export default function AdminConfiguracoesPage() {
                                 name="contato_whatsapp"
                                 value={form.contato_whatsapp}
                                 onChange={handleChange}
-                                placeholder="Ex: 84987480287"
+                                placeholder="Ex: 84992115922"
                                 className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                             />
                         </div>

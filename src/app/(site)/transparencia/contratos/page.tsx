@@ -98,7 +98,7 @@ export default function ContratosPage() {
         }));
 
         const filename = `contratos_${ano}`;
-        const title = `Relatório de Contratos Administrativos – Lajes Pintadas/RN (${ano})`;
+        const title = `Relatório de Contratos Administrativos – São Tomé/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

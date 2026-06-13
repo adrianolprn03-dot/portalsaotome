@@ -1,6 +1,7 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import { MUNICIPIO } from "@/config/municipio";
 
 export const metadata: Metadata = {
     title: "A Prefeitura | Prefeitura Municipal de São Tomé – RN",
@@ -25,17 +26,17 @@ export default function APrefeituraPage() {
                         <div className="flex items-center gap-6">
                             <img src="/images/brasao.png" alt="Brasão de São Tomé" className="w-16 h-16 object-contain" />
                             <div>
-                                <h2 className="text-xl font-black text-[#0088b9] uppercase tracking-tight">Prefeitura Municipal de São Tomé</h2>
-                                <p className="text-sm font-bold text-gray-500 mt-1">CNPJ: 08.159.394/0001-37</p>
+                                <h2 className="text-xl font-black text-[#0088b9] uppercase tracking-tight">{MUNICIPIO.nomeCompleto}</h2>
+                                <p className="text-sm font-bold text-gray-500 mt-1">CNPJ: {MUNICIPIO.cnpj}</p>
                             </div>
                         </div>
                         <div className="text-right border-l-2 border-gray-100 pl-6 hidden md:block">
                             <p className="text-sm text-gray-600 font-medium whitespace-pre-line">
-                                Rua São Francisco, 275, Centro{"\n"}
+                                {MUNICIPIO.endereco}{"\n"}
                                 São Tomé/RN | Funcionamento: Segunda à Sexta, 07h às 13h
                             </p>
                             <p className="text-sm font-bold text-[#01b0ef] mt-2">
-                                (84) 9 8748-0287 | ouvidoria@saotome.rn.gov.br
+                                {MUNICIPIO.telefone} | {MUNICIPIO.email}
                             </p>
                         </div>
                     </div>

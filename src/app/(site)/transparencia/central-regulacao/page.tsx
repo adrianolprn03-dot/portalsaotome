@@ -5,8 +5,8 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Central de Regulação | Portal da Transparência – Prefeitura de Lajes Pintadas",
-    description: "Transparência das listas de espera para consultas, exames e cirurgias eletivas do Sistema Único de Saúde em Lajes Pintadas/RN.",
+    title: "Central de Regulação | Portal da Transparência – Prefeitura de São Tomé",
+    description: "Transparência das listas de espera para consultas, exames e cirurgias eletivas do Sistema Único de Saúde em São Tomé/RN.",
 };
 
 const FILAS = [
@@ -105,7 +105,7 @@ export default function CentralRegulacaoPage() {
                         <div className="space-y-5">
                             <div>
                                 <p className="text-slate-400 text-[9px] font-black uppercase tracking-widest mb-1">Secretaria de Saúde</p>
-                                <p className="font-medium text-sm">Secretaria Municipal de Saúde de Lajes Pintadas</p>
+                                <p className="font-medium text-sm">Secretaria Municipal de Saúde de São Tomé</p>
                             </div>
                             <div>
                                 <p className="text-slate-400 text-[9px] font-black uppercase tracking-widest mb-1">Horário</p>

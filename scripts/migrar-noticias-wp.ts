@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const WP_URL = 'https://lajespintadas.rn.gov.br';
+const WP_URL = 'https://saotome.rn.gov.br';
 
 function decodeHtmlEntities(str: string) {
     if (!str) return '';

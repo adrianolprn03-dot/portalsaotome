@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Legislação Municipal | Prefeitura de Lajes Pintadas – RN",
-    description: "Leis municipais, decretos, portarias e outros atos normativos da Prefeitura de Lajes Pintadas – RN.",
+    title: "Legislação Municipal | Prefeitura de São Tomé – RN",
+    description: "Leis municipais, decretos, portarias e outros atos normativos da Prefeitura de São Tomé – RN.",
 };
 
 export default async function LegislacaoPage() {
@@ -22,7 +22,7 @@ export default async function LegislacaoPage() {
         <div className="min-h-screen bg-gray-50">
             <PageHeader
                 title="Legislação Municipal"
-                subtitle="Atos normativos do Município de Lajes Pintadas — leis, decretos, portarias e regulamentações"
+                subtitle="Atos normativos do Município de São Tomé — leis, decretos, portarias e regulamentações"
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },

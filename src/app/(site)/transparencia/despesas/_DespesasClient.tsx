@@ -104,7 +104,7 @@ export default function DespesasPage() {
         }));
 
         const filename = `despesa_${mes}_${ano}`;
-        const title = `Relatório de Execução Financeira – Lajes Pintadas/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
+        const title = `Relatório de Execução Financeira – São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);

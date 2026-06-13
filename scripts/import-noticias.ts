@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const WP_API_URL = "https://lajespintadas.rn.gov.br/wp-json/wp/v2/posts";
+const WP_API_URL = "https://saotome.rn.gov.br/wp-json/wp/v2/posts";
 
 async function fetchNoticias(page = 1) {
     const url = `${WP_API_URL}?_embed&per_page=20&page=${page}`;

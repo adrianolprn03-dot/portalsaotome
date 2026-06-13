@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
 import { FaPaperPlane, FaPhone, FaMapMarker, FaEnvelope, FaClock } from "react-icons/fa";
+import { MUNICIPIO } from "@/config/municipio";
 
 export default function ContatoPage() {
     const [formData, setFormData] = useState({ nome: '', email: '', assunto: '', mensagem: '' });
@@ -54,8 +55,8 @@ export default function ContatoPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Endereço</p>
-                                        <p className="text-sm font-bold text-gray-700">Rua São Francisco, 275, centro</p>
-                                        <p className="text-xs font-medium text-gray-500 mt-0.5">São Tomé/RN, CEP: 59.235-000</p>
+                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.endereco}</p>
+                                        <p className="text-xs font-medium text-gray-500 mt-0.5">São Tomé/RN, CEP: {MUNICIPIO.cep}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -65,7 +66,7 @@ export default function ContatoPage() {
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Horário</p>
                                         <p className="text-sm font-bold text-gray-700">Segunda a Sexta</p>
-                                        <p className="text-xs font-medium text-gray-500 mt-0.5">08h às 13h</p>
+                                        <p className="text-xs font-medium text-gray-500 mt-0.5">{MUNICIPIO.horario}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -74,7 +75,7 @@ export default function ContatoPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Telefone</p>
-                                        <p className="text-sm font-bold text-gray-700">(84) 98748-0287</p>
+                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.telefone}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -83,7 +84,7 @@ export default function ContatoPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">E-mail Administrativo</p>
-                                        <p className="text-sm font-bold text-gray-700">ouvidoria@saotome.rn.gov.br</p>
+                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.email}</p>
                                     </div>
                                 </div>
                             </div>

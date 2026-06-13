@@ -11,7 +11,7 @@ async function main() {
       valorPrevisto: 450000.00,
       valorPago: 450000.00,
       tipoEmenda: "Transferência Especial",
-      localidade: "Lajes Pintadas - RN",
+      localidade: "São Tomé - RN",
       situacaoExecucao: "PAGO"
     },
     {
@@ -22,7 +22,7 @@ async function main() {
       valorPrevisto: 300000.00,
       valorPago: 0,
       tipoEmenda: "Transferência Especial",
-      localidade: "Lajes Pintadas - RN",
+      localidade: "São Tomé - RN",
       situacaoExecucao: "EM PROCESSAMENTO"
     }
   ]

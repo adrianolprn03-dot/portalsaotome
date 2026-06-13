@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 
 const prisma = new PrismaClient();
 
-const SOURCE_URL = 'https://lajespintadas.rn.gov.br/diarias/';
+const SOURCE_URL = 'https://saotome.rn.gov.br/diarias/';
 
 async function parseDate(dateStr: string): Promise<Date> {
     const parts = dateStr.split('/');
