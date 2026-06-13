@@ -1,29 +1,28 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
-import { FaUserTie, FaUsers, FaBuilding } from "react-icons/fa";
+import { prisma } from "@/lib/prisma";
+import { getSecretariaIcon } from "@/lib/icons";
+import { HiOutlineBuildingOffice2, HiOutlineDocumentArrowDown, HiOutlineArrowsRightLeft } from "react-icons/hi2";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Estrutura Administrativa (Organograma) | São Tomé – RN",
-    description: "Conheça o organograma e a estrutura de governança da Prefeitura Municipal de São Tomé.",
+    description: "Conheça o organograma e a estrutura de governança da Prefeitura Municipal de São Tomé/RN.",
 };
 
-const secretarias = [
-    { nome: "Secretaria de Governo", icone: <FaBuilding /> },
-    { nome: "Administração e Planejamento", icone: <FaUsers /> },
-    { nome: "Tributação, Finanças e Arrecadação", icone: <FaUsers /> },
-    { nome: "Educação, Cultura e Desporto", icone: <FaUsers /> },
-    { nome: "Saúde e Saneamento", icone: <FaUsers /> },
-    { nome: "Trabalho, Habitação e Assistência Social", icone: <FaUsers /> },
-    { nome: "Obras, Viação e Urbanismo", icone: <FaUsers /> },
-    { nome: "Agricultura, Meio Ambiente e Recursos Hídricos", icone: <FaUsers /> },
-];
+export default async function EstruturaPage() {
+    // Busca as secretarias ativas diretamente do banco de dados
+    const secretarias = await prisma.secretaria.findMany({
+        orderBy: { nome: 'asc' }
+    });
 
-export default function EstruturaPage() {
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Estrutura Administrativa"
                 subtitle="Organograma hierárquico e distribuição das pastas que compõem a gestão do município."
+                variant="premium"
+                icon={<HiOutlineBuildingOffice2 className="w-8 h-8" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "O Município", href: "/a-prefeitura" },
@@ -31,70 +30,113 @@ export default function EstruturaPage() {
                 ]}
             />
 
-            <div className="max-w-[1000px] mx-auto px-6 py-16">
+            <div className="max-w-7xl mx-auto px-6 py-16 mb-20 relative z-10 w-full">
                 
-                {/* Chefe do Executivo */}
-                <div className="flex flex-col items-center mb-12">
-                    <div className="bg-gradient-to-b from-[#0088b9] to-[#006b94] text-white rounded-2xl p-8 shadow-xl w-full max-w-sm text-center relative border-b-4 border-[#FDB913]">
-                        <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white/20">
-                            <FaUserTie size={36} className="text-white" />
-                        </div>
-                        <h2 className="text-2xl font-black uppercase tracking-widest mb-1">Prefeito Municipal</h2>
-                        <p className="text-blue-100 font-medium text-sm">Chefe do Poder Executivo</p>
+                {/* Organograma Visual (Imagem Oficial) */}
+                <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-gray-200/50 border border-gray-100/50 mb-16 text-center">
+                    <div className="flex flex-col items-center mb-8">
+                        <span className="text-[10px] font-black text-[#0088b9] uppercase tracking-widest bg-blue-50 px-4 py-2 rounded-full mb-3 shadow-sm border border-blue-100/20">
+                            Esquema Visual
+                        </span>
+                        <h3 className="font-black text-2xl md:text-3xl text-gray-800 tracking-tight leading-tight">
+                            Organograma Oficial
+                        </h3>
+                        <p className="text-gray-400 text-sm mt-2 max-w-lg font-medium">
+                            Representação gráfica da divisão hierárquica e das relações de coordenação entre os órgãos do município de São Tomé/RN.
+                        </p>
                     </div>
 
-                    {/* Linha Vertical Conectora */}
-                    <div className="w-1 h-12 bg-gray-300 rounded-full"></div>
-                    
-                    {/* Vice Prefeito e Procuradoria */}
-                    <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-center lg:items-start w-full justify-center">
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-full max-w-[280px] text-center relative">
-                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-gray-200 rounded-full border-4 border-gray-50 flex items-center justify-center"></div>
-                            <h3 className="text-[#0088b9] font-bold uppercase tracking-wider mb-1">Vice-Prefeito</h3>
-                            <p className="text-sm text-gray-500">Apoio ao Executivo</p>
-                        </div>
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-full max-w-[280px] text-center relative">
-                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-gray-200 rounded-full border-4 border-gray-50 flex items-center justify-center"></div>
-                            <h3 className="text-[#0088b9] font-bold uppercase tracking-wider mb-1">Procuradoria Geral</h3>
-                            <p className="text-sm text-gray-500">Assessoria Jurídica</p>
-                        </div>
+                    {/* Contêiner da Imagem */}
+                    <div className="relative rounded-3xl overflow-hidden border border-gray-100 bg-[#f8fafc] p-2 md:p-6 group/image">
+                        <img 
+                            src="/organograma.png" 
+                            alt="Organograma Oficial da Prefeitura de São Tomé/RN" 
+                            className="w-full h-auto object-contain rounded-2xl shadow-sm transition-transform duration-500 group-hover/image:scale-[1.01]"
+                        />
                     </div>
-                    
-                    <div className="w-1 h-16 bg-gray-300 rounded-full"></div>
-                    <div className="w-full h-1 bg-gray-300 rounded-full md:max-w-2xl relative">
-                        <div className="absolute left-1/2 -top-1 w-3 h-3 bg-gray-400 rounded-full -translate-x-1/2"></div>
-                    </div>
-                </div>
 
-                {/* Secretarias */}
-                <div className="mt-12">
-                    <h3 className="text-center font-black text-2xl text-gray-800 mb-10 w-full relative after:content-[''] after:block after:w-16 after:h-1 after:bg-[#FDB913] after:mx-auto after:mt-3">
-                        Secretarias Municipais
-                    </h3>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {secretarias.map((sec, i) => (
-                            <div key={i} className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:-translate-y-1 transition-transform group flex items-start gap-4">
-                                <div className="p-3 bg-blue-50 text-blue-500 rounded-lg group-hover:bg-[#01b0ef] group-hover:text-white transition-colors shrink-0">
-                                    {sec.icone}
-                                </div>
-                                <h4 className="font-bold text-gray-700 text-sm leading-tight flex-1">
-                                    {sec.nome}
-                                </h4>
-                            </div>
-                        ))}
+                    {/* Botões de Ação */}
+                    <div className="flex flex-wrap justify-center gap-4 mt-10">
+                        <a 
+                            href="/organograma.png" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="inline-flex items-center gap-2.5 py-3.5 px-8 bg-[#0088b9] text-white rounded-full font-bold uppercase tracking-wider text-[10px] hover:bg-[#007099] transition-all hover:shadow-lg hover:shadow-blue-500/20"
+                        >
+                            <HiOutlineArrowsRightLeft className="w-4 h-4 rotate-45" />
+                            Ampliar Organograma
+                        </a>
+                        <a 
+                            href="/organograma.png" 
+                            download="organograma-prefeitura-sao-tome.png" 
+                            className="inline-flex items-center gap-2.5 py-3.5 px-8 bg-gray-100 text-gray-700 rounded-full font-bold uppercase tracking-wider text-[10px] hover:bg-gray-200 transition-all hover:shadow-sm"
+                        >
+                            <HiOutlineDocumentArrowDown className="w-4 h-4 text-gray-500" />
+                            Baixar Imagem
+                        </a>
                     </div>
                 </div>
 
-                {/* Aviso Final */}
+                {/* Secretarias e Setores Detalhados */}
+                <div className="mt-8">
+                    <div className="flex flex-col items-center mb-10 text-center">
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-4 py-2 rounded-full mb-3 shadow-sm border border-emerald-100/20">
+                            Estrutura Detalhada
+                        </span>
+                        <h3 className="font-black text-2xl md:text-3xl text-gray-800 tracking-tight leading-tight">
+                            Órgãos e Secretarias Ativas
+                        </h3>
+                        <p className="text-gray-400 text-sm mt-2 max-w-lg font-medium">
+                            Acesse a página de cada secretaria para consultar as competências detalhadas, estrutura interna, contatos e gestor de cada pasta.
+                        </p>
+                    </div>
+
+                    {secretarias.length === 0 ? (
+                        <div className="text-center py-20 bg-white rounded-[2.5rem] border border-dashed border-gray-200">
+                            <p className="text-gray-400 font-medium italic">Nenhuma secretaria cadastrada no momento.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {secretarias.map((sec: any) => {
+                                const IconCard = getSecretariaIcon(sec.nome);
+
+                                return (
+                                    <Link 
+                                        key={sec.id}
+                                        href={`/secretarias/${sec.slug}`}
+                                        className="group bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40 p-6 hover:-translate-y-1 hover:border-primary-100 hover:shadow-primary-900/5 transition-all duration-300 flex items-start gap-4"
+                                    >
+                                        <div className="p-3 bg-blue-50 text-[#0088b9] rounded-xl group-hover:bg-[#0088b9] group-hover:text-white transition-colors shrink-0 shadow-inner">
+                                            <IconCard size={22} />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <h4 className="font-extrabold text-gray-800 text-sm leading-snug group-hover:text-primary-600 transition-colors uppercase tracking-tight">
+                                                {sec.nome}
+                                            </h4>
+                                            {sec.secretario && (
+                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 truncate">
+                                                    Gestor: {sec.secretario}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+
+                {/* Seção de Contatos Rápidos */}
                 <div className="mt-16 text-center">
-                    <a href="/secretarias" className="inline-flex py-3 px-8 bg-gray-800 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-900 transition-colors shadow-lg">
+                    <Link 
+                        href="/secretarias" 
+                        className="inline-flex py-4 px-10 bg-gray-900 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/10 hover:shadow-gray-900/20"
+                    >
                         Ver Lista de Contatos dos Secretários
-                    </a>
+                    </Link>
                 </div>
 
             </div>
         </div>
     );
 }
-
