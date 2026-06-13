@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { FaUserTie, FaUsers, FaBuilding } from "react-icons/fa";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const secretarias = [
-    { nome: "Gabinete do Prefeito", icone: <FaBuilding /> },
+    { nome: "Secretaria de Governo", icone: <FaBuilding /> },
     { nome: "Administração e Planejamento", icone: <FaUsers /> },
     { nome: "Tributação, Finanças e Arrecadação", icone: <FaUsers /> },
     { nome: "Educação, Cultura e Desporto", icone: <FaUsers /> },

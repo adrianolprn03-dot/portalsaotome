@@ -143,12 +143,12 @@ export default async function PrefeitoPage() {
                     </div>
                 </div>
 
-                {/* Gabinete do Prefeito */}
+                {/* Secretaria de Governo */}
                 <div className="mt-20 p-12 bg-blue-950 rounded-[4rem] text-white shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
                     <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
                         <div className="flex-1 text-center md:text-left">
-                            <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Gabinete do Prefeito</h3>
+                            <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Secretaria de Governo</h3>
                             <p className="text-blue-100 font-medium max-w-xl leading-relaxed">
                                 O Gabinete é o canal direto de interlocução entre a população e os gestores. Estamos abertos para ouvir sugestões e demandas que ajudem a construir uma cidade melhor.
                             </p>

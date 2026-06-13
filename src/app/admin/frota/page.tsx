@@ -23,7 +23,7 @@ export default function AdminFrotaPage() {
         modelo: "",
         placa: "",
         ano: "",
-        secretaria: "Gabinete do Prefeito",
+        secretaria: "Secretaria de Governo",
         tipo: "Automóvel",
         status: "em-uso"
     });
@@ -58,7 +58,7 @@ export default function AdminFrotaPage() {
             });
         } else {
             setEditingId(null);
-            setForm({ modelo: "", placa: "", ano: "", secretaria: "Gabinete do Prefeito", tipo: "Automóvel", status: "em-uso" });
+            setForm({ modelo: "", placa: "", ano: "", secretaria: "Secretaria de Governo", tipo: "Automóvel", status: "em-uso" });
         }
         setShowModal(true);
     };

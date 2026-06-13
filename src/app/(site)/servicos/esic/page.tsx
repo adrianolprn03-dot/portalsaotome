@@ -544,7 +544,7 @@ export default function ESICPage() {
                                                 <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Órgão / Secretaria *</label>
                                                 <select required value={esicForm.orgao} onChange={e => setEsicForm({...esicForm, orgao: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold">
                                                     <option value="">Selecione...</option>
-                                                    <option>Gabinete do Prefeito</option>
+                                                    <option>Secretaria de Governo</option>
                                                     <option>Secretaria de Administração</option>
                                                     <option>Secretaria de Saúde</option>
                                                     <option>Secretaria de Educação</option>

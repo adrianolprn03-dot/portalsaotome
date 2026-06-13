@@ -1,4 +1,4 @@
-﻿import PageHeader from "@/components/PageHeader";
+import PageHeader from "@/components/PageHeader";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { 
@@ -81,8 +81,8 @@ export default async function SecretariasPage() {
                                                     {s.nome}
                                                 </h3>
                                                 {s.secretario && (
-                                                    <div className="flex items-center gap-2 text-white/80 text-[10px] font-black uppercase tracking-widest">
-                                                        <HiOutlineUser size={14} className="text-white/60" />
+                                                    <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 text-white text-[11px] font-black uppercase tracking-widest mt-2 shadow-sm transition-all group-hover:bg-white/25">
+                                                        <HiOutlineUser size={14} className="text-white" />
                                                         GESTOR: {s.secretario}
                                                     </div>
                                                 )}

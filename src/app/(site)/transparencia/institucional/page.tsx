@@ -163,11 +163,11 @@ export default async function InstitucionalPage() {
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black text-slate-800 uppercase tracking-tight">Lei da Estrutura Organizacional</h4>
-                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Municipal nº 246/2013 — Dispõe sobre a organização administrativa do município.</p>
+                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Complementar nº 16/2022 — Dispõe sobre a organização administrativa do município.</p>
                                     </div>
                                 </div>
                                 <div className="shrink-0 w-full md:w-auto">
-                                    <LeiEstruturaButtons pdfUrl="/uploads/lei-estrutura-organizacional.pdf" />
+                                    <LeiEstruturaButtons pdfUrl="/uploads/LEI-COMPLEMENTAR-16-2022_compressed.pdf" />
                                 </div>
                             </div>
 
@@ -203,11 +203,11 @@ export default async function InstitucionalPage() {
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black text-slate-800 uppercase tracking-tight">Lei da Estrutura Organizacional</h4>
-                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Municipal nº 246/2013 — Dispõe sobre a organização administrativa do município.</p>
+                                        <p className="text-xs font-semibold text-slate-500 mt-1">Lei Complementar nº 16/2022 — Dispõe sobre a organização administrativa do município.</p>
                                     </div>
                                 </div>
                                 <div className="shrink-0 w-full md:w-auto">
-                                    <LeiEstruturaButtons pdfUrl="/uploads/lei-estrutura-organizacional.pdf" />
+                                    <LeiEstruturaButtons pdfUrl="/uploads/LEI-COMPLEMENTAR-16-2022_compressed.pdf" />
                                 </div>
                             </div>
 
@@ -389,7 +389,7 @@ export default async function InstitucionalPage() {
                                     { label: "Gestores Municipais", href: "/transparencia/gestores", desc: "Prefeito e Vice-Prefeito" },
                                     { label: "Carta de Serviços", href: "/transparencia/carta-servicos", desc: "Serviços ao Cidadão" },
                                     { label: "Estrutura Organizacional", href: "/a-prefeitura/estrutura", desc: "Organograma completo" },
-                                    { label: "Lei da Estrutura (PDF)", href: "/uploads/lei-estrutura-organizacional.pdf", desc: "Lei Municipal nº 246/2013", target: "_blank" },
+                                    { label: "Lei da Estrutura (PDF)", href: "/uploads/LEI-COMPLEMENTAR-16-2022_compressed.pdf", desc: "Lei Complementar nº 16/2022", target: "_blank" },
                                     { label: "Símbolos Municipais", href: "/transparencia/simbolos", desc: "Brasão, bandeira e hino" },
                                     { label: "Lei Orgânica", href: "/transparencia/leis", desc: "Legislação base do município" },
                                     { label: "Ouvidoria", href: "/servicos/ouvidoria", desc: "Fale com a gestão" },

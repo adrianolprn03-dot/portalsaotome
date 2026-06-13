@@ -53,21 +53,21 @@ export default async function SecretariaDetalhesPage({ params }: { params: { slu
                                 })()}
                                 Sobre a Secretaria
                             </h2>
-                            <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                            <p className="text-gray-600 text-lg leading-relaxed font-medium whitespace-pre-line">
                                 {secretaria.descricao}
                             </p>
                         </section>
 
-                        <section className="bg-gray-50 rounded-[3rem] p-12 border border-gray-100">
-                             <h2 className="text-xl font-black text-gray-800 uppercase tracking-tighter mb-8">Estrutura de Gestão</h2>
+                        <section className="bg-gradient-to-r from-blue-50 to-indigo-50/30 rounded-[3rem] p-12 border border-blue-100 shadow-sm">
+                             <h2 className="text-xl font-black text-blue-900 uppercase tracking-tighter mb-8">Estrutura de Gestão</h2>
                              <div className="flex flex-col md:flex-row items-center gap-8">
-                                <div className="w-32 h-32 bg-white rounded-[2.5rem] shadow-xl flex items-center justify-center text-blue-600 shrink-0 border border-gray-50">
+                                <div className="w-32 h-32 bg-white rounded-[2.5rem] shadow-xl flex items-center justify-center text-blue-600 shrink-0 border border-blue-100/50">
                                     <FaUserTie size={48} />
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-2 block">Secretário(a) Responsável</span>
-                                    <h3 className="text-2xl font-black text-gray-800 uppercase tracking-tighter mb-4">{secretaria.secretario || "Informação em atualização"}</h3>
-                                    <p className="text-gray-500 text-sm font-medium leading-relaxed">Responsável pela gestão da pasta, coordenação de equipes e execução das políticas públicas da área.</p>
+                                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-2 block">Secretário(a) Responsável</span>
+                                    <h3 className="text-2xl font-black text-blue-900 uppercase tracking-tighter mb-4">{secretaria.secretario || "Informação em atualização"}</h3>
+                                    <p className="text-blue-950/70 text-sm font-medium leading-relaxed">Responsável pela gestão da pasta, coordenação de equipes e execução das políticas públicas da área do município de São Tomé.</p>
                                 </div>
                              </div>
                         </section>
