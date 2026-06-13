@@ -61,13 +61,19 @@ export default function OrcamentoPage() {
             if (ano) docQuery.append("ano", ano);
             if (tipo) docQuery.append("tipo", tipo.toLowerCase()); else docQuery.append("tipo", "loa,ldo,ppa");
 
-            const [legRes, docRes] = await Promise.all([
+            const rfQuery = new URLSearchParams();
+            if (ano) rfQuery.append("ano", ano);
+            if (tipo) rfQuery.append("tipo", tipo.toUpperCase());
+
+            const [legRes, docRes, rfRes] = await Promise.all([
                 fetch(`/api/legislacao?${legQuery.toString()}`),
-                fetch(`/api/documentos?${docQuery.toString()}`)
+                fetch(`/api/documentos?${docQuery.toString()}`),
+                fetch(`/api/admin/relatorios-fiscais?${rfQuery.toString()}`)
             ]);
             
             const legData = legRes.ok ? await legRes.json() : { items: [] };
             const docData = docRes.ok ? await docRes.json() : [];
+            const rfData = rfRes.ok ? await rfRes.json() : [];
 
             let mappedDocs: Documento[] = [];
 
@@ -100,6 +106,29 @@ export default function OrcamentoPage() {
                     tamanho: item.tamanho || 0
                 }));
                 mappedDocs = [...mappedDocs, ...mappedDoc];
+            }
+
+            if (Array.isArray(rfData)) {
+                const allowedTypes = tipo ? [tipo.toUpperCase()] : ["LOA", "LDO", "PPA"];
+                const filteredRf = rfData.filter((item: any) => {
+                    const itemTipo = item.tipo?.toUpperCase();
+                    const matchesType = allowedTypes.includes(itemTipo);
+                    const matchesBusca = busca 
+                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
+                          item.tipo?.toLowerCase().includes(busca.toLowerCase())
+                        : true;
+                    return matchesType && matchesBusca;
+                });
+
+                const mappedRf = filteredRf.map((item: any) => ({
+                    id: item.id,
+                    titulo: item.titulo,
+                    tipo: item.tipo.toUpperCase(),
+                    arquivo: item.arquivo,
+                    ano: item.ano,
+                    tamanho: 0
+                }));
+                mappedDocs = [...mappedDocs, ...mappedRf];
             }
             
             // Sort combined results by ano desc
