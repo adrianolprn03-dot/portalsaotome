@@ -7,8 +7,13 @@ export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
         const tipo = searchParams.get("tipo");
+        const ano = searchParams.get("ano");
 
-        const where = tipo ? { tipo } : {};
+        const where: any = {};
+        if (tipo) where.tipo = tipo;
+        if (ano) {
+            where.ano = parseInt(ano);
+        }
 
         const relatorios = await prisma.relatorioFiscal.findMany({
             where,

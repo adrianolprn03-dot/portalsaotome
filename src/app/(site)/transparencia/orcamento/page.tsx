@@ -81,7 +81,11 @@ export default function OrcamentoPage() {
             let mappedDocs: Documento[] = [];
 
             if (legData && legData.items) {
-                const mapped = legData.items.map((item: any) => ({
+                const filteredLeg = legData.items.filter((item: any) => {
+                    const matchesAno = ano ? item.ano === parseInt(ano) : true;
+                    return matchesAno;
+                });
+                const mapped = filteredLeg.map((item: any) => ({
                     id: item.id,
                     titulo: item.ementa,
                     tipo: item.tipo.toUpperCase(),
@@ -93,11 +97,15 @@ export default function OrcamentoPage() {
             }
 
             if (Array.isArray(docData)) {
-                const filteredDocs = busca
-                    ? docData.filter((item: any) => 
-                        item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
-                        item.tipo?.toLowerCase().includes(busca.toLowerCase()))
-                    : docData;
+                const filteredDocs = docData.filter((item: any) => {
+                    const matchesBusca = busca
+                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
+                          item.tipo?.toLowerCase().includes(busca.toLowerCase())
+                        : true;
+                    const itemAno = item.ano || new Date(item.criadoEm).getFullYear();
+                    const matchesAno = ano ? itemAno === parseInt(ano) : true;
+                    return matchesBusca && matchesAno;
+                });
 
                 const mappedDoc = filteredDocs.map((item: any) => ({
                     id: item.id,
@@ -116,11 +124,12 @@ export default function OrcamentoPage() {
                 const filteredRf = rfData.filter((item: any) => {
                     const itemTipo = item.tipo?.toUpperCase();
                     const matchesType = allowedTypes.includes(itemTipo);
+                    const matchesAno = ano ? item.ano === parseInt(ano) : true;
                     const matchesBusca = busca 
                         ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
                           item.tipo?.toLowerCase().includes(busca.toLowerCase())
                         : true;
-                    return matchesType && matchesBusca;
+                    return matchesType && matchesAno && matchesBusca;
                 });
 
                 const mappedRf = filteredRf.map((item: any) => ({
