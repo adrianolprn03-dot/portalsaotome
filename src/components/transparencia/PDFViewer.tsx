@@ -11,7 +11,7 @@ interface PDFViewerProps {
 }
 
 export default function PDFViewer({ url, titulo, onClose }: PDFViewerProps) {
-    const viewerUrl = `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
+    const viewerUrl = url.startsWith("data:") ? url : `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -54,6 +54,7 @@ export default function PDFViewer({ url, titulo, onClose }: PDFViewerProps) {
                     <div className="flex items-center gap-2 shrink-0">
                         <a
                             href={url}
+                            download={url.startsWith("data:") ? `${titulo.replace(/\.pdf$/i, "")}.pdf` : undefined}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-xl text-xs font-bold hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/20"
