@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaNewspaper, FaSpinner, FaDownload, FaSearch, FaCalendar, FaTag, FaFilter } from "react-icons/fa";
+import { FaNewspaper, FaSpinner, FaDownload, FaSearch, FaCalendar, FaTag, FaFilter, FaFilePdf, FaEye } from "react-icons/fa";
 import { FileText } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 import TransparencyFilters from "@/components/transparencia/TransparencyFilters";
+import PDFViewer from "@/components/transparencia/PDFViewer";
 
 type Publicacao = {
     id: string;
@@ -63,6 +65,7 @@ export default function PublicacoesPage() {
     const [ano, setAno] = useState(new Date().getFullYear().toString());
     const [mes, setMes] = useState("");
     const [tipoFiltro, setTipoFiltro] = useState("");
+    const [pdfViewer, setPdfViewer] = useState<{ url: string; titulo: string } | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -182,57 +185,93 @@ export default function PublicacoesPage() {
                 </div>
 
                 {/* Lista */}
-                <div className="space-y-5">
+                <div className="space-y-6">
                     {loading ? (
-                        <div className="bg-white rounded-[3rem] p-24 text-center border border-gray-100">
-                            <FaSpinner className="animate-spin text-slate-500 text-4xl mb-4 mx-auto" />
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Carregando publicações...</p>
+                        <div className="flex flex-col justify-center items-center py-32 gap-6">
+                            <div className="relative w-16 h-16">
+                                <div className="absolute inset-0 border-4 border-blue-100 rounded-full" />
+                                <div className="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin" />
+                            </div>
+                            <p className="font-black text-gray-300 text-[9px] uppercase tracking-[0.4em] animate-pulse">Carregando publicações...</p>
                         </div>
                     ) : filtradas.length === 0 ? (
-                        <div className="bg-white rounded-[3rem] p-24 text-center border-2 border-dashed border-gray-100">
-                            <FaNewspaper className="text-gray-200 text-5xl mx-auto mb-6" />
+                        <div className="bg-white rounded-[3.5rem] border border-dashed border-gray-200 p-24 text-center shadow-inner">
+                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gray-50 text-gray-300 mb-8 border border-gray-100">
+                                <FaNewspaper size={24} />
+                            </div>
                             <h4 className="text-xl font-black text-gray-800 uppercase tracking-tighter mb-3">Nenhuma publicação localizada</h4>
-                            <p className="text-gray-400 text-sm italic">Ajuste os filtros para encontrar a publicação desejada.</p>
+                            <p className="text-gray-400 font-medium text-sm max-w-sm mx-auto">Ajuste os filtros para encontrar a publicação desejada.</p>
                         </div>
                     ) : (
-                        filtradas.map(pub => (
-                            <div key={pub.id} className="group bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/30 hover:shadow-xl hover:shadow-slate-200/40 transition-all duration-300 p-6">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                    <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-10 h-10 bg-slate-50 text-slate-500 rounded-xl flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-slate-700 group-hover:text-white transition-all duration-500">
-                                            <FaNewspaper size={16} />
-                                        </div>
-                                    <div className="flex-1">
-                                        <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                            <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[8px] font-black uppercase tracking-widest border ${TIPO_COR[pub.tipo] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
-                                                <FaTag size={7} /> {pub.tipo}
-                                            </span>
-                                            <span className="flex items-center gap-1 text-[9px] font-bold text-gray-400 uppercase">
-                                                <FaCalendar size={8} className="text-gray-300" />
-                                                {new Date(pub.dataPublicacao).toLocaleDateString("pt-BR")}
-                                            </span>
-                                        </div>
-                                        <h3 className="font-black text-gray-800 text-[11px] uppercase tracking-tight mb-1 group-hover:text-slate-700 transition-colors">{pub.titulo}</h3>
-                                        <p className="text-[10px] text-gray-400 font-bold leading-relaxed line-clamp-2 italic opacity-80">"{pub.descricao}"</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2 shrink-0">
-                                    <span className="text-[8px] font-black text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-1 rounded-lg border border-gray-100">
-                                        {pub.secretaria}
-                                    </span>
-                                    <a 
-                                        href={pub.arquivo || pub.documentUrl || "#"} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-500 hover:text-slate-700 hover:border-slate-300 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all shadow-sm"
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                            <AnimatePresence mode="popLayout">
+                                {filtradas.map((pub, idx) => (
+                                    <motion.div 
+                                        key={pub.id}
+                                        initial={{ opacity: 0, y: 16 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        transition={{ delay: idx * 0.04 }}
+                                        className="group bg-white rounded-xl border border-slate-200/80 hover:border-primary-300 shadow-sm hover:shadow-lg hover:shadow-primary-500/5 transition-all duration-300 flex flex-col"
                                     >
-                                        <FaDownload size={8} />
-                                        {pub.arquivo ? "Baixar" : "Ver"}
-                                    </a>
-                                </div>
-                            </div>
+                                        {/* Card body */}
+                                        <div className="p-5 flex-1">
+                                            <div className="flex items-start gap-4">
+                                                <div className="w-11 h-11 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                                                    <FaFilePdf size={18} />
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <h4 className="font-bold text-slate-800 text-sm leading-snug mb-1.5 line-clamp-2 group-hover:text-primary-700 transition-colors">
+                                                        {pub.titulo.replace(/\.pdf$/i, "")}
+                                                    </h4>
+                                                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${TIPO_COR[pub.tipo] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
+                                                            {pub.tipo}
+                                                        </span>
+                                                        <span className="text-[11px] text-slate-400 font-medium">
+                                                            {new Date(pub.dataPublicacao).toLocaleDateString("pt-BR")}
+                                                        </span>
+                                                    </div>
+                                                    {pub.secretaria && (
+                                                        <span className="inline-block text-[10px] font-bold text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-100/50 uppercase tracking-wider">
+                                                            {pub.secretaria}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Card footer com ações */}
+                                        <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-2">
+                                            {pub.arquivo || pub.documentUrl ? (
+                                                <>
+                                                    <button
+                                                        onClick={() => setPdfViewer({ url: (pub.arquivo || pub.documentUrl)!, titulo: pub.titulo.replace(/\.pdf$/i, "") })}
+                                                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary-50 text-primary-700 rounded-lg text-xs font-bold hover:bg-primary-600 hover:text-white transition-all duration-200"
+                                                    >
+                                                        <FaEye size={12} />
+                                                        Visualizar
+                                                    </button>
+                                                    <a
+                                                        href={pub.arquivo || pub.documentUrl || "#"}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-700 hover:text-white transition-all duration-200"
+                                                    >
+                                                        <FaDownload size={11} />
+                                                        Baixar
+                                                    </a>
+                                                </>
+                                            ) : (
+                                                <div className="w-full py-2.5 bg-slate-50 text-slate-400 rounded-lg text-xs font-bold text-center border border-dashed border-slate-200">
+                                                    Arquivo Indisponível
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
                         </div>
-                        ))
                     )}
                 </div>
 
@@ -240,6 +279,17 @@ export default function PublicacoesPage() {
                     <BannerPNTP />
                 </div>
             </div>
+
+            {/* ═══════ MODAL PDF VIEWER ═══════ */}
+            <AnimatePresence>
+                {pdfViewer && (
+                    <PDFViewer
+                        url={pdfViewer.url}
+                        titulo={pdfViewer.titulo}
+                        onClose={() => setPdfViewer(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }

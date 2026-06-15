@@ -9,9 +9,11 @@ import {
 } from "react-icons/fa6";
 import { 
     FaDownload, FaSpinner, FaFileContract, 
-    FaChevronRight, FaArrowRight, FaFilter, FaChartPie 
+    FaChevronRight, FaArrowRight, FaFilter, FaChartPie,
+    FaFilePdf, FaEye
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import PDFViewer from "@/components/transparencia/PDFViewer";
 import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import TransparencyFilters from "@/components/transparencia/TransparencyFilters";
@@ -46,6 +48,7 @@ export default function OrcamentoPage() {
     const [categoria, setCategoria] = useState("");
     const [ano, setAno] = useState("");
     const [busca, setBusca] = useState("");
+    const [pdfViewer, setPdfViewer] = useState<{ url: string; titulo: string } | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -303,59 +306,68 @@ export default function OrcamentoPage() {
                                 </button>
                             </motion.div>
                         ) : (
-                            <div className="grid grid-cols-1 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                                 {docs.map((d, idx) => {
                                     const corEstilo = tipoCores[d.tipo] || "bg-slate-50 text-slate-600 border-slate-100";
                                     return (
                                         <motion.div 
                                             key={d.id}
-                                            initial={{ opacity: 0, y: 30 }}
+                                            initial={{ opacity: 0, y: 16 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: idx * 0.04, duration: 0.5 }}
-                                            className="group relative bg-white rounded-[2.5rem] border border-slate-100 p-8 md:p-10 flex flex-col md:flex-row items-center gap-10 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 overflow-hidden"
+                                            transition={{ delay: idx * 0.04 }}
+                                            className="group bg-white rounded-xl border border-slate-200/80 hover:border-primary-300 shadow-sm hover:shadow-lg hover:shadow-primary-500/5 transition-all duration-300 flex flex-col"
                                         >
-                                            {/* Left Icon Area */}
-                                            <div className={`w-24 h-24 rounded-[2rem] flex items-center justify-center shrink-0 border-2 transition-all duration-700 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 shadow-sm ${corEstilo}`}>
-                                                <FaFileContract size={36} className="group-hover:scale-110 transition-transform duration-700" />
-                                            </div>
-
-                                            {/* Central Content */}
-                                            <div className="flex-1 text-center md:text-left">
-                                                <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 mb-4">
-                                                    <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border shadow-sm ${corEstilo}`}>
-                                                        {d.tipo}
-                                                    </span>
-                                                    <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 text-slate-400 font-black text-[10px] uppercase tracking-widest shadow-inner group-hover:bg-white transition-colors">
-                                                        <FaCalendarDays size={12} className="text-blue-500/50" /> Exercício {d.ano}
+                                            {/* Card body */}
+                                            <div className="p-5 flex-1">
+                                                <div className="flex items-start gap-4">
+                                                    <div className="w-11 h-11 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                                                        <FaFilePdf size={18} />
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <h4 className="font-bold text-slate-800 text-sm leading-snug mb-1.5 line-clamp-2 group-hover:text-primary-700 transition-colors">
+                                                            {d.titulo.replace(/\.pdf$/i, "")}
+                                                        </h4>
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wider ${corEstilo}`}>
+                                                                {d.tipo}
+                                                            </span>
+                                                            {d.ano && (
+                                                                <span className="text-[11px] text-slate-400 font-bold">
+                                                                    Exercício {d.ano}
+                                                                </span>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <h3 className="font-black text-slate-900 text-2xl uppercase tracking-tighter group-hover:text-blue-600 transition-colors mb-4 leading-none">
-                                                    {d.titulo}
-                                                </h3>
-                                                <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group-hover:bg-blue-50/30 group-hover:border-blue-100 transition-all duration-500">
-                                                    <p className="text-slate-500 text-sm leading-relaxed font-bold italic opacity-90 group-hover:opacity-100 transition-opacity">
-                                                        {TIPO_DESCRICOES[d.tipo as keyof typeof TIPO_DESCRICOES] || "Instrumento de planejamento orçamentário municipal."}
-                                                    </p>
-                                                </div>
                                             </div>
 
-                                            {/* Actions Area */}
-                                            <div className="flex flex-col gap-3 min-w-[200px] w-full md:w-auto">
-                                                <a 
-                                                    href={d.arquivo || d.documentUrl || "#"} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer"
-                                                    className="flex items-center justify-center gap-3 bg-slate-900 text-white hover:bg-blue-600 px-8 py-4 rounded-2xl transition-all text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-slate-900/10 hover:shadow-blue-600/30 active:scale-95"
-                                                >
-                                                    <FaDownload size={14} /> {d.arquivo ? "Arquivo Integral" : "Acessar Link"}
-                                                </a>
-                                                <button className="flex items-center justify-center gap-2 text-blue-600 text-[10px] font-black uppercase tracking-widest hover:translate-x-2 transition-all p-2 group/btn">
-                                                    Ver Detalhes <FaArrowRight className="group-hover/btn:translate-x-1" size={10} />
-                                                </button>
+                                            {/* Card footer com ações */}
+                                            <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-2">
+                                                {d.arquivo || d.documentUrl ? (
+                                                    <>
+                                                        <button
+                                                            onClick={() => setPdfViewer({ url: (d.arquivo || d.documentUrl)!, titulo: d.titulo.replace(/\.pdf$/i, "") })}
+                                                            className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary-50 text-primary-700 rounded-lg text-xs font-bold hover:bg-primary-600 hover:text-white transition-all duration-200"
+                                                        >
+                                                            <FaEye size={12} />
+                                                            Visualizar
+                                                        </button>
+                                                        <a
+                                                            href={d.arquivo || d.documentUrl || "#"}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-700 hover:text-white transition-all duration-200"
+                                                        >
+                                                            <FaDownload size={11} />
+                                                            Baixar
+                                                        </a>
+                                                    </>
+                                                ) : (
+                                                    <div className="w-full py-2.5 bg-slate-50 text-slate-400 rounded-lg text-xs font-bold text-center border border-dashed border-slate-200">
+                                                        Arquivo Indisponível
+                                                    </div>
+                                                )}
                                             </div>
-
-                                            {/* Decorative Elements */}
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/30 rounded-full blur-3xl group-hover:bg-blue-600/10 transition-colors duration-700 -z-10" />
                                         </motion.div>
                                     );
                                 })}
@@ -404,6 +416,17 @@ export default function OrcamentoPage() {
                     </div>
                 </div>
             </main>
+
+            {/* ═══════ MODAL PDF VIEWER ═══════ */}
+            <AnimatePresence>
+                {pdfViewer && (
+                    <PDFViewer
+                        url={pdfViewer.url}
+                        titulo={pdfViewer.titulo}
+                        onClose={() => setPdfViewer(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }

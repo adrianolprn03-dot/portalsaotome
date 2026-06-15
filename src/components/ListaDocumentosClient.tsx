@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaFile, FaDownload, FaCalendar, FaSearch, FaHistory, FaInfoCircle, FaCheckCircle, FaChevronRight } from "react-icons/fa";
+import { FaFile, FaDownload, FaCalendar, FaSearch, FaHistory, FaInfoCircle, FaCheckCircle, FaChevronRight, FaFilePdf, FaEye } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import BannerPNTP from "./transparencia/BannerPNTP";
+import PDFViewer from "@/components/transparencia/PDFViewer";
 
 type Documento = {
     id: string;
@@ -32,6 +33,7 @@ export default function ListaDocumentosClient({
     const [loading, setLoading] = useState(true);
     const [anoFiltro, setAnoFiltro] = useState("");
     const [buscaFiltro, setBuscaFiltro] = useState("");
+    const [pdfViewer, setPdfViewer] = useState<{ url: string; titulo: string } | null>(null);
 
     const currentYear = new Date().getFullYear();
     const anos = Array.from({ length: 15 }, (_, i) => (currentYear - i).toString());
@@ -61,7 +63,7 @@ export default function ListaDocumentosClient({
     }, [anoFiltro]);
 
     const documentosFiltrados = documentos.filter(doc => 
-        doc.titulo.toLowerCase().includes(buscaFiltro.toLowerCase())
+         doc.titulo.toLowerCase().includes(buscaFiltro.toLowerCase())
     );
 
     return (
@@ -139,49 +141,68 @@ export default function ListaDocumentosClient({
                         <p className="text-gray-400 font-medium text-sm max-w-sm mx-auto">{mensagemVazia}</p>
                     </motion.div>
                 ) : (
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         <AnimatePresence mode="popLayout">
                             {documentosFiltrados.map((doc, idx) => (
                                 <motion.div 
                                     key={doc.id}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ delay: idx * 0.05 }}
-                                    className="group relative bg-white rounded-[2rem] border border-gray-100 p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-xl shadow-gray-200/40 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-1 transition-all duration-500"
+                                    transition={{ delay: idx * 0.04 }}
+                                    className="group bg-white rounded-xl border border-slate-200/80 hover:border-primary-300 shadow-sm hover:shadow-lg hover:shadow-primary-500/5 transition-all duration-300 flex flex-col"
                                 >
-                                    <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
-                                        <FaFile size={22} className="text-gray-400 group-hover:text-white transition-colors" />
-                                    </div>
-
-                                    <div className="flex-1 text-center md:text-left">
-                                        <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 mb-3">
-                                            <span className="px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest bg-blue-50 text-blue-600 border border-blue-100/50">
-                                                {tipoDocumento.toUpperCase()}
-                                            </span>
-                                            {doc.ano && (
-                                                <span className="px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest bg-gray-100 text-gray-500 border border-gray-200/50">
-                                                    Exercício {doc.ano}
-                                                </span>
-                                            )}
-                                            <div className="flex items-center gap-2 text-gray-400 text-[9px] font-black uppercase tracking-widest ml-1">
-                                                <FaHistory size={10} className="text-amber-500/70" /> {new Date(doc.criadoEm).toLocaleDateString("pt-BR")}
+                                    {/* Card body */}
+                                    <div className="p-5 flex-1">
+                                        <div className="flex items-start gap-4">
+                                            <div className="w-11 h-11 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                                                <FaFilePdf size={18} />
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <h4 className="font-bold text-slate-800 text-sm leading-snug mb-1.5 line-clamp-2 group-hover:text-primary-700 transition-colors">
+                                                    {doc.titulo.replace(/\.pdf$/i, "")}
+                                                </h4>
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <span className="text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded border border-primary-100 uppercase tracking-wider">
+                                                        {tipoDocumento.replace("-", " ")}
+                                                    </span>
+                                                    {doc.ano && (
+                                                        <span className="text-[11px] text-slate-400">
+                                                            {doc.ano}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                        <h3 className="font-black text-gray-800 text-lg uppercase tracking-tight group-hover:text-blue-600 transition-colors mb-1">
-                                            {doc.titulo}
-                                        </h3>
-                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest opacity-60">Prefeitura de São Tomé – RN</p>
                                     </div>
 
-                                    <a 
-                                        href={doc.arquivo || doc.documentUrl || "#"} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="w-full md:w-auto shrink-0 flex items-center justify-center gap-3 bg-[#1E293B] text-white hover:bg-blue-600 px-8 py-5 rounded-2xl transition-all text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-900/10 active:scale-95"
-                                    >
-                                        <FaDownload className="text-xs" /> {doc.arquivo ? "Visualizar Arquivo" : "Acessar Link"}
-                                    </a>
+                                    {/* Card footer com ações */}
+                                    <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-2">
+                                        {doc.arquivo || doc.documentUrl ? (
+                                            <>
+                                                <button
+                                                    onClick={() => setPdfViewer({ url: (doc.arquivo || doc.documentUrl)!, titulo: doc.titulo.replace(/\.pdf$/i, "") })}
+                                                    className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary-50 text-primary-700 rounded-lg text-xs font-bold hover:bg-primary-600 hover:text-white transition-all duration-200"
+                                                >
+                                                    <FaEye size={12} />
+                                                    Visualizar
+                                                </button>
+                                                <a
+                                                    href={doc.arquivo || doc.documentUrl || "#"}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-700 hover:text-white transition-all duration-200"
+                                                >
+                                                    <FaDownload size={11} />
+                                                    Baixar
+                                                </a>
+                                            </>
+                                        ) : (
+                                            <div className="w-full py-2.5 bg-slate-50 text-slate-400 rounded-lg text-xs font-bold text-center border border-dashed border-slate-200">
+                                                Arquivo Indisponível
+                                            </div>
+                                        )}
+                                    </div>
                                 </motion.div>
                             ))}
                         </AnimatePresence>
@@ -198,7 +219,17 @@ export default function ListaDocumentosClient({
                     <div className="w-12 h-1 bg-indigo-500/20 mx-auto rounded-full" />
                 </div>
             </div>
+
+            {/* ═══════ MODAL PDF VIEWER ═══════ */}
+            <AnimatePresence>
+                {pdfViewer && (
+                    <PDFViewer
+                        url={pdfViewer.url}
+                        titulo={pdfViewer.titulo}
+                        onClose={() => setPdfViewer(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }
-
