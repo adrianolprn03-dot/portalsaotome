@@ -136,7 +136,7 @@ export default function TransferenciasPage() {
               { cargo: "Secretaria de Assistência Social", nome: "Paula Francineide da Silva (Titular)", suplente: "Maria Jaíra da Silva (Vice-presidente)" },
               { cargo: "Secretaria de Saúde", nome: "Sázila Candida Cabral de Souza (Titular)", suplente: "Deize Gomes de Morais Oliveira" },
               { cargo: "Secretaria de Educação", nome: "Maria de Fátima de Oliveira (Titular)", suplente: "Patrícia de Lima da Silva Adelino" },
-              { cargo: "Secretaria de Administração", nome: "Sidcley Gomes da Silva (Titular)", suplente: "Kátia Regina Bezerra de Lima" }
+              { cargo: "Secretaria de Administração", nome: "Teresa Cristina da Silva (Titular)", suplente: "Kátia Regina Bezerra de Lima" }
             ]
           },
           {

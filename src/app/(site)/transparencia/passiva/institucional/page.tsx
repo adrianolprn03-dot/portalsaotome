@@ -20,7 +20,7 @@ export default async function InstitucionalSICPage() {
     const horario = await getConfig("horario_funcionamento", "Segunda a Sexta, das 07:00 às 13:00");
     const email = await getConfig("contato_email_sic", "ouvidoria@saotome.rn.gov.br");
     const telefone = await getConfig("contato_telefone", "(84) 99211-5922 (WhatsApp)");
-    const autoridade = await getConfig("sic_autoridade", "Sidcley Gomes da Silva (Ouvidoria)");
+    const autoridade = await getConfig("sic_autoridade", "Teresa Cristina da Silva (Ouvidoria)");
 
 
     const secoes = [

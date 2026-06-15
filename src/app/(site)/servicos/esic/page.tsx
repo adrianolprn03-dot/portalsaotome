@@ -306,7 +306,7 @@ export default function ESICPage() {
                                             <div className="space-y-6">
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Autoridade de monitoramento do SIC</p>
-                                                    <p className="font-black text-gray-800 text-lg uppercase">Sidcley Gomes da Silva</p>
+                                                    <p className="font-black text-gray-800 text-lg uppercase">Teresa Cristina da Silva</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Unidade/setor responsável</p>
