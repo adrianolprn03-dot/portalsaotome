@@ -31,7 +31,21 @@ export async function GET(req: NextRequest) {
         }
     }
 
+    // Se for link do Google Drive, redireciona diretamente para o link de preview adequado
+    if (url.includes("drive.google.com") || url.includes("docs.google.com")) {
+        const fileDMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (fileDMatch && fileDMatch[1]) {
+            return NextResponse.redirect(`https://drive.google.com/file/d/${fileDMatch[1]}/preview`);
+        }
+        
+        const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (idMatch && idMatch[1]) {
+            return NextResponse.redirect(`https://drive.google.com/file/d/${idMatch[1]}/preview`);
+        }
+    }
+
     const requestUrl = new URL(req.url);
+
     const origin = requestUrl.origin;
 
     // Validar formato básico da URL (resolvendo URLs relativas com o origin do site)

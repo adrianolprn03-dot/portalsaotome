@@ -11,7 +11,27 @@ interface PDFViewerProps {
 }
 
 export default function PDFViewer({ url, titulo, onClose }: PDFViewerProps) {
-    const viewerUrl = url.startsWith("data:") ? url : `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
+    // Helper function to detect and format Google Drive links to preview URLs
+    const getViewerUrl = (url: string) => {
+        if (url.startsWith("data:")) return url;
+
+        if (url.includes("drive.google.com") || url.includes("docs.google.com")) {
+            const fileDMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (fileDMatch && fileDMatch[1]) {
+                return `https://drive.google.com/file/d/${fileDMatch[1]}/preview`;
+            }
+            
+            const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+            if (idMatch && idMatch[1]) {
+                return `https://drive.google.com/file/d/${idMatch[1]}/preview`;
+            }
+        }
+
+        return `/api/pdf-proxy?url=${encodeURIComponent(url)}`;
+    };
+
+    const viewerUrl = getViewerUrl(url);
+
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
