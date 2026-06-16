@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 import HeroSection from "@/components/home/HeroSection";
 import ServicosRapidos from "@/components/home/ServicosRapidos";
-import TransparenciaHub from "@/components/home/TransparenciaHub";
 import AcessoRapido from "@/components/home/AcessoRapido";
 import UltimasNoticias from "@/components/home/UltimasNoticias";
 import AgendaSection from "@/components/home/AgendaSection";
@@ -30,7 +29,6 @@ export default function Home() {
             <ServicosRapidos />
             <UltimasNoticias />
             <AgendaSection />
-            <TransparenciaHub />
             <AcessoRapido />
             <UnidadesAtendimento />
             <VideoHero />
