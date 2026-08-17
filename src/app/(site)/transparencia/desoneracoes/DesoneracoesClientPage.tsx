@@ -73,7 +73,7 @@ export default function DesoneracoesClientPage({ initialData }: { initialData: D
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    <ExportButtons data={filteredItems} filename="desoneracoes_fiscais_lajes" />
+                    <ExportButtons data={filteredItems} filename="desoneracoes_fiscais_sao_tome" />
                 </div>
 
                 {/* Totalizadores */}

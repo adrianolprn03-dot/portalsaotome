@@ -47,9 +47,14 @@ const servicos = [
 ];
 
 export default async function ServicosRapidos() {
-    const linksExternos = await (prisma as any).linkExterno.findMany({
-        where: { ativo: true, moduloAlvo: { startsWith: "home-" } },
-    });
+    let linksExternos: any[] = [];
+    try {
+        linksExternos = await (prisma as any).linkExterno.findMany({
+            where: { ativo: true, moduloAlvo: { startsWith: "home-" } },
+        });
+    } catch (e) {
+        console.error("Erro ao carregar linksExternos em ServicosRapidos:", e);
+    }
 
     return (
         <section className="py-12 bg-white border-b border-gray-100 relative z-10" id="servicos" aria-labelledby="servicos-titulo">
@@ -101,14 +106,6 @@ export default async function ServicosRapidos() {
                     })}
                 </div>
 
-                <div className="mt-8 flex justify-center">
-                    <Link
-                        href="/servicos"
-                        className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 hover:text-primary-500 transition-all border-b-2 border-gray-200 hover:border-primary-500 pb-1"
-                    >
-                        Ver todos os serviços municipais
-                    </Link>
-                </div>
             </div>
         </section>
     );

@@ -21,6 +21,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import { useEffect, useState } from "react";
+import SeletorPeriodos from "@/components/transparencia/SeletorPeriodos";
 
 const categoriasDeModulos = [
     {
@@ -222,6 +223,7 @@ export default function TransparenciaPage() {
 
             {/* Hub Hero Search & Compliance */}
             <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-40 pb-20">
+                <SeletorPeriodos periodoAtivo="2023-2025" />
                 <motion.div 
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -230,16 +232,16 @@ export default function TransparenciaPage() {
                     <div className="flex flex-col lg:flex-row items-stretch">
                         <div className="flex-1 p-8 lg:p-12 flex flex-col justify-center">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 bg-orange-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-orange-600/20">
+                                <div className="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-600/20">
                                     <Sparkles size={20} />
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-600">Busca Inteligente</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Busca Inteligente</span>
                             </div>
                             <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-none mb-8">
                                 O que você deseja <br/><span className="text-slate-400 italic">consultar hoje?</span>
                             </h1>
                             <div className="relative group max-w-2xl">
-                                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-orange-600 transition-colors">
+                                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors">
                                     <Search size={24} />
                                 </div>
                                 <input 
@@ -247,7 +249,7 @@ export default function TransparenciaPage() {
                                     placeholder="Ex: Folha de Pagamento, Licitações, Receitas..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-[2rem] pl-16 pr-8 py-7 text-sm font-bold placeholder:text-slate-300 outline-none focus:ring-8 focus:ring-orange-600/5 focus:bg-white transition-all shadow-inner"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-[2rem] pl-16 pr-8 py-7 text-sm font-bold placeholder:text-slate-300 outline-none focus:ring-8 focus:ring-blue-600/5 focus:bg-white transition-all shadow-inner"
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                     <span className="hidden md:flex bg-slate-200 text-slate-500 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">TRANSPARÊNCIA MUNICIPAL</span>
@@ -256,9 +258,9 @@ export default function TransparenciaPage() {
                         </div>
 
                         <div className="lg:w-[400px] bg-slate-900 p-12 text-white relative flex flex-col justify-between overflow-hidden">
-                             <div className="absolute top-0 right-0 w-80 h-80 bg-orange-600/10 rounded-full blur-[100px] -mr-40 -mt-40" />
+                             <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] -mr-40 -mt-40" />
                              <div className="relative z-10">
-                                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-10 border-l-2 border-orange-600 pl-4">Conformidade Legal</div>
+                                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-10 border-l-2 border-blue-600 pl-4">Conformidade Legal</div>
                                  <div className="space-y-6">
                                      {[
                                          { label: "LAI - LEI 12.527/2011", status: "Auditado" },
@@ -266,7 +268,7 @@ export default function TransparenciaPage() {
                                          { label: "RADAR TRANSPARÊNCIA", status: "GOLD" },
                                          { label: "PNTP 2026 COMPLIANCE", status: "V2" },
                                      ].map((item) => (
-                                         <div key={item.label} className="flex items-center justify-between border-b border-white/5 pb-4 group/item cursor-default hover:border-orange-600/30 transition-colors">
+                                         <div key={item.label} className="flex items-center justify-between border-b border-white/5 pb-4 group/item cursor-default hover:border-blue-600/30 transition-colors">
                                              <span className="text-[10px] font-black tracking-widest text-white/50 group-hover/item:text-white transition-colors">{item.label}</span>
                                              <Check className="text-emerald-400" size={12} />
                                          </div>
@@ -275,7 +277,7 @@ export default function TransparenciaPage() {
                              </div>
                              <div className="relative z-10 mt-12">
                                  <div className="flex items-center gap-4 px-6 py-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
-                                     <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white shrink-0">
+                                     <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white shrink-0">
                                          <ShieldAlert size={20} />
                                      </div>
                                      <p className="text-[9px] font-bold text-white/60 leading-tight uppercase tracking-widest">Dados atualizados conforme periodicidade legal.</p>
@@ -299,7 +301,7 @@ export default function TransparenciaPage() {
                                 <div className="max-w-2xl">
                                     <motion.div variants={itemVariants} className="flex items-center gap-4 mb-5">
                                         <span className="px-5 py-2 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-xl shadow-slate-900/20">0{catIdx + 1}</span>
-                                        <div className="h-0.5 w-12 bg-orange-600 rounded-full" />
+                                        <div className="h-0.5 w-12 bg-blue-600 rounded-full" />
                                     </motion.div>
                                     <motion.h2 variants={itemVariants} className="text-5xl font-black text-slate-900 tracking-tighter uppercase mb-4 leading-none italic">
                                         {categoria.tituloCategoria}
@@ -310,7 +312,7 @@ export default function TransparenciaPage() {
                                 </div>
                                 <motion.div variants={itemVariants}>
                                     <div className="flex items-center gap-3 px-6 py-3 bg-white rounded-2xl border border-slate-100 shadow-sm text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                        <FileSearch size={14} className="text-orange-600" /> {categoria.modulos.length} Módulos Integrados
+                                        <FileSearch size={14} className="text-blue-600" /> {categoria.modulos.length} Módulos Integrados
                                     </div>
                                 </motion.div>
                             </div>
@@ -327,7 +329,7 @@ export default function TransparenciaPage() {
                                                 href={m.finalHref} 
                                                 target={m.isExternal ? "_blank" : undefined}
                                                 rel={m.isExternal ? "noopener noreferrer" : undefined}
-                                                className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(51,65,85,0.15)] hover:border-orange-600/20 transition-all duration-700 overflow-hidden"
+                                                className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(51,65,85,0.15)] hover:border-blue-600/20 transition-all duration-700 overflow-hidden"
                                             >
                                                 {/* Header Visuality */}
                                                 <div className={`h-24 bg-gradient-to-br ${m.cor} relative p-6 flex items-start justify-end`}>
@@ -342,13 +344,13 @@ export default function TransparenciaPage() {
 
                                                 {/* Floating Icon */}
                                                 <div className="absolute top-12 left-8 transition-transform duration-700 group-hover:-translate-y-2 group-hover:scale-110">
-                                                    <div className="w-16 h-16 bg-white rounded-2xl shadow-xl shadow-slate-200/50 flex items-center justify-center border border-slate-50 group-hover:shadow-orange-600/20 transition-all">
-                                                        <m.icon className="text-slate-900 group-hover:text-orange-600 transition-colors" size={28} />
+                                                    <div className="w-16 h-16 bg-white rounded-2xl shadow-xl shadow-slate-200/50 flex items-center justify-center border border-slate-50 group-hover:shadow-blue-600/20 transition-all">
+                                                        <m.icon className="text-slate-900 group-hover:text-blue-600 transition-colors" size={28} />
                                                     </div>
                                                 </div>
 
                                                 <div className="px-8 pt-10 pb-8 flex flex-col flex-1">
-                                                    <h3 className="text-xl font-black text-slate-900 group-hover:text-orange-600 transition-colors tracking-tighter leading-none mb-4 uppercase">
+                                                    <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tighter leading-none mb-4 uppercase">
                                                         {m.titulo}
                                                     </h3>
                                                     <p className="text-slate-400 text-[11px] font-bold uppercase tracking-widest leading-relaxed mb-10 opacity-80 grow line-clamp-3">
@@ -356,7 +358,7 @@ export default function TransparenciaPage() {
                                                     </p>
 
                                                     <div className="pt-6 border-t border-slate-50 mt-auto flex items-center justify-between">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-orange-600 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-600 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500">
                                                             ACESSAR BASE
                                                         </span>
                                                         <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-900 transition-all duration-500 group-hover:rotate-[360deg] shadow-inner group-hover:shadow-xl group-hover:shadow-slate-900/30">
@@ -386,7 +388,7 @@ export default function TransparenciaPage() {
             <div className="relative py-32 overflow-hidden bg-slate-950 border-t border-slate-900">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-orange-600/10 rounded-full blur-[150px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-600/10 rounded-full blur-[150px]" />
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -401,7 +403,7 @@ export default function TransparenciaPage() {
                                 </div>
                             </div>
                             <h4 className="text-3xl font-black text-white tracking-tighter uppercase mb-6 italic">
-                                Compromisso com o <br/> <span className="text-orange-600">Controle Social Ativo.</span>
+                                Compromisso com o <br/> <span className="text-blue-600">Controle Social Ativo.</span>
                             </h4>
                             <p className="text-white/40 text-[11px] font-bold uppercase tracking-[0.2em] leading-loose max-w-lg mb-12 italic border-l border-white/10 pl-8">
                                 Em conformidade integral com as exigências do <span className="text-white/60">Programa Nacional de Transparência Pública (PNTP)</span>, asseguramos o livre acesso às informações institucionais e financeiras para todo cidadão.
@@ -426,7 +428,7 @@ export default function TransparenciaPage() {
                                     { label: "SINCRONIA", val: "REAL-TIME" },
                                 ].map((stat) => (
                                     <div key={stat.label} className="border-l border-white/10 pl-6 group/stat cursor-default">
-                                        <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-1 group-hover/stat:text-orange-600 transition-colors">{stat.label}</p>
+                                        <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-1 group-hover/stat:text-blue-600 transition-colors">{stat.label}</p>
                                         <p className="text-[13px] font-black text-white/50 group-hover/stat:text-white transition-colors uppercase tracking-widest">{stat.val || stat.status}</p>
                                     </div>
                                 ))}

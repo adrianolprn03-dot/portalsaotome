@@ -150,7 +150,7 @@ export default function EmendaPixClientPage({ initialData }: { initialData: Emen
                             >
                                 <FaFilter /> Filtros
                             </button>
-                            <ExportButtons data={filtered} filename="emendas_pix_lajes" />
+                            <ExportButtons data={filtered} filename="emendas_pix_sao_tome" />
                         </div>
                     </div>
 

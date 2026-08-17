@@ -377,7 +377,7 @@ export default function ConveniosPage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            GESTÃO DE CONVÊNIOS E REPASSES • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            GESTÃO DE CONVÊNIOS E REPASSES • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com as recomendações do PNTP.</span>
                         </p>
                     </div>

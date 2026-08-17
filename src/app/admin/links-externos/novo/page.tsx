@@ -98,6 +98,7 @@ const modulosAlvo = [
     { value: "agentes-politicos", label: "Card: Agentes Políticos" },
     { value: "publicacoes", label: "Card: Publicações" },
     { value: "unidades-saude", label: "Card: Unidades de Saúde" },
+    { value: "customizado", label: "Outro / Valor Personalizado (Digite abaixo...)" },
 ];
 
 const icones = [
@@ -113,6 +114,8 @@ const icones = [
 export default function NovoLinkExternoPage() {
     const router = useRouter();
     const [salvando, setSalvando] = useState(false);
+    const [periodoVinculo, setPeriodoVinculo] = useState("");
+    const [moduloCustomizado, setModuloCustomizado] = useState("");
     const [form, setForm] = useState({
         titulo: "",
         url: "",
@@ -126,11 +129,17 @@ export default function NovoLinkExternoPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!form.titulo || !form.url || !form.categoria) {
-            toast.error("Preencha os campos obrigatórios.");
-            return;
+        let finalModuloAlvo = form.moduloAlvo;
+        if (form.moduloAlvo === "customizado") {
+            finalModuloAlvo = moduloCustomizado.trim().toLowerCase();
         }
         
+        if (finalModuloAlvo && periodoVinculo) {
+            if (!finalModuloAlvo.endsWith(periodoVinculo)) {
+                finalModuloAlvo = `${finalModuloAlvo}${periodoVinculo}`;
+            }
+        }
+
         // Normalização da URL
         let urlFinal = form.url.trim();
         if (urlFinal && !urlFinal.startsWith("http://") && !urlFinal.startsWith("https://")) {
@@ -142,7 +151,7 @@ export default function NovoLinkExternoPage() {
             const res = await fetch("/api/admin/links-externos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...form, url: urlFinal }),
+                body: JSON.stringify({ ...form, moduloAlvo: finalModuloAlvo || null, url: urlFinal }),
             });
             if (res.ok) {
                 toast.success("Link externo salvo com sucesso!");
@@ -236,16 +245,56 @@ export default function NovoLinkExternoPage() {
 
                 <div>
                     <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Vincular a um Módulo Existente (Opcional)</label>
-                    <select
-                        value={form.moduloAlvo}
-                        onChange={(e) => setForm({ ...form, moduloAlvo: e.target.value })}
-                        className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#01b0ef] focus:border-transparent outline-none bg-white font-bold text-primary-600"
-                    >
-                        {modulosAlvo.map((m) => (
-                            <option key={m.value} value={m.value}>{m.label}</option>
-                        ))}
-                    </select>
-                    <p className="text-[10px] text-gray-400 mt-1 italic">Ao escolher um módulo, clicar no ícone dele no site levará direto para o link externo cadastrado acima.</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <select
+                            value={form.moduloAlvo}
+                            onChange={(e) => setForm({ ...form, moduloAlvo: e.target.value })}
+                            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#01b0ef] focus:border-transparent outline-none bg-white font-bold text-[#01b0ef]"
+                        >
+                            {modulosAlvo.map((m) => (
+                                <option key={m.value} value={m.value}>{m.label}</option>
+                            ))}
+                        </select>
+
+                        <select
+                            value={periodoVinculo}
+                            onChange={(e) => setPeriodoVinculo(e.target.value)}
+                            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#01b0ef] focus:border-transparent outline-none bg-white font-bold text-slate-700"
+                        >
+                            <option value="">Período: Geral / Todos</option>
+                            <option value="-2018-2022">Período: 2018 a 2022 (Histórico)</option>
+                            <option value="-2023-2025">Período: 2023 a 2025 (Histórico)</option>
+                            <option value="-2026">Período: 2026 em diante (Atual)</option>
+                        </select>
+                    </div>
+
+                    {form.moduloAlvo === "customizado" && (
+                        <div className="mt-4">
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Identificador do Módulo Personalizado</label>
+                            <input
+                                type="text"
+                                required
+                                value={moduloCustomizado}
+                                onChange={(e) => setModuloCustomizado(e.target.value)}
+                                placeholder="Ex: contratos, licitacoes, diarias..."
+                                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#01b0ef] focus:border-transparent outline-none"
+                            />
+                            <p className="text-[10px] text-gray-400 mt-1">Use apenas letras minúsculas e hífens. Ex: 'obras', 'leis-complementares'.</p>
+                        </div>
+                    )}
+
+                    {form.moduloAlvo && (
+                        <div className="mt-3 bg-blue-50 border border-blue-100 rounded-xl p-3 flex items-center justify-between">
+                            <span className="text-[10px] font-black text-blue-700 uppercase tracking-wider">Identificador final gerado no banco:</span>
+                            <code className="text-xs bg-white px-2.5 py-1 rounded-md border border-blue-200 font-bold text-slate-700">
+                                {form.moduloAlvo === "customizado" 
+                                    ? (moduloCustomizado.trim().toLowerCase() || "...") 
+                                    : form.moduloAlvo}
+                                {periodoVinculo}
+                            </code>
+                        </div>
+                    )}
+                    <p className="text-[10px] text-gray-400 mt-2 italic">Ao escolher um módulo, clicar no ícone dele no site levará direto para o link externo cadastrado acima.</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">

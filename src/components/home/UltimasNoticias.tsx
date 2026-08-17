@@ -13,6 +13,33 @@ type Noticia = {
     secretaria?: { nome: string };
 };
 
+const defaultNoticias: Noticia[] = [
+    {
+        id: "1",
+        titulo: "Prefeitura Municipal de São Tomé atualiza Portal da Transparência conforme PNTP 2026",
+        resumo: "Nova plataforma garante transparência ativa, controle social e acesso simplificado aos atos oficiais e finanças municipais.",
+        imagem: "/images/hero-bg.jpg",
+        publicadoEm: new Date().toISOString(),
+        slug: "portal-transparencia-2026-sao-tome",
+    },
+    {
+        id: "2",
+        titulo: "Ampliação dos Serviços de Saúde e Atendimento à População de São Tomé",
+        resumo: "Unidades de atendimento passam por reestruturação para melhorar o acesso dos cidadãos aos exames e consultas.",
+        imagem: null,
+        publicadoEm: new Date().toISOString(),
+        slug: "ampliacao-servicos-saude-sao-tome",
+    },
+    {
+        id: "3",
+        titulo: "Investimentos em Infraestrutura Escolar e Rede Municipal de Ensino",
+        resumo: "Ações contínuas de valorização da educação e equipamentos para as escolas do município.",
+        imagem: null,
+        publicadoEm: new Date().toISOString(),
+        slug: "investimentos-educacao-sao-tome",
+    }
+];
+
 export default function UltimasNoticias() {
     const [noticias, setNoticias] = useState<Noticia[]>([]);
     const [loading, setLoading] = useState(true);
@@ -22,9 +49,14 @@ export default function UltimasNoticias() {
             try {
                 const res = await fetch("/api/noticias?limit=5&publicada=true");
                 const data = await res.json();
-                setNoticias(data.items || []);
+                if (data.items && data.items.length > 0) {
+                    setNoticias(data.items);
+                } else {
+                    setNoticias(defaultNoticias);
+                }
             } catch (error) {
                 console.error("Erro ao carregar notícias:", error);
+                setNoticias(defaultNoticias);
             } finally {
                 setLoading(false);
             }
@@ -43,7 +75,7 @@ export default function UltimasNoticias() {
         }).replace(/ de /g, "/");
     };
 
-    if (loading || noticias.length === 0) return null;
+    if (loading) return null;
 
     const destaque = noticias[0];
     const laterais = noticias.slice(1);

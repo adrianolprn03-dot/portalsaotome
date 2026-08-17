@@ -114,7 +114,7 @@ export default function FolhaPagamentoPage() {
             "T. Líquido": fmt(s.totalLiquido)
         }));
 
-        const filename = `folha_lajespintadas_${mes}_${ano}`;
+        const filename = `folha_saotome_${mes}_${ano}`;
         const title = `Relatório de Servidores e Folha de Pagamento - São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);

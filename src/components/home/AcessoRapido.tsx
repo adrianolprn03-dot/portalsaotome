@@ -48,9 +48,14 @@ const acessosBase = [
 ];
 
 export default async function AcessoRapido() {
-    const linksExternos = await (prisma as any).linkExterno.findMany({
-        where: { ativo: true, moduloAlvo: { startsWith: "home-" } },
-    });
+    let linksExternos: any[] = [];
+    try {
+        linksExternos = await (prisma as any).linkExterno.findMany({
+            where: { ativo: true, moduloAlvo: { startsWith: "home-" } },
+        });
+    } catch (e) {
+        console.error("Erro ao carregar linksExternos em AcessoRapido:", e);
+    }
 
     return (
         <section className="bg-section-dark py-14 relative overflow-hidden" aria-labelledby="acesso-rapido-titulo">

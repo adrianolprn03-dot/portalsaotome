@@ -1,0 +1,192 @@
+[
+  {
+    "nome": "UBS - Geiscica Helen (Bela Vista)",
+    "tipo": "Saúde",
+    "descricao": "UBS - Geiscica Helen (Bela Vista) - Unidade de Atendimento de São Tomé/RN. Contato: saudestrn@gmail.com",
+    "endereco": "R Aura Galvão, nº 10 Zona Urbana",
+    "telefone": "(84)99197-9033",
+    "horario": "De segunda a sexta: 07:30 às 11:30 e de 13:00 às 16:30",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "UBS - Jose Eriberto Rocha (Potengi)",
+    "tipo": "Saúde",
+    "descricao": "UBS - Jose Eriberto Rocha (Potengi) - Unidade de Atendimento de São Tomé/RN. Contato: saudestrn@gmail.com",
+    "endereco": "R Augusto Severo, nº 125 Zona Urbana",
+    "telefone": "(84)99197-9033",
+    "horario": "De segunda a sexta: 07:30 às 11:30 e de 13:00 às 16:30",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "UBS - Manoel Guedes",
+    "tipo": "Saúde",
+    "descricao": "UBS - Manoel Guedes - Unidade de Atendimento de São Tomé/RN. Contato: saudestrn@gmail.com",
+    "endereco": "R Cônego Jose Cabral, nº 379 Zona Urbana",
+    "telefone": "(84)99197-9033",
+    "horario": "De segunda a sexta: 07:30 às 11:30 e de 13:00 às 16:30",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "UBS - Inga de Santa Luzia",
+    "tipo": "Saúde",
+    "descricao": "UBS - Inga de Santa Luzia - Unidade de Atendimento de São Tomé/RN. Contato: saudestrn@gmail.com",
+    "endereco": "ST Inga de Santa Luzia, Zona Rural",
+    "telefone": "(84)99197-9033",
+    "horario": "De segunda a sexta: 07:30 às 13:30",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "UBS - Manoel Medeiros Filho",
+    "tipo": "Saúde",
+    "descricao": "UBS - Manoel Medeiros Filho - Unidade de Atendimento de São Tomé/RN. Contato: saudestrn@gmail.com",
+    "endereco": "ST Gameleira, Zona Rural",
+    "telefone": "(84)99197-9033",
+    "horario": "De segunda a sexta: 07:30 às 13:30",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Joaquim Garcoa dos Anjo",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Joaquim Garcoa dos Anjo - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Sítio Gameleira, Zona Rural",
+    "telefone": "(084) 99415 - 8614",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal José Euzebio Fernandes Bezerra",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal José Euzebio Fernandes Bezerra - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Rua: Sen. Dinarte Mariz, nº 86",
+    "telefone": "(084)99150 - 5231",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Monsenhor Manoel Pereira da Costa",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Monsenhor Manoel Pereira da Costa - Unidade de Atendimento de São Tomé/RN. Contato: irinea6262@hotmail.com",
+    "endereco": "Rua Florência Luciano, SN",
+    "telefone": "(084) 99413 - 8157",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Creche Proinfância Maria do Socorro Dias",
+    "tipo": "Educação",
+    "descricao": "Creche Proinfância Maria do Socorro Dias - Unidade de Atendimento de São Tomé/RN. Contato: maciacunha@hotmail.com",
+    "endereco": "Rua José Lopes Pereira",
+    "telefone": "(084) 99140 - 4015",
+    "horario": "De segunda a sexta: 07h às 17h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Dr. José Aribaldo de Carvalho",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Dr. José Aribaldo de Carvalho - Unidade de Atendimento de São Tomé/RN. Contato: vitoriaaraujo_st@yahoo.com.br",
+    "endereco": "Rua: Padre Ramiro Valera, SN",
+    "telefone": "(084) 99140 - 4029",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Joventino Pereira de Araújo",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Joventino Pereira de Araújo - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Ingá de Santa Luzia, Zona Rural",
+    "telefone": "(084) 99140 - 2331",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Antônio Marcelino dos Santos",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Antônio Marcelino dos Santos - Unidade de Atendimento de São Tomé/RN. Contato: railene2022@yahoo.com.br",
+    "endereco": "Serra do Lameiro, Zona Rural",
+    "telefone": "(084) 99184 - 5645",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Eloi Ribeiro de Andrade",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Eloi Ribeiro de Andrade - Unidade de Atendimento de São Tomé/RN. Contato: kelly.souza_ba@hotmail.com",
+    "endereco": "Vila São Francisco, Zona Rural",
+    "telefone": "(084) 99415 - 8614",
+    "horario": "De segunda a sexta: 07h às 17h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Ovidio Honorato Moreira",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Ovidio Honorato Moreira - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Morada Nova, Zona Rural",
+    "telefone": "(084) 99602 - 4861",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Audemir Marques da Silva",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Audemir Marques da Silva - Unidade de Atendimento de São Tomé/RN. Contato: joselifeam@hotmail.com",
+    "endereco": "Espinheiro, Zona Rural",
+    "telefone": "(084) 99150 - 5150",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal José Fidelis de Valença",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal José Fidelis de Valença - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Pedra Preta, Zona Rural",
+    "telefone": "(084) 99415 - 8614",
+    "horario": "De segunda a sexta: 07h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Escola Municipal Sebastião Fideles de Araújo",
+    "tipo": "Educação",
+    "descricao": "Escola Municipal Sebastião Fideles de Araújo - Unidade de Atendimento de São Tomé/RN. Contato: educacaostrn@gmail.com",
+    "endereco": "Recreio Zona Rural",
+    "telefone": "(084) 99415 - 8614",
+    "horario": "De segunda a sexta:18h às 21h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Centro de referência da assistência social - CRAS",
+    "tipo": "Socioassistencial",
+    "descricao": "Centro de referência da assistência social - CRAS - Unidade de Atendimento de São Tomé/RN. Contato: cras.st@hotmail.com",
+    "endereco": "Rua: Florêncio Luciano, 766",
+    "telefone": "(084) 3258 - 282",
+    "horario": "De segunda a sexta: 07:30 às 11:30 e 13h às 17h",
+    "mapa": null,
+    "ativa": true
+  },
+  {
+    "nome": "Serviço de convivência e Fortalecimento de vínculos - SCFV",
+    "tipo": "Socioassistencial",
+    "descricao": "Serviço de convivência e Fortalecimento de vínculos - SCFV - Unidade de Atendimento de São Tomé/RN.",
+    "endereco": "Rua Belchior Lopes de Medeiros, 922",
+    "telefone": "(084) 9444 - 2602",
+    "horario": "De segunda a sexta-feira",
+    "mapa": null,
+    "ativa": true
+  }
+]

@@ -1,14 +1,19 @@
-﻿import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { FaHammer, FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 
 export default async function ObrasDestaque() {
-    const obras = await prisma.obra.findMany({
-        take: 3,
-        orderBy: { percentual: "desc" },
-        where: { status: { in: ["em-andamento", "licitacao"] } }
-    });
+    let obras: any[] = [];
+    try {
+        obras = await prisma.obra.findMany({
+            take: 3,
+            orderBy: { percentual: "desc" },
+            where: { status: { in: ["em-andamento", "licitacao"] } }
+        });
+    } catch (e) {
+        console.error("Erro ao carregar obras em ObrasDestaque:", e);
+    }
 
     if (obras.length === 0) return null;
 

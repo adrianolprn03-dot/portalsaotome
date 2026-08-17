@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import fs from "fs";
+import path from "path";
 
 const prisma = new PrismaClient();
 
@@ -508,6 +510,30 @@ Estrutura básica:
 
     for (const n of noticias) {
         await prisma.noticia.upsert({ where: { slug: n.slug }, update: n, create: n });
+    }
+
+    // --- Unidades de Atendimento ---
+    console.log("🌱 Semeando Unidades de Atendimento...");
+    const unidadesPath = path.join(__dirname, 'unidades.json');
+    if (fs.existsSync(unidadesPath)) {
+        const unidadesData = JSON.parse(fs.readFileSync(unidadesPath, 'utf8'));
+        for (const u of unidadesData) {
+            const existing = await prisma.unidadeAtendimento.findFirst({
+                where: { nome: u.nome, tipo: u.tipo }
+            });
+            if (existing) {
+                await prisma.unidadeAtendimento.update({
+                    where: { id: existing.id },
+                    data: u
+                });
+            } else {
+                await prisma.unidadeAtendimento.create({
+                    data: u
+                });
+            }
+        }
+    } else {
+        console.log("⚠️ Arquivo unidades.json não encontrado para o seed.");
     }
 
     // --- Configurações Detalhadas ---

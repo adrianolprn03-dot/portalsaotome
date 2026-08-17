@@ -17,16 +17,24 @@ function getStatusDisplay(status: string): { label: string; className: string } 
 }
 
 export default async function TransparenciaHub() {
-    const [override, licitacoes] = await Promise.all([
-        (prisma as any).linkExterno.findFirst({
-            where: { ativo: true, moduloAlvo: "home-transparencia" }
-        }),
-        prisma.licitacao.findMany({
-            orderBy: { criadoEm: "desc" },
-            take: 4,
-            select: { id: true, numero: true, ano: true, modalidade: true, objeto: true, status: true },
-        }),
-    ]);
+    let override: any = null;
+    let licitacoes: any[] = [];
+    try {
+        const [o, l] = await Promise.all([
+            (prisma as any).linkExterno.findFirst({
+                where: { ativo: true, moduloAlvo: "home-transparencia" }
+            }),
+            prisma.licitacao.findMany({
+                orderBy: { criadoEm: "desc" },
+                take: 4,
+                select: { id: true, numero: true, ano: true, modalidade: true, objeto: true, status: true },
+            }),
+        ]);
+        override = o;
+        licitacoes = l;
+    } catch (e) {
+        console.error("Erro ao carregar dados em TransparenciaHub:", e);
+    }
 
     const finalHref = override ? override.url : "/transparencia";
     const isExternal = !!override;

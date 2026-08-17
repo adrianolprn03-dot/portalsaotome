@@ -118,7 +118,7 @@ export default function RenunciasClientPage({ initialData }: { initialData: Renu
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    <ExportButtons data={filteredItems} filename="renuncias_fiscais_lajes" />
+                    <ExportButtons data={filteredItems} filename="renuncias_fiscais_sao_tome" />
                 </motion.div>
 
                 {/* Grid de Resumo */}

@@ -21,6 +21,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import { useEffect, useState } from "react";
+import SeletorPeriodos from "@/components/transparencia/SeletorPeriodos";
 
 const categoriasDeModulos = [
     {
@@ -222,6 +223,7 @@ export default function TransparenciaPage() {
 
             {/* Hub Hero Search & Compliance */}
             <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-40 pb-20">
+                <SeletorPeriodos periodoAtivo="2018-2022" />
                 <motion.div 
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}

@@ -59,7 +59,7 @@ const DECRETOS = [
     { numero: "Decreto nº 003/2020", descricao: "Declara situação de emergência em saúde pública no município.", data: "2020-03-18" },
     { numero: "Decreto nº 004/2020", descricao: "Suspende atividades presenciais de serviços não essenciais.", data: "2020-03-20" },
     { numero: "Decreto nº 012/2020", descricao: "Estabelece regras para funcionamento do comércio local.", data: "2020-05-05" },
-    { numero: "Decreto nº 018/2021", descricao: "Define calendário de vacinação municipal – Programa Vacina Lajes.", data: "2021-02-15" },
+    { numero: "Decreto nº 018/2021", descricao: "Define calendário de vacinação municipal – Programa Vacina São Tomé.", data: "2021-02-15" },
 ];
 
 export default function Covid19Page() {
