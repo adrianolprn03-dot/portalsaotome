@@ -1,21 +1,29 @@
 "use client";
-import { FaDownload } from "react-icons/fa";
+import { FileSpreadsheet, FileCode } from "lucide-react";
 import { exportToCSV, exportToJSON } from "@/lib/exportUtils";
 
-export default function ExportButtons({ data, filename }: { data: any[], filename: string }) {
+export default function ExportButtons({
+    data,
+    filename,
+}: {
+    data: any[];
+    filename: string;
+}) {
     return (
         <div className="flex gap-2">
-            <button 
+            <button
                 onClick={() => exportToCSV(data, filename)}
-                className="flex items-center gap-2 bg-[#50B749] hover:bg-green-600 text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl transition-all shadow-lg shadow-green-900/10"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-mono font-bold px-4 py-2.5 rounded-xl transition-all shadow-civic-sm"
             >
-                <FaDownload size={14} /> CSV
+                <FileSpreadsheet size={15} />
+                <span>CSV</span>
             </button>
-            <button 
+            <button
                 onClick={() => exportToJSON(data, filename)}
-                className="flex items-center gap-2 bg-[#01b0ef] hover:bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-900/10"
+                className="inline-flex items-center gap-2 bg-[#071E3D] hover:bg-primary-700 text-white text-xs font-mono font-bold px-4 py-2.5 rounded-xl transition-all shadow-civic-sm"
             >
-                <FaDownload size={14} /> JSON
+                <FileCode size={15} />
+                <span>JSON</span>
             </button>
         </div>
     );

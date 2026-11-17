@@ -1,20 +1,34 @@
 import { prisma } from "@/lib/prisma";
 import PageHeader from "@/components/PageHeader";
-import { FaBuilding, FaUserTie, FaPhone, FaEnvelope, FaMapMarker, FaClock, FaNewspaper } from "react-icons/fa";
+import {
+    UserCheck,
+    Phone,
+    Mail,
+    MapPin,
+    Clock,
+    Newspaper,
+    CheckCircle2,
+    Headset,
+    ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSecretariaIcon } from "@/lib/icons";
 
-export default async function SecretariaDetalhesPage({ params }: { params: { slug: string } }) {
+export default async function SecretariaDetalhesPage({
+    params,
+}: {
+    params: { slug: string };
+}) {
     const secretaria = await prisma.secretaria.findUnique({
         where: { slug: params.slug },
         include: {
             noticias: {
                 where: { publicada: true },
                 orderBy: { publicadoEm: "desc" },
-                take: 3
-            }
-        }
+                take: 3,
+            },
+        },
     });
 
     if (!secretaria) {
@@ -28,58 +42,83 @@ export default async function SecretariaDetalhesPage({ params }: { params: { slu
         console.error("Erro ao parsear serviços:", e);
     }
 
+    const IconHeader = getSecretariaIcon(secretaria.nome);
+
     return (
-        <div className="min-h-screen bg-white font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#F6F9FC]">
             <PageHeader
                 title={secretaria.nome}
-                subtitle="Informações institucionais, gestão e canais de contato."
+                subtitle="Competências legais, identificação do gestor, serviços públicos ofertados e canais de atendimento."
+                variant="premium"
+                icon={<IconHeader className="w-8 h-8" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Secretarias", href: "/secretarias" },
-                    { label: secretaria.nome }
+                    { label: secretaria.nome },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-                    
-                    {/* Coluna da Esquerda: Info e Gestor */}
-                    <div className="lg:col-span-2 space-y-12">
-                        <section>
-                            <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tighter mb-6 flex items-center gap-3">
-                                {(() => {
-                                    const IconHeader = getSecretariaIcon(secretaria.nome);
-                                    return <IconHeader className="text-blue-600" />;
-                                })()}
-                                Sobre a Secretaria
+            <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    {/* Coluna da Esquerda: Info e Gestor (8 cols) */}
+                    <div className="lg:col-span-8 space-y-8">
+                        {/* Sobre a Secretaria */}
+                        <section className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-civic-sm">
+                            <h2 className="font-heading text-xl font-extrabold text-[#071E3D] mb-4 flex items-center gap-3">
+                                <span className="w-10 h-10 rounded-xl bg-primary-50 text-primary-600 border border-primary-100 flex items-center justify-center shrink-0">
+                                    <IconHeader size={20} />
+                                </span>
+                                Atribuições e Competências
                             </h2>
-                            <p className="text-gray-600 text-lg leading-relaxed font-medium whitespace-pre-line">
-                                {secretaria.descricao}
+                            <p className="text-slate-600 text-base leading-relaxed whitespace-pre-line">
+                                {secretaria.descricao ||
+                                    "Órgão responsável pelo planejamento, coordenação e execução das políticas públicas setoriais do Município de São Tomé."}
                             </p>
                         </section>
 
-                        <section className="bg-gradient-to-r from-blue-50 to-indigo-50/30 rounded-[3rem] p-12 border border-blue-100 shadow-sm">
-                             <h2 className="text-xl font-black text-blue-900 uppercase tracking-tighter mb-8">Estrutura de Gestão</h2>
-                             <div className="flex flex-col md:flex-row items-center gap-8">
-                                <div className="w-32 h-32 bg-white rounded-[2.5rem] shadow-xl flex items-center justify-center text-blue-600 shrink-0 border border-blue-100/50">
-                                    <FaUserTie size={48} />
+                        {/* Estrutura de Gestão */}
+                        <section className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-civic-sm relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-1 heraldic-stripe" />
+                            <h2 className="font-heading text-lg font-bold text-slate-500 uppercase tracking-wider text-xs mb-6">
+                                Identificação do Gestor da Pasta
+                            </h2>
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                                <div className="w-20 h-20 bg-primary-50 border border-primary-100 rounded-2xl flex items-center justify-center text-primary-600 shrink-0">
+                                    <UserCheck size={36} />
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-2 block">Secretário(a) Responsável</span>
-                                    <h3 className="text-2xl font-black text-blue-900 uppercase tracking-tighter mb-4">{secretaria.secretario || "Informação em atualização"}</h3>
-                                    <p className="text-blue-950/70 text-sm font-medium leading-relaxed">Responsável pela gestão da pasta, coordenação de equipes e execução das políticas públicas da área do município de São Tomé.</p>
+                                    <span className="inline-block px-2.5 py-0.5 rounded-md bg-secondary-100 text-secondary-800 text-xs font-bold mb-1.5">
+                                        Secretário(a) Municipal
+                                    </span>
+                                    <h3 className="font-heading text-2xl font-extrabold text-[#071E3D] mb-2">
+                                        {secretaria.secretario || "Informação em atualização"}
+                                    </h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed">
+                                        Responsável pela direção superior da pasta, ordenação de ações administrativas e atendimento às demandas da população de São Tomé.
+                                    </p>
                                 </div>
-                             </div>
+                            </div>
                         </section>
 
+                        {/* Serviços Oferecidos */}
                         {servicos.length > 0 && (
-                            <section>
-                                <h2 className="text-xl font-black text-gray-800 uppercase tracking-tighter mb-8">Serviços Oferecidos</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <section className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-civic-sm">
+                                <h2 className="font-heading text-xl font-extrabold text-[#071E3D] mb-6">
+                                    Carta de Serviços da Pasta
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                                     {servicos.map((s: string, i: number) => (
-                                        <div key={i} className="flex items-center gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                                            <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                                            <span className="text-sm font-bold text-gray-700">{s}</span>
+                                        <div
+                                            key={i}
+                                            className="flex items-start gap-3 p-4 bg-[#F6F9FC] border border-slate-200/70 rounded-2xl"
+                                        >
+                                            <CheckCircle2
+                                                size={18}
+                                                className="text-primary-600 shrink-0 mt-0.5"
+                                            />
+                                            <span className="text-sm font-semibold text-slate-800">
+                                                {s}
+                                            </span>
                                         </div>
                                     ))}
                                 </div>
@@ -87,77 +126,114 @@ export default async function SecretariaDetalhesPage({ params }: { params: { slu
                         )}
                     </div>
 
-                    {/* Coluna da Direita: Sidebar de Contato */}
-                    <div className="space-y-8">
-                        <div className="bg-blue-600 rounded-[3rem] p-10 text-white shadow-2xl shadow-blue-900/20 sticky top-32">
-                            <h3 className="text-xl font-black uppercase tracking-tighter mb-8">Canais de Atendimento</h3>
-                            
-                            <div className="space-y-8">
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaPhone size={14} />
+                    {/* Coluna da Direita: Sidebar de Contato (4 cols) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="bg-[#071E3D] rounded-3xl p-8 text-white shadow-civic-xl relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
+                            <h3 className="font-heading text-xl font-extrabold mb-6">
+                                Atendimento Presencial e Digital
+                            </h3>
+
+                            <div className="space-y-5">
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center shrink-0 text-secondary-400">
+                                        <Phone size={17} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-1">Telefone</p>
-                                        <p className="font-bold">{secretaria.telefone || "Não informado"}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Telefone de Contato
+                                        </p>
+                                        <p className="font-mono font-bold text-sm mt-0.5">
+                                            {secretaria.telefone || "(84) 99211-5922"}
+                                        </p>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaEnvelope size={14} />
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center shrink-0 text-secondary-400">
+                                        <Mail size={17} />
                                     </div>
                                     <div className="break-all">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-1">E-mail</p>
-                                        <p className="font-bold">{secretaria.email || "Não informado"}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            E-mail Institucional
+                                        </p>
+                                        <p className="font-semibold text-sm mt-0.5">
+                                            {secretaria.email || "ouvidoria@saotome.rn.gov.br"}
+                                        </p>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaClock size={14} />
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center shrink-0 text-secondary-400">
+                                        <Clock size={17} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-1">Funcionamento</p>
-                                        <p className="font-bold">{secretaria.horarioFuncionamento || "08h às 14h (Segunda a Sexta)"}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Horário de Atendimento
+                                        </p>
+                                        <p className="font-semibold text-sm mt-0.5">
+                                            {secretaria.horarioFuncionamento ||
+                                                "07h às 13h (Segunda a Sexta)"}
+                                        </p>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaMapMarker size={14} />
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center shrink-0 text-secondary-400">
+                                        <MapPin size={17} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-1">Endereço</p>
-                                        <p className="text-sm font-bold leading-relaxed">{secretaria.endereco || "Sede Administrativa Municipal"}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Endereço
+                                        </p>
+                                        <p className="text-sm font-semibold leading-snug mt-0.5">
+                                            {secretaria.endereco ||
+                                                "Praça Antônio Assunção, s/n, Centro – São Tomé/RN"}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="mt-12 pt-8 border-t border-white/10">
-                                <Link href="/servicos/ouvidoria" className="block text-center bg-white text-blue-600 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-50 transition-colors">
-                                    Manifestação Ouvidoria
+                            <div className="mt-8 pt-6 border-t border-white/10">
+                                <Link
+                                    href="/servicos/ouvidoria"
+                                    className="w-full inline-flex items-center justify-center gap-2 bg-secondary-500 hover:bg-secondary-400 text-[#071E3D] py-3.5 px-5 rounded-xl font-bold text-xs transition-colors shadow-sm"
+                                >
+                                    <Headset size={16} />
+                                    <span>Registrar Manifestação na Ouvidoria</span>
                                 </Link>
                             </div>
                         </div>
 
                         {secretaria.noticias && secretaria.noticias.length > 0 && (
-                            <div className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100">
-                                <h4 className="text-sm font-black text-gray-800 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                    <FaNewspaper className="text-blue-500" /> Notícias da Pasta
+                            <div className="p-7 bg-white rounded-3xl border border-slate-200/80 shadow-civic-sm">
+                                <h4 className="font-heading text-base font-bold text-[#071E3D] mb-5 flex items-center gap-2">
+                                    <Newspaper size={18} className="text-primary-600" />
+                                    <span>Notícias Relacionadas</span>
                                 </h4>
-                                <div className="space-y-6">
+                                <div className="space-y-4 divide-y divide-slate-100">
                                     {secretaria.noticias.map((n: any) => (
-                                        <Link key={n.id} href={`/noticias/${n.slug}`} className="block group">
-                                            <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">{n.publicadoEm ? new Date(n.publicadoEm).toLocaleDateString('pt-BR') : 'Recentemenete'}</p>
-                                            <h5 className="font-bold text-sm text-gray-700 group-hover:text-blue-600 leading-tight transition-colors line-clamp-2">{n.titulo}</h5>
+                                        <Link
+                                            key={n.id}
+                                            href={`/noticias/${n.slug}`}
+                                            className="block group pt-4 first:pt-0"
+                                        >
+                                            <p className="text-[11px] font-mono font-semibold text-primary-600 mb-1">
+                                                {n.publicadoEm
+                                                    ? new Date(n.publicadoEm).toLocaleDateString(
+                                                          "pt-BR"
+                                                      )
+                                                    : "Recente"}
+                                            </p>
+                                            <h5 className="font-bold text-sm text-slate-800 group-hover:text-primary-600 leading-snug transition-colors line-clamp-2">
+                                                {n.titulo}
+                                            </h5>
                                         </Link>
                                     ))}
                                 </div>
                             </div>
                         )}
                     </div>
-
                 </div>
             </div>
         </div>

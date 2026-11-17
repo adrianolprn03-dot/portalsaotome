@@ -1,24 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary: #01b0ef;
-  --primary-light: #34c0f2;
-  --primary-dark: #0088b9;
+  /* Core Civic Brand Tokens */
+  --primary: #0088C2;
+  --primary-light: #01B0EF;
+  --primary-dark: #071E3D;
   --secondary: #FDB913;
-  --secondary-light: #fadb6f;
+  --secondary-light: #FDE68A;
   --accent: #FDB913;
+
+  /* Surface & Text Architecture */
+  --surface-bg: #F6F9FC;
+  --surface-card: #FFFFFF;
+  --surface-elevated: #F8FAFC;
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text-primary: #071E3D;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+
   --font-size-base: 15px;
 }
 
-/* === ACESSIBILIDADE === */
+@layer base {
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--surface-bg);
+  }
+}
+
+/* === ACESSIBILIDADE (WCAG 2.2 AA / AAA) === */
 .high-contrast {
   --bg-main: #000 !important;
   --text-main: #fff !important;
-  filter: contrast(1.5);
+  filter: contrast(1.45);
 }
 
 html.high-contrast body {
@@ -30,54 +53,60 @@ html.high-contrast a {
   color: #ffff00 !important;
 }
 
-html.high-contrast .bg-white {
-  background: #111 !important;
+html.high-contrast .bg-white,
+html.high-contrast .bg-\[\#F6F9FC\],
+html.high-contrast .bg-\[\#f8fafc\],
+html.high-contrast .bg-slate-50,
+html.high-contrast .bg-gray-50 {
+  background: #0d0d0d !important;
+  border-color: #444 !important;
 }
 
 html.high-contrast .text-gray-600,
-html.high-contrast .text-gray-500 {
-  color: #ddd !important;
-}
-
-html.high-contrast .bg-primary-500,
-html.high-contrast .bg-primary-600 {
-  background: #000080 !important;
-  border: 2px solid #fff;
+html.high-contrast .text-gray-500,
+html.high-contrast .text-slate-600,
+html.high-contrast .text-slate-500 {
+  color: #e2e8f0 !important;
 }
 
 html.high-contrast header {
-  background: #111 !important;
-  border-bottom: 2px solid #fff;
+  background: #000 !important;
+  border-bottom: 2px solid #ffff00 !important;
 }
 
 html.high-contrast footer {
   background: #000 !important;
-  border-top: 2px solid #fff;
+  border-top: 2px solid #ffff00 !important;
 }
 
 html.font-large {
-  font-size: 20px !important;
+  font-size: 19px !important;
 }
 
 html.font-xlarge {
-  font-size: 24px !important;
+  font-size: 22px !important;
 }
 
 /* === SKIP LINK (Acessibilidade) === */
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--primary);
-  color: white;
-  padding: 8px;
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  background: #FDB913;
+  color: #071E3D;
+  padding: 10px 20px;
+  border-radius: 0 0 12px 12px;
   text-decoration: none;
   z-index: 9999;
-  font-weight: bold;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: top 0.2s ease;
 }
 
 .skip-link:focus {
   top: 0;
+  outline: 3px solid #01B0EF;
 }
 
 /* === SCROLLBAR === */
@@ -87,58 +116,94 @@ html.font-xlarge {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a5276;
-  border-radius: 4px;
+  background: #94A3B8;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0f3050;
+  background: #0088C2;
 }
 
-/* === UTILITÁRIOS === */
+/* === SIGNATURE HERALDIC & ARCHITECTURAL ELEMENTS === */
+.heraldic-stripe {
+  background: linear-gradient(
+    90deg,
+    #01B0EF 0%,
+    #01B0EF 45%,
+    #FDB913 45%,
+    #FDB913 78%,
+    #10B981 78%,
+    #10B981 100%
+  );
+}
+
+.civic-grid-pattern {
+  background-image: radial-gradient(rgba(1, 176, 239, 0.14) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.civic-grid-dark {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* === DESIGN SYSTEM COMPONENT UTILITIES === */
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 bg-secondary-500 hover:bg-secondary-400 text-[#071E3D] font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
   }
 
   .btn-outline {
-    @apply border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 border border-slate-200 bg-white text-slate-800 hover:border-primary-500 hover:text-primary-600 hover:bg-primary-50/40 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100;
+    @apply bg-white rounded-2xl shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 overflow-hidden border border-slate-200/80;
+  }
+
+  .card-bento {
+    @apply relative bg-white rounded-2xl border border-slate-200/80 shadow-civic-sm hover:shadow-civic-lg hover:border-primary-300/80 transition-all duration-300 overflow-hidden;
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-700 text-xs font-bold tracking-wide;
   }
 
   .section-title {
-    @apply text-3xl font-extrabold text-[#003362] mb-4 uppercase tracking-tight;
+    @apply font-heading text-3xl md:text-4xl font-extrabold text-[#071E3D] tracking-tight leading-[1.15];
   }
 
   .section-subtitle {
-    @apply text-gray-500 text-base mb-8 uppercase tracking-widest font-semibold;
+    @apply text-slate-600 text-base leading-relaxed font-normal;
   }
 
   .badge {
-    @apply inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide;
   }
 
   .input-field {
-    @apply w-full px-5 py-3.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-400 transition-colors bg-gray-50 hover:bg-white;
+    @apply w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all bg-slate-50/70 focus:bg-white;
   }
 
   .table-header {
-    @apply bg-primary-500 text-white font-bold text-sm px-5 py-4 text-left uppercase tracking-wider;
+    @apply bg-[#071E3D] text-white font-semibold text-xs px-5 py-3.5 text-left uppercase tracking-wider;
   }
 
   .table-cell {
-    @apply px-5 py-4 text-sm text-gray-700 border-b border-gray-50;
+    @apply px-5 py-4 text-sm text-slate-700 border-b border-slate-100;
+  }
+
+  .service-card {
+    @apply rounded-2xl p-6 bg-white text-slate-800 shadow-civic-sm border border-slate-200/80 hover:shadow-civic-lg hover:border-primary-300 transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-center text-center;
   }
 }
 
@@ -146,9 +211,8 @@ html.font-xlarge {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(14px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -159,7 +223,6 @@ html.font-xlarge {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
@@ -168,9 +231,8 @@ html.font-xlarge {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-20px);
   }
-
   to {
     opacity: 1;
     transform: translateX(0);
@@ -180,7 +242,7 @@ html.font-xlarge {
 @keyframes dropdownFade {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.97);
+    transform: translateY(-6px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -189,90 +251,65 @@ html.font-xlarge {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease forwards;
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.35s ease forwards;
 }
 
 .animate-slide-in {
-  animation: slideInLeft 0.6s ease forwards;
+  animation: slideInLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-dropdown-fade {
-  animation: dropdownFade 0.2s ease forwards;
+  animation: dropdownFade 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* === HERO GRADIENT === */
+/* === HERO & SECTION BACKGROUNDS === */
 .hero-gradient {
   background: linear-gradient(
-    135deg,
-    rgba(0, 34, 65, 0.6) 0%,
-    rgba(1, 136, 185, 0.3) 35%,
-    rgba(1, 176, 239, 0.15) 65%,
-    rgba(253, 185, 19, 0.05) 100%
+    180deg,
+    rgba(7, 30, 61, 0.84) 0%,
+    rgba(7, 30, 61, 0.68) 48%,
+    rgba(7, 30, 61, 0.92) 100%
   );
 }
 
-.hero-overlay {
-  background: linear-gradient(to bottom, rgba(0, 18, 36, 0.5) 0%, rgba(1, 136, 185, 0.15) 55%, rgba(248, 250, 252, 1) 100%);
-}
-
-/* === SECTION BACKGROUNDS === */
 .bg-section-dark {
-  background: linear-gradient(135deg, #002241 0%, #004b8d 100%);
+  background: linear-gradient(135deg, #071E3D 0%, #093158 55%, #0B4A78 100%);
 }
 
 .bg-section-light {
-  background: linear-gradient(180deg, #f0f8ff 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #F0F7FF 0%, #F6F9FC 100%);
 }
 
 /* === GLASSMORPHISM === */
 .glass {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(1, 176, 239, 0.1);
-}
-
-.glass-dark {
-  background: rgba(0, 33, 49, 0.7);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-light {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-/* === BARRA GOV === */
-.barra-gov {
-  background: #002241;
+.glass-dark {
+  background: rgba(7, 30, 61, 0.78);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* === NOTÍCIAS === */
 .news-card:hover .news-image {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .news-image {
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* === CARD SIMPLES DESTAQUE === */
-.service-card {
-  @apply rounded-3xl p-8 bg-white text-gray-800 shadow-sm border border-gray-100 hover:shadow-2xl hover:border-primary/20 transition-all duration-300 hover:-translate-y-2 flex flex-col items-center justify-center text-center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* === PRINT === */
 @media print {
-
   header,
   footer,
   .no-print {
@@ -281,16 +318,6 @@ html.font-xlarge {
 
   body {
     font-size: 12pt;
-  }
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .section-title {
-    @apply text-2xl;
-  }
-
-  .hero-title {
-    @apply text-3xl;
+    background: #fff !important;
   }
 }

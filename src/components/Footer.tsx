@@ -1,5 +1,19 @@
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaYoutube, FaEnvelope, FaPhone, FaMapMarker, FaWhatsapp } from "react-icons/fa";
+import {
+    Facebook,
+    Instagram,
+    Youtube,
+    Mail,
+    Phone,
+    MapPin,
+    Clock,
+    MessageCircle,
+    ShieldCheck,
+    Headset,
+    ArrowUpRight,
+    ChevronRight,
+    Lock,
+} from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 const footerLinks = [
@@ -8,41 +22,39 @@ const footerLinks = [
         links: [
             { label: "História da Cidade", href: "/a-prefeitura/historia" },
             { label: "Prefeito e Vice", href: "/a-prefeitura/prefeito" },
-            { label: "Secretarias", href: "/secretarias" },
+            { label: "Secretarias Municipais", href: "/secretarias" },
             { label: "Estrutura Administrativa", href: "/a-prefeitura/estrutura" },
-            { label: "Agenda do Prefeito", href: "/a-prefeitura/agenda" },
+            { label: "Agenda do Executivo", href: "/a-prefeitura/agenda" },
+            { label: "Símbolos Municipais", href: "/municipio/simbolos" },
         ],
     },
     {
-        title: "Transparência",
+        title: "Transparência Ativa",
         links: [
             { label: "Portal da Transparência", href: "/transparencia" },
-            { label: "Institucional", href: "/transparencia/institucional" },
-            { label: "Obras Públicas", href: "/transparencia/obras" },
             { label: "Receitas Públicas", href: "/transparencia/receitas" },
             { label: "Despesas Públicas", href: "/transparencia/despesas" },
-            { label: "Licitações e Contratos", href: "/transparencia/licitacoes" },
-            { label: "Legislação Municipal", href: "/transparencia/leis" },
-            { label: "Dados Abertos", href: "/transparencia/dados-abertos" },
-            { label: "Transferências e Emendas", href: "/transparencia/transferencias" },
-            { label: "Dívida Ativa", href: "/transparencia/divida-ativa" },
+            { label: "Licitações e Editais", href: "/transparencia/licitacoes" },
+            { label: "Contratos Administrativos", href: "/transparencia/contratos" },
+            { label: "Obras Públicas", href: "/transparencia/obras" },
+            { label: "Servidores e Folha", href: "/transparencia/servidores" },
+            { label: "Legislação Municipal", href: "/transparencia/legislacao" },
+            { label: "Dados Abertos (CSV/JSON)", href: "/transparencia/dados-abertos" },
             { label: "Radar PNTP 2026", href: "/transparencia/radar" },
-            { label: "Transparência Passiva (e-SIC)", href: "/transparencia/passiva" },
         ],
     },
     {
-        title: "Serviços ao Cidadão",
+        title: "Cidadão & Serviços",
         links: [
             { label: "Ouvidoria Municipal", href: "/servicos/ouvidoria" },
-            { label: "e-SIC (LAI)", href: "/servicos/esic" },
-            { label: "Unidades de Saúde", href: "/unidades-de-saude" },
-            { label: "Assistência Social", href: "/servicos/social" },
-            { label: "Educação e Escolas", href: "/servicos/educacao" },
-            { label: "Cultura e Esporte", href: "/servicos/cultura" },
-            { label: "FAQ / Perguntas", href: "/transparencia/faq" },
-            { label: "Glossário de Termos", href: "/transparencia/glossario" },
-            { label: "Política de Privacidade", href: "/privacidade" },
+            { label: "e-SIC (Acesso à Informação)", href: "/servicos/esic" },
+            { label: "Carta de Serviços", href: "/transparencia/carta-servicos" },
+            { label: "Unidades de Saúde e SUS", href: "/unidades-de-saude" },
+            { label: "Unidades Escolares", href: "/unidades-escolares" },
+            { label: "Rede Socioassistencial", href: "/socioassistencial" },
+            { label: "FAQ / Perguntas Frequentes", href: "/transparencia/faq" },
             { label: "Acessibilidade Digital", href: "/transparencia/acessibilidade" },
+            { label: "Política de Privacidade (LGPD)", href: "/privacidade" },
             { label: "Mapa do Site", href: "/mapa-do-site" },
         ],
     },
@@ -59,7 +71,10 @@ async function getConfig(chave: string, padrao: string) {
 
 export default async function Footer() {
     const cnpj = await getConfig("cnpj", "08.080.210/0001-49");
-    const endereco = await getConfig("endereco_sede", "Praça Antônio Assunção, s/n, Centro, São Tomé/RN");
+    const endereco = await getConfig(
+        "endereco_sede",
+        "Praça Antônio Assunção, s/n, Centro, São Tomé/RN – CEP 59.400-000"
+    );
     const email = await getConfig("contato_email", "ouvidoria@saotome.rn.gov.br");
     const telefone = await getConfig("contato_telefone", "(84) 99211-5922");
     const razaoSocial = await getConfig("municipio_nome", "Prefeitura Municipal de São Tomé");
@@ -74,98 +89,140 @@ export default async function Footer() {
         : "#";
 
     const socialLinks = [
-        { Icon: FaFacebook, href: facebook, color: "hover:bg-blue-600", label: "Facebook" },
-        { Icon: FaInstagram, href: instagram, color: "hover:bg-pink-600", label: "Instagram" },
-        { Icon: FaYoutube, href: youtube, color: "hover:bg-red-600", label: "YouTube" },
-        { Icon: FaWhatsapp, href: whatsappHref, color: "hover:bg-green-600", label: "WhatsApp" },
+        { Icon: Facebook, href: facebook, label: "Facebook" },
+        { Icon: Instagram, href: instagram, label: "Instagram" },
+        { Icon: Youtube, href: youtube, label: "YouTube" },
+        { Icon: MessageCircle, href: whatsappHref, label: "WhatsApp" },
     ];
 
     return (
-        <footer className="bg-[#0088b9] text-blue-50/70" role="contentinfo">
-            {/* Newsletter / CTA */}
-            <div className="bg-[#01b0ef] border-b-8 border-[#FDB913]">
-                <div className="max-w-[1300px] mx-auto px-6 py-14 flex flex-col md:flex-row items-center justify-between gap-10">
-                    <div>
-                        <h3 className="text-white font-black text-2xl lg:text-4xl uppercase tracking-tighter mb-4">Central de Atendimento</h3>
-                        <p className="text-[#FDB913] font-black text-[11px] tracking-[0.3em] uppercase opacity-90">Prefeitura de São Tomé – RN</p>
+        <footer className="bg-[#071E3D] text-slate-300 relative overflow-hidden" role="contentinfo">
+            <div className="h-1.5 w-full heraldic-stripe" />
+
+            {/* Top Civic CTA Strip */}
+            <div className="border-b border-white/10 bg-[#09274E]/70 relative">
+                <div className="max-w-[1280px] mx-auto px-6 py-10 md:py-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                    <div className="space-y-2 max-w-xl">
+                        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary-400">
+                            <span className="w-2 h-2 rounded-full bg-secondary-400" />
+                            <span>Atendimento Oficial ao Cidadão</span>
+                        </div>
+                        <h3 className="font-heading text-white font-extrabold text-2xl md:text-3xl tracking-tight">
+                            Precisa solicitar informações ou registrar uma manifestação?
+                        </h3>
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                            Utilize os canais digitais regulamentados pela Lei de Acesso à Informação (Lei nº 12.527/2011) e pelo Código de Defesa do Usuário do Serviço Público.
+                        </p>
                     </div>
-                    <div className="flex flex-wrap gap-4 w-full md:w-auto">
+                    <div className="flex flex-wrap items-center gap-3.5 w-full lg:w-auto">
                         <Link
                             href="/servicos/ouvidoria"
-                            className="flex-1 md:flex-none text-center bg-[#FDB913] text-[#01b0ef] font-black px-10 py-5 rounded-[2rem] hover:bg-white transition-all text-[11px] uppercase tracking-widest shadow-xl shadow-black/10"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 bg-secondary-500 hover:bg-secondary-400 text-[#071E3D] font-bold px-6 py-3.5 rounded-xl transition-all text-sm shadow-lg"
                         >
-                            Fale com a Ouvidoria
+                            <Headset size={17} />
+                            <span>Ouvidoria Municipal</span>
+                        </Link>
+                        <Link
+                            href="/servicos/esic"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 bg-primary-600 hover:bg-primary-500 text-white font-bold px-6 py-3.5 rounded-xl transition-all text-sm shadow-lg"
+                        >
+                            <ShieldCheck size={17} />
+                            <span>Pedido e-SIC (LAI)</span>
                         </Link>
                         <Link
                             href="/transparencia"
-                            className="flex-1 md:flex-none text-center border-2 border-white/20 text-white font-black px-10 py-5 rounded-[2rem] hover:bg-white hover:text-[#01b0ef] transition-all text-[11px] uppercase tracking-widest shadow-xl shadow-black/10 backdrop-blur-sm"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 border border-white/20 bg-white/5 hover:bg-white/15 text-white font-semibold px-6 py-3.5 rounded-xl transition-all text-sm"
                         >
-                            Portal da Transparência
+                            <span>Portal da Transparência</span>
+                            <ArrowUpRight size={16} />
                         </Link>
                     </div>
                 </div>
             </div>
 
-            {/* Links e Info */}
-            <div className="max-w-[1300px] mx-auto px-6 py-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16">
-                    
-                    {/* Logo e Contato (4 colunas) - REFOÇADO V7 */}
-                    <div className="lg:col-span-4">
-                        <div className="flex items-center gap-6 mb-12 group cursor-default">
-                            <div className="p-2 transition-transform duration-500 group-hover:scale-105 group-hover:rotate-2">
-                                <img
-                                    src={brasao}
-                                    alt="Brasão Oficial de São Tomé"
-                                    className="h-16 md:h-20 w-auto object-contain drop-shadow-md max-w-[200px]"
-                                />
-                            </div>
+            {/* Main Architectural Grid */}
+            <div className="max-w-[1280px] mx-auto px-6 py-16 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10">
+                    {/* Institutional Identity Column (4 cols) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="flex items-center gap-4">
+                            <img
+                                src={brasao}
+                                alt="Brasão Oficial de São Tomé"
+                                className="h-14 md:h-16 w-auto object-contain max-w-[190px]"
+                            />
                         </div>
-                        
-                        <p className="text-blue-100/60 text-sm mb-8 leading-relaxed font-medium">
-                            Compromisso com o desenvolvimento sustentável e a transparência em prol de todos os cidadãos são-tomeenses.
+
+                        <p className="text-slate-400 text-sm leading-relaxed">
+                            Gestão pública comprometida com a transparência ativa, eficiência administrativa e qualidade de vida para todos os cidadãos são-tomeenses.
                         </p>
 
-                        <div className="space-y-4 text-sm font-bold">
-                            <div className="flex items-start gap-4 text-blue-100/80">
-                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                                    <FaMapMarker className="text-[#FDB913]" />
+                        <div className="space-y-3 text-sm pt-1">
+                            <div className="flex items-start gap-3 text-slate-300">
+                                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <MapPin size={15} className="text-secondary-400" />
                                 </div>
-                                <span className="leading-tight">{endereco}</span>
+                                <span className="leading-snug text-xs sm:text-sm">{endereco}</span>
                             </div>
-                            <div className="flex items-center gap-4 text-blue-100/80">
-                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                                    <FaPhone className="text-[#FDB913]" />
+                            <div className="flex items-center gap-3 text-slate-300">
+                                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                    <Clock size={15} className="text-secondary-400" />
                                 </div>
-                                <span>{telefone}</span>
+                                <span className="text-xs sm:text-sm">
+                                    Atendimento: Segunda a Sexta, das 07h às 13h
+                                </span>
                             </div>
-                            <div className="flex items-center gap-4 text-blue-100/80">
-                                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                                    <FaEnvelope className="text-[#FDB913]" />
+                            <div className="flex items-center gap-3 text-slate-300">
+                                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                    <Phone size={15} className="text-secondary-400" />
                                 </div>
-                                <a href={`mailto:${email}`} className="hover:text-white transition-colors">
+                                <span className="font-mono text-xs sm:text-sm">{telefone}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-slate-300">
+                                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                                    <Mail size={15} className="text-secondary-400" />
+                                </div>
+                                <a
+                                    href={`mailto:${email}`}
+                                    className="hover:text-white transition-colors text-xs sm:text-sm break-all"
+                                >
                                     {email}
                                 </a>
                             </div>
                         </div>
+
+                        {/* Metadata Pills */}
+                        <div className="flex flex-wrap gap-2 pt-2">
+                            <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300">
+                                CNPJ: {cnpj}
+                            </span>
+                            <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300">
+                                IBGE: 2412005
+                            </span>
+                        </div>
                     </div>
 
-                    {/* Links de Navegação (8 colunas divididas) */}
+                    {/* Navigation Columns (8 cols) */}
                     <div className="lg:col-span-8">
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                             {footerLinks.map((section) => (
                                 <div key={section.title}>
-                                    <h4 className="text-white font-black text-[11px] uppercase tracking-[0.2em] mb-8 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-1 after:bg-[#FDB913] after:rounded-full">
+                                    <h4 className="font-heading text-white font-bold text-sm tracking-wide mb-5 pb-3 border-b border-white/10 flex items-center gap-2">
+                                        <span className="w-1.5 h-4 rounded-full bg-secondary-500" />
                                         {section.title}
                                     </h4>
-                                    <ul className="space-y-4">
+                                    <ul className="space-y-2.5">
                                         {section.links.map((link) => (
                                             <li key={link.href}>
                                                 <Link
                                                     href={link.href}
-                                                    className="text-blue-100/50 text-[13px] font-bold hover:text-white hover:translate-x-1 transition-all duration-300 block"
+                                                    className="group flex items-center gap-1.5 text-slate-400 text-[13px] font-medium hover:text-white transition-colors"
                                                 >
-                                                    {link.label}
+                                                    <ChevronRight
+                                                        size={13}
+                                                        className="text-primary-400 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all"
+                                                    />
+                                                    <span>{link.label}</span>
                                                 </Link>
                                             </li>
                                         ))}
@@ -176,11 +233,11 @@ export default async function Footer() {
                     </div>
                 </div>
 
-                {/* Barra Inferior com Redes Sociais */}
-                <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="flex items-center gap-6">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-blue-100/30">Mídias Sociais</span>
-                        <div className="flex gap-4">
+                {/* Social & Quick Bottom Bar */}
+                <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex items-center gap-4">
+                        <span className="text-xs font-semibold text-slate-400">Canais Oficiais:</span>
+                        <div className="flex gap-2.5">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.label}
@@ -189,37 +246,51 @@ export default async function Footer() {
                                     rel={social.href !== "#" ? "noopener noreferrer" : undefined}
                                     aria-label={social.label}
                                     title={social.label}
-                                    className={`w-10 h-10 bg-white/5 rounded-2xl flex items-center justify-center transition-all duration-300 text-white/50 hover:text-white hover:scale-110 shadow-lg ${social.color} ${social.href === "#" ? "opacity-30 cursor-default pointer-events-none" : ""}`}
+                                    className={`w-9 h-9 bg-white/5 hover:bg-primary-600 border border-white/10 rounded-xl flex items-center justify-center transition-all text-slate-300 hover:text-white ${
+                                        social.href === "#" ? "opacity-40 cursor-default pointer-events-none" : ""
+                                    }`}
                                 >
-                                    <social.Icon size={18} />
+                                    <social.Icon size={16} />
                                 </a>
                             ))}
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-8 text-[10px] font-black uppercase tracking-widest text-blue-100/30">
-                        <Link href="/mapa-do-site" className="hover:text-white transition-colors">Mapa do Site</Link>
-                        <Link href="/privacidade" className="hover:text-white transition-colors">Privacidade</Link>
-                        <a href="/admin" className="px-6 py-2.5 bg-white/5 rounded-full hover:bg-white/10 transition-all border border-white/5 shadow-inner">Painel Administrativo</a>
-                    </div>
-                </div>
-
-                {/* Copyright */}
-                <div className="mt-12 text-center">
-                    <div className="text-[10px] font-bold text-blue-100/20 uppercase tracking-[0.2em] space-y-2">
-                        <p>© {new Date().getFullYear()} {razaoSocial}. CNPJ {cnpj}</p>
-                        <p>Desenvolvido com foco em acessibilidade e transparência pública.</p>
+                    <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-slate-400">
+                        <Link href="/mapa-do-site" className="hover:text-white transition-colors">
+                            Mapa do Site
+                        </Link>
+                        <Link href="/privacidade" className="hover:text-white transition-colors">
+                            Privacidade e LGPD
+                        </Link>
+                        <Link
+                            href="/transparencia/acessibilidade"
+                            className="hover:text-white transition-colors"
+                        >
+                            Acessibilidade (e-MAG)
+                        </Link>
+                        <Link
+                            href="/admin"
+                            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-200 rounded-xl transition-all border border-white/10"
+                        >
+                            <Lock size={13} className="text-secondary-400" />
+                            <span>Acesso Restrito</span>
+                        </Link>
                     </div>
                 </div>
             </div>
 
-            {/* LGPD */}
-            <div className="bg-[#003670] text-center py-5 px-6 border-t border-white/5">
-                <p className="text-[10px] font-black uppercase tracking-widest text-blue-100/20">
-                    Este site utiliza cookies para melhorar sua experiência. Em conformidade com a LGPD (Lei nº 13.709/2018).
-                </p>
+            {/* Legal & LGPD Bottom Strip */}
+            <div className="bg-[#041328] py-4 px-6 border-t border-white/5">
+                <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400 text-center sm:text-left">
+                    <p>
+                        © {new Date().getFullYear()} {razaoSocial} – RN. Todos os direitos reservados.
+                    </p>
+                    <p>
+                        Em conformidade com a LAI (Lei nº 12.527/2011), LRF (LC nº 101/2000) e LGPD (Lei nº 13.709/2018).
+                    </p>
+                </div>
             </div>
         </footer>
     );
 }
-

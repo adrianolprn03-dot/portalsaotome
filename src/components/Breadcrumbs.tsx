@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaChevronRight, FaHome } from "react-icons/fa";
+import { ChevronRight, Home } from "lucide-react";
 
 export default function Breadcrumbs() {
     const pathname = usePathname();
@@ -34,32 +34,46 @@ export default function Breadcrumbs() {
     };
 
     return (
-        <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide" aria-label="Breadcrumb">
-            <Link href={segments[0] === "admin" ? "/admin" : "/"} className="hover:text-primary-500 transition-colors flex items-center gap-1">
-                <FaHome className="mb-0.5" />
-                <span>{segments[0] === "admin" ? "Início" : "Início"}</span>
+        <nav
+            className="flex items-center gap-2 text-xs text-slate-500 mb-6 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide"
+            aria-label="Breadcrumb"
+        >
+            <Link
+                href={segments[0] === "admin" ? "/admin" : "/"}
+                className="hover:text-primary-600 transition-colors flex items-center gap-1.5 font-medium"
+            >
+                <Home size={13} className="text-primary-600" />
+                <span>Início</span>
             </Link>
 
             {segments.map((segment, index) => {
                 const url = `/${segments.slice(0, index + 1).join("/")}`;
                 const isLast = index === segments.length - 1;
-                const label = labels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+                const label =
+                    labels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
 
-                // Ignorar o primeiro 'admin' pois já mostramos 'Início'
                 if (segment === "admin" && index === 0) return null;
 
-                // Não linkar se for ID ou o último
                 const clickable = !isLast && isNaN(Number(segment)) && segment.length > 5;
 
                 return (
                     <div key={url} className="flex items-center gap-2">
-                        <FaChevronRight className="text-[8px]" />
+                        <ChevronRight size={12} className="text-slate-300" />
                         {clickable ? (
-                            <Link href={url} className="hover:text-primary-500 transition-colors">
+                            <Link
+                                href={url}
+                                className="hover:text-primary-600 transition-colors font-medium"
+                            >
                                 {label}
                             </Link>
                         ) : (
-                            <span className={isLast ? "text-gray-600 font-semibold" : ""}>
+                            <span
+                                className={
+                                    isLast
+                                        ? "text-primary-700 font-semibold bg-primary-50 px-2 py-0.5 rounded-md border border-primary-100"
+                                        : ""
+                                }
+                            >
                                 {label}
                             </span>
                         )}

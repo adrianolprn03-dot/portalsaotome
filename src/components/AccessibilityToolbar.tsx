@@ -1,71 +1,133 @@
 "use client";
 import { useAccessibility } from "./AccessibilityProvider";
-import { FaAdjust, FaSearchPlus, FaSearchMinus, FaRedo, FaSitemap, FaInfoCircle } from "react-icons/fa";
+import {
+    Contrast,
+    Minus,
+    Plus,
+    RotateCcw,
+    Network,
+    Accessibility,
+    ShieldCheck,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function AccessibilityToolbar() {
-    const { toggleHighContrast, increaseFontSize, decreaseFontSize, resetFontSize } = useAccessibility();
+    const { toggleHighContrast, increaseFontSize, decreaseFontSize, resetFontSize } =
+        useAccessibility();
 
     return (
-        <div className="bg-white/90 backdrop-blur-md py-1.5 w-full border-b border-gray-100 flex items-center justify-between text-primary-900 overflow-x-auto no-scrollbar relative z-[100] px-4 md:px-10 lg:px-16 shadow-sm shadow-blue-900/5">
-            <div className="flex items-center gap-8 shrink-0">
-                <div className="flex items-center gap-5 text-[8px] font-black uppercase tracking-[0.25em] border-r border-gray-200 pr-8 hidden xl:flex text-primary-900/40">
-                    <a href="#conteudo-principal" className="hover:text-primary-500 transition-colors">Conteúdo [1]</a>
-                    <a href="#menu-principal" className="hover:text-primary-500 transition-colors">Menu [2]</a>
-                    <a href="#busca" className="hover:text-primary-500 transition-colors">Busca [3]</a>
+        <div className="bg-[#071E3D] text-slate-300 h-9 w-full border-b border-white/10 flex items-center justify-between overflow-x-auto no-scrollbar relative z-[100] px-4 md:px-8 lg:px-12 text-xs">
+            <div className="flex items-center gap-6 shrink-0">
+                {/* Identificação Oficial */}
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-200">
+                    <span className="w-2 h-2 rounded-full bg-secondary-500 shrink-0" />
+                    <span className="tracking-wide uppercase font-heading font-bold text-white">
+                        São Tomé • RN
+                    </span>
+                    <span className="hidden sm:inline text-slate-400 font-normal">
+                        | Poder Executivo Municipal
+                    </span>
                 </div>
-                
-                <div className="flex items-center gap-4">
-                    <button 
-                        onClick={toggleHighContrast}
-                        className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-primary-50 transition-all text-[9.5px] font-black uppercase tracking-widest group border border-transparent hover:border-primary-100"
-                        title="Alt + C (Alto Contraste)"
-                    >
-                        <FaAdjust className="text-primary-500 group-hover:rotate-180 transition-transform duration-500" />
-                        <span className="hidden sm:inline">Contraste</span>
-                    </button>
 
-                    <div className="flex items-center gap-1.5 bg-gray-50/50 p-1 rounded-2xl border border-gray-100">
-                        <button 
-                            onClick={decreaseFontSize}
-                            className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-xl transition-all text-xs text-primary-900/60 hover:text-primary-500"
-                            title="Diminuir Fonte"
-                        >
-                            <FaSearchMinus />
-                        </button>
-                        <button 
-                            onClick={resetFontSize}
-                            className="px-3 h-8 flex items-center justify-center hover:bg-white rounded-xl transition-all text-[9px] font-black text-primary-900/30 hover:text-primary-500"
-                            title="Resetar Fonte"
-                        >
-                            <FaRedo size={9} />
-                        </button>
-                        <button 
-                            onClick={increaseFontSize}
-                            className="w-8 h-8 flex items-center justify-center hover:bg-white rounded-xl transition-all text-sm text-primary-900/60 hover:text-primary-500"
-                            title="Aumentar Fonte"
-                        >
-                            <FaSearchPlus />
-                        </button>
-                    </div>
+                {/* Atalhos e-MAG */}
+                <div className="hidden xl:flex items-center gap-4 text-[11px] text-slate-300 border-l border-white/10 pl-6">
+                    <a
+                        href="#conteudo-principal"
+                        accessKey="1"
+                        className="hover:text-secondary-400 transition-colors flex items-center gap-1.5"
+                    >
+                        <span>Conteúdo</span>
+                        <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white/10 rounded text-slate-200">
+                            1
+                        </kbd>
+                    </a>
+                    <a
+                        href="#menu-principal"
+                        accessKey="2"
+                        className="hover:text-secondary-400 transition-colors flex items-center gap-1.5"
+                    >
+                        <span>Menu</span>
+                        <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white/10 rounded text-slate-200">
+                            2
+                        </kbd>
+                    </a>
+                    <a
+                        href="#busca"
+                        accessKey="3"
+                        className="hover:text-secondary-400 transition-colors flex items-center gap-1.5"
+                    >
+                        <span>Busca</span>
+                        <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white/10 rounded text-slate-200">
+                            3
+                        </kbd>
+                    </a>
                 </div>
             </div>
 
-            <div className="flex items-center gap-6 shrink-0 ml-6">
-                <Link 
-                    href="/mapa-do-site" 
-                    className="flex items-center gap-2.5 text-[9.5px] font-black uppercase tracking-widest text-primary-900/60 hover:text-primary-500 transition-all group"
-                >
-                    <FaSitemap className="text-primary-500 group-hover:scale-110 transition-transform" />
-                    <span className="hidden md:inline">Mapa do Site</span>
-                </Link>
-                <Link 
-                    href="/transparencia/acessibilidade" 
-                    className="flex items-center gap-2.5 text-[9.5px] font-black uppercase tracking-widest text-primary-900/60 hover:text-primary-500 transition-all group"
-                >
-                    <FaInfoCircle className="text-primary-500 group-hover:scale-110 transition-transform" />
-                    <span className="hidden md:inline">Acessibilidade</span>
-                </Link>
+            {/* Controles de Acessibilidade e Links */}
+            <div className="flex items-center gap-3 md:gap-5 shrink-0 ml-4">
+                <div className="flex items-center gap-1">
+                    <button
+                        onClick={toggleHighContrast}
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-all text-[11px] font-medium"
+                        title="Alternar Alto Contraste"
+                        aria-label="Alternar Alto Contraste"
+                    >
+                        <Contrast size={13} className="text-secondary-400" />
+                        <span className="hidden sm:inline">Contraste</span>
+                    </button>
+
+                    <div className="flex items-center bg-white/5 rounded-md p-0.5 border border-white/10">
+                        <button
+                            onClick={decreaseFontSize}
+                            className="w-6 h-6 flex items-center justify-center hover:bg-white/15 rounded text-slate-300 hover:text-white transition-colors"
+                            title="Diminuir Fonte (A-)"
+                            aria-label="Diminuir Fonte"
+                        >
+                            <Minus size={12} />
+                        </button>
+                        <button
+                            onClick={resetFontSize}
+                            className="px-1.5 h-6 flex items-center justify-center hover:bg-white/15 rounded text-[10px] font-mono font-bold text-slate-300 hover:text-white transition-colors"
+                            title="Tamanho Padrão (A)"
+                            aria-label="Tamanho Padrão de Fonte"
+                        >
+                            <RotateCcw size={11} />
+                        </button>
+                        <button
+                            onClick={increaseFontSize}
+                            className="w-6 h-6 flex items-center justify-center hover:bg-white/15 rounded text-slate-300 hover:text-white transition-colors"
+                            title="Aumentar Fonte (A+)"
+                            aria-label="Aumentar Fonte"
+                        >
+                            <Plus size={12} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="hidden md:flex items-center gap-4 border-l border-white/10 pl-4 text-[11px] font-medium">
+                    <Link
+                        href="/transparencia/radar"
+                        className="flex items-center gap-1.5 text-emerald-300 hover:text-emerald-200 transition-colors"
+                    >
+                        <ShieldCheck size={13} />
+                        <span>PNTP 2026</span>
+                    </Link>
+                    <Link
+                        href="/mapa-do-site"
+                        className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
+                    >
+                        <Network size={13} className="text-primary-400" />
+                        <span>Mapa do Site</span>
+                    </Link>
+                    <Link
+                        href="/transparencia/acessibilidade"
+                        className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
+                    >
+                        <Accessibility size={13} className="text-primary-400" />
+                        <span>Acessibilidade</span>
+                    </Link>
+                </div>
             </div>
         </div>
     );

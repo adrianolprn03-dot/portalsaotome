@@ -1,92 +1,147 @@
 import Link from "next/link";
-import { FaExternalLinkAlt, FaChartPie, FaCheckCircle, FaShieldAlt } from "react-icons/fa";
-import { motion } from "framer-motion";
+import {
+    ExternalLink,
+    CheckCircle2,
+    ShieldCheck,
+    BarChart3,
+    Database,
+    Scale,
+    ArrowRight,
+    Award,
+} from "lucide-react";
 
 export default function RadarTransparencia() {
     const radarUrl = "https://radardatransparencia.atricon.org.br/index.html";
 
-    return (
-        <section className="bg-[#f8fafc] py-24 px-6 relative overflow-hidden">
-            {/* Decorative Orbs */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 -z-10" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 -z-10" />
+    const pilares = [
+        { label: "Transparência Ativa", sub: "Receitas, Despesas e LRF" },
+        { label: "Acesso à Informação", sub: "e-SIC e Ouvidoria Integrados" },
+        { label: "Dados Abertos", sub: "Exportação CSV, JSON e XLSX" },
+        { label: "Controle Social", sub: "Obras, Contratos e Licitações" },
+    ];
 
+    const dimensoes = [
+        { nome: "Execução Orçamentária e Financeira", meta: "100%", icon: BarChart3 },
+        { nome: "Licitações, Contratos e Obras", meta: "100%", icon: Scale },
+        { nome: "Atendimento ao Cidadão (LAI / Ouvidoria)", meta: "100%", icon: ShieldCheck },
+        { nome: "Dados Abertos e Acessibilidade e-MAG", meta: "100%", icon: Database },
+    ];
+
+    return (
+        <section className="bg-[#F6F9FC] py-20 md:py-24 px-6 relative overflow-hidden border-b border-slate-200/80">
             <div className="max-w-[1240px] mx-auto">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
-                    {/* Left Side: Text Content */}
-                    <div className="flex-1 space-y-10">
-                        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full text-[10px] font-black text-blue-600 uppercase tracking-widest shadow-sm">
-                            <FaShieldAlt className="animate-pulse" /> PNTP 2026 – ATRICON / TCU
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    {/* Left Side: Text Content (7 cols) */}
+                    <div className="lg:col-span-7 space-y-6">
+                        <div className="section-eyebrow">
+                            <ShieldCheck size={14} className="text-primary-600" />
+                            <span>PNTP 2026 • ATRICON &amp; Tribunais de Contas</span>
                         </div>
-                        
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-[0.9] mb-6">
-                            Nosso compromisso <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">é com a verdade.</span>
+
+                        <h2 className="section-title">
+                            Compromisso permanente com a{" "}
+                            <span className="text-primary-600">transparência pública</span>
                         </h2>
-                        
-                        <p className="text-slate-500 text-lg font-medium leading-relaxed max-w-xl">
-                            O Radar Nacional de Transparência Pública monitora o cumprimento da Lei de Acesso à Informação em todos os municípios. 
-                            Estamos trabalhando para elevar nossa pontuação e garantir um governo cada vez mais aberto.
+
+                        <p className="text-slate-600 text-base leading-relaxed max-w-2xl">
+                            O Radar da Transparência Pública avalia o cumprimento da Lei de Acesso à Informação (Lei nº 12.527/2011) e da Lei de Responsabilidade Fiscal em todos os municípios brasileiros. São Tomé mantém dados estruturados, atualizados e auditáveis.
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {[
-                                { icon: <FaCheckCircle className="text-emerald-500" />, text: "Transparência Ativa" },
-                                { icon: <FaCheckCircle className="text-emerald-500" />, text: "Acesso à Informação" },
-                                { icon: <FaCheckCircle className="text-emerald-500" />, text: "Dados Abertos" },
-                                { icon: <FaCheckCircle className="text-emerald-500" />, text: "Portal Cidadão" },
-                            ].map((item, i) => (
-                                <div key={i} className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                                    {item.icon}
-                                    <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">{item.text}</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                            {pilares.map((item, i) => (
+                                <div
+                                    key={i}
+                                    className="flex items-start gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-civic-sm"
+                                >
+                                    <CheckCircle2
+                                        size={18}
+                                        className="text-emerald-600 shrink-0 mt-0.5"
+                                    />
+                                    <div>
+                                        <div className="text-xs font-bold text-[#071E3D]">
+                                            {item.label}
+                                        </div>
+                                        <div className="text-[11px] text-slate-500">
+                                            {item.sub}
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="flex flex-wrap gap-6 pt-4">
-                            <Link 
-                                href={radarUrl} 
+                        <div className="flex flex-wrap gap-3.5 pt-3">
+                            <Link
+                                href={radarUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-[2rem] font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all hover:scale-105 shadow-2xl active:scale-95 group"
+                                className="btn-primary"
                             >
-                                Consultar Índice Oficial <FaExternalLinkAlt className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                <span>Consultar Radar ATRICON</span>
+                                <ExternalLink size={15} />
                             </Link>
-                            
-                            <Link 
-                                href="/transparencia/radar"
-                                className="inline-flex items-center gap-3 bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-[2rem] font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all shadow-xl"
-                            >
-                                Saiba Mais Sobre o Radar
+
+                            <Link href="/transparencia/radar" className="btn-outline">
+                                <span>Painel de Governança PNTP</span>
+                                <ArrowRight size={15} />
                             </Link>
                         </div>
                     </div>
 
-                    {/* Right Side: Visual Element */}
-                    <div className="flex-shrink-0 relative w-full lg:w-[450px]">
-                        <div className="relative z-10 bg-white p-12 rounded-[4rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] border border-slate-100 rotate-3 hover:rotate-0 transition-transform duration-700 group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[4rem]" />
-                            <img 
-                                src="https://atricon.org.br/wp-content/uploads/2023/11/Banner-Radar-Nacional-de-Transparencia-960x300-1.png" 
-                                alt="Radar da Transparência Pública"
-                                className="w-full h-auto object-contain relative z-10"
-                            />
-                            <div className="mt-12 flex items-center justify-center gap-8 border-t border-slate-50 pt-8 relative z-10">
-                                <div className="text-center">
-                                    <div className="text-3xl font-black text-slate-900">2026</div>
-                                    <div className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Ciclo Atual</div>
+                    {/* Right Side: Architectural Governance Card (5 cols) */}
+                    <div className="lg:col-span-5">
+                        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-civic-xl overflow-hidden">
+                            <div className="h-1.5 w-full heraldic-stripe" />
+
+                            <div className="p-7 sm:p-8 space-y-6">
+                                <div className="flex items-center justify-between pb-5 border-b border-slate-100">
+                                    <div className="flex items-center gap-3.5">
+                                        <div className="w-12 h-12 rounded-2xl bg-[#071E3D] text-secondary-400 flex items-center justify-center shadow-sm">
+                                            <Award size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold text-primary-600 uppercase tracking-wider">
+                                                Matriz de Conformidade
+                                            </div>
+                                            <h3 className="font-heading text-lg font-extrabold text-[#071E3D]">
+                                                Programa Nacional • PNTP
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-bold">
+                                        Ciclo 2026
+                                    </span>
                                 </div>
-                                <div className="w-[1px] h-10 bg-slate-100" />
-                                <div className="text-center">
-                                    <div className="text-3xl font-black text-blue-600">PNTP</div>
-                                    <div className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Programa</div>
+
+                                <div className="space-y-3">
+                                    {dimensoes.map((dim, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="p-3.5 rounded-xl bg-[#F6F9FC] border border-slate-200/70 flex items-center justify-between gap-3"
+                                        >
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <dim.icon
+                                                    size={17}
+                                                    className="text-primary-600 shrink-0"
+                                                />
+                                                <span className="text-xs font-semibold text-slate-700 truncate">
+                                                    {dim.nome}
+                                                </span>
+                                            </div>
+                                            <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200 shrink-0">
+                                                Ativo
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                    <span>Auditado pela Controladoria Geral</span>
+                                    <span className="font-mono font-bold text-[#071E3D]">
+                                        TCE/RN • ATRICON
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        
-                        {/* Floating elements */}
-                        <div className="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500 rounded-3xl rotate-12 -z-10 shadow-2xl shadow-emerald-500/20" />
-                        <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-600 rounded-[2.5rem] -rotate-6 -z-10 shadow-2xl shadow-blue-600/20" />
                     </div>
                 </div>
             </div>

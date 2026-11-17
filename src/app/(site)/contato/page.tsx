@@ -1,11 +1,26 @@
 "use client";
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
-import { FaPaperPlane, FaPhone, FaMapMarker, FaEnvelope, FaClock } from "react-icons/fa";
+import {
+    Send,
+    Phone,
+    MapPin,
+    Mail,
+    Clock,
+    CheckCircle2,
+    Headset,
+    ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
 import { MUNICIPIO } from "@/config/municipio";
 
 export default function ContatoPage() {
-    const [formData, setFormData] = useState({ nome: '', email: '', assunto: '', mensagem: '' });
+    const [formData, setFormData] = useState({
+        nome: "",
+        email: "",
+        assunto: "",
+        mensagem: "",
+    });
     const [enviando, setEnviando] = useState(false);
     const [sucesso, setSucesso] = useState(false);
 
@@ -16,11 +31,11 @@ export default function ContatoPage() {
             const res = await fetch("/api/contato", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
             });
             if (res.ok) {
                 setSucesso(true);
-                setFormData({ nome: '', email: '', assunto: '', mensagem: '' });
+                setFormData({ nome: "", email: "", assunto: "", mensagem: "" });
                 setTimeout(() => setSucesso(false), 5000);
             }
         } catch (error) {
@@ -31,156 +46,229 @@ export default function ContatoPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#F6F9FC]">
             <PageHeader
                 title="Fale Conosco"
-                subtitle="Canais oficiais de atendimento e comunicação com a Prefeitura Municipal"
+                subtitle="Canais oficiais de atendimento presencial, telefônico e eletrônico da Prefeitura Municipal de São Tomé."
+                variant="premium"
+                icon={<Phone className="w-8 h-8" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Contato" }
+                    { label: "Contato" },
                 ]}
             />
 
-            <div className="max-w-[1200px] mx-auto px-6 py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    {/* Informações de Contato Rápidas */}
-                    <div className="space-y-6">
-                        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-black text-gray-800 uppercase tracking-tighter mb-8">Atendimento Presencial</h3>
-                            
-                            <div className="space-y-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaMapMarker />
+            <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    {/* Informações de Contato Rápidas (4 cols) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="bg-white rounded-3xl p-8 shadow-civic-sm border border-slate-200/80">
+                            <h3 className="font-heading text-lg font-extrabold text-[#071E3D] mb-6">
+                                Sede Administrativa
+                            </h3>
+
+                            <div className="space-y-5">
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                        <MapPin size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Endereço</p>
-                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.endereco}</p>
-                                        <p className="text-xs font-medium text-gray-500 mt-0.5">São Tomé/RN, CEP: {MUNICIPIO.cep}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Endereço
+                                        </p>
+                                        <p className="text-sm font-bold text-slate-800 mt-0.5">
+                                            {MUNICIPIO.endereco}
+                                        </p>
+                                        <p className="text-xs text-slate-500 mt-0.5">
+                                            São Tomé/RN • CEP: {MUNICIPIO.cep}
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaClock />
+
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                        <Clock size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Horário</p>
-                                        <p className="text-sm font-bold text-gray-700">Segunda a Sexta</p>
-                                        <p className="text-xs font-medium text-gray-500 mt-0.5">{MUNICIPIO.horario}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Expediente ao Público
+                                        </p>
+                                        <p className="text-sm font-bold text-slate-800 mt-0.5">
+                                            Segunda a Sexta-feira
+                                        </p>
+                                        <p className="text-xs text-slate-500 mt-0.5">
+                                            Das {MUNICIPIO.horario}
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaPhone />
+
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                        <Phone size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Telefone</p>
-                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.telefone}</p>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            Telefone Central
+                                        </p>
+                                        <p className="text-sm font-mono font-bold text-slate-800 mt-0.5">
+                                            {MUNICIPIO.telefone}
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
-                                        <FaEnvelope />
+
+                                <div className="flex items-start gap-3.5">
+                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                        <Mail size={18} />
                                     </div>
-                                    <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">E-mail Administrativo</p>
-                                        <p className="text-sm font-bold text-gray-700">{MUNICIPIO.email}</p>
+                                    <div className="min-w-0">
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            E-mail Oficial
+                                        </p>
+                                        <p className="text-sm font-bold text-slate-800 mt-0.5 break-all">
+                                            {MUNICIPIO.email}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2rem] p-8 text-white shadow-xl shadow-blue-900/20 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10" />
-                            <h3 className="text-lg font-black uppercase tracking-tighter mb-3 relative z-10">Precisando da Ouvidoria?</h3>
-                            <p className="text-blue-100 text-sm font-medium mb-6 relative z-10">
-                                Para denúncias, reclamações ou sugestões formais, utilize nosso canal exclusivo de ouvidoria.
+                        <div className="bg-[#071E3D] rounded-3xl p-8 text-white shadow-civic-lg relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
+                            <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-secondary-400 mb-4">
+                                <Headset size={20} />
+                            </div>
+                            <h3 className="font-heading text-lg font-extrabold mb-2">
+                                Precisando da Ouvidoria?
+                            </h3>
+                            <p className="text-slate-300 text-xs leading-relaxed mb-6">
+                                Para denúncias, reclamações, elogios ou sugestões formais com geração de protocolo oficial, utilize a Ouvidoria Municipal.
                             </p>
-                            <a href="/servicos/ouvidoria" className="inline-block bg-white text-blue-700 px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all relative z-10">
-                                Acessar Ouvidoria
-                            </a>
+                            <Link
+                                href="/servicos/ouvidoria"
+                                className="inline-flex items-center gap-2 bg-secondary-500 hover:bg-secondary-400 text-[#071E3D] px-5 py-3 rounded-xl text-xs font-bold transition-all"
+                            >
+                                <span>Acessar Ouvidoria</span>
+                                <ArrowRight size={14} />
+                            </Link>
                         </div>
                     </div>
 
-                    {/* Formulário */}
-                    <div className="lg:col-span-2">
-                        <div className="bg-white rounded-[3rem] p-10 md:p-14 shadow-xl shadow-gray-200/40 border border-white">
-                            <div className="mb-10">
-                                <h2 className="text-3xl font-black text-gray-800 uppercase tracking-tighter mb-3">Envie uma mensagem</h2>
-                                <p className="text-gray-500 font-medium">Preencha o formulário abaixo. Sua solicitação será direcionada ao setor responsável.</p>
+                    {/* Formulário (8 cols) */}
+                    <div className="lg:col-span-8">
+                        <div className="bg-white rounded-3xl p-8 md:p-10 shadow-civic-sm border border-slate-200/80">
+                            <div className="mb-8 pb-6 border-b border-slate-100">
+                                <h2 className="font-heading text-2xl font-extrabold text-[#071E3D] mb-1.5">
+                                    Envie uma Mensagem
+                                </h2>
+                                <p className="text-slate-600 text-sm">
+                                    Preencha os campos abaixo. Sua mensagem será encaminhada ao setor competente da administração municipal.
+                                </p>
                             </div>
 
                             {sucesso && (
-                                <div className="bg-emerald-50 text-emerald-700 border border-emerald-200 p-6 rounded-2xl mb-8 flex items-center gap-4 animate-in fade-in">
-                                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">✓</div>
+                                <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 p-5 rounded-2xl mb-6 flex items-center gap-3.5 animate-fade-in">
+                                    <CheckCircle2 className="text-emerald-600 shrink-0" size={22} />
                                     <div>
-                                        <h4 className="font-bold text-sm">Mensagem enviada com sucesso!</h4>
-                                        <p className="text-xs font-medium mt-1">Agradecemos seu contato. Nossa equipe responderá em breve.</p>
+                                        <h4 className="font-bold text-sm">
+                                            Mensagem enviada com sucesso!
+                                        </h4>
+                                        <p className="text-xs mt-0.5">
+                                            Agradecemos seu contato. Nossa equipe responderá o mais breve possível.
+                                        </p>
                                     </div>
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <form onSubmit={handleSubmit} className="space-y-5">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Nome Completo</label>
-                                        <input 
-                                            type="text" required
+                                        <label className="block text-xs font-bold text-slate-700 mb-2">
+                                            Nome Completo *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            required
                                             value={formData.nome}
-                                            onChange={e => setFormData({...formData, nome: e.target.value})}
-                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                                            placeholder="Digite seu nome"
+                                            onChange={(e) =>
+                                                setFormData({ ...formData, nome: e.target.value })
+                                            }
+                                            className="input-field"
+                                            placeholder="Digite seu nome completo"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">E-mail</label>
-                                        <input 
-                                            type="email" required
+                                        <label className="block text-xs font-bold text-slate-700 mb-2">
+                                            E-mail para Retorno *
+                                        </label>
+                                        <input
+                                            type="email"
+                                            required
                                             value={formData.email}
-                                            onChange={e => setFormData({...formData, email: e.target.value})}
-                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                            onChange={(e) =>
+                                                setFormData({ ...formData, email: e.target.value })
+                                            }
+                                            className="input-field"
                                             placeholder="seu@email.com"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Assunto</label>
-                                    <select 
+                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                        Assunto *
+                                    </label>
+                                    <select
                                         required
                                         value={formData.assunto}
-                                        onChange={e => setFormData({...formData, assunto: e.target.value})}
-                                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none"
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, assunto: e.target.value })
+                                        }
+                                        className="input-field cursor-pointer"
                                     >
                                         <option value="">Selecione um assunto...</option>
-                                        <option value="Dúvida Administrativa">Dúvida Administrativa</option>
-                                        <option value="Solicitação de Serviço">Solicitação de Serviço</option>
-                                        <option value="Tributário / IPTU">Tributário / IPTU</option>
-                                        <option value="Recursos Humanos">Recursos Humanos</option>
-                                        <option value="Outros">Outros</option>
+                                        <option value="Dúvida Administrativa">
+                                            Dúvida Administrativa
+                                        </option>
+                                        <option value="Solicitação de Serviço">
+                                            Solicitação de Serviço
+                                        </option>
+                                        <option value="Tributário / IPTU">
+                                            Tributário / IPTU / ISS
+                                        </option>
+                                        <option value="Recursos Humanos">
+                                            Recursos Humanos / Servidores
+                                        </option>
+                                        <option value="Outros">Outros Assuntos</option>
                                     </select>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Mensagem</label>
-                                    <textarea 
-                                        required rows={6}
+                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                        Mensagem *
+                                    </label>
+                                    <textarea
+                                        required
+                                        rows={6}
                                         value={formData.mensagem}
-                                        onChange={e => setFormData({...formData, mensagem: e.target.value})}
-                                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"
-                                        placeholder="Como podemos ajudar?"
+                                        onChange={(e) =>
+                                            setFormData({ ...formData, mensagem: e.target.value })
+                                        }
+                                        className="input-field resize-none"
+                                        placeholder="Descreva como podemos ajudar..."
                                     />
                                 </div>
 
-                                <button 
-                                    type="submit" disabled={enviando}
-                                    className="bg-[#01b0ef] hover:bg-[#0088b9] text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 w-full md:w-auto transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                                <button
+                                    type="submit"
+                                    disabled={enviando}
+                                    className="btn-primary w-full sm:w-auto px-8 py-3.5 disabled:opacity-60"
                                 >
                                     {enviando ? (
-                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                     ) : (
                                         <>
-                                            <FaPaperPlane /> Enviar Mensagem
+                                            <Send size={16} />
+                                            <span>Enviar Mensagem</span>
                                         </>
                                     )}
                                 </button>
@@ -192,4 +280,3 @@ export default function ContatoPage() {
         </div>
     );
 }
-

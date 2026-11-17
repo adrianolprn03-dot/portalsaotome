@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { HiArrowLongRight } from "react-icons/hi2";
+import { ArrowRight, Calendar, Newspaper, Sparkles } from "lucide-react";
 
 type Noticia = {
     id: string;
@@ -37,7 +37,7 @@ const defaultNoticias: Noticia[] = [
         imagem: null,
         publicadoEm: new Date().toISOString(),
         slug: "investimentos-educacao-sao-tome",
-    }
+    },
 ];
 
 export default function UltimasNoticias() {
@@ -68,125 +68,148 @@ export default function UltimasNoticias() {
         if (!data) return "";
         const d = new Date(data);
         if (isNaN(d.getTime())) return "";
-        return d.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-        }).replace(/ de /g, "/");
+        return d
+            .toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+            })
+            .replace(/ de /g, " ");
     };
 
     if (loading) return null;
 
     const destaque = noticias[0];
-    const laterais = noticias.slice(1);
+    const laterais = noticias.slice(1, 5);
 
     return (
-        <section className="bg-white py-24 relative overflow-hidden" aria-labelledby="noticias-titulo">
-            {/* Subtle background decoration */}
-            <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-primary-50/40 rounded-full -mr-[200px] -mt-[350px] blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary-50/30 rounded-full -ml-[150px] -mb-[250px] blur-3xl pointer-events-none" />
-
+        <section
+            className="bg-white py-20 md:py-24 relative overflow-hidden border-b border-slate-200/70"
+            aria-labelledby="noticias-titulo"
+        >
             <div className="max-w-[1240px] mx-auto px-6 relative z-10">
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row items-end justify-between mb-14 gap-6">
-                    <div className="max-w-xl">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-8 h-1 bg-secondary-400 rounded-full" />
-                            <span className="text-primary-500 font-black text-[10px] uppercase tracking-[0.35em]">Portal de Notícias</span>
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div className="space-y-3 max-w-xl">
+                        <div className="section-eyebrow">
+                            <Newspaper size={14} className="text-primary-600" />
+                            <span>Agência Municipal de Notícias</span>
                         </div>
-                        <h2 id="noticias-titulo" className="text-3xl md:text-5xl font-black text-[#002241] uppercase tracking-tighter leading-tight">
-                            Acompanhe as <br />
-                            <span className="text-primary-500">ações da prefeitura</span>
+                        <h2 id="noticias-titulo" className="section-title">
+                            Acompanhe as ações e investimentos da Prefeitura
                         </h2>
                     </div>
                     <Link
                         href="/noticias"
-                        className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-primary-500 hover:text-primary-700 transition-all"
+                        className="btn-outline shrink-0 self-start md:self-auto group"
                     >
-                        Ver todas as notícias
-                        <div className="w-10 h-10 rounded-full border-2 border-primary-100 flex items-center justify-center group-hover:bg-primary-500 group-hover:border-primary-500 group-hover:text-white transition-all">
-                            <HiArrowLongRight className="w-5 h-5" />
-                        </div>
+                        <span>Ver todas as notícias</span>
+                        <ArrowRight
+                            size={16}
+                            className="text-primary-600 group-hover:translate-x-1 transition-transform"
+                        />
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-                    {/* Featured Article */}
-                    <div className="lg:col-span-6 flex">
+                {/* Editorial Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    {/* Featured Article (7 cols) */}
+                    <div className="lg:col-span-7 flex">
                         <Link
                             href={`/noticias/${destaque.slug}`}
-                            className="group relative flex flex-col w-full min-h-[500px] lg:h-full rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-primary-900/15 transition-all duration-500 hover:-translate-y-2"
+                            className="group relative flex flex-col w-full min-h-[440px] lg:min-h-[520px] rounded-3xl overflow-hidden shadow-civic-lg border border-slate-200/80 transition-all duration-300 hover:shadow-civic-xl"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#002241]/95 via-[#002241]/50 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#071E3D] via-[#071E3D]/60 to-transparent z-10" />
 
                             {destaque.imagem ? (
                                 <img
                                     src={destaque.imagem}
                                     alt={destaque.titulo}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                             ) : (
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#002241] to-primary-600" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#071E3D] via-primary-900 to-primary-700" />
                             )}
 
-                            <div className="relative z-20 flex flex-col justify-end h-full p-8 md:p-10">
-                                <div className="flex items-center gap-3 mb-5">
-                                    <span className="px-4 py-1.5 rounded-full bg-secondary-400 text-[#002241] text-[10px] font-black uppercase tracking-widest shadow-sm">
-                                        Destaque
+                            <div className="relative z-20 flex flex-col justify-end h-full p-7 sm:p-10">
+                                <div className="flex flex-wrap items-center gap-3 mb-4">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-500 text-[#071E3D] text-xs font-bold shadow-sm">
+                                        <Sparkles size={12} />
+                                        {destaque.secretaria?.nome || "Destaque Oficial"}
                                     </span>
-                                    <span className="text-white/70 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                                    <span className="text-slate-200 text-xs font-mono flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+                                        <Calendar size={12} className="text-secondary-400" />
                                         {formatarData(destaque.publicadoEm)}
                                     </span>
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-4 group-hover:text-secondary-300 transition-colors line-clamp-3">
+
+                                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3 group-hover:text-secondary-300 transition-colors line-clamp-3">
                                     {destaque.titulo}
                                 </h3>
-                                <p className="text-white/70 text-sm line-clamp-2 mb-8 font-medium leading-relaxed">
+
+                                <p className="text-slate-200/85 text-sm sm:text-base line-clamp-2 mb-6 font-normal leading-relaxed">
                                     {destaque.resumo}
                                 </p>
-                                <div className="inline-flex items-center gap-3 text-white font-black uppercase tracking-widest text-[10px] group-hover:gap-5 transition-all w-fit bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20 hover:bg-primary-500/40">
-                                    Ler matéria <HiArrowLongRight className="w-4 h-4 text-secondary-400" />
+
+                                <div className="inline-flex items-center gap-2 text-white font-semibold text-xs bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-xl border border-white/20 w-fit group-hover:bg-primary-600 group-hover:border-primary-500 transition-all">
+                                    <span>Ler matéria completa</span>
+                                    <ArrowRight
+                                        size={15}
+                                        className="text-secondary-400 group-hover:translate-x-1 transition-transform"
+                                    />
                                 </div>
                             </div>
                         </Link>
                     </div>
 
-                    {/* Side News Grid */}
-                    <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {/* Side News List (5 cols) */}
+                    <div className="lg:col-span-5 flex flex-col justify-between gap-4">
                         {laterais.map((n) => (
                             <Link
                                 key={n.id}
                                 href={`/noticias/${n.slug}`}
-                                className="group flex flex-col bg-white rounded-[1.75rem] border border-gray-100 overflow-hidden hover:shadow-xl hover:shadow-primary-900/8 transition-all duration-500 hover:-translate-y-1.5 h-full"
+                                className="group flex items-center gap-4 p-4 rounded-2xl bg-[#F6F9FC] hover:bg-white border border-slate-200/80 hover:border-primary-300 hover:shadow-civic transition-all duration-300"
                             >
-                                <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                                <div className="relative w-28 h-24 sm:w-32 sm:h-28 rounded-xl overflow-hidden bg-slate-200 shrink-0">
                                     {n.imagem ? (
                                         <img
                                             src={n.imagem}
                                             alt={n.titulo}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-primary-50 to-primary-100" />
+                                        <div className="w-full h-full bg-gradient-to-br from-[#071E3D] to-primary-700 flex items-center justify-center text-white/40">
+                                            <Newspaper size={24} />
+                                        </div>
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#002241]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                                 </div>
 
-                                <div className="flex flex-col flex-1 p-5 md:p-6">
-                                    <span className="text-[10px] text-primary-500 font-black tracking-widest uppercase mb-2 block">
-                                        {formatarData(n.publicadoEm)}
-                                    </span>
-                                    <h3 className="font-black text-[#002241] text-base leading-snug group-hover:text-primary-600 transition-colors line-clamp-3 mb-4 flex-1">
+                                <div className="flex flex-col flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 mb-1.5">
+                                        <span className="text-[11px] font-mono font-semibold text-primary-600">
+                                            {formatarData(n.publicadoEm)}
+                                        </span>
+                                        {n.secretaria?.nome && (
+                                            <>
+                                                <span className="text-slate-300">•</span>
+                                                <span className="text-[11px] font-semibold text-slate-500 truncate">
+                                                    {n.secretaria.nome}
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    <h3 className="font-heading font-bold text-[#071E3D] text-sm sm:text-base leading-snug group-hover:text-primary-600 transition-colors line-clamp-2 mb-2">
                                         {n.titulo}
                                     </h3>
 
-                                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Acessar</span>
-                                        <div className="w-8 h-8 rounded-full bg-primary-50 border border-primary-100 flex items-center justify-center text-primary-500 group-hover:bg-primary-500 group-hover:text-white transition-all">
-                                            <HiArrowLongRight className="w-4 h-4" />
-                                        </div>
-                                    </div>
+                                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 group-hover:text-primary-600 transition-colors">
+                                        <span>Ler publicação</span>
+                                        <ArrowRight
+                                            size={13}
+                                            className="group-hover:translate-x-1 transition-transform"
+                                        />
+                                    </span>
                                 </div>
                             </Link>
                         ))}
