@@ -97,18 +97,20 @@ export default function HeroSection() {
     };
 
     return (
-        <section className="relative w-full overflow-hidden bg-white border-b border-[#01b0ef]/20">
+        <section
+            className="relative w-full overflow-hidden border-b border-[#01b0ef]/20"
+            style={{
+                background:
+                    "radial-gradient(ellipse 65% 75% at 76% 48%, rgba(1, 176, 239, 0.11) 0%, rgba(253, 185, 19, 0.05) 44%, rgba(255, 255, 255, 0) 78%), linear-gradient(180deg, #ffffff 0%, #f6fcff 56%, #eefaff 100%)",
+            }}
+        >
             {/* Two-Tone Heraldic Signature Line */}
             <div className="h-1 w-full heraldic-stripe" />
 
-            {/* Bright Architectural Split Surface */}
+            {/* Continuous Edge-to-Edge Daylight Grid */}
             <div
                 aria-hidden="true"
-                className="hidden lg:block absolute inset-y-0 right-0 w-1/2 bg-[#f4fbff] border-l border-[#01b0ef]/15 pointer-events-none"
-            />
-            <div
-                aria-hidden="true"
-                className="hidden lg:block absolute top-0 right-0 w-1/2 h-full civic-grid-pattern opacity-60 pointer-events-none"
+                className="absolute inset-0 civic-grid-pattern opacity-45 pointer-events-none"
             />
 
             {/* Main Asymmetric Stage */}
@@ -142,7 +144,7 @@ export default function HeroSection() {
                             <label htmlFor="hero-portal-search" className="sr-only">
                                 Pesquisar no Portal da Transparência
                             </label>
-                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-[#f4fbff] focus-within:bg-white rounded-2xl p-1.5 shadow-civic border-2 border-[#01b0ef]/25 focus-within:border-[#01b0ef] transition-colors">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white rounded-2xl p-1.5 shadow-civic-lg border-2 border-[#01b0ef]/25 focus-within:border-[#01b0ef] transition-colors">
                                 <div className="flex items-center flex-1 pl-3">
                                     <Search size={19} className="text-[#01b0ef] shrink-0 mr-2.5" aria-hidden="true" />
                                     <input
