@@ -104,34 +104,38 @@ export default function HeroSection() {
             {/* Bright Architectural Split Surface */}
             <div
                 aria-hidden="true"
-                className="hidden lg:block absolute inset-y-0 right-0 w-[52%] bg-[#f4fbff] border-l border-[#01b0ef]/15 pointer-events-none"
+                className="hidden lg:block absolute inset-y-0 right-0 w-1/2 bg-[#f4fbff] border-l border-[#01b0ef]/15 pointer-events-none"
             />
             <div
                 aria-hidden="true"
-                className="hidden lg:block absolute top-0 right-0 w-[52%] h-full civic-grid-pattern opacity-60 pointer-events-none"
+                className="hidden lg:block absolute top-0 right-0 w-1/2 h-full civic-grid-pattern opacity-60 pointer-events-none"
             />
 
             {/* Main Asymmetric Stage */}
             <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 py-10 sm:py-12 lg:py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    {/* Left Column: Monumental Typography, Search Command & Dual CTAs (5 cols) */}
-                    <div className="lg:col-span-5 space-y-6 sm:space-y-7">
-                        {/* Headline (Direct Authority, Zero Clutter) */}
-                        <h1 className="font-heading text-3xl sm:text-4xl xl:text-[48px] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.07] text-balance">
-                            <span className="relative z-0 inline-block text-[#01b0ef]">
-                                São Tomé
-                                <span
-                                    aria-hidden="true"
-                                    className="absolute left-0 right-0 -bottom-1 h-2 bg-[#fdb913]/85 rounded-full -z-10"
-                                />
+                    {/* Left Column: Monumental Typography, Search Command & Dual CTAs (6 cols) */}
+                    <div className="lg:col-span-6 space-y-6 sm:space-y-7 max-w-[540px]">
+                        {/* Headline (Direct Authority, Clean Line Rhythm, Zero Overlap) */}
+                        <h1 className="font-heading text-[28px] sm:text-[38px] lg:text-[36px] xl:text-[42px] font-extrabold text-slate-900 tracking-[-0.025em] leading-[1.22]">
+                            <span className="block mb-1">
+                                <span className="relative z-0 inline-block text-[#01b0ef] pb-1.5">
+                                    São Tomé
+                                    <span
+                                        aria-hidden="true"
+                                        className="absolute left-0 right-0 bottom-0.5 h-[7px] bg-[#fdb913]/90 rounded-full -z-10"
+                                    />
+                                </span>
+                                <span className="text-slate-900">,</span>
                             </span>
-                            , Construindo Hoje, o Futuro da nossa gente!
+                            <span className="block">Construindo Hoje,</span>
+                            <span className="block">o Futuro da nossa gente!</span>
                         </h1>
 
                         {/* Unified Search Command Bar */}
                         <form
                             onSubmit={handleSearch}
-                            className="relative"
+                            className="relative max-w-[510px]"
                             role="search"
                             aria-label="Pesquisa rápida no portal"
                         >
@@ -179,8 +183,8 @@ export default function HeroSection() {
                         </div>
                     </div>
 
-                    {/* Right Column: Widescreen Architectural Cinema Stage (7 cols — 100% Unobstructed Video) */}
-                    <div className="lg:col-span-7">
+                    {/* Right Column: Widescreen Architectural Cinema Stage (6 cols — 100% Unobstructed Video) */}
+                    <div className="lg:col-span-6">
                         <div className="relative bg-white rounded-[1.75rem] p-2 sm:p-3 border border-[#01b0ef]/25 shadow-civic-xl">
                             {/* Geometric Brand Registration Corner Accent */}
                             <div
