@@ -8,18 +8,105 @@ const prisma = new PrismaClient();
 async function main() {
     console.log("🌱 Iniciando seeding completo para São Tomé/RN...");
 
-    // --- Usuário Admin ---
-    const senhaHash = await bcrypt.hash("Admin123!", 10);
-    await prisma.usuario.upsert({
-        where: { email: "admin@saotome.rn.gov.br" },
-        update: { senha: senhaHash },
-        create: {
+    // --- Usuários por Módulo (RBAC) ---
+    const seedUsers = [
+        {
             nome: "Administrador São Tomé",
             email: "admin@saotome.rn.gov.br",
-            senha: senhaHash,
+            cargo: "Administrador do Portal",
             perfil: "admin",
+            envPassKey: "SEED_ADMIN_PASSWORD",
         },
-    });
+        {
+            nome: "Controladoria Municipal",
+            email: "controladoria@saotome.rn.gov.br",
+            cargo: "Controlador Geral / Revisor PNTP",
+            perfil: "controladoria",
+            envPassKey: "SEED_CONTROLADORIA_PASSWORD",
+        },
+        {
+            nome: "Assessoria de Comunicação",
+            email: "comunicacao@saotome.rn.gov.br",
+            cargo: "Assessoria de Comunicação",
+            perfil: "comunicacao",
+            envPassKey: "SEED_COMUNICACAO_PASSWORD",
+        },
+        {
+            nome: "Gestão Financeira e Licitações",
+            email: "financas@saotome.rn.gov.br",
+            cargo: "Gestor Financeiro e Licitações",
+            perfil: "financas",
+            envPassKey: "SEED_FINANCAS_PASSWORD",
+        },
+        {
+            nome: "Secretaria Municipal de Saúde",
+            email: "saude@saotome.rn.gov.br",
+            cargo: "Gestor da Saúde / Farmácia SUS",
+            perfil: "saude",
+            envPassKey: "SEED_SAUDE_PASSWORD",
+        },
+        {
+            nome: "Secretaria Municipal de Educação",
+            email: "educacao@saotome.rn.gov.br",
+            cargo: "Gestor de Educação e Creches",
+            perfil: "educacao",
+            envPassKey: "SEED_EDUCACAO_PASSWORD",
+        },
+        {
+            nome: "Secretaria de Obras e Frota",
+            email: "obras@saotome.rn.gov.br",
+            cargo: "Gestor de Obras e Frota",
+            perfil: "obras",
+            envPassKey: "SEED_OBRAS_PASSWORD",
+        },
+        {
+            nome: "Recursos Humanos Municipal",
+            email: "rh@saotome.rn.gov.br",
+            cargo: "Gestor de Recursos Humanos",
+            perfil: "rh",
+            envPassKey: "SEED_RH_PASSWORD",
+        },
+        {
+            nome: "Ouvidoria e e-SIC Municipal",
+            email: "esic@saotome.rn.gov.br",
+            cargo: "Ouvidor / Autoridade LAI",
+            perfil: "esic",
+            envPassKey: "SEED_ESIC_PASSWORD",
+        },
+        {
+            nome: "Operador de Integração",
+            email: "integracao@saotome.rn.gov.br",
+            cargo: "Operador Técnico CSV/API",
+            perfil: "integracao",
+            envPassKey: "SEED_INTEGRACAO_PASSWORD",
+        },
+    ];
+
+    const fallbackPassword = process.env.SEED_DEFAULT_PASSWORD || "TrocarSenha@2026!";
+
+    for (const u of seedUsers) {
+        const customPass = process.env[u.envPassKey];
+        const senhaHash = await bcrypt.hash(customPass || fallbackPassword, 12);
+        await prisma.usuario.upsert({
+            where: { email: u.email },
+            update: {
+                nome: u.nome,
+                cargo: u.cargo,
+                perfil: u.perfil,
+                ativo: true,
+                ...(customPass ? { senha: senhaHash } : {}),
+            },
+            create: {
+                nome: u.nome,
+                email: u.email,
+                senha: senhaHash,
+                cargo: u.cargo,
+                perfil: u.perfil,
+                secretariasAutorizadas: "[]",
+                ativo: true,
+            },
+        });
+    }
 
     // --- Secretarias ---
     const secretarias = [

@@ -8,7 +8,7 @@ import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidat
 import { buildMedicamentoData } from "@/lib/assistencia-farmaceutica";
 
 export async function GET() {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor", "integracao"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "integracao", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {
@@ -22,7 +22,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {

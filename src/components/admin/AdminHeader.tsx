@@ -1,4 +1,6 @@
 "use client";
+
+import { PERFIS_META } from "@/lib/rbac-routes";
 import { useState, useRef, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -37,17 +39,13 @@ export default function AdminHeader({ session }: AdminHeaderProps) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const roleLabels: Record<string, string> = {
-        admin: "Administrador",
-        editor: "Editor Geral",
-        comunicacao: "Comunicação",
-    };
+    const roleLabels: Record<string, string> = Object.fromEntries(
+        Object.entries(PERFIS_META).map(([key, meta]) => [key, meta.label])
+    );
 
-    const roleColors: Record<string, string> = {
-        admin: "bg-red-50 text-red-600 border-red-100",
-        editor: "bg-blue-50 text-blue-600 border-blue-100",
-        comunicacao: "bg-purple-50 text-purple-600 border-purple-100",
-    };
+    const roleColors: Record<string, string> = Object.fromEntries(
+        Object.entries(PERFIS_META).map(([key, meta]) => [key, meta.badgeClass])
+    );
 
     return (
         <header className="sticky top-0 z-30 bg-white/70 backdrop-blur-md border-b border-slate-100 px-6 py-4 flex items-center justify-between shadow-[0_2px_15px_rgba(0,0,0,0.02)]">

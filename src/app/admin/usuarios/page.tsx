@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FaPlus, FaSearch, FaEdit, FaTrash, FaSpinner, FaUserShield } from "react-icons/fa";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { PERFIL_OPTIONS, getPerfilMeta } from "@/lib/rbac-routes";
 
 type Usuario = {
     id: string;
@@ -12,15 +13,6 @@ type Usuario = {
     secretariasAutorizadas?: string[];
     ativo: boolean;
     criadoEm: string;
-};
-
-const ROLE_LABELS: Record<string, string> = {
-    admin: "Administrador",
-    controladoria: "Controladoria / Revisor",
-    editor: "Editor de Secretaria",
-    integracao: "Operador de Integração",
-    esic: "Operador de e-SIC / Ouvidoria",
-    comunicacao: "Comunicação Institucional",
 };
 
 export default function AdminUsuariosPage() {
@@ -75,24 +67,7 @@ export default function AdminUsuariosPage() {
             u.perfil.toLowerCase().includes(search.toLowerCase())
     );
 
-    const getRoleBadgeColor = (role: string) => {
-        switch (role) {
-            case "admin":
-                return "bg-purple-100 text-purple-700";
-            case "controladoria":
-                return "bg-indigo-100 text-indigo-700";
-            case "editor":
-                return "bg-emerald-100 text-emerald-700";
-            case "integracao":
-                return "bg-amber-100 text-amber-700";
-            case "esic":
-                return "bg-cyan-100 text-cyan-700";
-            case "comunicacao":
-                return "bg-blue-100 text-blue-700";
-            default:
-                return "bg-gray-100 text-gray-700";
-        }
-    };
+    const getRoleBadgeColor = (role: string) => getPerfilMeta(role).badgeClass;
 
     return (
         <div className="space-y-6">
@@ -102,7 +77,7 @@ export default function AdminUsuariosPage() {
                         <FaUserShield className="text-primary-600" /> Responsáveis e Permissões (RBAC)
                     </h1>
                     <p className="text-gray-500 text-sm">
-                        Gerencie perfis de governança (Admin, Controladoria, Editor por Secretaria, Integração e Operador de e-SIC).
+                        Gerencie perfis granulares por módulo (Admin, Controladoria, Comunicação, Finanças, Saúde, Educação, Obras, RH, e-SIC e Integração).
                     </p>
                 </div>
                 <Link href="/admin/usuarios/novo" className="btn-primary flex items-center gap-2">
@@ -110,19 +85,13 @@ export default function AdminUsuariosPage() {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-                {[
-                    { role: "admin", desc: "Acesso total ao sistema, permissões e publicação" },
-                    { role: "controladoria", desc: "Revisão, aprovação de publicações e painel PNTP" },
-                    { role: "editor", desc: "Cadastro e atualização nas secretarias autorizadas" },
-                    { role: "integracao", desc: "Importação em lote de CSV e sincronização de APIs" },
-                    { role: "esic", desc: "Acesso restrito a dados de requerentes e prazos LAI" },
-                ].map((item) => (
-                    <div key={item.role} className="bg-white rounded-xl p-4 border border-gray-100 shadow-xs">
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase mb-1.5 ${getRoleBadgeColor(item.role)}`}>
-                            {ROLE_LABELS[item.role]}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                {PERFIL_OPTIONS.map((item) => (
+                    <div key={item.value} className="bg-white rounded-xl p-4 border border-gray-100 shadow-xs">
+                        <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border mb-1.5 ${item.badgeClass}`}>
+                            {item.label}
                         </span>
-                        <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                        <p className="text-xs text-gray-600 leading-relaxed">{item.shortDesc}</p>
                     </div>
                 ))}
             </div>
@@ -172,13 +141,15 @@ export default function AdminUsuariosPage() {
                                         <td className="px-6 py-4 font-medium text-gray-800">{u.nome}</td>
                                         <td className="px-6 py-4 text-gray-500">{u.email}</td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${getRoleBadgeColor(u.perfil)}`}>
-                                                {ROLE_LABELS[u.perfil] || u.perfil}
+                                            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase border ${getRoleBadgeColor(u.perfil)}`}>
+                                                {getPerfilMeta(u.perfil).label}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-xs text-gray-600">
                                             {u.perfil === "admin" || u.perfil === "controladoria" ? (
                                                 <span className="text-gray-400 font-semibold">Todas as unidades</span>
+                                            ) : u.perfil !== "editor" ? (
+                                                <span className="text-sky-700 font-medium">{getPerfilMeta(u.perfil).modulesSummary}</span>
                                             ) : u.secretariasAutorizadas && u.secretariasAutorizadas.length > 0 ? (
                                                 u.secretariasAutorizadas.join(", ")
                                             ) : (

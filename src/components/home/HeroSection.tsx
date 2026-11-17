@@ -50,11 +50,11 @@ export default function HeroSection() {
 
                         {/* Headline */}
                         <h1 className="font-heading text-3xl sm:text-5xl lg:text-[52px] font-extrabold text-slate-900 tracking-tight leading-[1.08]">
-                            Gestão aberta e serviços digitais para{" "}
                             <span className="relative inline-block text-[#01b0ef]">
                                 São Tomé
                                 <span className="absolute left-0 right-0 -bottom-1 h-2 bg-[#fdb913]/85 rounded-full -z-10" />
                             </span>
+                            , Construindo Hoje, o Futuro da nossa gente!
                         </h1>
 
                         {/* Floating Command Search Bar */}

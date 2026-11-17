@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import { getPerfilMeta } from "@/lib/rbac-routes";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { FaExternalLinkAlt, FaUserCircle, FaShieldAlt } from "react-icons/fa";
@@ -66,7 +67,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                                 <div className="text-xs font-black text-slate-800 leading-tight truncate max-w-[140px]">{userName}</div>
                                 <div className="text-[10px] font-bold text-primary-600 uppercase tracking-widest leading-none mt-0.5 flex items-center gap-1">
                                     <FaShieldAlt size={9} />
-                                    {userRole === "admin" ? "Administrador" : "Editor"}
+                                    {getPerfilMeta(userRole).label}
                                 </div>
                             </div>
                         </div>

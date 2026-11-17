@@ -13,7 +13,7 @@ import {
 import { getOrientacoesMedicamentosFromDb } from "@/lib/assistencia-farmaceutica.server";
 
 export async function GET() {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {
@@ -26,7 +26,7 @@ export async function GET() {
 }
 
 export async function PUT(req: Request) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {

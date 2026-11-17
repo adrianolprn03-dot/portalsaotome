@@ -8,7 +8,7 @@ import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidat
 import { buildMedicamentoData } from "@/lib/assistencia-farmaceutica";
 
 export async function GET(_req: Request, { params }: { params: { id: string } }) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor", "integracao"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "integracao", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {
@@ -21,7 +21,7 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
 }
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {
@@ -64,7 +64,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {

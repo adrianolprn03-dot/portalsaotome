@@ -8,7 +8,7 @@ import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidat
 import { CATALOGO_BASE_SUS } from "@/lib/assistencia-farmaceutica";
 
 export async function POST(req: Request) {
-    const auth = await requireServerAuth(["admin", "controladoria", "editor", "integracao"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "saude", "integracao", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {

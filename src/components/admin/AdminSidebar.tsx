@@ -1,5 +1,7 @@
 "use client";
 
+import { canAccessAdminPath } from "@/lib/rbac-routes";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -96,6 +98,7 @@ const menuCategories: MenuCategory[] = [
             { label: "Notícias", href: "/admin/noticias", icon: FaNewspaper, roles: ["admin", "controladoria", "editor", "comunicacao"] },
             { label: "Agenda Eventos", href: "/admin/agenda", icon: FaCalendar, roles: ["admin", "controladoria", "editor", "comunicacao"] },
             { label: "Galeria de Fotos", href: "/admin/galeria", icon: FaImages, roles: ["admin", "controladoria", "editor", "comunicacao"] },
+            { label: "Secretarias", href: "/admin/secretarias", icon: FaBuilding, roles: ["admin", "controladoria", "comunicacao", "editor"] },
             { label: "FAQ / Perguntas", href: "/admin/faq", icon: FaQuestionCircle, roles: ALL_TRANSPARENCY_ROLES },
             { label: "Glossário Técnico", href: "/admin/glossario", icon: FaBook, roles: ALL_TRANSPARENCY_ROLES },
             { label: "Links Oficiais / Radar", href: "/admin/links-externos", icon: FaExternalLinkAlt, roles: ALL_TRANSPARENCY_ROLES },
@@ -105,7 +108,7 @@ const menuCategories: MenuCategory[] = [
         title: "Responsáveis e Permissões",
         items: [
             { label: "Responsáveis e Permissões", href: "/admin/usuarios", icon: FaUserShield, roles: ["admin", "controladoria"] },
-            { label: "Configurações do Portal", href: "/admin/configuracoes", icon: FaCog, roles: ["admin", "controladoria"] },
+            { label: "Configurações do Portal", href: "/admin/configuracoes", icon: FaCog, roles: ["admin"] },
             { label: "Símbolos Oficiais", href: "/admin/configuracoes/simbolos", icon: FaImages, roles: ["admin"] },
         ]
     }
@@ -150,7 +153,7 @@ export default function AdminSidebar({ userRole = "admin" }: { userRole?: string
             {/* Menu Categorizado */}
             <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
                 {menuCategories.map((cat, cIdx) => {
-                    const filteredItems = cat.items.filter(item => item.roles.includes(userRole));
+                    const filteredItems = cat.items.filter((item) => canAccessAdminPath(userRole, item.href));
                     if (filteredItems.length === 0) return null;
 
                     return (

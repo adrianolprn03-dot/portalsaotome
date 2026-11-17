@@ -3,22 +3,16 @@ import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export type PerfilUsuario =
-    | "admin"           // Administrador Geral
-    | "controladoria"   // Controladoria / Revisor PNTP
-    | "editor"          // Editor de Secretaria
-    | "integracao"      // Operador de Integração e Importação
-    | "esic"            // Operador de e-SIC / Ouvidoria
-    | "comunicacao";    // Comunicação / Notícias
-
-export const PERFIS_LABELS: Record<PerfilUsuario, string> = {
-    admin: "Administrador Geral",
-    controladoria: "Controladoria / Revisor PNTP",
-    editor: "Editor de Secretaria",
-    integracao: "Operador de Integração",
-    esic: "Operador de e-SIC e Ouvidoria",
-    comunicacao: "Comunicação Institucional",
-};
+export {
+    type PerfilUsuario,
+    PERFIS_LABELS,
+    PERFIS_META,
+    PERFIL_OPTIONS,
+    getPerfilMeta,
+    isValidPerfilUsuario,
+    canAccessAdminPath,
+} from "@/lib/rbac-routes";
+import { type PerfilUsuario, PERFIS_LABELS } from "@/lib/rbac-routes";
 
 export type SituacaoPublicacao =
     | "rascunho"
@@ -161,7 +155,7 @@ export async function requireServerAuth(allowedRoles?: PerfilUsuario[]): Promise
 }
 
 export function canAccessSecretaria(user: AuthContext, secretariaAlvo?: string | null): boolean {
-    if (user.perfil === "admin" || user.perfil === "controladoria" || user.perfil === "integracao") {
+    if (user.perfil !== "editor") {
         return true;
     }
     if (!secretariaAlvo) return true;

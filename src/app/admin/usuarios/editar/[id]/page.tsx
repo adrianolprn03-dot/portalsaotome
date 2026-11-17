@@ -1,4 +1,6 @@
 "use client";
+
+import { PERFIL_OPTIONS } from "@/lib/rbac-routes";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FaSave, FaArrowLeft, FaSpinner } from "react-icons/fa";
@@ -194,12 +196,11 @@ export default function AdminEditarUsuarioPage({ params }: { params: { id: strin
                             value={formData.perfil}
                             onChange={handleChange}
                         >
-                            <option value="editor">Editor de Secretaria</option>
-                            <option value="controladoria">Controladoria / Revisor</option>
-                            <option value="integracao">Operador de Integração</option>
-                            <option value="esic">Operador de e-SIC / Ouvidoria</option>
-                            <option value="comunicacao">Comunicação (Notícias e Mídia)</option>
-                            <option value="admin">Administrador (Acesso Total)</option>
+                            {PERFIL_OPTIONS.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                </option>
+                            ))}
                         </select>
                     </div>
 

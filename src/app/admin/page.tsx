@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { canAccessAdminPath, getPerfilMeta } from "@/lib/rbac-routes";
 import { CATALOGO_CRITERIOS_PNTP_2026 } from "@/lib/pntp-catalog";
 import {
     FaNewspaper,
@@ -331,7 +332,18 @@ export default async function AdminDashboard() {
         { label: "Importar CSV", href: "/admin/importacao", icon: FaUpload, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
         { label: "Nova Licitação", href: "/admin/licitacoes/nova", icon: FaGavel, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
         { label: "Novo Contrato", href: "/admin/contratos/novo", icon: FaFileContract, bg: "bg-[#01b0ef] hover:bg-[#0098d4] text-white shadow-[#01b0ef]/20" },
+        { label: "Nova Notícia", href: "/admin/noticias/nova", icon: FaNewspaper, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
+        { label: "Gerenciar Agenda", href: "/admin/agenda", icon: FaBullhorn, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
+        { label: "Medicamentos SUS", href: "/admin/medicamentos", icon: FaHeartbeat, bg: "bg-white hover:bg-[#f4fbff] text-rose-600 shadow-md" },
+        { label: "Regulação SUS", href: "/admin/central-regulacao", icon: FaBuilding, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
+        { label: "Fila de Creches", href: "/admin/creches", icon: FaUsers, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
+        { label: "Painel Educação", href: "/admin/educacao", icon: FaBuilding, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
+        { label: "Obras Públicas", href: "/admin/obras", icon: FaHammer, bg: "bg-white hover:bg-[#f4fbff] text-orange-600 shadow-md" },
+        { label: "Frota Municipal", href: "/admin/frota", icon: FaBuilding, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
+        { label: "Servidores e Folha", href: "/admin/servidores", icon: FaUsers, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
+        { label: "Diárias de Viagem", href: "/admin/diarias", icon: FaFileContract, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
         { label: "Atender e-SIC", href: "/admin/esic", icon: FaBullhorn, bg: "bg-rose-600 hover:bg-rose-700 text-white shadow-rose-600/20" },
+        { label: "Ouvidoria", href: "/admin/ouvidoria", icon: FaUsers, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
     ];
 
     return (
@@ -342,7 +354,7 @@ export default async function AdminDashboard() {
                     <div>
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#fdb913] text-slate-900 text-xs font-extrabold mb-4 shadow-sm uppercase tracking-widest">
                             <span className="w-2 h-2 rounded-full bg-slate-900 animate-pulse"></span>
-                            {dataFormatada} · Perfil: {role.toUpperCase()}
+                            {dataFormatada} · {getPerfilMeta(role).label}
                         </div>
 
                         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 text-white">
@@ -353,12 +365,15 @@ export default async function AdminDashboard() {
                         </h1>
 
                         <p className="text-white/95 text-sm sm:text-base max-w-2xl font-medium leading-relaxed">
-                            Visão geral de governança e transparência pública de São Tomé/RN (Cartilha PNTP 2026). Clique em qualquer indicador abaixo para abrir a lista correspondente já filtrada.
+                            {getPerfilMeta(role).shortDesc} Utilize os atalhos e cartões abaixo para atualizar os módulos liberados ao seu perfil.
                         </p>
                     </div>
 
                     <div className="shrink-0 flex flex-wrap items-center gap-3">
-                        {quickActions.slice(0, 3).map((act, idx) => (
+                        {quickActions
+                            .filter((act) => act.href === "/" || canAccessAdminPath(role, act.href))
+                            .slice(0, 3)
+                            .map((act, idx) => (
                             <Link
                                 key={idx}
                                 href={act.href}
@@ -372,6 +387,7 @@ export default async function AdminDashboard() {
             </div>
 
             {/* VISÃO GERAL ADMINISTRATIVA: 8 INDICADORES OPERACIONAIS + PENDÊNCIAS POR SECRETARIA */}
+            {canAccessAdminPath(role, "/admin/pntp") && (
             <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
                     <div>
@@ -442,6 +458,7 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
             </div>
+            )}
 
             {/* METRICS & KPIS GRID */}
             <div>
@@ -453,7 +470,7 @@ export default async function AdminDashboard() {
                 </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                    {metrics.map((m) => (
+                    {metrics.filter((m) => canAccessAdminPath(role, m.href)).map((m) => (
                         <Link
                             key={m.href}
                             href={m.href}
@@ -483,128 +500,134 @@ export default async function AdminDashboard() {
             {/* FEED DE ATIVIDADES E IMPORTAÇÕES RECENTES */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Notícias Recentes */}
-                <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                        <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
-                            <FaNewspaper className="text-blue-600" /> Publicações Recentes
-                        </h3>
-                        <Link href="/admin/noticias" className="text-xs font-bold text-primary-600 hover:underline">
-                            Ver todas
-                        </Link>
-                    </div>
+                {canAccessAdminPath(role, "/admin/noticias") && (
+                    <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
+                        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
+                                <FaNewspaper className="text-blue-600" /> Publicações Recentes
+                            </h3>
+                            <Link href="/admin/noticias" className="text-xs font-bold text-primary-600 hover:underline">
+                                Ver todas
+                            </Link>
+                        </div>
 
-                    <div className="space-y-3">
-                        {ultimasNoticias.length === 0 ? (
-                            <p className="text-xs text-slate-400 italic">Nenhuma notícia cadastrada.</p>
-                        ) : (
-                            ultimasNoticias.map((n) => (
-                                <Link
-                                    key={n.id}
-                                    href={`/admin/noticias/editar/${n.id}`}
-                                    className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
-                                >
-                                    <div className="space-y-1 min-w-0">
-                                        <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
-                                            {n.titulo}
-                                        </p>
-                                        <span className="text-[10px] font-medium text-slate-400 block">
-                                            {new Date(n.criadoEm).toLocaleDateString("pt-BR")}
-                                        </span>
-                                    </div>
-                                    <span
-                                        className={`px-2 py-0.5 text-[9px] font-black uppercase rounded-md shrink-0 ${n.publicada
-                                            ? "bg-emerald-100 text-emerald-800"
-                                            : "bg-amber-100 text-amber-800"
-                                            }`}
+                        <div className="space-y-3">
+                            {ultimasNoticias.length === 0 ? (
+                                <p className="text-xs text-slate-400 italic">Nenhuma notícia cadastrada.</p>
+                            ) : (
+                                ultimasNoticias.map((n) => (
+                                    <Link
+                                        key={n.id}
+                                        href={`/admin/noticias/editar/${n.id}`}
+                                        className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
                                     >
-                                        {n.publicada ? "Publicada" : "Rascunho"}
-                                    </span>
-                                </Link>
-                            ))
-                        )}
+                                        <div className="space-y-1 min-w-0">
+                                            <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
+                                                {n.titulo}
+                                            </p>
+                                            <span className="text-[10px] font-medium text-slate-400 block">
+                                                {new Date(n.criadoEm).toLocaleDateString("pt-BR")}
+                                            </span>
+                                        </div>
+                                        <span
+                                            className={`px-2 py-0.5 text-[9px] font-black uppercase rounded-md shrink-0 ${n.publicada
+                                                ? "bg-emerald-100 text-emerald-800"
+                                                : "bg-amber-100 text-amber-800"
+                                                }`}
+                                        >
+                                            {n.publicada ? "Publicada" : "Rascunho"}
+                                        </span>
+                                    </Link>
+                                ))
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Obras Recentes */}
-                <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                        <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
-                            <FaHammer className="text-orange-600" /> Obras Públicas
-                        </h3>
-                        <Link href="/admin/obras" className="text-xs font-bold text-primary-600 hover:underline">
-                            Ver todas
-                        </Link>
-                    </div>
+                {canAccessAdminPath(role, "/admin/obras") && (
+                    <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
+                        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
+                                <FaHammer className="text-orange-600" /> Obras Públicas
+                            </h3>
+                            <Link href="/admin/obras" className="text-xs font-bold text-primary-600 hover:underline">
+                                Ver todas
+                            </Link>
+                        </div>
 
-                    <div className="space-y-3">
-                        {ultimasObras.length === 0 ? (
-                            <p className="text-xs text-slate-400 italic">Nenhuma obra cadastrada.</p>
-                        ) : (
-                            ultimasObras.map((o) => (
-                                <Link
-                                    key={o.id}
-                                    href={`/admin/obras/editar/${o.id}`}
-                                    className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
-                                >
-                                    <div className="space-y-1 min-w-0">
-                                        <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
-                                            {o.titulo}
-                                        </p>
-                                        <span className="text-[10px] font-medium text-slate-400 block">
-                                            {new Date(o.criadoEm).toLocaleDateString("pt-BR")}
+                        <div className="space-y-3">
+                            {ultimasObras.length === 0 ? (
+                                <p className="text-xs text-slate-400 italic">Nenhuma obra cadastrada.</p>
+                            ) : (
+                                ultimasObras.map((o) => (
+                                    <Link
+                                        key={o.id}
+                                        href={`/admin/obras/editar/${o.id}`}
+                                        className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
+                                    >
+                                        <div className="space-y-1 min-w-0">
+                                            <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
+                                                {o.titulo}
+                                            </p>
+                                            <span className="text-[10px] font-medium text-slate-400 block">
+                                                {new Date(o.criadoEm).toLocaleDateString("pt-BR")}
+                                            </span>
+                                        </div>
+                                        <span className="px-2 py-0.5 text-[9px] font-black uppercase rounded-md bg-blue-100 text-blue-800 shrink-0">
+                                            {o.status || "Em Andamento"}
                                         </span>
-                                    </div>
-                                    <span className="px-2 py-0.5 text-[9px] font-black uppercase rounded-md bg-blue-100 text-blue-800 shrink-0">
-                                        {o.status || "Em Andamento"}
-                                    </span>
-                                </Link>
-                            ))
-                        )}
+                                    </Link>
+                                ))
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Últimas Importações CSV */}
-                <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                        <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
-                            <FaUpload className="text-purple-600" /> Últimas Importações
-                        </h3>
-                        <Link href="/admin/importacao" className="text-xs font-bold text-primary-600 hover:underline">
-                            Gerenciar
-                        </Link>
-                    </div>
+                {canAccessAdminPath(role, "/admin/importacao") && (
+                    <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm space-y-6">
+                        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <h3 className="text-base font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
+                                <FaUpload className="text-purple-600" /> Últimas Importações
+                            </h3>
+                            <Link href="/admin/importacao" className="text-xs font-bold text-primary-600 hover:underline">
+                                Gerenciar
+                            </Link>
+                        </div>
 
-                    <div className="space-y-3">
-                        {ultimasImportacoes.length === 0 ? (
-                            <p className="text-xs text-slate-400 italic">Nenhuma importação registrada.</p>
-                        ) : (
-                            ultimasImportacoes.map((imp) => (
-                                <Link
-                                    key={imp.id}
-                                    href="/admin/importacao"
-                                    className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
-                                >
-                                    <div className="space-y-1 min-w-0">
-                                        <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
-                                            {imp.tipo.toUpperCase()} — {imp.nomeArquivo}
-                                        </p>
-                                        <span className="text-[10px] font-medium text-slate-400 block">
-                                            {imp.registros} registros · {new Date(imp.criadoEm).toLocaleDateString("pt-BR")}
-                                        </span>
-                                    </div>
-                                    <span
-                                        className={`px-2 py-0.5 text-[9px] font-black uppercase rounded-md shrink-0 ${imp.status === "concluido"
-                                            ? "bg-emerald-100 text-emerald-800"
-                                            : "bg-rose-100 text-rose-800"
-                                            }`}
+                        <div className="space-y-3">
+                            {ultimasImportacoes.length === 0 ? (
+                                <p className="text-xs text-slate-400 italic">Nenhuma importação registrada.</p>
+                            ) : (
+                                ultimasImportacoes.map((imp) => (
+                                    <Link
+                                        key={imp.id}
+                                        href="/admin/importacao"
+                                        className="group flex items-start justify-between p-3.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all gap-3"
                                     >
-                                        {imp.status}
-                                    </span>
-                                </Link>
-                            ))
-                        )}
+                                        <div className="space-y-1 min-w-0">
+                                            <p className="text-xs font-bold text-slate-700 line-clamp-1 group-hover:text-primary-700">
+                                                {imp.tipo.toUpperCase()} — {imp.nomeArquivo}
+                                            </p>
+                                            <span className="text-[10px] font-medium text-slate-400 block">
+                                                {imp.registros} registros · {new Date(imp.criadoEm).toLocaleDateString("pt-BR")}
+                                            </span>
+                                        </div>
+                                        <span
+                                            className={`px-2 py-0.5 text-[9px] font-black uppercase rounded-md shrink-0 ${imp.status === "concluido"
+                                                ? "bg-emerald-100 text-emerald-800"
+                                                : "bg-rose-100 text-rose-800"
+                                                }`}
+                                        >
+                                            {imp.status}
+                                        </span>
+                                    </Link>
+                                ))
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
