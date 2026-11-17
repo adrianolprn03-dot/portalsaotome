@@ -136,7 +136,7 @@ export default function TransferenciasPage() {
               { cargo: "Secretaria de Assistência Social", nome: "Paula Francineide da Silva (Titular)", suplente: "Maria Jaíra da Silva (Vice-presidente)" },
               { cargo: "Secretaria de Saúde", nome: "Sázila Candida Cabral de Souza (Titular)", suplente: "Deize Gomes de Morais Oliveira" },
               { cargo: "Secretaria de Educação", nome: "Maria de Fátima de Oliveira (Titular)", suplente: "Patrícia de Lima da Silva Adelino" },
-              { cargo: "Secretaria de Administração", nome: "Teresa Cristina da Silva (Titular)", suplente: "Kátia Regina Bezerra de Lima" }
+              { cargo: "Secretaria de Administração", nome: "Sidcley Gomes da Silva (Titular)", suplente: "Kátia Regina Bezerra de Lima" }
             ]
           },
           {
@@ -250,12 +250,12 @@ export default function TransferenciasPage() {
                             </p>
                             
                             <a 
-                                href="https://portaldatransparencia.gov.br/transferencias" 
+                                href="https://portaldatransparencia.gov.br/transferencias/por-municipio?codigoIbge=2412005" 
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="h-16 flex items-center justify-between bg-slate-900 hover:bg-emerald-600 text-white font-black px-8 rounded-2xl transition-all duration-500 shadow-xl shadow-slate-200 text-[10px] uppercase tracking-widest group/btn"
                             >
-                                Acessar Portal CGU <FaExternalLinkAlt className="group-hover/btn:rotate-12 transition-transform" />
+                                Acessar Portal CGU (São Tomé • 2412005) <FaExternalLinkAlt className="group-hover/btn:rotate-12 transition-transform" />
                             </a>
                         </div>
                     </div>
@@ -333,12 +333,12 @@ export default function TransferenciasPage() {
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <a 
-                                    href="https://portaldatransparencia.gov.br/emendas" 
+                                    href="https://portaldatransparencia.gov.br/emendas/consulta?codigoIbge=2412005" 
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="h-16 inline-flex items-center gap-4 bg-white text-slate-900 px-10 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-50 transition-all shadow-xl group/btn"
                                 >
-                                    Ver Painel Completo <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                                    Ver Painel Federal (IBGE 2412005) <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
                                 </a>
                                 <Link 
                                     href="/transparencia/emendas" 

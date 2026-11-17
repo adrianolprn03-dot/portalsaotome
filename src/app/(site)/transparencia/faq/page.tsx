@@ -6,6 +6,9 @@ import ExportButtons from "@/components/transparencia/ExportButtons";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: "Perguntas Frequentes | Transparência Premium — São Tomé",
     description: "Respostas para as dúvidas mais comuns dos cidadãos de São Tomé – RN, em conformidade com o PNTP 2026.",
@@ -43,7 +46,7 @@ export default async function FAQPage() {
                             <span className="text-[10px] font-black text-blue-300 uppercase tracking-[0.3em] mb-4 block">Central de Ajuda</span>
                             <h2 className="text-3xl font-black tracking-tighter mb-4 leading-tight">Esclarecemos suas dúvidas com foco na Lei de Acesso à Informação.</h2>
                             <div className="flex items-center gap-4 mt-8">
-                                <ExportButtons data={faqs} filename="faq_sao_tome" />
+                                <ExportButtons data={faqs} filename="faq_lajes_pintadas" />
                             </div>
                         </div>
                     </div>

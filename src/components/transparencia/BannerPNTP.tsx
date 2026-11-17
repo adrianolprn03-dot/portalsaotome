@@ -2,8 +2,17 @@
 
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
+import DataAtualizacao from "@/components/transparencia/DataAtualizacao";
 
-export default function BannerPNTP() {
+export default function BannerPNTP({
+    criterio,
+    requisito,
+    status
+}: {
+    criterio?: string;
+    requisito?: string;
+    status?: string;
+} = {}) {
     return (
         <div className="w-full max-w-7xl mx-auto px-6 mb-12">
             <div className="relative overflow-hidden bg-gradient-to-br from-blue-950 via-indigo-900 to-slate-900 rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl shadow-indigo-900/20">
@@ -45,6 +54,11 @@ export default function BannerPNTP() {
                             Radar PNTP
                         </Link>
                     </div>
+                </div>
+
+                {/* Data de Atualização e Data de Acesso */}
+                <div className="relative z-10 mt-6 pt-6 border-t border-white/10">
+                    <DataAtualizacao variant="banner" />
                 </div>
             </div>
         </div>

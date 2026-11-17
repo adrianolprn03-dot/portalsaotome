@@ -1,17 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { 
     FaChartBar, FaSpinner, FaExternalLinkAlt, FaBuilding, 
     FaGavel, FaRegCalendar, FaBriefcase,
     FaArrowRight, FaCheckCircle, FaClock, FaBan,
-    FaFileContract, FaBolt, FaInfoCircle
+    FaFileContract, FaBolt, FaInfoCircle, FaTable
 } from "react-icons/fa";
 import { 
     FaMagnifyingGlass, FaRotate,
     FaCircleExclamation, FaBuildingColumns,
-    FaShieldHalved, FaArrowTrendUp, FaFileLines
+    FaShieldHalved, FaArrowTrendUp, FaFileLines, FaChartLine, FaChartPie
 } from "react-icons/fa6";
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer,
+    Cell,
+    PieChart,
+    Pie,
+    Legend
+} from "recharts";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 import TransparencyFilters from "@/components/transparencia/TransparencyFilters";
 import PageHeader from "@/components/PageHeader";
@@ -19,14 +32,38 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import ListaPNCP from "@/components/transparencia/integracao/ListaPNCP";
 import { motion, AnimatePresence } from "framer-motion";
 
+const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#EC4899", "#F59E0B", "#64748B"];
+
 type Licitacao = {
-    id: string; numero: string; objeto: string; modalidade: string;
-    valor: number | null; status: string; secretaria: string; ano: number; dataAbertura?: string;
+    id: string;
+    numero: string;
+    numeroProcesso?: string | null;
+    objeto: string;
+    modalidade: string;
+    valor: number | null;
+    valorEstimado?: number | null;
+    valorHomologado?: number | null;
+    status: string;
+    secretaria: string;
+    ano: number;
+    dataAbertura?: string;
+    editalUrl?: string | null;
+    arquivo?: string | null;
+    ataRegistroPreco?: boolean;
+    adesaoArp?: boolean;
+    fasesDocumentos?: Array<{ fase?: string; tipo?: string; titulo?: string; url?: string }> | string | null;
 };
 
 const modalidadeLabel: Record<string, string> = {
-    pregao: "Pregão Eletrônico", concorrencia: "Concorrência", "tomada-precos": "Tomada de Preços",
-    convite: "Convite", dispensa: "Dispensa de Licitação", inexigibilidade: "Inexigibilidade",
+    pregao: "Pregão Eletrônico",
+    concorrencia: "Concorrência",
+    "tomada-precos": "Tomada de Preços",
+    convite: "Convite",
+    dispensa: "Dispensa de Licitação",
+    inexigibilidade: "Inexigibilidade",
+    adesao: "Adesão a Registro de Preços (Carona)",
+    leilao: "Leilão Eletrônico",
+    credenciamento: "Credenciamento"
 };
 
 const statusConfig: Record<string, { label: string; cor: string; icon: any }> = {
@@ -54,7 +91,9 @@ export default function LicitacoesClient() {
     const [statusFiltro, setStatusFiltro] = useState("");
     const [modalidadeFiltro, setModalidadeFiltro] = useState("");
     const [anoFiltro, setAnoFiltro] = useState(new Date().getFullYear().toString());
-    const [tab, setTab] = useState<"municipal" | "federal">("federal");
+    const [tab, setTab] = useState<"municipal" | "federal">("municipal");
+    const [abaVisual, setAbaVisual] = useState<"processos" | "graficos">("processos");
+    const [selectedLicitacao, setSelectedLicitacao] = useState<Licitacao | null>(null);
 
     useEffect(() => {
         const fetchLicitacoes = async () => {
@@ -120,8 +159,36 @@ export default function LicitacoesClient() {
 
     const totalEstimado = filtrados.reduce((acc, curr) => acc + (curr.valor || 0), 0);
 
+    // Agrupamento para gráficos
+    const dadosPorModalidade = useMemo(() => {
+        const map: Record<string, { count: number; valor: number }> = {};
+        filtrados.forEach((l) => {
+            const m = modalidadeLabel[l.modalidade] || l.modalidade || "Outras";
+            if (!map[m]) map[m] = { count: 0, valor: 0 };
+            map[m].count += 1;
+            map[m].valor += l.valor || 0;
+        });
+        return Object.entries(map).map(([name, data]) => ({
+            name,
+            quantidade: data.count,
+            valor: data.valor,
+        })).sort((a, b) => b.quantidade - a.quantidade);
+    }, [filtrados]);
+
+    const dadosPorStatus = useMemo(() => {
+        const map: Record<string, number> = {};
+        filtrados.forEach((l) => {
+            const st = statusConfig[l.status]?.label || l.status || "Outros";
+            map[st] = (map[st] || 0) + 1;
+        });
+        return Object.entries(map).map(([name, valor]) => ({
+            name,
+            valor,
+        }));
+    }, [filtrados]);
+
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#F5F7FA] text-[#12304A]">
             <PageHeader 
                 title="Compras & Licitações"
                 subtitle="Portal de transparência para processos de aquisição, alienação e contratação de serviços."
@@ -177,79 +244,67 @@ export default function LicitacoesClient() {
                             exit={{ opacity: 0, y: -30 }}
                             transition={{ duration: 0.5 }}
                         >
-                            {/* Highlight Section - Diamond Standard Bento */}
-                            <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-stretch">
+                            {/* Highlight Section - Padrão Novo Modelo */}
+                            <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
                                 
-                                {/* Primary Highlight Card - Estimativa Total */}
-                                <div className="lg:col-span-2 bg-slate-900 rounded-[3rem] p-10 shadow-2xl shadow-slate-900/20 text-white relative overflow-hidden group border border-slate-800">
-                                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-blue-600/20 transition-all duration-700" />
-                                    <div className="relative z-10 flex flex-col justify-between h-full">
-                                        <div>
-                                            <div className="flex items-center gap-4 mb-10">
-                                                <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Fiscalização Pública</span>
-                                                    </div>
-                                                </div>
-                                                <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
-                                                    <div className="flex items-center gap-2">
-                                                        <FaShieldHalved className="text-emerald-400" size={12} />
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Base Transparente</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h3 className="text-[11px] font-bold uppercase tracking-[0.5em] text-white/30 mb-3 ml-1">Volume Estimado (Exercício)</h3>
-                                            <div className="flex items-baseline gap-4">
-                                                <span className="text-7xl font-black tracking-tighter tabular-nums text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/40">
-                                                    {loading ? <FaSpinner className="animate-spin text-4xl" /> : formatarMoeda(totalEstimado).split(',')[0]}
-                                                </span>
-                                                <span className="text-2xl font-black text-white/20">,{formatarMoeda(totalEstimado).split(',')[1]}</span>
-                                            </div>
+                                {/* Primary Highlight Card */}
+                                <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] relative overflow-hidden flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex flex-wrap items-center gap-3 mb-6">
+                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-[#EEF4FB] text-[#1254A3] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#DDE3EA]">
+                                                <div className="w-2 h-2 rounded-full bg-[#1254A3] animate-pulse" />
+                                                Fiscalização Pública
+                                            </span>
+                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-[11px] font-black uppercase tracking-wider border border-emerald-100">
+                                                <FaShieldHalved size={11} /> Base Transparente
+                                            </span>
                                         </div>
-                                        
-                                        <div className="mt-16 flex flex-wrap gap-12 items-center border-t border-white/5 pt-10">
-                                            <div className="flex flex-col">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Ano Base</span>
-                                                <span className="text-2xl font-black tracking-tight tracking-tighter italic">{anoFiltro}</span>
-                                            </div>
-                                            <div className="w-px h-12 bg-white/5 hidden md:block" />
-                                            <div className="flex flex-col">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Processos Localizados</span>
-                                                <span className="text-2xl font-black tracking-tight uppercase italic text-blue-400">{filtrados.length} <span className="text-white/40 font-bold tracking-tighter">Editais</span></span>
-                                            </div>
+                                        <p className="text-xs font-bold uppercase tracking-widest text-[#5B738B] mb-1">
+                                            Volume Estimado no Exercício
+                                        </p>
+                                        <div className="text-4xl sm:text-5xl font-black text-[#12304A] tracking-tight">
+                                            {loading ? <FaSpinner className="animate-spin text-3xl text-[#1254A3]" /> : formatarMoeda(totalEstimado)}
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#DDE3EA] pt-6">
+                                        <div className="flex flex-col">
+                                            <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Ano Base</span>
+                                            <span className="text-xl font-black text-[#12304A]">{anoFiltro}</span>
+                                        </div>
+                                        <div className="w-px h-8 bg-[#DDE3EA] hidden md:block" />
+                                        <div className="flex flex-col">
+                                            <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Processos Localizados</span>
+                                            <span className="text-xl font-black text-[#1254A3]">{filtrados.length} <span className="text-sm font-bold text-[#5B738B]">editais</span></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Secondary Context Card */}
-                                <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-slate-200/50 border border-slate-100/50 flex flex-col justify-between relative overflow-hidden group">
-                                     <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-50/50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                                     <div className="relative">
-                                        <div className="w-20 h-20 bg-slate-50 rounded-[2rem] flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 shadow-inner group-hover:shadow-blue-600/40">
-                                            <FaGavel className="text-blue-400 group-hover:text-white transition-colors" size={36} />
+                                <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] flex flex-col justify-between">
+                                     <div>
+                                        <div className="w-14 h-14 bg-[#EEF4FB] text-[#1254A3] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#DDE3EA]">
+                                            <FaGavel />
                                         </div>
-                                        <h4 className="text-3xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-4 uppercase">
-                                            Licitações <br/> <span className="text-blue-600">Municipais</span>
+                                        <h4 className="text-lg font-black text-[#12304A] tracking-tight mb-2">
+                                            Licitações Municipais
                                         </h4>
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-relaxed opacity-80">
-                                            Controle social das aquisições e editais.
+                                        <p className="text-xs text-[#5B738B] leading-relaxed">
+                                            Controle social das aquisições, editais públicos, compras diretas e dispensas com transparência integral.
                                         </p>
                                      </div>
-                                     <div className="pt-10 border-t border-slate-50">
-                                         <div className="flex items-center justify-between">
-                                             <div className="flex items-center gap-2">
-                                                 <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Base de Dados</span>
-                                             </div>
-                                             <FaCheckCircle className="text-emerald-500" />
+                                     <div className="pt-5 border-t border-[#DDE3EA] flex items-center justify-between text-xs font-bold text-[#5B738B]">
+                                         <div className="flex items-center gap-2">
+                                             <div className="w-2 h-2 rounded-full bg-[#1254A3] animate-pulse" />
+                                             <span>Lei 14.133/2021</span>
                                          </div>
+                                         <FaCheckCircle className="text-emerald-500" />
                                      </div>
                                 </div>
                             </motion.div>
 
                             {/* Filters Section */}
-                            <motion.div variants={itemVariants} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50 p-2 mb-12">
+                            <motion.div variants={itemVariants} className="mb-8">
                                 <TransparencyFilters
                                     searchValue={busca}
                                     onSearch={setBusca}
@@ -261,36 +316,117 @@ export default function LicitacoesClient() {
                                     onExport={handleExport}
                                     placeholder="Pesquisar por número do processo, objeto ou secretaria responsável..."
                                 >
-                                    <div className="flex flex-wrap gap-4 items-center">
-                                        <div className="relative group">
-                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none group-focus-within:text-blue-600 transition-colors z-10">
-                                                <FaBolt size={14} />
-                                            </div>
+                                    <div className="flex flex-wrap gap-3 items-center">
+                                        <div className="relative">
                                             <select 
                                                 value={modalidadeFiltro} 
                                                 onChange={(e) => setModalidadeFiltro(e.target.value)}
-                                                className="pl-12 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-700 outline-none focus:ring-4 focus:ring-blue-600/5 focus:bg-white transition-all appearance-none cursor-pointer hover:border-blue-400 min-w-[200px] shadow-inner"
+                                                className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
                                             >
-                                                <option value="">TODAS AS MODALIDADES</option>
-                                                {Object.entries(modalidadeLabel).map(([v, l]) => <option key={v} value={v}>{l.toUpperCase()}</option>)}
+                                                <option value="">Todas as Modalidades</option>
+                                                {Object.entries(modalidadeLabel).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                                             </select>
                                         </div>
-                                        <div className="relative group">
-                                            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none group-focus-within:text-blue-600 transition-colors z-10">
-                                                <FaInfoCircle size={14} />
-                                            </div>
+                                        <div className="relative">
                                             <select 
                                                 value={statusFiltro} 
                                                 onChange={(e) => setStatusFiltro(e.target.value)}
-                                                className="pl-12 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-700 outline-none focus:ring-4 focus:ring-blue-600/5 focus:bg-white transition-all appearance-none cursor-pointer hover:border-blue-400 min-w-[200px] shadow-inner"
+                                                className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
                                             >
-                                                <option value="">TODOS OS STATUS</option>
-                                                {Object.entries(statusConfig).map(([v, c]) => <option key={v} value={v}>{c.label.toUpperCase()}</option>)}
+                                                <option value="">Todos os Status</option>
+                                                {Object.entries(statusConfig).map(([v, c]) => <option key={v} value={v}>{c.label}</option>)}
                                             </select>
                                         </div>
                                     </div>
                                 </TransparencyFilters>
                             </motion.div>
+
+                            {/* View Mode Switcher: Editais vs Gráficos */}
+                            <div className="flex bg-white p-1 rounded-xl border border-[#DDE3EA] w-fit mb-8 shadow-sm">
+                                <button
+                                    onClick={() => setAbaVisual("processos")}
+                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
+                                        abaVisual === "processos"
+                                            ? "bg-[#1254A3] text-white shadow-sm"
+                                            : "text-[#5B738B] hover:text-[#1254A3]"
+                                    }`}
+                                >
+                                    <FaFileLines size={13} /> Lista de Editais ({filtrados.length})
+                                </button>
+                                <button
+                                    onClick={() => setAbaVisual("graficos")}
+                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
+                                        abaVisual === "graficos"
+                                            ? "bg-[#1254A3] text-white shadow-sm"
+                                            : "text-[#5B738B] hover:text-[#1254A3]"
+                                    }`}
+                                >
+                                    <FaChartLine size={13} /> Gráficos nos Resultados
+                                </button>
+                            </div>
+
+                            {abaVisual === "graficos" && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"
+                                >
+                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
+                                        <h3 className="text-base font-black text-[#12304A] mb-1">
+                                            Processos por Modalidade de Contratação
+                                        </h3>
+                                        <p className="text-xs text-[#5B738B] mb-4">
+                                            Quantidade de licitações e dispensas registradas em {anoFiltro}.
+                                        </p>
+                                        <div className="h-[300px] w-full">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={dadosPorModalidade}>
+                                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#5B738B" }} />
+                                                    <YAxis tick={{ fontSize: 11, fill: "#5B738B" }} allowDecimals={false} />
+                                                    <Tooltip formatter={(v: number) => [`${v} editais`, "Quantidade"]} />
+                                                    <Bar dataKey="quantidade" fill="#1254A3" radius={[6, 6, 0, 0]}>
+                                                        {dadosPorModalidade.map((_, i) => (
+                                                            <Cell key={`cell-lic-${i}`} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                                                        ))}
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
+                                        <h3 className="text-base font-black text-[#12304A] mb-1">
+                                            Situação / Status dos Processos
+                                        </h3>
+                                        <p className="text-xs text-[#5B738B] mb-4">
+                                            Distribuição de processos abertos, em execução e concluídos.
+                                        </p>
+                                        <div className="h-[300px] w-full">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <PieChart>
+                                                    <Pie
+                                                        data={dadosPorStatus}
+                                                        dataKey="valor"
+                                                        nameKey="name"
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        outerRadius={95}
+                                                        label={({ name, percent }: { name?: string; percent?: number }) => `${name ?? ""}: ${((percent ?? 0) * 100).toFixed(0)}%`}
+                                                        labelLine={false}
+                                                    >
+                                                        {dadosPorStatus.map((_, i) => (
+                                                            <Cell key={`cell-st-${i}`} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                                                        ))}
+                                                    </Pie>
+                                                    <Tooltip formatter={(v: number) => [`${v} processos`, "Total"]} />
+                                                    <Legend wrapperStyle={{ fontSize: 11, paddingTop: 10 }} />
+                                                </PieChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
 
                             {/* Main Content Area */}
                             <div className="space-y-10">
@@ -323,27 +459,23 @@ export default function LicitacoesClient() {
                                             <button onClick={handleClearFilters} className="px-12 py-5 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-blue-600 transition-all shadow-xl active:scale-95">Resetar Filtros</button>
                                         </motion.div>
                                     ) : (
-                                        <motion.div variants={containerVariants} className="grid grid-cols-1 gap-10">
+                                        <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6">
                                             {filtrados.map((l, i) => (
                                                 <motion.div 
                                                     key={l.id} 
                                                     variants={itemVariants}
-                                                    className="bg-white rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/40 overflow-hidden group hover:shadow-blue-500/10 transition-all duration-700 hover:border-blue-200 relative p-1 lg:p-1.5"
+                                                    className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
                                                 >
-                                                    <div className="absolute top-10 right-10 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity duration-700">
-                                                        <FaGavel size={200} />
-                                                    </div>
-
-                                                    <div className="p-10 lg:p-14">
-                                                        <div className="flex flex-col lg:flex-row justify-between gap-12 mb-12">
+                                                    <div className="p-6 lg:p-8">
+                                                        <div className="flex flex-col lg:flex-row justify-between gap-8 mb-6">
                                                             {/* Licitacao Info */}
-                                                            <div className="flex items-center gap-8">
-                                                                <div className="w-24 h-24 bg-slate-50 text-slate-300 rounded-[2.25rem] flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-6 group-hover:scale-110 transition-all duration-700 shadow-inner">
-                                                                    <FaFileContract size={36} />
+                                                            <div className="flex items-center gap-5">
+                                                                <div className="w-16 h-16 bg-[#EEF4FB] text-[#1254A3] rounded-2xl flex items-center justify-center shrink-0 border border-[#DDE3EA] shadow-sm">
+                                                                    <FaFileContract size={26} />
                                                                 </div>
                                                                 <div>
-                                                                    <div className="flex flex-wrap items-center gap-4 mb-3">
-                                                                        <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter group-hover:text-blue-700 transition-colors leading-none">{l.numero}</h3>
+                                                                    <div className="flex flex-wrap items-center gap-3 mb-2">
+                                                                        <h3 className="text-2xl font-black text-[#12304A] tracking-tight">{l.numero}</h3>
                                                                         <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border shadow-sm ${statusConfig[l.status]?.cor || "bg-slate-50 text-slate-400"}`}>
                                                                             {statusConfig[l.status]?.icon && (
                                                                                 <div className={l.status === 'aberta' ? 'animate-pulse' : ''}>
@@ -415,14 +547,35 @@ export default function LicitacoesClient() {
 
                                                         {/* Action Bar */}
                                                         <div className="mt-10 flex flex-wrap justify-end gap-5">
-                                                            <button className="h-14 flex items-center gap-4 px-8 bg-white text-slate-500 border border-slate-100 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95">
-                                                                Acompanhar Sessão
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => setSelectedLicitacao(l)}
+                                                                className="h-14 flex items-center gap-4 px-8 bg-white text-slate-700 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95"
+                                                            >
+                                                                Detalhes e Fases do Processo
                                                             </button>
-                                                            <button className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95">
-                                                                <FaFileLines size={14} className="opacity-50 group-hover:opacity-100 group-hover:rotate-12 transition-all" />
-                                                                Visualizar Edital 
-                                                                <FaArrowRight size={10} className="group-hover/btn:translate-x-2 transition-transform" />
-                                                            </button>
+                                                            {(l.editalUrl || l.arquivo) ? (
+                                                                <a
+                                                                    href={l.editalUrl || l.arquivo || "#"}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                                >
+                                                                    <FaFileLines size={14} />
+                                                                    Baixar Edital Oficial
+                                                                    <FaExternalLinkAlt size={10} />
+                                                                </a>
+                                                            ) : (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => setSelectedLicitacao(l)}
+                                                                    className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                                >
+                                                                    <FaFileLines size={14} />
+                                                                    Visualizar Edital e Anexos
+                                                                    <FaArrowRight size={10} />
+                                                                </button>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </motion.div>
@@ -459,7 +612,7 @@ export default function LicitacoesClient() {
                             </div>
                             <div className="bg-white rounded-[3rem] p-2 border border-slate-100 shadow-2xl shadow-slate-200/50">
                                 <div className="p-8 lg:p-12">
-                                    <ListaPNCP />
+                                    <ListaPNCP onSwitchToMunicipal={() => setTab("municipal")} />
                                 </div>
                             </div>
                         </motion.div>
@@ -470,11 +623,167 @@ export default function LicitacoesClient() {
                      <BannerPNTP />
                      <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PORTAL DE LICITAÇÕES • PREFEITURA DE SÃO TOMÉ/RN <br/>
+                            PORTAL DE LICITAÇÕES • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com as diretrizes do PNCP e PNTP.</span>
                         </p>
                     </div>
                 </motion.div>
+
+                {selectedLicitacao && (
+                    <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                        <div className="bg-white rounded-3xl max-w-2xl w-full p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+                            <div className="flex items-start justify-between border-b border-slate-100 pb-4">
+                                <div>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 block mb-1">
+                                        Processo Licitatório • Lei 14.133/2021
+                                    </span>
+                                    <h3 className="text-2xl font-black text-slate-900">
+                                        {selectedLicitacao.numero} ({modalidadeLabel[selectedLicitacao.modalidade] || selectedLicitacao.modalidade})
+                                    </h3>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setSelectedLicitacao(null)}
+                                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700"
+                                >
+                                    Fechar
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                <div className="p-4 rounded-2xl bg-slate-50">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Nº Processo Administrativo</span>
+                                    <span className="font-black text-slate-800">{selectedLicitacao.numeroProcesso || selectedLicitacao.numero}</span>
+                                </div>
+                                <div className="p-4 rounded-2xl bg-slate-50">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Órgão / Secretaria</span>
+                                    <span className="font-black text-slate-800">{selectedLicitacao.secretaria}</span>
+                                </div>
+                                <div className="p-4 rounded-2xl bg-slate-50">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Valor Estimado</span>
+                                    <span className="font-black text-slate-800">{formatarMoeda(selectedLicitacao.valorEstimado ?? selectedLicitacao.valor)}</span>
+                                </div>
+                                <div className="p-4 rounded-2xl bg-slate-50">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Valor Homologado</span>
+                                    <span className="font-black text-emerald-700">
+                                        {selectedLicitacao.valorHomologado ? formatarMoeda(selectedLicitacao.valorHomologado) : "Em apuração / Não homologado"}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="text-xs font-black text-slate-500 uppercase mb-2">Objeto Detalhado</h4>
+                                <p className="text-sm text-slate-700 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                    {selectedLicitacao.objeto}
+                                </p>
+                            </div>
+
+                            <div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <h4 className="text-xs font-black text-slate-700 uppercase">
+                                        Peças e Documentos Integrais do Processo
+                                    </h4>
+                                    {selectedLicitacao.adesaoArp ? (
+                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                                            Ata de Adesão / Carona (PNTP)
+                                        </span>
+                                    ) : selectedLicitacao.ataRegistroPreco ? (
+                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                                            Ata Própria de Registro de Preços
+                                        </span>
+                                    ) : null}
+                                </div>
+
+                                {/* Edital Integral */}
+                                {(selectedLicitacao.editalUrl || selectedLicitacao.arquivo) && (
+                                    <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 mb-4 flex items-center justify-between">
+                                        <div>
+                                            <span className="text-[10px] font-black uppercase text-blue-800 tracking-wider block">
+                                                Critério PNTP • Instrumento Convocatório
+                                            </span>
+                                            <span className="font-bold text-slate-800 text-xs">Íntegra do Edital de Licitação / Termo Convocatório</span>
+                                        </div>
+                                        <a
+                                            href={selectedLicitacao.editalUrl || selectedLicitacao.arquivo || "#"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1254A3] text-white text-xs font-bold hover:bg-blue-800 transition-colors shadow-sm"
+                                        >
+                                            <FaFileLines /> Abrir Edital Integral <FaExternalLinkAlt size={10} />
+                                        </a>
+                                    </div>
+                                )}
+
+                                {/* Relação de Documentos das Fases Interna e Externa (8.3 e 8.4) */}
+                                {(() => {
+                                    let docs: any[] = [];
+                                    if (Array.isArray(selectedLicitacao.fasesDocumentos)) {
+                                        docs = selectedLicitacao.fasesDocumentos;
+                                    } else if (typeof selectedLicitacao.fasesDocumentos === "string") {
+                                        try { docs = JSON.parse(selectedLicitacao.fasesDocumentos); } catch {}
+                                    }
+
+                                    if (docs.length === 0) {
+                                        return (
+                                            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 italic space-y-1">
+                                                <p>Os documentos das fases preparatória e externa encontram-se arquivados nos autos do processo nº {selectedLicitacao.numeroProcesso || selectedLicitacao.numero} e sincronizados perante o PNCP Federal.</p>
+                                            </div>
+                                        );
+                                    }
+
+                                    const interna = docs.filter(d => d.fase === "interna");
+                                    const externa = docs.filter(d => d.fase !== "interna");
+
+                                    return (
+                                        <div className="space-y-4">
+                                            {interna.length > 0 && (
+                                                <div className="space-y-2">
+                                                    <span className="text-[10px] font-black uppercase text-purple-700 tracking-wider block">
+                                                        Fase Interna / Preparatória (ETP, Termo de Referência, Pareceres)
+                                                    </span>
+                                                    {interna.map((doc, idx) => (
+                                                        <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-purple-50/50 border border-purple-100 text-xs">
+                                                            <div>
+                                                                <span className="font-bold text-slate-800">{doc.tipo || "Documento"}: </span>
+                                                                <span className="text-slate-600">{doc.titulo}</span>
+                                                            </div>
+                                                            {doc.url && (
+                                                                <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-purple-700 font-bold hover:underline">
+                                                                    Ver PDF
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            {externa.length > 0 && (
+                                                <div className="space-y-2">
+                                                    <span className="text-[10px] font-black uppercase text-blue-700 tracking-wider block">
+                                                        Fase Externa (Habilitação, Atas, Recursos, Homologação)
+                                                    </span>
+                                                    {externa.map((doc, idx) => (
+                                                        <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-blue-50/50 border border-blue-100 text-xs">
+                                                            <div>
+                                                                <span className="font-bold text-slate-800">{doc.tipo || "Documento"}: </span>
+                                                                <span className="text-slate-600">{doc.titulo}</span>
+                                                            </div>
+                                                            {doc.url && (
+                                                                <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-blue-700 font-bold hover:underline">
+                                                                    Ver PDF
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })()}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </motion.main>
         </div>
     );

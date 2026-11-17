@@ -3,6 +3,10 @@ import { FaFilePdf, FaChartLine, FaDownload, FaInbox, FaCheckCircle, FaLink, FaG
 import { prisma } from "@/lib/prisma";
 import SiconfiDashboard from "@/components/transparencia/integracao/SiconfiDashboard";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
+import RelatoriosGraficosClient from "@/components/transparencia/RelatoriosGraficosClient";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function RelatoriosPage() {
     // Busca estatísticas reais para PNTP
@@ -143,6 +147,11 @@ export default async function RelatoriosPage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Gráficos nos Resultados */}
+                    <div className="mt-8">
+                        <RelatoriosGraficosClient esic={s} ouvidoria={o} />
                     </div>
                 </div>
 

@@ -1,188 +1,434 @@
 "use client";
-import { useState, useEffect } from "react";
-import PageHeader from "@/components/PageHeader";
-import { FaEye, FaFile, FaCheckCircle, FaClock, FaArrowRight, FaSpinner } from "react-icons/fa";
+
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import PageHeader from "@/components/PageHeader";
+import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import TransparencyFilters from "@/components/transparencia/TransparencyFilters";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
-import BannerPNTP from "@/components/transparencia/BannerPNTP";
+import {
+    FaLockOpen,
+    FaLock,
+    FaChartBar,
+    FaShieldAlt,
+    FaFilePdf,
+    FaFileAlt,
+    FaExternalLinkAlt,
+    FaSpinner,
+    FaCheckCircle,
+    FaCalendarCheck,
+} from "react-icons/fa";
 
-type Pedido = {
-    id: string; protocolo: string; pedido: string; status: string; 
-    orgao: string; criadoEm: string; nome: string | null;
+type DesclassificadaItem = {
+    id: string;
+    protocolo: string;
+    codigoIdentificacao: string;
+    isDocumentoInterno?: boolean;
+    assunto: string;
+    assuntoPublicavel: string;
+    categoria: string;
+    orgao: string;
+    categoriaOrgao: string;
+    grauSigiloOriginal: string;
+    dispositivoLegal: string;
+    autoridadeClassificadora: string;
+    dataClassificacaoOriginal: string;
+    dataDesclassificacao: string;
+    atoDesclassificacao: string;
+    documentoUrl?: string | null;
 };
 
-export default function SICRelatoriosSemSigiloPage() {
-    const [pedidos, setPedidos] = useState<Pedido[]>([]);
+type DeclaracaoOficial = {
+    situacao: string;
+    texto: string;
+    fundamentoLegal: string;
+    responsavel: string;
+    dataEmissao: string;
+    arquivoAssinadoUrl?: string | null;
+};
+
+export default function SICRelatoriosDesclassificadosPage() {
     const [loading, setLoading] = useState(true);
-    const [busca, setBusca] = useState("");
-    const [ano, setAno] = useState(new Date().getFullYear().toString());
-    const [mes, setMes] = useState("");
-    const [status, setStatus] = useState("");
+    const [itens, setItens] = useState<DesclassificadaItem[]>([]);
+    const [total12Meses, setTotal12Meses] = useState(0);
+    const [periodoInicio, setPeriodoInicio] = useState<string | null>(null);
+    const [periodoFim, setPeriodoFim] = useState<string | null>(null);
+    const [declaracao, setDeclaracao] = useState<DeclaracaoOficial | null>(null);
+    const [search, setSearch] = useState("");
+    const [ano, setAno] = useState("TODOS");
+    const [anosDisponiveis, setAnosDisponiveis] = useState<string[]>(["2026", "2025"]);
+
+    const fetchData = useCallback(async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(
+                `/api/transparencia/esic-relatorios?tipo=desclassificadas&ano=${ano}`
+            );
+            const data = await res.json();
+            setItens(data.itens || []);
+            setTotal12Meses(data.totalUltimos12Meses ?? data.total ?? 0);
+            setPeriodoInicio(data.periodoInicio || null);
+            setPeriodoFim(data.periodoFim || null);
+            if (Array.isArray(data.anosDisponiveis) && data.anosDisponiveis.length > 0) {
+                setAnosDisponiveis(data.anosDisponiveis.map((y: number) => String(y)));
+            }
+            setDeclaracao(data.declaracaoOficial || null);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [ano]);
 
     useEffect(() => {
-        const fetchPedidos = async () => {
-            setLoading(true);
-            try {
-                const query = new URLSearchParams({ sigilo: "Sem Sigilo" });
-                if (ano) query.append("ano", ano);
-                if (mes) query.append("mes", mes);
-                if (status) query.append("status", status);
+        fetchData();
+    }, [fetchData]);
 
-                const res = await fetch(`/api/transparencia/pedidos?${query.toString()}`);
-                const data = await res.json();
-                setPedidos(data.items || []);
-            } catch (error) {
-                console.error("Erro ao buscar pedidos:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPedidos();
-    }, [ano, mes, status]);
-
-    const handleClearFilters = () => {
-        setBusca("");
-        setAno(new Date().getFullYear().toString());
-        setMes("");
-        setStatus("");
-    };
-
-    const filtrados = pedidos.filter(p => {
-        const b = busca.toLowerCase();
-        return !busca || 
-            p.protocolo.toLowerCase().includes(b) || 
-            p.pedido.toLowerCase().includes(b) ||
-            p.orgao.toLowerCase().includes(b);
+    const filtered = itens.filter((i) => {
+        if (!search.trim()) return true;
+        const q = search.toLowerCase();
+        return (
+            i.protocolo.toLowerCase().includes(q) ||
+            (i.codigoIdentificacao || "").toLowerCase().includes(q) ||
+            (i.assunto || "").toLowerCase().includes(q) ||
+            (i.categoria || "").toLowerCase().includes(q) ||
+            (i.orgao || "").toLowerCase().includes(q) ||
+            (i.atoDesclassificacao || "").toLowerCase().includes(q)
+        );
     });
 
-    const handleExport = (format: "pdf" | "csv" | "json" | "xlsx") => {
-        const payload = filtrados.map(p => ({
-            "Protocolo": p.protocolo,
-            "Data": new Date(p.criadoEm).toLocaleDateString('pt-BR'),
-            "Órgão": p.orgao,
-            "Solicitação": p.pedido,
-            "Status": p.status === 'concluido' ? 'Concluído' : 'Em Tramitação'
-        }));
+    const handleExport = (format: "csv" | "json" | "pdf" | "xlsx") => {
+        const payload =
+            filtered.length > 0
+                ? filtered.map((i) => ({
+                      "Código / Protocolo": i.codigoIdentificacao || i.protocolo,
+                      "Assunto": i.assunto || i.assuntoPublicavel,
+                      "Categoria": i.categoria,
+                      "Órgão": i.orgao,
+                      "Grau Anterior": i.grauSigiloOriginal,
+                      "Classificação Original": new Date(
+                          i.dataClassificacaoOriginal
+                      ).toLocaleDateString("pt-BR"),
+                      "Data Desclassificação": new Date(i.dataDesclassificacao).toLocaleDateString(
+                          "pt-BR"
+                      ),
+                      "Dispositivo Legal": i.dispositivoLegal,
+                      "Ato / Justificativa": i.atoDesclassificacao,
+                  }))
+                : [
+                      {
+                          "Órgão": "Prefeitura Municipal de São Tomé/RN",
+                          "Período Verificado":
+                              periodoInicio && periodoFim
+                                  ? `${new Date(periodoInicio).toLocaleDateString("pt-BR")} a ${new Date(periodoFim).toLocaleDateString("pt-BR")} (Últimos 12 meses)`
+                                  : "Últimos 12 meses",
+                          "Declaração": declaracao?.texto || "",
+                          "Fundamento Legal":
+                              declaracao?.fundamentoLegal || "Art. 30, I da Lei nº 12.527/2011",
+                          "Responsável": declaracao?.responsavel || "Controladoria Geral do Município",
+                      },
+                  ];
 
-        const filename = `pedidos_esic_sem_sigilo_${ano}`;
-        const title = `Relatório e-SIC: Pedidos sem Sigilo – São Tomé/RN (${ano})`;
+        const filename = `rol_informacoes_desclassificadas_12meses_lajes_pintadas`;
+        const title = `Informações Desclassificadas nos Últimos 12 Meses (Art. 30, I da LAI) – São Tomé/RN`;
+        const meta = {
+            titulo: title,
+            fonte: "e-SIC / Transparência Passiva",
+            periodo: "Últimos 12 meses",
+        };
 
-        if (format === "csv") exportToCSV(payload, filename);
-        else if (format === "json") exportToJSON(payload, filename);
-        else if (format === "xlsx") exportToXLSX(payload, filename);
-        else exportToPDF(payload, filename, title);
+        if (format === "csv") exportToCSV(payload, filename, meta);
+        else if (format === "json") exportToJSON(payload, filename, meta);
+        else if (format === "xlsx") exportToXLSX(payload, filename, meta);
+        else exportToPDF(payload, filename, title, meta);
+    };
+
+    const baixarDeclaracaoPdf = () => {
+        const texto =
+            declaracao?.texto ||
+            "Declaramos que não houve documentos ou informações desclassificadas nos últimos 12 meses no município de São Tomé/RN.";
+        const payload = [
+            {
+                "Órgão": "Prefeitura Municipal de São Tomé / RN",
+                "Objeto": "Rol de Informações Desclassificadas (Últimos 12 Meses)",
+                "Período de Referência":
+                    periodoInicio && periodoFim
+                        ? `${new Date(periodoInicio).toLocaleDateString("pt-BR")} a ${new Date(periodoFim).toLocaleDateString("pt-BR")}`
+                        : "Últimos 12 meses",
+                "Fundamento Legal": declaracao?.fundamentoLegal || "Lei nº 12.527/2011, Art. 30, inciso I",
+                "Declaração Oficial": texto,
+                "Autoridade Emitente": declaracao?.responsavel || "Controladoria Geral / e-SIC",
+                "Data de Emissão": declaracao?.dataEmissao
+                    ? new Date(declaracao.dataEmissao).toLocaleDateString("pt-BR")
+                    : new Date().toLocaleDateString("pt-BR"),
+            },
+        ];
+        exportToPDF(
+            payload,
+            "declaracao_desclassificadas_12meses_lajes_pintadas",
+            "Declaração Oficial - Informações Desclassificadas (Últimos 12 Meses)",
+            {
+                titulo:
+                    "Declaração Oficial de Informações Desclassificadas nos Últimos 12 Meses",
+                fonte: "Controladoria Geral / e-SIC",
+                periodo: "Últimos 12 meses",
+            }
+        );
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#F8FAFC]">
             <PageHeader
-                title="Pedidos de Acesso Público"
-                subtitle="Consulta integral às solicitações realizadas via e-SIC que não possuem restrição de sigilo."
-                variant="premium"
-                icon={<FaEye />}
+                title="Rol de Informações Desclassificadas (Últimos 12 Meses)"
+                subtitle="Lista das informações e documentos cujo sigilo expirou ou foi extinto por reavaliação nos últimos 12 (doze) meses (Lei nº 12.527/2011 - Art. 30, I)."
+                icon={<FaLockOpen className="w-8 h-8 text-[#1254A3]" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
                     { label: "Transparência Passiva", href: "/transparencia/passiva" },
-                    { label: "Relatórios", href: "/transparencia/passiva/relatorios" },
-                    { label: "Sem Sigilo" }
+                    { label: "Relatórios e-SIC", href: "/transparencia/passiva/relatorios" },
+                    { label: "Desclassificadas (12 Meses)" },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-16 -mt-10">
-                <TransparencyFilters
-                    searchValue={busca}
-                    onSearch={setBusca}
-                    currentYear={ano}
-                    onYearChange={setAno}
-                    currentMonth={mes}
-                    onMonthChange={setMes}
-                    onClear={handleClearFilters}
-                    onExport={handleExport}
-                    placeholder="Buscar por protocolo, órgão ou palavra-chave..."
-                >
-                    <div className="flex items-center gap-3">
-                        <select 
-                            value={status} 
-                            onChange={(e) => setStatus(e.target.value)}
-                            className="bg-white border border-gray-200 px-4 py-2 rounded-xl text-[11px] font-bold text-gray-700 focus:outline-none hover:bg-white transition-all shadow-sm"
-                        >
-                            <option value="">Todos os Status</option>
-                            <option value="concluido">Concluído</option>
-                            <option value="aberto">Em Aberto</option>
-                        </select>
-                    </div>
-                </TransparencyFilters>
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+                <BannerPNTP
+                    criterio="Art. 30, Inciso I da LAI"
+                    requisito="Divulgação da lista de informações desclassificadas nos últimos 12 meses"
+                    status="REGULAR"
+                />
 
-                {/* Listagem de Pedidos */}
-                <div className="space-y-6">
-                    {loading ? (
-                        <div className="p-20 text-center text-blue-600 bg-white rounded-[3rem] border border-gray-100 shadow-sm">
-                            <FaSpinner className="animate-spin inline-block text-3xl mb-4" />
-                            <p className="font-black text-xs uppercase tracking-[0.2em]">Buscando dados no portal...</p>
+                {/* Faixa de Período dos Últimos 12 Meses */}
+                {periodoInicio && periodoFim && (
+                    <div className="bg-white rounded-2xl border border-gray-200 px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <div className="flex items-center gap-2 text-gray-700 font-semibold">
+                            <FaCalendarCheck className="text-[#1254A3] text-base" />
+                            <span>
+                                Período legal de apuração (últimos 12 meses):{" "}
+                                <strong className="text-gray-900">
+                                    {new Date(periodoInicio).toLocaleDateString("pt-BR")} a{" "}
+                                    {new Date(periodoFim).toLocaleDateString("pt-BR")}
+                                </strong>
+                            </span>
                         </div>
-                    ) : filtrados.length > 0 ? (
-                        filtrados.map((p) => (
-                            <div key={p.id} className="bg-white rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/40 overflow-hidden group hover:shadow-xl transition-all duration-500">
-                                <div className="p-6 md:p-8">
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                                       <div className="flex items-center gap-4">
-                                          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500 shadow-sm border border-blue-50">
-                                             <FaFile size={20} />
-                                          </div>
-                                          <div>
-                                             <h3 className="text-base font-black text-gray-800 uppercase tracking-tighter mb-0.5">PROTOCOLO #{p.protocolo}</h3>
-                                             <div className="flex items-center gap-3">
-                                                <span className="flex items-center gap-1.5 text-[9px] font-black text-gray-400 uppercase tracking-widest">
-                                                   {new Date(p.criadoEm).toLocaleDateString('pt-BR')}
-                                                </span>
-                                                <span className="w-1 h-1 bg-gray-200 rounded-full" />
-                                                <span className="text-[9px] font-black text-blue-500 uppercase tracking-widest leading-none">Órgão: {p.orgao}</span>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div className={`px-4 py-1.5 rounded-full text-[8.5px] font-black uppercase tracking-widest flex items-center gap-1.5 ${p.status === 'concluido' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
-                                          {p.status === 'concluido' ? <FaCheckCircle size={12} /> : <FaClock size={12} />}
-                                          {p.status === 'concluido' ? 'Disponibilizada' : 'Em Tramitação'}
-                                       </div>
-                                    </div>
+                        <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full font-bold">
+                            {total12Meses} desclassificação(ões) no período
+                        </span>
+                    </div>
+                )}
 
-                                    <div className="bg-gray-50/50 rounded-xl p-6 border border-gray-100">
-                                       <p className="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-3">Teor da Solicitação</p>
-                                       <p className="text-[11px] text-gray-600 font-bold leading-relaxed italic line-clamp-2 opacity-80">
-                                          "{p.pedido}"
-                                       </p>
-                                    </div>
-
-                                    <div className="mt-6 pt-6 border-t border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                       <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                                          <span className="opacity-50">Solicitante:</span> <span className="text-gray-600">{p.nome ? 'Identificado' : 'Anônimo'}</span>
-                                       </div>
-                                       <Link href={`/servicos/consulta-protocolo?id=${p.protocolo}`} className="bg-white text-blue-600 px-6 py-2.5 rounded-lg font-black uppercase text-[9px] tracking-widest border border-blue-100 hover:bg-blue-600 hover:text-white transition-all shadow-sm flex items-center gap-2 self-end">
-                                          Ver Detalhes <FaArrowRight size={12} />
-                                       </Link>
-                                    </div>
+                {/* Declaração Oficial */}
+                <div className="bg-gradient-to-br from-[#0F172A] via-[#1254A3] to-[#002855] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                    <div className="absolute right-0 top-0 opacity-10 pointer-events-none">
+                        <FaShieldAlt className="w-64 h-64 -mr-10 -mt-10" />
+                    </div>
+                    <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div className="space-y-3 max-w-3xl">
+                            <div className="flex items-center gap-3">
+                                <div className="w-11 h-11 rounded-2xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center shrink-0">
+                                    <FaCheckCircle className="text-amber-300 text-xl" />
+                                </div>
+                                <div>
+                                    <span className="text-[11px] font-black uppercase tracking-widest text-amber-300 block">
+                                        Lei de Acesso à Informação • Art. 30, Inciso I
+                                    </span>
+                                    <h2 className="text-xl sm:text-2xl font-black text-white">
+                                        {total12Meses === 0
+                                            ? "Declaração Oficial: Sem Desclassificações nos Últimos 12 Meses"
+                                            : "Registro Oficial: Informações Desclassificadas nos Últimos 12 Meses"}
+                                    </h2>
                                 </div>
                             </div>
-                        ))
-                    ) : (
-                        <div className="bg-white rounded-[3rem] p-20 text-center border-2 border-dashed border-gray-100">
-                            <div className="w-20 h-20 bg-gray-50 text-gray-200 rounded-full flex items-center justify-center mx-auto mb-8">
-                               <FaFile size={40} />
-                            </div>
-                            <h3 className="text-xl font-black text-gray-800 uppercase tracking-tighter mb-4">Nenhum registro encontrado</h3>
-                            <p className="text-gray-400 font-medium text-sm max-w-sm mx-auto">
-                                No momento, não há pedidos registrados para os filtros selecionados.
+
+                            <p className="text-sm text-blue-100 leading-relaxed font-medium bg-white/5 p-4 rounded-2xl border border-white/10">
+                                “
+                                {declaracao?.texto ||
+                                    "Declaramos a inexistência de documentos ou informações desclassificadas no Município de São Tomé/RN nos últimos 12 meses."}
+                                ”
                             </p>
+
+                            <div className="flex flex-wrap gap-4 text-xs text-blue-200">
+                                <span>
+                                    <strong className="text-white">Fundamento Legal:</strong>{" "}
+                                    {declaracao?.fundamentoLegal || "Art. 30, inciso I da Lei nº 12.527/2011"}
+                                </span>
+                                <span>•</span>
+                                <span>
+                                    <strong className="text-white">Responsável:</strong>{" "}
+                                    {declaracao?.responsavel || "Controladoria Geral do Município"}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-3 shrink-0">
+                            <button
+                                onClick={baixarDeclaracaoPdf}
+                                className="flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-900 px-5 py-3.5 rounded-2xl font-black text-xs shadow-lg transition-all"
+                            >
+                                <FaFilePdf className="text-base" /> Baixar Declaração Oficial (PDF)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Filtros */}
+                <TransparencyFilters
+                    onSearch={setSearch}
+                    onYearChange={(y) => setAno(y)}
+                    onMonthChange={() => {}}
+                    onClear={() => {
+                        setSearch("");
+                        setAno("TODOS");
+                    }}
+                    onExport={handleExport}
+                    availableYears={["TODOS", ...anosDisponiveis]}
+                    currentYear={ano}
+                    searchValue={search}
+                    hideMonthFilter={true}
+                    placeholder="Buscar por código, assunto, categoria, órgão ou ato de desclassificação..."
+                />
+
+                {/* Tabela de Desclassificadas */}
+                <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h3 className="text-base font-black text-gray-900">
+                            Lista de Informações Desclassificadas nos Últimos 12 Meses ({filtered.length})
+                        </h3>
+                    </div>
+
+                    {loading ? (
+                        <div className="p-16 text-center">
+                            <FaSpinner className="animate-spin text-3xl text-[#1254A3] mx-auto mb-2" />
+                            <p className="text-xs text-gray-500 font-semibold">
+                                Verificando base de informações desclassificadas...
+                            </p>
+                        </div>
+                    ) : filtered.length === 0 ? (
+                        <div className="p-12 text-center space-y-2">
+                            <p className="text-sm font-bold text-gray-700">
+                                {total12Meses === 0
+                                    ? "Nenhuma informação desclassificada nos últimos 12 meses."
+                                    : "Nenhum registro encontrado para os filtros aplicados."}
+                            </p>
+                            <p className="text-xs text-gray-500 max-w-lg mx-auto">
+                                Quando houver extinção de prazo de sigilo ou ato de desclassificação publicado nos últimos 12 meses, todos os detalhes constarão automaticamente nesta tabela pública.
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse text-sm">
+                                <thead className="bg-gray-50 text-[11px] font-black uppercase text-gray-500 border-b border-gray-200">
+                                    <tr>
+                                        <th className="py-3.5 px-5">Código / Protocolo</th>
+                                        <th className="py-3.5 px-5">Assunto da Informação</th>
+                                        <th className="py-3.5 px-5">Categoria / Órgão</th>
+                                        <th className="py-3.5 px-5">Grau Anterior</th>
+                                        <th className="py-3.5 px-5">Classificação / Desclassificação</th>
+                                        <th className="py-3.5 px-5">Ato / Dispositivo Legal</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {filtered.map((item) => (
+                                        <tr key={item.id} className="hover:bg-blue-50/30 transition-colors">
+                                            <td className="py-4 px-5 font-mono text-xs font-bold text-[#1254A3] whitespace-nowrap">
+                                                {item.documentoUrl ? (
+                                                    <Link
+                                                        href={item.documentoUrl}
+                                                        className="inline-flex items-center gap-1 hover:underline"
+                                                    >
+                                                        {item.codigoIdentificacao}
+                                                        <FaExternalLinkAlt className="text-[10px]" />
+                                                    </Link>
+                                                ) : (
+                                                    <span>{item.codigoIdentificacao}</span>
+                                                )}
+                                            </td>
+                                            <td className="py-4 px-5 text-xs text-gray-800 font-medium max-w-sm">
+                                                <div className="flex items-start gap-2">
+                                                    <FaFileAlt className="text-gray-400 mt-0.5 shrink-0" />
+                                                    <span>{item.assunto}</span>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 px-5 text-xs">
+                                                <span className="font-bold text-gray-900 block">{item.categoria}</span>
+                                                {item.orgao !== item.categoria && (
+                                                    <span className="text-[11px] text-gray-500">{item.orgao}</span>
+                                                )}
+                                            </td>
+                                            <td className="py-4 px-5 text-xs font-bold text-gray-700 whitespace-nowrap">
+                                                {item.grauSigiloOriginal}
+                                            </td>
+                                            <td className="py-4 px-5 text-xs whitespace-nowrap">
+                                                <span className="block font-bold text-emerald-700">
+                                                    Desclassificado:{" "}
+                                                    {new Date(item.dataDesclassificacao).toLocaleDateString("pt-BR")}
+                                                </span>
+                                                <span className="block text-[11px] text-gray-400">
+                                                    Classificado em:{" "}
+                                                    {new Date(item.dataClassificacaoOriginal).toLocaleDateString(
+                                                        "pt-BR"
+                                                    )}
+                                                </span>
+                                            </td>
+                                            <td className="py-4 px-5 text-xs text-gray-700 max-w-xs">
+                                                <span className="block font-medium text-gray-800">
+                                                    {item.atoDesclassificacao}
+                                                </span>
+                                                <span className="block text-[11px] text-gray-400 mt-0.5">
+                                                    {item.dispositivoLegal}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     )}
                 </div>
 
-                <div className="mt-20">
-                     <BannerPNTP />
+                {/* Acesso Rápido aos Demais Relatórios */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Link
+                        href="/transparencia/passiva/relatorios/estatisticas"
+                        className="bg-white hover:border-[#1254A3] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                                <FaChartBar />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-sm text-gray-900 group-hover:text-[#1254A3]">
+                                    Relatório Estatístico Anual (e-SIC)
+                                </h4>
+                                <p className="text-xs text-gray-500">
+                                    Pedidos recebidos, atendidos, indeferidos e perfil dos solicitantes.
+                                </p>
+                            </div>
+                        </div>
+                        <span className="text-xs font-bold text-[#1254A3]">Acessar →</span>
+                    </Link>
+
+                    <Link
+                        href="/transparencia/passiva/relatorios/com-sigilo"
+                        className="bg-white hover:border-rose-600 border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                                <FaLock />
+                            </div>
+                            <div>
+                                <h4 className="font-black text-sm text-gray-900 group-hover:text-rose-700">
+                                    Rol de Documentos Classificados (Sigilo)
+                                </h4>
+                                <p className="text-xs text-gray-500">
+                                    Assunto, categoria, grau de sigilo, dispositivo legal e prazo.
+                                </p>
+                            </div>
+                        </div>
+                        <span className="text-xs font-bold text-rose-700">Acessar →</span>
+                    </Link>
                 </div>
-            </div>
+            </main>
         </div>
     );
 }

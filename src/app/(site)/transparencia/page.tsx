@@ -1,266 +1,737 @@
 "use client";
 
 import Link from "next/link";
-import { 
-    History, Sparkles, ArrowRight, ShieldCheck, 
-    Calendar, Landmark, FileText, Scale, Info
+import {
+    TrendingUp,
+    BarChart3,
+    Gavel,
+    FileSignature,
+    Handshake,
+    Plane,
+    Users,
+    FileBarChart,
+    Scale,
+    Database,
+    Construction,
+    Users2,
+    ClipboardList,
+    HelpCircle,
+    BookOpen,
+    Files,
+    Building2,
+    UserCircle2,
+    MapPinned,
+    Truck,
+    Globe2,
+    ExternalLink,
+    ArrowRight,
+    Headset,
+    FileText,
+    ScrollText,
+    Briefcase,
+    Landmark,
+    FileStack,
+    Activity,
+    ListOrdered,
+    PhoneCall,
+    Link2,
+    ShieldCheck,
+    HeartPulse,
+    Search,
+    Sparkles,
+    FileSearch,
+    Coins,
+    Receipt,
+    Building,
+    Heart,
+    ClipboardCheck,
+    BarChart,
+    GraduationCap,
+    FileClock,
+    UserPlus,
+    UserCheck,
+    FilePieChart,
+    Presentation,
+    Megaphone,
+    Accessibility,
+    Shield,
+    ShieldAlert,
+    Pill,
+    Calendar,
+    FileCheck,
+    X,
+    ArrowUpRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import PageHeader from "@/components/PageHeader";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { MUNICIPIO } from "@/config/municipio";
 
-export default function TransparenciaLandingPage() {
-    const periodos = [
-        {
-            id: "2018-2022",
-            titulo: "Gestão 2018 a 2022",
-            subtitulo: "Legado & Arquivo Histórico",
-            desc: "Consulta a dados consolidados, licitações antigas, contratos encerrados, relatórios de despesas e prestação de contas dos anos de 2018 a 2022.",
-            href: "/transparencia-2018-2022",
-            badge: "Histórico",
-            corBadge: "bg-amber-100 text-amber-800 border-amber-200",
-            corHover: "hover:border-amber-300 hover:shadow-amber-100",
-            corGradient: "from-amber-600 to-amber-900",
-            corHoverShadow: "group-hover:shadow-amber-600/15",
-            corTextoAccent: "text-amber-650",
-            corTextoHover: "group-hover:text-amber-650",
-            icone: History,
-            destaque: false,
-        },
-        {
-            id: "2023-2025",
-            titulo: "Gestão 2023 a 2025",
-            subtitulo: "Legado & Transparência Consolidada",
-            desc: "Acesso a relatórios orçamentários, folha de pagamento, diárias, convênios de repasse e atos oficiais referentes aos anos de 2023 a 2025.",
-            href: "/transparencia-2023-2025",
-            badge: "Histórico",
-            corBadge: "bg-blue-100 text-blue-800 border-blue-200",
-            corHover: "hover:border-blue-300 hover:shadow-blue-100",
-            corGradient: "from-blue-600 to-blue-900",
-            corHoverShadow: "group-hover:shadow-blue-600/15",
-            corTextoAccent: "text-blue-600",
-            corTextoHover: "group-hover:text-blue-600",
-            icone: History,
-            destaque: false,
-        },
-        {
-            id: "2026",
-            titulo: "Gestão 2026 em diante",
-            subtitulo: "Portal de Transparência Ativa",
-            desc: "Consulta a dados em tempo real, receitas, despesas correntes, licitações em andamento, quadro de pessoal e auditoria do PNTP.",
-            href: "/transparencia-2026",
-            badge: "Atual",
-            corBadge: "bg-[#fff112]/20 text-[#8c6f00] border-[#cca300]/25",
-            corHover: "hover:border-[#cca300]/30 hover:shadow-yellow-100",
-            corGradient: "from-[#cca300] to-[#665200]",
-            corHoverShadow: "group-hover:shadow-[#cca300]/15",
-            corTextoAccent: "text-[#cca300]",
-            corTextoHover: "group-hover:text-[#cca300]",
-            icone: Sparkles,
-            destaque: true,
+// Divisão das Áreas Temáticas Unificada em Azul (Principal) e Amarelo (Secundária)
+const categoriasDeModulos = [
+    {
+        tituloCategoria: "Execução Orçamentária e Financeira",
+        fundamentacaoLegal:
+            "Lei Federal nº 12.527/2011 • Lei Complementar nº 131/2009 (Transparência da Gestão Fiscal)",
+        icon: Coins,
+        desc: "Execução de despesas, arrecadação de tributos em tempo real, fila cronológica de pagamentos e transferências financeiras.",
+        modulos: [
+            { icon: Receipt, titulo: "Despesas Públicas", desc: "Detalhamento de empenhos, liquidações e ordens de pagamento municipais.", href: "/transparencia/despesas", badge: "GASTOS", tipoCriterio: "ESSENCIAL" },
+            { icon: Coins, titulo: "Receitas Públicas", desc: "Arrecadação municipal em tempo real, receitas tributárias e transferências.", href: "/transparencia/receitas", badge: "ARRECADAÇÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: ListOrdered, titulo: "Ordem Cronológica", desc: "Fila cronológica e execuções de pagamentos a credores e fornecedores.", href: "/transparencia/ordem-cronologica", badge: "TESOURARIA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Database, titulo: "Repasses e Transferências", desc: "Transferências voluntárias, repasses constitucionais e recursos federais.", href: "/transparencia/transferencias", badge: "RECURSOS", tipoCriterio: "ESSENCIAL" },
+            { icon: Globe2, titulo: "Emendas Parlamentares", desc: "Acompanhamento de emendas destinadas ao município (estaduais e federais).", href: "/transparencia/emendas", badge: "EMENDAS", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Coins, titulo: "Emendas PIX", desc: "Transferências especiais diretas do governo federal e destinação local.", href: "/transparencia/emendas-pix", badge: "PIX", tipoCriterio: "ESSENCIAL" },
+            { icon: Scale, titulo: "Dívida Ativa", desc: "Controle de créditos a receber e cobranças tributárias do município.", href: "/transparencia/divida-ativa", badge: "COBRANÇA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileSearch, titulo: "Renúncias Fiscais", desc: "Relatórios de incentivos tributários e renúncias de receitas municipais.", href: "/transparencia/renuncias-fiscais", badge: "ISENÇÃO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: TrendingUp, titulo: "Desonerações", desc: "Detalhamento e relatórios de desonerações fiscais concedidas.", href: "/transparencia/desoneracoes", badge: "BENEFÍCIOS", tipoCriterio: "RECOMENDADO" },
+            { icon: Sparkles, titulo: "Incentivos Culturais", desc: "Fomento à cultura por meio de incentivos e editais governamentais.", href: "/transparencia/incentivos-culturais", badge: "CULTURA", tipoCriterio: "RECOMENDADO" },
+        ],
+    },
+    {
+        tituloCategoria: "Licitações, Contratos e Obras",
+        fundamentacaoLegal:
+            "Lei Federal nº 14.133/2021 (Nova Lei de Licitações) • Lei Federal nº 8.666/1993",
+        icon: Gavel,
+        desc: "Processos licitatórios, compras públicas, atas de registro de preço, instrumentos contratuais e acompanhamento de obras.",
+        modulos: [
+            { icon: Gavel, titulo: "Licitações", desc: "Editais, atas, julgamentos, homologações e recursos de certames públicos.", href: "/transparencia/licitacoes", badge: "CERTAMES", tipoCriterio: "ESSENCIAL" },
+            { icon: Megaphone, titulo: "Editais Diversos", desc: "Chamamentos públicos, avisos e outros atos convocatórios da gestão.", href: "/transparencia/editais", badge: "AVISOS", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileStack, titulo: "Atas de Registro de Preços", desc: "Registro de preços vigente para aquisições públicas e contratações.", href: "/transparencia/atas-registro", badge: "SRP", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileSignature, titulo: "Contratos Administrativos", desc: "Instrumentos contratuais celebrados, aditivos, valores e prazos.", href: "/transparencia/contratos", badge: "CONTRATOS", tipoCriterio: "ESSENCIAL" },
+            { icon: FileText, titulo: "Plano de Contratação Anual", desc: "Planejamento anual de contratações públicas municipais (Lei 14.133).", href: "/transparencia/plano-contratacao", badge: "PCA", tipoCriterio: "RECOMENDADO" },
+            { icon: Handshake, titulo: "Convênios Celebrados", desc: "Parcerias, convênios estaduais, federais e transferências de recursos.", href: "/transparencia/convenios", badge: "PARCERIAS", tipoCriterio: "ESSENCIAL" },
+            { icon: Construction, titulo: "Obras Públicas", desc: "Contratos de obras, medições, relatórios físicos e andamento das construções.", href: "/transparencia/obras", badge: "EXECUÇÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: ShieldAlert, titulo: "Sanções Administrativas", desc: "Relação de fornecedores sancionados ou declaração oficial de inexistência de penalidades.", href: "/transparencia/sancoes-administrativas", badge: "PNTP", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Handshake, titulo: "Acordos Firmados", desc: "Acordos de cooperação técnica e ajustes sem repasse financeiro.", href: "/transparencia/acordos-firmados", badge: "ACORDOS", tipoCriterio: "RECOMENDADO" },
+            { icon: Link2, titulo: "Associações e Parcerias", desc: "Repasses e parcerias firmadas com entidades de classe e consórcios.", href: "/transparencia/associacoes", badge: "ENTIDADES", tipoCriterio: "RECOMENDADO" },
+        ],
+    },
+    {
+        tituloCategoria: "Atendimento ao Cidadão & Ouvidoria",
+        fundamentacaoLegal:
+            "Lei Federal nº 12.527/2011 (LAI) • Lei Federal nº 13.460/2017 (Carta de Serviços)",
+        icon: Headset,
+        desc: "Canais oficiais de acesso à informação pública, ouvidoria municipal, carta de serviços, estatísticas da LAI e participação social.",
+        modulos: [
+            { icon: ClipboardList, titulo: "e-SIC (LAI)", desc: "Abertura e consulta de pedidos de acesso à informação pública (Lei 12.527).", href: "/servicos/esic", badge: "LAI", tipoCriterio: "ESSENCIAL" },
+            { icon: Headset, titulo: "Ouvidoria Municipal", desc: "Canal oficial para manifestações, denúncias, elogios, reclamações e críticas.", href: "/servicos/ouvidoria", badge: "OUVIDORIA", tipoCriterio: "ESSENCIAL" },
+            { icon: MapPinned, titulo: "Carta de Serviços", desc: "Catálogo descritivo de todos os serviços públicos ofertados ao cidadão.", href: "/transparencia/carta-servicos", badge: "CIDADÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: HelpCircle, titulo: "Transparência Passiva", desc: "Central de acesso à informação, prazos, perguntas e relatórios do e-SIC.", href: "/transparencia/passiva", badge: "PASSIVA", tipoCriterio: "ESSENCIAL" },
+            { icon: FileBarChart, titulo: "Relatório Anual do e-SIC", desc: "Estatísticas anuais de pedidos recebidos, atendidos, indeferidos e perfil dos solicitantes.", href: "/transparencia/passiva/relatorios/estatisticas", badge: "ESTATÍSTICA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: ShieldCheck, titulo: "Documentos Classificados (Sigilo)", desc: "Rol por grau de sigilo com assunto, categoria, dispositivo legal e prazo.", href: "/transparencia/passiva/relatorios/com-sigilo", badge: "SIGILO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileSearch, titulo: "Desclassificadas (12 Meses)", desc: "Informações desclassificadas nos últimos 12 meses ou declaração de não ocorrência.", href: "/transparencia/passiva/relatorios/sem-sigilo", badge: "LAI", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: ClipboardCheck, titulo: "Pesquisa de Satisfação", desc: "Avaliação periódica dos serviços municipais pelos usuários e cidadãos.", href: "/transparencia/pesquisa-satisfacao", badge: "SATISFAÇÃO", tipoCriterio: "RECOMENDADO" },
+            { icon: HelpCircle, titulo: "FAQ - Dúvidas Frequentes", desc: "Esclarecimentos de dúvidas comuns sobre a gestão pública e serviços municipais.", href: "/transparencia/faq", badge: "AJUDA", tipoCriterio: "RECOMENDADO" },
+            { icon: BookOpen, titulo: "Glossário de Termos", desc: "Termos técnicos e conceitos utilizados na administração do portal.", href: "/transparencia/glossario", badge: "CONCEITOS", tipoCriterio: "RECOMENDADO" },
+            { icon: PhoneCall, titulo: "Fale Conosco", desc: "Contatos telefônicos, e-mails e horários de atendimento dos órgãos municipais.", href: "/contato", badge: "CONTATOS", tipoCriterio: "OBRIGATÓRIO" },
+        ],
+    },
+    {
+        tituloCategoria: "Gestão de Pessoal e Diárias",
+        fundamentacaoLegal:
+            "Lei Federal nº 12.527/2011 • Quadro Funcional, Remunerações e Concessão de Diárias",
+        icon: Users,
+        desc: "Quadro de servidores da prefeitura, folha de pagamento, pessoal terceirizado, estagiários, concessão de diárias e concursos.",
+        modulos: [
+            { icon: Users, titulo: "Servidores Públicos", desc: "Folha de pagamento, cargos, remunerações e servidores municipais.", href: "/transparencia/servidores", badge: "PESSOAL", tipoCriterio: "ESSENCIAL" },
+            { icon: Plane, titulo: "Diárias de Viagem", desc: "Diárias e passagens concedidas a servidores e agentes públicos.", href: "/transparencia/diarias", badge: "DIÁRIAS", tipoCriterio: "ESSENCIAL" },
+            { icon: FileClock, titulo: "Tabela de Diárias", desc: "Tabela com os valores vigentes de diárias por nível e localidade.", href: "/transparencia/tabela-diarias", badge: "VALORES", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: ScrollText, titulo: "Regulamentação de Diárias", desc: "Leis e decretos municipais que regulamentam a concessão de diárias.", href: "/transparencia/regulamentacao-diarias", badge: "REGULAMENTO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: UserPlus, titulo: "Pessoal Terceirizado", desc: "Listagem de trabalhadores terceirizados prestando serviço municipal.", href: "/transparencia/terceirizados", badge: "TERCEIROS", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Briefcase, titulo: "Estagiários", desc: "Termos de estágio vigentes nos setores públicos do município.", href: "/transparencia/estagiarios", badge: "ESTÁGIO", tipoCriterio: "RECOMENDADO" },
+            { icon: GraduationCap, titulo: "Concursos Públicos", desc: "Editais, convocações e homologações de concursos efetivos.", href: "/transparencia/concursos", badge: "CONCURSO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: UserCheck, titulo: "Processos Seletivos", desc: "Processo Seletivo Simplificado (PSS) para contratações temporárias.", href: "/transparencia/processo-seletivo", badge: "PSS", tipoCriterio: "OBRIGATÓRIO" },
+        ],
+    },
+    {
+        tituloCategoria: "Transparência Fiscal e Contas Públicas",
+        fundamentacaoLegal:
+            "Lei Complementar nº 101/2000 (Lei de Responsabilidade Fiscal - LRF)",
+        icon: Landmark,
+        desc: "Instrumentos de planejamento (LOA, LDO, PPA), demonstrativos fiscais da LRF, prestação de contas anual e pareceres do TCE.",
+        modulos: [
+            { icon: Landmark, titulo: "Planejamento Orçamentário", desc: "Instrumentos de planejamento municipal: LOA, LDO e PPA.", href: "/transparencia/orcamento", badge: "PLANEJAMENTO", tipoCriterio: "ESSENCIAL" },
+            { icon: BarChart3, titulo: "Relatórios da LRF", desc: "Demonstrativos fiscais exigidos pela LRF: RREO e RGF.", href: "/transparencia/lrf", badge: "FISCAL", tipoCriterio: "ESSENCIAL" },
+            { icon: FilePieChart, titulo: "Prestação de Contas", desc: "Balanços contábeis e demonstrativos financeiros anuais.", href: "/transparencia/prestacao-contas", badge: "CONTABILIDADE", tipoCriterio: "ESSENCIAL" },
+            { icon: BarChart, titulo: "Contas de Governo (PCG)", desc: "Prestação de contas anual do chefe do poder executivo municipal.", href: "/transparencia/pcg", badge: "GOVERNO", tipoCriterio: "ESSENCIAL" },
+            { icon: FileBarChart, titulo: "Contas de Gestão (PCS)", desc: "Relatórios de prestação de contas dos administradores de fundos e órgãos.", href: "/transparencia/pcs", badge: "GESTÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: Gavel, titulo: "Julgamento de Contas", desc: "Julgamentos realizados pela Câmara Municipal sobre as contas do executivo.", href: "/transparencia/julgamento-contas", badge: "CÂMARA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Scale, titulo: "Parecer Técnico do TCE", desc: "Pareceres emitidos pelo Tribunal de Contas sobre a contabilidade local.", href: "/transparencia/parecer-tce", badge: "TCE-RN", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: ClipboardList, titulo: "Relatório de Gestão", desc: "Metas físicas, financeiras e atividades desenvolvidas pela gestão.", href: "/transparencia/relatorio-gestao", badge: "RESULTADOS", tipoCriterio: "RECOMENDADO" },
+            { icon: Users, titulo: "Conselhos Municipais", desc: "Pautas, composições, atas de reunião e atos dos Conselhos e do FUNDEB.", href: "/transparencia/conselhos", badge: "PARTICIPAÇÃO", tipoCriterio: "OBRIGATÓRIO" },
+        ],
+    },
+    {
+        tituloCategoria: "Saúde Pública e Educação",
+        fundamentacaoLegal:
+            "Transparência Finalística da Saúde Municipal (SUS) e da Educação Básica",
+        icon: HeartPulse,
+        desc: "Transparência finalística da saúde municipal, unidades de atendimento, medicamentos SUS, exames, regulação e planos municipais.",
+        modulos: [
+            { icon: HeartPulse, titulo: "Recursos da Saúde", desc: "Investimentos, repasses do SUS e execuções financeiras da Saúde.", href: "/transparencia/saude", badge: "SAÚDE", tipoCriterio: "ESSENCIAL" },
+            { icon: Building, titulo: "Unidades de Saúde", desc: "Serviços disponíveis, médicos, enfermeiros, especialidades e escalas de plantão.", href: "/transparencia/unidades-saude", badge: "UNIDADES", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Pill, titulo: "Medicamentos SUS", desc: "Lista de remédios disponíveis na rede do SUS e controle de estoques.", href: "/transparencia/medicamentos-sus", badge: "FARMÁCIA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Activity, titulo: "Central de Regulação", desc: "Agendamentos de exames, filas e regulação das especialidades.", href: "/transparencia/central-regulacao", badge: "EXAMES", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Heart, titulo: "Plano de Saúde", desc: "Diretrizes, metas e metas estratégicas de saúde do município.", href: "/transparencia/plano-saude", badge: "PLANO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Calendar, titulo: "Programação Anual de Saúde", desc: "Programação anual de ações, metas e alocação de recursos do SUS (PAS).", href: "/transparencia/programacao-anual-saude", badge: "PAS", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileCheck, titulo: "Relatório Anual de Gestão", desc: "Relatório de prestação de contas comprovando a execução da PAS e parecer CMS (RAG).", href: "/transparencia/relatorio-anual-gestao", badge: "RAG", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: GraduationCap, titulo: "Painel da Educação e A. Social", desc: "Portal centralizado da Educação e Assistência Social (Dimensão 19 PNTP 2026).", href: "/transparencia/educacao", badge: "EDUCAÇÃO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Building, titulo: "Unidades Escolares", desc: "Escolas e creches municipais, etapas de ensino, equipes e vagas.", href: "/unidades-escolares", badge: "UNIDADES", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Calendar, titulo: "Fila de Creches e Critérios", desc: "Declaração de vagas, lista de espera nominal e critérios de priorização.", href: "/transparencia/fila-creches", badge: "CRECHES", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: FileCheck, titulo: "Plano de Educação e Relatórios", desc: "Diretrizes, metas e relatório de monitoramento do Plano Municipal de Educação.", href: "/transparencia/plano-educacao", badge: "ENSINO", tipoCriterio: "OBRIGATÓRIO" },
+        ],
+    },
+    {
+        tituloCategoria: "Informações Institucionais e Governança",
+        fundamentacaoLegal:
+            "Lei Federal nº 12.527/2011 • Estrutura Administrativa, Gestores e Governo Digital",
+        icon: Building2,
+        desc: "Identificação da entidade pública, competências legais, estrutura administrativa, contatos oficiais, frota e símbolos.",
+        modulos: [
+            { icon: Building2, titulo: "Institucional", desc: "Dados gerais e identificação da entidade municipal.", href: "/transparencia/institucional", badge: "ENTIDADE", tipoCriterio: "ESSENCIAL" },
+            { icon: FileText, titulo: "Competências", desc: "Atribuições e funções legais do município.", href: "/transparencia/competencias", badge: "LEGAL", tipoCriterio: "ESSENCIAL" },
+            { icon: Users2, titulo: "Organograma", desc: "Estrutura organizacional e administrativa da prefeitura.", href: "/transparencia/institucional", badge: "ESTRUTURA", tipoCriterio: "ESSENCIAL" },
+            { icon: MapPinned, titulo: "Localização e Contatos", desc: "Endereços, telefones, e-mails e contatos das sedes públicas.", href: "/transparencia/institucional", badge: "CONTATOS", tipoCriterio: "ESSENCIAL" },
+            { icon: UserCircle2, titulo: "Gestores Municipais", desc: "Identificação dos responsáveis por cada setor e secretaria.", href: "/transparencia/gestores", badge: "CONTATOS", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Truck, titulo: "Frota Municipal", desc: "Relação de veículos oficiais próprios, locados ou cedidos.", href: "/transparencia/frota", badge: "VEÍCULOS", tipoCriterio: "RECOMENDADO" },
+            { icon: Accessibility, titulo: "Acessibilidade", desc: "Ferramentas e recursos de acessibilidade digital do portal.", href: "/transparencia/acessibilidade", badge: "INCLUSÃO", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: ShieldCheck, titulo: "Governo Digital", desc: "Desburocratização e oferta de serviços públicos por meios digitais.", href: "/transparencia/governo-digital", badge: "TECNOLOGIA", tipoCriterio: "RECOMENDADO" },
+            { icon: Sparkles, titulo: "Símbolos Municipais", desc: `Brasão, bandeira, hino oficial e marcos de ${MUNICIPIO.nome}/${MUNICIPIO.uf}.`, href: "/transparencia/simbolos", badge: "HISTÓRIA", tipoCriterio: "RECOMENDADO" },
+        ],
+    },
+    {
+        tituloCategoria: "Legislação, Atos Oficiais e Privacidade",
+        fundamentacaoLegal:
+            "Atos Normativos Municipais, Legislação Vigente, LGPD (Lei 13.709/2018) e Integridade Pública",
+        icon: Scale,
+        desc: "Legislação municipal consolidada, leis ordinárias e complementares, decretos executivos, portarias, LGPD e dados abertos.",
+        modulos: [
+            { icon: Scale, titulo: "Legislação Municipal", desc: "Portal consolidado de atos normativos, leis orgânicas e regulamentações.", href: "/transparencia/legislacao", badge: "LEGISLAÇÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: Files, titulo: "Leis Municipais", desc: "Legislação completa aprovada pelo legislativo e executivo municipal.", href: "/transparencia/leis", badge: "LEIS", tipoCriterio: "ESSENCIAL" },
+            { icon: FileText, titulo: "Decretos Municipais", desc: "Atos normativos regulamentares assinados pelo chefe do executivo.", href: "/transparencia/decretos", badge: "DECRETOS", tipoCriterio: "ESSENCIAL" },
+            { icon: ScrollText, titulo: "Portarias Executivas", desc: "Atos administrativos de provimento, nomeações, delegações e atribuições.", href: "/transparencia/portarias", badge: "PORTARIAS", tipoCriterio: "ESSENCIAL" },
+            { icon: ShieldCheck, titulo: "LGPD & Privacidade", desc: "Encarregado pelo tratamento de dados pessoais (DPO) e requisições de privacidade.", href: "/transparencia/lgpd", badge: "PRIVACIDADE", tipoCriterio: "ESSENCIAL" },
+            { icon: Shield, titulo: "Integridade Pública", desc: "Código de conduta ética, plano de integridade, conformidade e governança.", href: "/transparencia/integridade", badge: "GOVERNANÇA", tipoCriterio: "OBRIGATÓRIO" },
+            { icon: Presentation, titulo: "Dados Abertos", desc: "Arquivos e catálogos em formatos abertos e estruturados (CSV, JSON, XML).", href: "/transparencia/dados-abertos", badge: "FORMATO-ABERTO", tipoCriterio: "RECOMENDADO" },
+            { icon: Search, titulo: "Radar de Transparência", desc: "Notas de avaliação do município no Radar Nacional de Transparência Pública (PNTP).", href: "/transparencia/radar", badge: "PNTP", tipoCriterio: "RECOMENDADO" },
+        ],
+    },
+];
+
+export default function TransparenciaPage() {
+    const [linksExternos, setLinksExternos] = useState<any[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState<string>("TODAS");
+    const [selectedCriterio, setSelectedCriterio] = useState<string>("TODOS");
+    const modulesGridRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (
+                (e.key === "/" || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k")) &&
+                document.activeElement?.tagName !== "INPUT" &&
+                document.activeElement?.tagName !== "TEXTAREA"
+            ) {
+                e.preventDefault();
+                searchInputRef.current?.focus();
+            }
+            if (e.key === "Escape" && document.activeElement === searchInputRef.current) {
+                setSearchTerm("");
+                searchInputRef.current?.blur();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
+    useEffect(() => {
+        async function loadExternalLinks() {
+            try {
+                const res = await fetch("/api/links-externos");
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        setLinksExternos(
+                            data.filter(
+                                (l: any) => l?.categoria === "transparencia" || l?.categoria === "geral"
+                            )
+                        );
+                    }
+                }
+            } catch (error) {
+                console.error("Erro ao carregar links:", error);
+            }
         }
-    ];
+        loadExternalLinks();
+    }, []);
+
+    const countTotalModulos = useMemo(() => {
+        return categoriasDeModulos.reduce((acc, cat) => acc + cat.modulos.length, 0);
+    }, []);
+
+    const filteredCategories = useMemo(() => {
+        return categoriasDeModulos
+            .map((cat) => {
+                const matchesCategory =
+                    selectedCategory === "TODAS" || cat.tituloCategoria === selectedCategory;
+
+                if (!matchesCategory) {
+                    return { ...cat, modulos: [] };
+                }
+
+                const cleanSearch = searchTerm.trim().toLowerCase();
+
+                const filteredModulos = cat.modulos.filter((m) => {
+                    const matchesSearch =
+                        !cleanSearch ||
+                        m.titulo.toLowerCase().includes(cleanSearch) ||
+                        m.desc.toLowerCase().includes(cleanSearch) ||
+                        m.badge.toLowerCase().includes(cleanSearch) ||
+                        m.tipoCriterio.toLowerCase().includes(cleanSearch);
+
+                    const matchesCriterio =
+                        selectedCriterio === "TODOS" || m.tipoCriterio === selectedCriterio;
+
+                    return matchesSearch && matchesCriterio;
+                });
+
+                return {
+                    ...cat,
+                    modulos: filteredModulos,
+                };
+            })
+            .filter((cat) => cat.modulos.length > 0);
+    }, [selectedCategory, searchTerm, selectedCriterio]);
+
+    const totalResultados = useMemo(() => {
+        return filteredCategories.reduce((acc, cat) => acc + cat.modulos.length, 0);
+    }, [filteredCategories]);
+
+    const hasResults = totalResultados > 0;
+
+    const highlightText = (text: string, search: string) => {
+        const cleanSearch = search.trim();
+        if (!cleanSearch) return text;
+        const parts = text.split(
+            new RegExp(`(${cleanSearch.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")})`, "gi")
+        );
+        return (
+            <>
+                {parts.map((part, i) =>
+                    part.toLowerCase() === cleanSearch.toLowerCase() ? (
+                        <mark
+                            key={i}
+                            className="bg-amber-100 text-amber-900 font-bold px-1 py-0.5 rounded transition-all"
+                        >
+                            {part}
+                        </mark>
+                    ) : (
+                        part
+                    )
+                )}
+            </>
+        );
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+        visible: { opacity: 1, transition: { staggerChildren: 0.025 } },
     };
 
     const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 80, damping: 18 } }
+        hidden: { y: 10, opacity: 0 },
+        visible: { y: 0, opacity: 1, transition: { duration: 0.22 } },
     };
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif] text-slate-800">
-            <PageHeader
-                title="Portal da Transparência"
-                subtitle={`Selecione o período de prestação de contas e gestão administrativa que deseja consultar em ${MUNICIPIO.nome}/${MUNICIPIO.uf}.`}
-                variant="premium"
-                icon={<Landmark className="text-white" size={32} />}
-                breadcrumbs={[
-                    { label: "Início", href: "/" },
-                    { label: "Transparência" }
-                ]}
-            />
+        <div className="bg-[#F4F7FB] min-h-screen text-[#0F2942] pt-5 sm:pt-7 pb-24">
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6 space-y-7">
+                {/* =====================================================================
+                    1. BANNER CENTRAL DE TRANSPARÊNCIA ATIVA (SEM O CARD 100% META ATIVA)
+                   ===================================================================== */}
+                <section className="rounded-[26px] bg-gradient-to-br from-[#002654] via-[#003B73] to-[#0072CE] p-6 sm:p-8 lg:p-9 text-white shadow-xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
 
-            <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-40 pb-32">
-                {/* Intro compliance panel */}
-                <motion.div 
-                    initial={{ scale: 0.98, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-slate-200/50 border border-slate-100 mb-16"
-                >
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-                        <div className="max-w-3xl">
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-650 block mb-2">Controle Social Ativo</span>
-                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-none mb-6">
-                                Transparência Pública <span className="text-slate-400 italic">Unificada</span>
-                            </h2>
-                            <p className="text-slate-500 font-semibold text-sm leading-relaxed">
-                                Para assegurar a clareza e conformidade legal (Lei de Acesso à Informação nº 12.527/2011), as informações governamentais de {MUNICIPIO.nome} estão organizadas de acordo com o período do mandato administrativo. Escolha a gestão abaixo para ter acesso aos módulos de receitas, despesas, pessoal, licitações e contratos.
+                    <div className="space-y-5">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-[#FACC15]/50 text-xs font-extrabold text-[#FACC15] w-fit">
+                                <span className="w-2 h-2 rounded-full bg-[#FACC15]" />
+                                <span>Portal Oficial da Transparência • {MUNICIPIO.nome}/{MUNICIPIO.uf}</span>
+                            </div>
+
+                            {/* Atalhos Rápidos de Controle Social */}
+                            <div className="flex flex-wrap items-center gap-2">
+                                <Link
+                                    href="/servicos/esic"
+                                    className="px-3.5 py-1.5 rounded-full bg-[#FACC15] hover:bg-amber-300 text-[#0F2942] text-xs font-extrabold transition-colors shadow-sm"
+                                >
+                                    Pedido e-SIC (LAI)
+                                </Link>
+                                <Link
+                                    href="/servicos/ouvidoria"
+                                    className="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+                                >
+                                    Ouvidoria Municipal
+                                </Link>
+                                <Link
+                                    href="/transparencia/dados-abertos"
+                                    className="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+                                >
+                                    Dados Abertos (CSV/API)
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="max-w-3xl space-y-1.5">
+                            <h1 className="text-2xl sm:text-4xl font-black font-heading tracking-tight text-white">
+                                Central de Transparência Pública
+                            </h1>
+                            <p className="text-xs sm:text-sm text-sky-100/90">
+                                Consulte receitas, despesas, licitações, contratos, servidores e atos oficiais em conformidade com a LAI (Lei nº 12.527/2011) e LRF (LC nº 101/2000).
                             </p>
                         </div>
-                        <div className="flex items-center gap-4 px-6 py-5 bg-indigo-50/50 rounded-2xl border border-indigo-100 shrink-0 max-w-sm">
-                            <ShieldCheck className="text-indigo-650 shrink-0" size={32} />
-                            <p className="text-[10px] font-bold text-indigo-950 uppercase tracking-widest leading-relaxed">
-                                Em conformidade com as metas do Programa Nacional de Transparência Pública (PNTP).
-                            </p>
+
+                        {/* Barra de Busca Instantânea */}
+                        <div className="relative group max-w-3xl">
+                            <div className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0072CE] transition-colors pointer-events-none">
+                                <Search size={19} />
+                            </div>
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                placeholder="Pesquisar módulo ou informação pública (ex: 'folha', 'licitações', 'diárias', 'obras', 'SUS')..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full bg-white text-[#0F2942] rounded-2xl pl-12 sm:pl-14 pr-20 py-3.5 text-sm font-semibold placeholder:text-slate-400 outline-none ring-2 ring-transparent focus:ring-[#FACC15] shadow-lg transition-all"
+                            />
+                            <div className="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                                {searchTerm ? (
+                                    <button
+                                        onClick={() => setSearchTerm("")}
+                                        title="Limpar pesquisa (Esc)"
+                                        className="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                ) : (
+                                    <kbd className="hidden sm:inline-flex items-center px-2.5 py-1 text-[10px] font-mono font-bold text-[#003B73] bg-sky-50 border border-sky-200 rounded-lg">
+                                        Ctrl + K
+                                    </kbd>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Chips de Filtro Rápido */}
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs font-bold text-[#FACC15]">Mais consultados:</span>
+                            {["Despesas", "Receitas", "Servidores", "Licitações", "Contratos", "Diárias"].map(
+                                (chip) => (
+                                    <button
+                                        key={chip}
+                                        onClick={() => {
+                                            setSearchTerm(chip);
+                                            setSelectedCategory("TODAS");
+                                        }}
+                                        className="text-xs font-semibold px-3.5 py-1 rounded-full bg-white/15 hover:bg-[#FACC15] hover:text-[#0F2942] border border-white/25 transition-all cursor-pointer"
+                                    >
+                                        {chip}
+                                    </button>
+                                )
+                            )}
                         </div>
                     </div>
-                </motion.div>
+                </section>
 
-                {/* 3 Period Cards Grid */}
-                <motion.div 
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                    {periodos.map((p) => {
-                        const Icone = p.icone;
-                        return (
-                            <motion.div
-                                key={p.id}
-                                variants={itemVariants}
-                                whileHover={{ y: -12, transition: { duration: 0.4 } }}
-                                className="h-full"
-                            >
-                                <Link 
-                                    href={p.href}
-                                    className={`group flex flex-col h-full bg-white rounded-[3.5rem] border border-slate-100 shadow-[0_12px_45px_-15px_rgba(0,0,0,0.04)] hover:shadow-[0_35px_65px_-15px_rgba(30,41,59,0.12)] transition-all duration-500 relative overflow-hidden ${p.corHover}`}
+                {/* =====================================================================
+                    2. BARRA DE FILTROS POR ÁREA TEMÁTICA E CRITÉRIO
+                   ===================================================================== */}
+                <section className="bg-white rounded-2xl p-4 sm:p-5 border border-[#DDE3EA] shadow-sm space-y-4">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                        {/* Pílulas de Critério Unificadas no Padrão Principal */}
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs font-extrabold text-[#5B738B] mr-1">
+                                Filtrar por classificação:
+                            </span>
+                            {[
+                                { id: "TODOS", label: "Todos os Módulos" },
+                                { id: "ESSENCIAL", label: "Essenciais" },
+                                { id: "OBRIGATÓRIO", label: "Obrigatórios" },
+                                { id: "RECOMENDADO", label: "Recomendados" },
+                            ].map((crit) => (
+                                <button
+                                    key={crit.id}
+                                    onClick={() => setSelectedCriterio(crit.id)}
+                                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                                        selectedCriterio === crit.id
+                                            ? "bg-[#1254A3] text-white shadow-sm"
+                                            : "bg-[#F5F7FA] hover:bg-slate-200/70 text-[#5B738B]"
+                                    }`}
                                 >
-                                    {/* Card Header visual gradient background */}
-                                    <div className={`h-32 bg-gradient-to-br ${p.corGradient} relative p-8 flex items-start justify-between`}>
-                                        <div className="absolute inset-0 bg-slate-950/10 backdrop-blur-[2px]" />
-                                        <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 group-hover:scale-150 transition-all duration-1000">
-                                            <Icone size={120} strokeWidth={1} />
-                                        </div>
-                                        <span className={`relative z-10 px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-inner backdrop-blur-md ${
-                                            p.destaque 
-                                                ? "bg-emerald-500/25 border-emerald-400/30 text-emerald-100" 
-                                                : "bg-white/20 border-white/20 text-white"
-                                        }`}>
-                                            {p.badge}
-                                        </span>
-                                        {p.destaque && (
-                                            <span className="relative z-10 px-4 py-1.5 bg-indigo-500/30 backdrop-blur-md rounded-xl text-[9px] font-black uppercase tracking-widest text-indigo-100 border border-indigo-400/20 shadow-sm animate-pulse">
-                                                GESTÃO VIGENTE
-                                            </span>
-                                        )}
-                                    </div>
+                                    {crit.label}
+                                </button>
+                            ))}
+                        </div>
 
-                                    {/* Icon badge floating */}
-                                    <div className="absolute top-20 left-8 transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-105">
-                                        <div className={`w-16 h-16 bg-white rounded-2xl shadow-xl shadow-slate-200/50 flex items-center justify-center border border-slate-50 ${p.corHoverShadow} transition-all`}>
-                                            <Icone className={`text-slate-900 ${p.corTextoHover} transition-colors`} size={28} />
-                                        </div>
-                                    </div>
+                        {/* Seletor rápido de área */}
+                        <div className="w-full lg:w-72">
+                            <select
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                aria-label="Filtrar por Área Temática"
+                                className="w-full bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl px-3.5 py-2 text-xs font-bold text-[#12304A] outline-none focus:ring-2 focus:ring-[#1254A3]/20 cursor-pointer"
+                            >
+                                <option value="TODAS">Todas as Áreas ({countTotalModulos} módulos)</option>
+                                {categoriasDeModulos.map((cat) => (
+                                    <option key={cat.tituloCategoria} value={cat.tituloCategoria}>
+                                        {cat.tituloCategoria} ({cat.modulos.length})
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                                    {/* Card content */}
-                                    <div className="px-8 pt-10 pb-8 flex flex-col flex-grow bg-white">
-                                        <h3 className={`text-2xl font-black text-slate-900 ${p.corTextoHover} transition-colors tracking-tighter leading-none mb-2 mt-4 uppercase`}>
-                                            {p.titulo}
-                                        </h3>
-                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 leading-relaxed">
-                                            {p.subtitulo}
-                                        </h4>
-                                        <p className="text-slate-500 text-xs font-semibold leading-relaxed mb-12 grow">
-                                            {p.desc}
-                                        </p>
+                    {/* Navegação Rápida por Categorias */}
+                    <div className="pt-3 border-t border-[#DDE3EA] flex flex-wrap items-center gap-2 py-0.5">
+                        <button
+                            onClick={() => setSelectedCategory("TODAS")}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                                selectedCategory === "TODAS"
+                                    ? "bg-[#1254A3] text-white shadow-sm"
+                                    : "bg-[#F5F7FA] hover:bg-slate-100 text-[#12304A] border border-[#DDE3EA]"
+                            }`}
+                        >
+                            <span>Todas as Áreas</span>
+                            <span
+                                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                                    selectedCategory === "TODAS"
+                                        ? "bg-[#F39A32] text-[#12304A]"
+                                        : "bg-slate-200 text-slate-700"
+                                }`}
+                            >
+                                {countTotalModulos}
+                            </span>
+                        </button>
 
-                                        {/* Action link */}
-                                        <div className="pt-6 border-t border-slate-50 mt-auto flex items-center justify-between">
-                                            <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${p.corTextoAccent} opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500`}>
-                                                ACESSAR PORTAL
-                                            </span>
-                                            <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 transition-all duration-500 group-hover:rotate-[360deg] shadow-inner">
-                                                <ArrowRight size={18} className="text-slate-400 group-hover:text-white transition-colors" />
+                        {categoriasDeModulos.map((cat) => {
+                            const isSelected = selectedCategory === cat.tituloCategoria;
+                            const CatIcon = cat.icon;
+                            return (
+                                <button
+                                    key={cat.tituloCategoria}
+                                    onClick={() => setSelectedCategory(cat.tituloCategoria)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                                        isSelected
+                                            ? "bg-[#1254A3] text-white shadow-sm"
+                                            : "bg-[#F5F7FA] hover:bg-slate-100 text-[#12304A] border border-[#DDE3EA]"
+                                    }`}
+                                >
+                                    <CatIcon size={14} className="shrink-0" />
+                                    <span>{cat.tituloCategoria}</span>
+                                    <span
+                                        className={`text-[10px] px-2 py-0.5 rounded-full ${
+                                            isSelected
+                                                ? "bg-[#FACC15] text-[#0F2942]"
+                                                : "bg-slate-200 text-slate-700"
+                                        }`}
+                                    >
+                                        {cat.modulos.length}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Feedback quando algum filtro estiver ativo */}
+                    {(searchTerm || selectedCategory !== "TODAS" || selectedCriterio !== "TODOS") && (
+                        <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                            <div className="flex flex-wrap items-center gap-2">
+                                <span className="font-semibold text-[#526B84]">Filtros ativos:</span>
+                                {selectedCategory !== "TODAS" && (
+                                    <span className="bg-sky-50 border border-sky-200 text-[#0072CE] px-3 py-1 rounded-full font-bold">
+                                        Área: {selectedCategory}
+                                    </span>
+                                )}
+                                {selectedCriterio !== "TODOS" && (
+                                    <span className="bg-sky-50 border border-sky-200 text-[#0072CE] px-3 py-1 rounded-full font-bold">
+                                        Classificação: {selectedCriterio}
+                                    </span>
+                                )}
+                                {searchTerm && (
+                                    <span className="bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1 rounded-full font-bold">
+                                        Busca: &quot;{searchTerm}&quot;
+                                    </span>
+                                )}
+                                <span className="text-[#526B84] font-medium">
+                                    ({totalResultados}{" "}
+                                    {totalResultados === 1 ? "módulo encontrado" : "módulos encontrados"})
+                                </span>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    setSearchTerm("");
+                                    setSelectedCategory("TODAS");
+                                    setSelectedCriterio("TODOS");
+                                }}
+                                className="text-[#0072CE] hover:underline font-extrabold cursor-pointer"
+                            >
+                                Limpar filtros
+                            </button>
+                        </div>
+                    )}
+                </section>
+
+                {/* =====================================================================
+                    3. SEÇÕES TEMÁTICAS UNIFICADAS EM AZUL E AMARELO
+                   ===================================================================== */}
+                <div ref={modulesGridRef} className="scroll-mt-8 space-y-8">
+                    {hasResults ? (
+                        filteredCategories.map((categoria) => {
+                            const slug = categoria.tituloCategoria
+                                .toLowerCase()
+                                .replace(/[^a-z0-9]/g, "-");
+                            const CatIcon = categoria.icon;
+
+                            return (
+                                <section
+                                    id={slug}
+                                    key={categoria.tituloCategoria}
+                                    className="bg-white rounded-[24px] border border-[#DCE4EE] shadow-gov overflow-hidden"
+                                >
+                                    {/* Cabeçalho Institucional no Padrão Principal */}
+                                    <div className="bg-gradient-to-r from-[#002654] via-[#003B73] to-[#1254A3] px-6 py-4.5 sm:py-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#F39A32]">
+                                        <div className="flex items-center gap-3.5">
+                                            <div className="w-11 h-11 rounded-xl bg-white/15 border border-[#F39A32]/60 flex items-center justify-center text-[#F39A32] shrink-0">
+                                                <CatIcon size={21} />
+                                            </div>
+                                            <div>
+                                                <div className="flex flex-wrap items-center gap-2">
+                                                    <h2 className="text-base sm:text-lg font-black font-heading tracking-tight text-white">
+                                                        {categoria.tituloCategoria}
+                                                    </h2>
+                                                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#F39A32] text-[#12304A]">
+                                                        {categoria.modulos.length}{" "}
+                                                        {categoria.modulos.length === 1 ? "módulo" : "módulos"}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sky-100/85 text-xs mt-0.5">
+                                                    {categoria.fundamentacaoLegal}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                </Link>
-                            </motion.div>
-                        );
-                    })}
-                </motion.div>
 
-                {/* Additional Info / Compliance footer */}
-                <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-16 bg-white rounded-3xl p-6 border border-slate-100 shadow-xl shadow-slate-100/50 flex flex-col md:flex-row items-center gap-4 text-center md:text-left"
-                >
-                    <div className="w-10 h-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center border border-slate-100 shrink-0">
-                        <Info size={20} />
-                    </div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
-                        Algumas páginas institucionais locais e canais de contato (como Fale Conosco, Ouvidoria e E-SIC) permanecem integrados localmente e acessíveis em todos os períodos selecionados.
-                    </p>
-                </motion.div>
-            </div>
+                                    {/* Grade de Módulos */}
+                                    <div className="p-6 sm:p-7">
+                                        <motion.div
+                                            key={`${categoria.tituloCategoria}-${selectedCriterio}-${searchTerm}`}
+                                            initial="hidden"
+                                            animate="visible"
+                                            variants={containerVariants}
+                                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                                        >
+                                            {categoria.modulos.map((m) => {
+                                                const identifier =
+                                                    (m.href || "").split("/").pop()?.toLowerCase() || "";
+                                                const override = (
+                                                    Array.isArray(linksExternos) ? linksExternos : []
+                                                ).find(
+                                                    (l: any) =>
+                                                        l?.moduloAlvo?.toLowerCase() === identifier
+                                                );
+                                                const finalHref = override ? override.url : m.href;
+                                                const isExternal = !!override;
+                                                const ModIcon = m.icon;
 
-            {/* Hub Footer - Ultra Premium */}
-            <div className="relative py-24 overflow-hidden bg-slate-950 border-t border-slate-900">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-650/10 rounded-full blur-[120px]" />
-                </div>
-                
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <div className="flex items-center gap-4 mb-8">
-                                <Landmark className="text-white" size={40} />
-                                <div className="h-8 w-px bg-white/15" />
-                                <div className="text-left">
-                                    <div className="text-white font-black text-md uppercase tracking-[0.25em] leading-none mb-1">Portal da Transparência</div>
-                                    <div className="text-white/30 text-[9px] uppercase font-bold tracking-[0.2em]">{MUNICIPIO.nome} - {MUNICIPIO.uf}</div>
-                                </div>
-                            </div>
-                            <h4 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase mb-6 leading-tight italic">
-                                Transparência Ativa e <br/> <span className="text-cyan-400">Controle Social do Cidadão.</span>
-                            </h4>
-                            <p className="text-white/40 text-[10px] font-semibold uppercase tracking-[0.2em] leading-relaxed max-w-lg mb-8 italic border-l border-white/10 pl-6">
-                                Em cumprimento à Lei Federal nº 12.527/2011 (Lei de Acesso à Informação) e ao Programa Nacional de Transparência Pública, garantimos a integridade e atualização dos atos oficiais municipais.
-                            </p>
-                        </div>
+                                                return (
+                                                    <motion.div
+                                                        key={m.href + m.titulo}
+                                                        variants={itemVariants}
+                                                    >
+                                                        <Link
+                                                            href={finalHref}
+                                                            target={isExternal ? "_blank" : undefined}
+                                                            rel={
+                                                                isExternal
+                                                                    ? "noopener noreferrer"
+                                                                    : undefined
+                                                            }
+                                                            className="group relative flex flex-col justify-between h-full bg-white hover:bg-[#F8FAFC] rounded-2xl border border-[#DDE3EA] border-t-4 border-t-[#1254A3] hover:border-t-[#F39A32] shadow-sm hover:shadow-md p-5 transition-all duration-300 hover:-translate-y-0.5"
+                                                        >
+                                                            <div>
+                                                                <div className="flex items-center justify-between mb-3.5">
+                                                                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#1254A3] group-hover:bg-[#1254A3] group-hover:text-white group-hover:border-[#1254A3] flex items-center justify-center transition-all shadow-xs">
+                                                                        <ModIcon size={18} />
+                                                                    </div>
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-blue-50 text-[#1254A3] border border-blue-100">
+                                                                            {m.tipoCriterio}
+                                                                        </span>
+                                                                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#F5F7FA] border border-[#DDE3EA] text-[#5B738B]">
+                                                                            {m.badge}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
 
-                        <div className="bg-white/5 rounded-[2.5rem] p-10 border border-white/5 backdrop-blur-md relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-700">
-                                <ShieldCheck size={140} className="text-white" />
-                            </div>
-                            <h5 className="text-[10px] font-black text-white uppercase tracking-[0.25em] mb-8 flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Certificações de Acesso
-                            </h5>
-                            <div className="grid grid-cols-2 gap-6">
-                                {[
-                                    { label: "ACERVO DIGITAL", val: MUNICIPIO.email.split("@")[1] },
-                                    { label: "RADAR PNTP", val: "SELO DIAMANTE" },
-                                    { label: "AUDITOR", val: "TCE/RN" },
-                                    { label: "TIPO DADOS", val: "DADOS ABERTOS" },
-                                ].map((stat) => (
-                                    <div key={stat.label} className="border-l border-white/10 pl-5 group/stat cursor-default">
-                                        <p className="text-[8px] font-black text-white/20 uppercase tracking-widest mb-0.5 group-hover/stat:text-cyan-400 transition-colors">{stat.label}</p>
-                                        <p className="text-[11px] font-black text-white/50 group-hover/stat:text-white transition-colors uppercase tracking-widest">{stat.val}</p>
+                                                                <h3 className="text-sm font-extrabold text-[#12304A] group-hover:text-[#1254A3] transition-colors leading-snug mb-1.5">
+                                                                    {highlightText(m.titulo, searchTerm)}
+                                                                </h3>
+                                                                <p className="text-xs text-[#5B738B] leading-relaxed line-clamp-2">
+                                                                    {highlightText(m.desc, searchTerm)}
+                                                                </p>
+                                                            </div>
+
+                                                            <div className="mt-4 pt-3 border-t border-[#DDE3EA] flex items-center justify-between">
+                                                                {isExternal ? (
+                                                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1254A3] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                                                                        <ExternalLink size={10} /> Sistema Integrado
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="text-[11px] font-bold text-[#5B738B] group-hover:text-[#1254A3] transition-colors">
+                                                                        Acessar dados
+                                                                    </span>
+                                                                )}
+                                                                <div className="w-7 h-7 rounded-full bg-[#F5F7FA] border border-[#DDE3EA] group-hover:bg-[#1254A3] group-hover:border-[#1254A3] text-[#5B738B] group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
+                                                                    {isExternal ? (
+                                                                        <ArrowUpRight size={13} />
+                                                                    ) : (
+                                                                        <ArrowRight size={13} />
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </motion.div>
+                                                );
+                                            })}
+                                        </motion.div>
                                     </div>
-                                ))}
+                                </section>
+                            );
+                        })
+                    ) : (
+                        <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-[#DCE4EE]">
+                            <div className="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <Search size={24} />
                             </div>
+                            <h3 className="text-lg font-extrabold text-[#0F2942] mb-1">
+                                Nenhum módulo encontrado
+                            </h3>
+                            <p className="text-[#526B84] text-xs max-w-md mx-auto mb-6">
+                                Não encontramos nenhum módulo correspondente a{" "}
+                                <span className="font-bold text-[#0F2942]">&quot;{searchTerm}&quot;</span> com os filtros selecionados.
+                            </p>
+                            <button
+                                onClick={() => {
+                                    setSearchTerm("");
+                                    setSelectedCategory("TODAS");
+                                    setSelectedCriterio("TODOS");
+                                }}
+                                className="bg-[#0072CE] hover:bg-[#005bb5] text-white px-5 py-2.5 rounded-full font-extrabold text-xs transition-all shadow-md cursor-pointer"
+                            >
+                                Limpar Todos os Filtros
+                            </button>
                         </div>
-                    </div>
-                    
-                    <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                        <p className="text-white/20 text-[9px] font-bold uppercase tracking-[0.25em]">
-                            © {new Date().getFullYear()} PREFEITURA DE {MUNICIPIO.nome.toUpperCase()}/{MUNICIPIO.uf} • CNPJ: {MUNICIPIO.cnpj}
-                        </p>
-                        <div className="flex gap-8">
-                            {["Privacidade", "Termos", "Ouvidoria"].map(l => (
-                                <Link key={l} href="#" className="text-white/20 hover:text-white transition-colors text-[8px] font-black uppercase tracking-widest">{l}</Link>
-                            ))}
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

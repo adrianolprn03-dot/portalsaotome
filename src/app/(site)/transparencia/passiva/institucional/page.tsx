@@ -4,6 +4,9 @@ import { Building2, User, MapPin, Phone, Mail, Clock, ShieldCheck, Info } from "
 import { prisma } from "@/lib/prisma";
 import { motion } from "framer-motion";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: "Institucional do SIC | Portal da Transparência",
     description: "Informações sobre o Serviço de Informação ao Cidadão (SIC) de São Tomé – RN.",
@@ -19,8 +22,8 @@ export default async function InstitucionalSICPage() {
     const endereco = await getConfig("endereco_sede", "Praça Antônio Assunção, s/n – Centro – CEP: 59.400-000");
     const horario = await getConfig("horario_funcionamento", "Segunda a Sexta, das 07:00 às 13:00");
     const email = await getConfig("contato_email_sic", "ouvidoria@saotome.rn.gov.br");
-    const telefone = await getConfig("contato_telefone", "(84) 99211-5922 (WhatsApp)");
-    const autoridade = await getConfig("sic_autoridade", "Teresa Cristina da Silva (Ouvidoria)");
+    const telefone = await getConfig("contato_telefone", "(84) 9.8748 – 0287 (WhatsApp)");
+    const autoridade = await getConfig("sic_autoridade", "Sidcley Gomes da Silva (Ouvidoria)");
 
 
     const secoes = [

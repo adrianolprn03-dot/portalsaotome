@@ -29,7 +29,7 @@ export default async function GestoresTransparencyPage() {
         getConfig("prefeito_nascimento", "--/--/----"),
         getConfig("prefeito_profissao", "Gestor Público"),
         getConfig("prefeito_escolaridade", "Ensino Superior"),
-        getConfig("vice_nome", "Lucinário Félix de Carvalho (Naro)"),
+        getConfig("vice_nome", "João Maria Silva"),
         getConfig("vice_descricao", "Vice-Prefeito."),
         getConfig("vice_foto", ""),
         getConfig("vice_mandato", "2021 — 2024"),

@@ -71,6 +71,7 @@ export default function NovoDocumentoPage() {
                                 <option value="ppa">PPA - Plano Plurianual</option>
                                 <option value="plano-saude">Plano Municipal de Saúde (PMS)</option>
                                 <option value="plano-educacao">Plano Municipal de Educação (PME)</option>
+                                <option value="relatorio-plano-educacao">Relatório de Resultados / Avaliação do PME (19.1)</option>
                             </optgroup>
                             <optgroup label="Relatórios Fiscais">
                                 <option value="rreo">RREO - Relat. Resumido Execução Orçamentária</option>
@@ -85,6 +86,7 @@ export default function NovoDocumentoPage() {
                                 <option value="Resultado">Resultado</option>
                                 <option value="Extrato de Contrato">Extrato de Contrato</option>
                                 <option value="Extrato de Convênio">Extrato de Convênio</option>
+                                <option value="Ata de Registro de Preços">Ata de Registro de Preços</option>
                                 <option value="Nota de Esclarecimento">Nota de Esclarecimento</option>
                                 <option value="Portaria">Portaria</option>
                                 <option value="Decreto">Decreto Municipal</option>

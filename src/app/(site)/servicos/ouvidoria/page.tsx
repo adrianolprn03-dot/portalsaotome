@@ -225,7 +225,7 @@ export default function OuvidoriaPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Contatos da Ouvidoria</p>
-                                        <p className="text-sm font-bold text-gray-700">(84) 99211-5922</p>
+                                        <p className="text-sm font-bold text-gray-700">(084) 98748 - 0287</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
@@ -243,7 +243,7 @@ export default function OuvidoriaPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Endereço da Ouvidoria</p>
-                                        <p className="text-sm font-bold text-gray-700">Praça Antônio Assunção, s/n, Centro</p>
+                                        <p className="text-sm font-bold text-gray-700">São Francisco, 275,  centro</p>
                                         <p className="text-xs text-gray-400 mt-0.5">São Tomé - RN, 59400-000</p>
                                     </div>
                                 </div>

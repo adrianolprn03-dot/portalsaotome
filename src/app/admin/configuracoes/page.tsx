@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaBuilding, FaUserTie, FaSave, FaSpinner, FaMapMarker, FaClock, FaEnvelope, FaPhone, FaCamera, FaFacebook, FaInstagram, FaYoutube, FaWhatsapp, FaShieldAlt, FaGlobe } from "react-icons/fa";
+import { FaBuilding, FaUserTie, FaSave, FaSpinner, FaMapMarker, FaClock, FaEnvelope, FaPhone, FaCamera, FaFacebook, FaInstagram, FaYoutube, FaWhatsapp, FaShieldAlt, FaGlobe, FaImages } from "react-icons/fa";
 import toast from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 
@@ -41,7 +41,9 @@ export default function AdminConfiguracoesPage() {
         transparencia_pntp_selo: "SELO DIAMANTE",
         transparencia_pntp_essenciais: "28 Módulos",
         transparencia_pntp_obrigatorios: "23 Módulos",
-        transparencia_pntp_recomendados: "15 Módulos"
+        transparencia_pntp_recomendados: "15 Módulos",
+        portal_logo: "",
+        portal_logo_white: ""
     });
 
     useEffect(() => {
@@ -337,6 +339,31 @@ export default function AdminConfiguracoesPage() {
                     </div>
                 </div>
 
+                {/* Seção Identidade Visual */}
+                <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100">
+                    <h2 className="text-lg font-black text-gray-800 mb-8 flex items-center gap-2 border-b border-gray-50 pb-5 uppercase tracking-tighter">
+                        <FaImages className="text-blue-500" /> Identidade Visual (Logomarcas do Portal)
+                    </h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div className="space-y-4">
+                            <ImageUpload 
+                                label="Logomarca Principal (Fundo Claro - Cabeçalho)"
+                                value={form.portal_logo}
+                                onChange={(url) => setForm({...form, portal_logo: url})}
+                            />
+                            <p className="text-[10px] text-gray-400 font-bold italic mt-2">Logomarca escura oficial que aparece no cabeçalho do portal (PNG com fundo transparente recomendado).</p>
+                        </div>
+                        <div className="space-y-4">
+                            <ImageUpload 
+                                label="Logomarca Alternativa (Fundo Escuro - Rodapé)"
+                                value={form.portal_logo_white}
+                                onChange={(url) => setForm({...form, portal_logo_white: url})}
+                            />
+                            <p className="text-[10px] text-gray-400 font-bold italic mt-2">Logomarca branca/clara oficial que aparece no rodapé do portal (PNG com fundo transparente recomendado).</p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Seção Prefeitura */}
                 <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100">
                     <h2 className="text-lg font-black text-gray-800 mb-8 flex items-center gap-2 border-b border-gray-50 pb-5 uppercase tracking-tighter">
@@ -460,7 +487,7 @@ export default function AdminConfiguracoesPage() {
                                 name="contato_whatsapp"
                                 value={form.contato_whatsapp}
                                 onChange={handleChange}
-                                placeholder="Ex: 84992115922"
+                                placeholder="Ex: 84987480287"
                                 className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                             />
                         </div>

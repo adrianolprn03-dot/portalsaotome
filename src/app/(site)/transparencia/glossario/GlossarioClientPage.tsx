@@ -42,7 +42,7 @@ export default function GlossarioClientPage({ initialData }: { initialData: Term
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    <ExportButtons data={filteredItems} filename="glossario_sao_tome" />
+                    <ExportButtons data={filteredItems} filename="glossario_lajes_pintadas" />
                 </div>
             </div>
 

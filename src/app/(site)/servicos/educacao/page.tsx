@@ -1,142 +1,81 @@
-"use client";
+export const dynamic = "force-dynamic";
+
+import type { Metadata } from "next";
 import Link from "next/link";
+import { FaBabyCarriage, FaBookOpen, FaGraduationCap, FaUsers } from "react-icons/fa";
 import PageHeader from "@/components/PageHeader";
-import { FaGraduationCap, FaMapMarker, FaPhone, FaClock } from "react-icons/fa";
+import UnidadesEscolaresCatalog from "@/components/transparencia/UnidadesEscolaresCatalog";
+import { getDadosEducacaoPublica } from "@/lib/unidades-server";
 
-import { useState, useEffect } from "react";
-
-type Unidade = {
-    id: string;
-    nome: string;
-    descricao: string;
-    endereco: string;
-    telefone: string | null;
-    horario: string;
-    mapa: string | null;
+export const metadata: Metadata = {
+    title: "Serviços de Educação | Prefeitura Municipal de São Tomé",
+    description:
+        "Educação Infantil, Ensino Fundamental, Plano Municipal de Educação, Relatórios de Resultados, Matrículas e Creches de São Tomé/RN.",
 };
 
-export default function EducacaoPage() {
-    const [unidades, setUnidades] = useState<Unidade[]>([]);
-    const [loading, setLoading] = useState(true);
+export default async function ServicosEducacaoPage() {
+    const dados = await getDadosEducacaoPublica();
 
-    useEffect(() => {
-        const fetchUnidades = async () => {
-            try {
-                const res = await fetch("/api/unidades?tipo=educacao");
-                if (res.ok) {
-                    const data = await res.json();
-                    setUnidades(data);
-                }
-            } catch (error) {
-                console.error("Erro ao buscar unidades:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUnidades();
-    }, []);
+    const atalhosEducacao = [
+        {
+            href: "/transparencia/plano-educacao",
+            titulo: "Plano de Educação e Relatórios (19.1)",
+            desc: "Plano Municipal de Educação (PME) e relatórios de acompanhamento de metas.",
+            icon: FaBookOpen,
+        },
+        {
+            href: "/transparencia/fila-creches",
+            titulo: "Fila de Creches e Critérios (19.2)",
+            desc: "Consulta de protocolos, critérios legais de prioridade e declaração oficial.",
+            icon: FaBabyCarriage,
+        },
+        {
+            href: "/transparencia/conselhos?tipo=fundeb",
+            titulo: "Conselho do FUNDEB (19.3)",
+            desc: "Composição atualizada, calendário e atas do CACS-FUNDEB.",
+            icon: FaUsers,
+        },
+    ];
+
     return (
-        <div>
+        <div className="bg-[#FAFBFD] min-h-screen pb-16">
             <PageHeader
-                title="Educação e Escolas"
-                subtitle="Lista de escolas, creches e instituições educacionais do município"
+                title="Serviços Municipais de Educação"
+                subtitle="Rede municipal de creches e escolas, programas educacionais, Plano Municipal de Educação, critérios de vagas e controle social em São Tomé/RN."
+                icon={<FaGraduationCap />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Serviços", href: "#" },
-                    { label: "Educação" }
+                    { label: "Serviços" },
+                    { label: "Educação" },
                 ]}
             />
 
-            <div className="py-16 bg-gray-50 min-h-[400px]">
-                <div className="max-w-[1240px] mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {loading ? (
-                            <div className="md:col-span-2 flex justify-center py-10">
-                                <div className="w-8 h-8 border-4 border-[#01b0ef] border-t-transparent rounded-full animate-spin" />
-                            </div>
-                        ) : unidades.length === 0 ? (
-                            <div className="md:col-span-2 text-center py-10 text-gray-500">
-                                Nenhuma unidade escolar cadastrada no momento.
-                            </div>
-                        ) : unidades.map((unidade) => (
-                            <div key={unidade.id} className="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
-                                <div className="p-8 pb-6 flex items-start gap-4 border-b border-gray-100">
-                                    <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
-                                        <FaGraduationCap className="text-2xl" />
-                                    </div>
-                                    <div>
-                                        <h2 className="text-xl font-black text-gray-800 uppercase tracking-tight">{unidade.nome}</h2>
-                                        <p className="text-gray-500 text-sm mt-1">{unidade.descricao}</p>
-                                    </div>
-                                </div>
-                                <div className="p-8 space-y-4 flex-1">
-                                    <div className="flex items-start gap-3">
-                                        <FaMapMarker className="text-[#01b0ef] text-lg mt-0.5 shrink-0" />
-                                        <div>
-                                            <p className="text-xs font-bold uppercase text-gray-400 mb-0.5 tracking-widest">Endereço</p>
-                                            <p className="text-sm font-medium text-gray-700">{unidade.endereco}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start gap-3">
-                                        <FaPhone className="text-[#01b0ef] text-lg mt-0.5 shrink-0" />
-                                        <div>
-                                            <p className="text-xs font-bold uppercase text-gray-400 mb-0.5 tracking-widest">Telefone Público</p>
-                                            <p className="text-sm font-medium text-gray-700">{unidade.telefone}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start gap-3">
-                                        <FaClock className="text-[#01b0ef] text-lg mt-0.5 shrink-0" />
-                                        <div>
-                                            <p className="text-xs font-bold uppercase text-gray-400 mb-0.5 tracking-widest">Horário de Atendimento</p>
-                                            <p className="text-sm font-medium text-gray-700">{unidade.horario}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {unidade.mapa ? (
-                                    <div className="h-[250px] w-full bg-gray-200 border-t border-gray-100">
-                                        <iframe
-                                            src={unidade.mapa}
-                                            width="100%"
-                                            height="100%"
-                                            style={{ border: 0 }}
-                                            allowFullScreen={false}
-                                            loading="lazy"
-                                            referrerPolicy="no-referrer-when-downgrade"
-                                            title={`Mapa de Localização - ${unidade.nome}`}
-                                        ></iframe>
-                                    </div>
-                                ) : (
-                                    <div className="h-[100px] w-full bg-gray-50 border-t border-gray-100 flex items-center justify-center">
-                                        <span className="text-xs text-gray-400">Mapa não disponível</span>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Documentos e Planejamento */}
-            <div className="pb-24 bg-gray-50">
-                <div className="max-w-[1240px] mx-auto px-6">
-                    <div className="bg-[#2a7a4a] rounded-[2.5rem] p-10 md:p-16 text-white relative overflow-hidden shadow-2xl shadow-green-900/20">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-                        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
-                            <div className="max-w-2xl text-center lg:text-left">
-                                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-4">Planejamento e Gestão</h3>
-                                <p className="text-green-100 font-medium text-sm md:text-base leading-relaxed opacity-80">
-                                    Acesse o Plano Municipal de Educação (PME) e outros documentos norteadores que definem as metas e diretrizes da educação em nosso município.
-                                </p>
-                            </div>
-                            <Link 
-                                href="/transparencia/plano-educacao"
-                                className="px-10 py-5 bg-white text-[#2a7a4a] font-black rounded-2xl hover:bg-[#FDB913] hover:text-white transition-all text-[11px] uppercase tracking-[0.2em] shadow-xl active:scale-95 shrink-0"
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {atalhosEducacao.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-[#1254A3]/40 transition space-y-2"
                             >
-                                Ver Plano Municipal de Educação
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center">
+                                    <Icon size={18} />
+                                </div>
+                                <h3 className="font-bold text-slate-900 text-sm">{item.titulo}</h3>
+                                <p className="text-xs text-slate-500">{item.desc}</p>
                             </Link>
-                        </div>
-                    </div>
+                        );
+                    })}
                 </div>
+
+                <UnidadesEscolaresCatalog
+                    unidades={dados.unidades}
+                    declaracao={dados.declaracao}
+                    criterios={dados.criterios}
+                    filaAguardando={dados.filaAguardando}
+                />
             </div>
         </div>
     );

@@ -5,6 +5,9 @@ import ExportButtons from "@/components/transparencia/ExportButtons";
 import CartaServicosClient from "@/components/transparencia/CartaServicosClient";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: "Carta de Serviços | Portal da Transparência",
     description: "Guia completo de serviços prestados pela Prefeitura de São Tomé – RN ao cidadão conforme o PNTP 2026.",
@@ -30,7 +33,7 @@ export default async function CartaServicosTransparencyPage() {
             <div className="max-w-[1240px] mx-auto px-6 py-16">
                 <div className="flex justify-between items-center mb-10">
                     <h2 className="text-sm font-black text-gray-400 uppercase tracking-[0.2em]">Serviços Disponíveis</h2>
-                    <ExportButtons data={servicos} filename="carta_servicos_sao_tome" />
+                    <ExportButtons data={servicos} filename="carta_servicos_lajes_pintadas" />
                 </div>
 
                 {/* Disclaimer PNTP 2026 */}

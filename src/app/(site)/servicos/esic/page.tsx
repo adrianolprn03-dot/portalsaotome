@@ -217,9 +217,9 @@ export default function ESICPage() {
     const sidebarItems = [
         { id: "sic", label: "Informações do SIC", icon: FaInfoCircle, internal: true },
         { id: "faq", label: "e-SIC Perguntas e Respostas", icon: FaQuestionCircle, href: "/transparencia/passiva/perguntas" },
-        { id: "relatorios", label: "Relatório estatístico SIC", icon: FaChartBar, href: "/transparencia/passiva/relatorios/estatisticas" },
-        { id: "sigilo", label: "Solicitação Grau de Sigilo", icon: FaLock, href: "/transparencia/passiva/relatorios/com-sigilo" },
-        { id: "nao-sigiloso", label: "Solicitação não sigilosa", icon: FaBook, href: "/transparencia/passiva/relatorios/sem-sigilo" },
+        { id: "relatorios", label: "Relatório Estatístico Anual", icon: FaChartBar, href: "/transparencia/passiva/relatorios/estatisticas" },
+        { id: "sigilo", label: "Documentos Classificados (Sigilo)", icon: FaLock, href: "/transparencia/passiva/relatorios/com-sigilo" },
+        { id: "nao-sigiloso", label: "Desclassificadas (12 Meses)", icon: FaBook, href: "/transparencia/passiva/relatorios/sem-sigilo" },
         { id: "prazos", label: "Prazos de Respostas SIC", icon: FaClock, internal: true },
         { id: "regulamentacao", label: "Regulamentação da LAI", icon: FaGavel, href: "/transparencia/passiva/regulamentacao" },
     ];
@@ -277,7 +277,7 @@ export default function ESICPage() {
                                 </div>
                                 <div className="flex gap-3">
                                     <FaPhone className="text-gray-400 mt-1" size={14} />
-                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">(84) 99211-5922</p>
+                                    <p className="text-[11px] font-bold text-gray-600 leading-snug">(84) 9.8748 – 0287</p>
                                 </div>
                                 <div className="flex gap-3">
                                     <FaClock className="text-gray-400 mt-1" size={14} />
@@ -306,7 +306,7 @@ export default function ESICPage() {
                                             <div className="space-y-6">
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Autoridade de monitoramento do SIC</p>
-                                                    <p className="font-black text-gray-800 text-lg uppercase">Teresa Cristina da Silva</p>
+                                                    <p className="font-black text-gray-800 text-lg uppercase">Sidcley Gomes da Silva</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Unidade/setor responsável</p>
@@ -314,7 +314,7 @@ export default function ESICPage() {
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Contatos do Ouvidoria</p>
-                                                    <p className="font-bold text-gray-700">(84) 99211-5922</p>
+                                                    <p className="font-bold text-gray-700">(84) 9.8748 – 0287</p>
                                                     <p className="font-bold text-gray-700">Whatsapp: (84) 9 8748 – 0287</p>
                                                     <p className="font-bold text-gray-700 break-all">Email: ouvidoria@saotome.rn.gov.br</p>
                                                 </div>
@@ -544,7 +544,7 @@ export default function ESICPage() {
                                                 <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Órgão / Secretaria *</label>
                                                 <select required value={esicForm.orgao} onChange={e => setEsicForm({...esicForm, orgao: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold">
                                                     <option value="">Selecione...</option>
-                                                    <option>Secretaria de Governo</option>
+                                                    <option>Gabinete do Prefeito</option>
                                                     <option>Secretaria de Administração</option>
                                                     <option>Secretaria de Saúde</option>
                                                     <option>Secretaria de Educação</option>

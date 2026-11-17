@@ -52,7 +52,7 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
             "Status": v.status === 'em-uso' ? 'Em Uso' : 'Em Manutenção'
         }));
 
-        const filename = `frota_municipal_sao_tome`;
+        const filename = `frota_municipal_lajes_pintadas`;
         const title = `Inventário da Frota Municipal – São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);

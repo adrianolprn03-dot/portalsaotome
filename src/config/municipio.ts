@@ -13,7 +13,10 @@ export const MUNICIPIO = {
     cores: {
         primaria: "#0088b9",
         secundaria: "#01b0ef",
+        ouro: "#FDB913",
         destaque: "#FDB913",
+        texto: "#0F2942",
+        fundo: "#F4F7FB",
     },
     gentilico: "São-tomeense",
     video: "/video_saotome.mp4",
@@ -21,9 +24,28 @@ export const MUNICIPIO = {
     dpo: "Prefeitura Municipal de São Tomé",
     dpoEmail: "ouvidoria@saotome.rn.gov.br",
     brasaoPath: "/brasao_saotome.png",
+    logoColoridaPath: "/brasao_saotome.png",
+    logoBrancaPath: "/brasao_saotome.png",
+    bandeiraPath: "/brasao_saotome.png",
     estatisticas: {
         populacao: "10.827",
-        area: "662,7 km²",
+        area: "862,6 km²",
         fundacao: "1928",
-    }
+    },
+    cicloAvaliacaoAnos: ["2026", "2025", "2024", "2023", "2022"],
+    prazosEsic: {
+        respostaInicialDias: 20,
+        prorrogacaoDias: 10,
+        recursoDias: 10,
+    },
+    periodicidadesPntpDias: {
+        estoqueMedicamentos: 15,
+        receitasDespesas: 30,
+        servidoresFolha: 30,
+        licitacoesContratos: 30,
+        obrasPublicas: 30,
+        rreo: 60,
+        rgf: 120,
+        relatoriosAnuais: 365,
+    },
 };

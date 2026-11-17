@@ -1,102 +1,209 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import { FaCapsules, FaSearch, FaCheckCircle, FaExclamationTriangle, FaClock } from "react-icons/fa";
+import {
+    FaClock,
+    FaCapsules,
+    FaNotesMedical,
+    FaArrowRight,
+    FaHospitalAlt,
+    FaHeartbeat,
+    FaFileMedical,
+    FaUsers,
+} from "react-icons/fa";
 import { prisma } from "@/lib/prisma";
+import SaudeMedicamentosTable from "@/components/transparencia/SaudeMedicamentosTable";
 
 export const metadata: Metadata = {
     title: "Saúde e Medicamentos | Portal da Transparência",
-    description: "Relação Municipal de Medicamentos Essenciais (REMUME) e disponibilidade atualizada.",
+    description:
+        "Relação Municipal de Medicamentos Essenciais (REMUME), disponibilidade atualizada e orientações para medicamentos básicos e de alto custo.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function SaudeTransparencyPage() {
-    const medicamentos = await prisma.medicamento.findMany({
+    const medicamentosRaw = await prisma.medicamento.findMany({
         where: { ativo: true },
-        orderBy: { nome: "asc" }
+        orderBy: { nome: "asc" },
     });
+    const medicamentos = JSON.parse(JSON.stringify(medicamentosRaw));
 
     return (
         <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
             <PageHeader
                 title="Saúde e Medicamentos"
-                subtitle="Consulta à disponibilidade de medicamentos na rede municipal de saúde (REMUME)."
+                subtitle="Consulta à relação e disponibilidade de medicamentos na rede SUS (REMUME) e orientações de obtenção."
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
-                    { label: "Saúde e Medicamentos" }
+                    { label: "Saúde e Medicamentos" },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-16">
-                <div className="mb-12 bg-emerald-50 border border-emerald-100 rounded-3xl p-8 flex items-center justify-between">
+            <div className="max-w-[1240px] mx-auto px-6 py-16 space-y-8">
+                {/* Hub Completo da Saúde Pública - PNTP 2026 (Itens 18.1 a 18.6) */}
+                <section className="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-5">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                        <div>
+                            <span className="text-[11px] font-black uppercase tracking-widest text-[#1254A3] block">
+                                Cartilha PNTP 2026 • Dimensão 18 - Saúde Pública
+                            </span>
+                            <h2 className="text-xl font-black text-slate-900">
+                                Acesso Direto a Todos os Critérios da Saúde Municipal
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <Link
+                            href="/transparencia/plano-saude"
+                            className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-300 transition space-y-2"
+                        >
+                            <div className="flex items-center justify-between text-[#1254A3]">
+                                <FaFileMedical size={18} />
+                                <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-blue-200">
+                                    18.1
+                                </span>
+                            </div>
+                            <h3 className="font-bold text-slate-900 text-sm">PMS, PAS e RAG</h3>
+                            <p className="text-xs text-slate-500">
+                                Plano Municipal de Saúde, Programação Anual e Relatório de Gestão.
+                            </p>
+                        </Link>
+
+                        <Link
+                            href="/transparencia/unidades-saude"
+                            className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition space-y-2"
+                        >
+                            <div className="flex items-center justify-between text-emerald-700">
+                                <FaHospitalAlt size={18} />
+                                <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-emerald-200">
+                                    18.2
+                                </span>
+                            </div>
+                            <h3 className="font-bold text-slate-900 text-sm">Unidades, Médicos e Horários</h3>
+                            <p className="text-xs text-slate-600">
+                                Serviços, especialidades, médicos, enfermeiros, locais e escalas.
+                            </p>
+                        </Link>
+
+                        <Link
+                            href="/transparencia/central-regulacao"
+                            className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-rose-50/60 hover:border-rose-300 transition space-y-2"
+                        >
+                            <div className="flex items-center justify-between text-rose-600">
+                                <FaHeartbeat size={18} />
+                                <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-rose-200">
+                                    18.3
+                                </span>
+                            </div>
+                            <h3 className="font-bold text-slate-900 text-sm">Central de Regulação</h3>
+                            <p className="text-xs text-slate-500">
+                                Lista de espera para consultas especializadas, exames e cirurgias.
+                            </p>
+                        </Link>
+
+                        <Link
+                            href="/transparencia/medicamentos-sus"
+                            className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-cyan-50/60 hover:border-cyan-300 transition space-y-2"
+                        >
+                            <div className="flex items-center justify-between text-cyan-700">
+                                <FaCapsules size={18} />
+                                <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-cyan-200">
+                                    18.4 / 18.5
+                                </span>
+                            </div>
+                            <h3 className="font-bold text-slate-900 text-sm">Medicamentos & Estoques</h3>
+                            <p className="text-xs text-slate-500">
+                                Lista REMUME, como obter alto custo (CEAF) e estoques públicos.
+                            </p>
+                        </Link>
+
+                        <Link
+                            href="/transparencia/conselhos"
+                            className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-indigo-50/60 hover:border-indigo-300 transition space-y-2"
+                        >
+                            <div className="flex items-center justify-between text-indigo-700">
+                                <FaUsers size={18} />
+                                <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-indigo-200">
+                                    18.6
+                                </span>
+                            </div>
+                            <h3 className="font-bold text-slate-900 text-sm">Conselho de Saúde (CMS)</h3>
+                            <p className="text-xs text-slate-500">
+                                Composição, presidência, atas e funcionamento do Conselho Municipal.
+                            </p>
+                        </Link>
+                    </div>
+                </section>
+                <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-start gap-4">
                         <div className="w-10 h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center shrink-0 shadow-lg">
                             <FaClock size={18} />
                         </div>
                         <div>
-                            <h4 className="text-emerald-900 font-black uppercase text-xs tracking-tight mb-1">Última Atualização do Estoque</h4>
-                            <p className="text-emerald-700/80 text-sm font-medium">As informações abaixo são sincronizadas diariamente com o Almoxarifado Central da Saúde.</p>
+                            <h4 className="text-emerald-900 font-black uppercase text-xs tracking-tight mb-1">
+                                Relação Oficial de Medicamentos do SUS (REMUME)
+                            </h4>
+                            <p className="text-emerald-700/80 text-sm font-medium">
+                                Lista sincronizada com a Secretaria Municipal de Saúde abrangendo medicamentos da Atenção Básica (CBAF), Alto Custo (CEAF) e Estratégicos (CESAF).
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[3rem] overflow-hidden shadow-xl shadow-gray-200/40 border border-white">
-                    <div className="p-10 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div>
-                            <h3 className="text-xl font-black text-gray-800 uppercase tracking-tighter">Lista de Medicamentos (REMUME)</h3>
-                            <p className="text-gray-400 text-xs font-bold mt-1 uppercase tracking-widest">Total de {medicamentos.length} itens cadastrados</p>
+                {/* Guias Rápidos de Acesso (Básicos e Alto Custo) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Link
+                        href="/transparencia/medicamentos-sus?aba=como-obter"
+                        className="bg-white hover:bg-blue-50/40 border border-blue-100 rounded-3xl p-7 shadow-sm flex items-center justify-between gap-4 transition-all group"
+                    >
+                        <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#003366] flex items-center justify-center shrink-0">
+                                <FaCapsules size={20} />
+                            </div>
+                            <div>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[#003366]">
+                                    Atenção Básica (CBAF / REMUME)
+                                </span>
+                                <h3 className="text-base font-black text-gray-900 uppercase tracking-tight mt-0.5">
+                                    Como Obter Medicamentos Básicos
+                                </h3>
+                                <p className="text-xs text-gray-500 font-medium mt-1">
+                                    Documentos exigidos, locais de retirada nas UBS / CAF e horários de dispensação gratuita.
+                                </p>
+                            </div>
                         </div>
-                        <div className="relative group">
-                            <FaSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-blue-500 transition-colors" />
-                            <input
-                                type="text"
-                                placeholder="Buscar medicamento..."
-                                className="pl-14 pr-8 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-sm font-bold w-full md:w-80 focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all outline-none"
-                            />
-                        </div>
-                    </div>
+                        <FaArrowRight className="text-[#003366] shrink-0 group-hover:translate-x-1 transition-transform" />
+                    </Link>
 
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="bg-gray-50 border-b border-gray-100">
-                                    <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Medicamento</th>
-                                    <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Categoria</th>
-                                    <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Disponibilidade</th>
-                                    <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Observações</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-50">
-                                {medicamentos.map((item) => (
-                                    <tr key={item.id} className="hover:bg-blue-50/30 transition-colors group">
-                                        <td className="px-10 py-8">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center font-bold text-lg group-hover:bg-white group-hover:shadow-md transition-all">💊</div>
-                                                <span className="text-sm font-black text-gray-800 uppercase tracking-tighter">{item.nome}</span>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">{item.categoria}</span>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            {item.status === 'disponivel' ? (
-                                                <div className="flex items-center gap-2 text-emerald-600 font-black text-[10px] uppercase tracking-widest">
-                                                    <FaCheckCircle /> Disponível
-                                                </div>
-                                            ) : (
-                                                <div className="flex items-center gap-2 text-orange-500 font-black text-[10px] uppercase tracking-widest">
-                                                    <FaExclamationTriangle /> Em Falta
-                                                </div>
-                                            )}
-                                        </td>
-                                        <td className="px-10 py-8 text-right">
-                                            <p className="text-xs font-bold text-gray-500 tracking-tight italic">{item.observacao || "Sem observações"}</p>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <Link
+                        href="/transparencia/medicamentos-sus?aba=especializado"
+                        className="bg-white hover:bg-indigo-50/40 border border-indigo-100 rounded-3xl p-7 shadow-sm flex items-center justify-between gap-4 transition-all group"
+                    >
+                        <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0">
+                                <FaNotesMedical size={20} />
+                            </div>
+                            <div>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-700">
+                                    Componente Especializado (CEAF)
+                                </span>
+                                <h3 className="text-base font-black text-gray-900 uppercase tracking-tight mt-0.5">
+                                    Medicamentos de Alto Custo (LME / PCDT)
+                                </h3>
+                                <p className="text-xs text-gray-500 font-medium mt-1">
+                                    Passo a passo para abertura e renovação de processo via Secretaria de Saúde / UNICAT-SESAP.
+                                </p>
+                            </div>
+                        </div>
+                        <FaArrowRight className="text-indigo-700 shrink-0 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                 </div>
+
+                <SaudeMedicamentosTable medicamentos={medicamentos} />
             </div>
         </div>
     );
