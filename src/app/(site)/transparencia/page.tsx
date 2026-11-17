@@ -345,18 +345,18 @@ export default function TransparenciaPage() {
     };
 
     return (
-        <div className="bg-[#F4F7FB] min-h-screen text-[#0F2942] pt-5 sm:pt-7 pb-24">
+        <div className="bg-[#f4fbff] min-h-screen text-slate-900 pt-5 sm:pt-7 pb-24">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 space-y-7">
                 {/* =====================================================================
                     1. BANNER CENTRAL DE TRANSPARÊNCIA ATIVA (SEM O CARD 100% META ATIVA)
                    ===================================================================== */}
-                <section className="rounded-[26px] bg-gradient-to-br from-[#002654] via-[#003B73] to-[#0072CE] p-6 sm:p-8 lg:p-9 text-white shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
+                <section className="rounded-[26px] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] p-6 sm:p-8 lg:p-9 text-white shadow-xl shadow-[#01b0ef]/20 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#fdb913]" />
 
                     <div className="space-y-5">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-[#FACC15]/50 text-xs font-extrabold text-[#FACC15] w-fit">
-                                <span className="w-2 h-2 rounded-full bg-[#FACC15]" />
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 border border-[#fdb913] text-xs font-extrabold text-slate-900 w-fit shadow-xs">
+                                <span className="w-2 h-2 rounded-full bg-[#fdb913]" />
                                 <span>Portal Oficial da Transparência • {MUNICIPIO.nome}/{MUNICIPIO.uf}</span>
                             </div>
 
@@ -364,7 +364,7 @@ export default function TransparenciaPage() {
                             <div className="flex flex-wrap items-center gap-2">
                                 <Link
                                     href="/servicos/esic"
-                                    className="px-3.5 py-1.5 rounded-full bg-[#FACC15] hover:bg-amber-300 text-[#0F2942] text-xs font-extrabold transition-colors shadow-sm"
+                                    className="px-3.5 py-1.5 rounded-full bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 text-xs font-extrabold transition-colors shadow-sm"
                                 >
                                     Pedido e-SIC (LAI)
                                 </Link>
@@ -394,7 +394,7 @@ export default function TransparenciaPage() {
 
                         {/* Barra de Busca Instantânea */}
                         <div className="relative group max-w-3xl">
-                            <div className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0072CE] transition-colors pointer-events-none">
+                            <div className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#01b0ef] transition-colors pointer-events-none">
                                 <Search size={19} />
                             </div>
                             <input
@@ -403,7 +403,7 @@ export default function TransparenciaPage() {
                                 placeholder="Pesquisar módulo ou informação pública (ex: 'folha', 'licitações', 'diárias', 'obras', 'SUS')..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-white text-[#0F2942] rounded-2xl pl-12 sm:pl-14 pr-20 py-3.5 text-sm font-semibold placeholder:text-slate-400 outline-none ring-2 ring-transparent focus:ring-[#FACC15] shadow-lg transition-all"
+                                className="w-full bg-white text-slate-900 rounded-2xl pl-12 sm:pl-14 pr-20 py-3.5 text-sm font-semibold placeholder:text-slate-400 outline-none ring-2 ring-transparent focus:ring-[#fdb913] shadow-lg transition-all"
                             />
                             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
                                 {searchTerm ? (
@@ -415,7 +415,7 @@ export default function TransparenciaPage() {
                                         <X size={14} />
                                     </button>
                                 ) : (
-                                    <kbd className="hidden sm:inline-flex items-center px-2.5 py-1 text-[10px] font-mono font-bold text-[#003B73] bg-sky-50 border border-sky-200 rounded-lg">
+                                    <kbd className="hidden sm:inline-flex items-center px-2.5 py-1 text-[10px] font-mono font-bold text-[#01b0ef] bg-[#e6f8ff] border border-[#01b0ef]/25 rounded-lg">
                                         Ctrl + K
                                     </kbd>
                                 )}
@@ -424,7 +424,7 @@ export default function TransparenciaPage() {
 
                         {/* Chips de Filtro Rápido */}
                         <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-xs font-bold text-[#FACC15]">Mais consultados:</span>
+                            <span className="text-xs font-extrabold text-slate-900 bg-[#fdb913] px-2.5 py-0.5 rounded-full">Mais consultados:</span>
                             {["Despesas", "Receitas", "Servidores", "Licitações", "Contratos", "Diárias"].map(
                                 (chip) => (
                                     <button
@@ -433,7 +433,7 @@ export default function TransparenciaPage() {
                                             setSearchTerm(chip);
                                             setSelectedCategory("TODAS");
                                         }}
-                                        className="text-xs font-semibold px-3.5 py-1 rounded-full bg-white/15 hover:bg-[#FACC15] hover:text-[#0F2942] border border-white/25 transition-all cursor-pointer"
+                                        className="text-xs font-semibold px-3.5 py-1 rounded-full bg-white/20 hover:bg-[#fdb913] hover:text-slate-900 border border-white/35 transition-all cursor-pointer"
                                     >
                                         {chip}
                                     </button>
@@ -446,11 +446,11 @@ export default function TransparenciaPage() {
                 {/* =====================================================================
                     2. BARRA DE FILTROS POR ÁREA TEMÁTICA E CRITÉRIO
                    ===================================================================== */}
-                <section className="bg-white rounded-2xl p-4 sm:p-5 border border-[#DDE3EA] shadow-sm space-y-4">
+                <section className="bg-white rounded-2xl p-4 sm:p-5 border border-[#e2e8f0] shadow-sm space-y-4">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                         {/* Pílulas de Critério Unificadas no Padrão Principal */}
                         <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-xs font-extrabold text-[#5B738B] mr-1">
+                            <span className="text-xs font-extrabold text-slate-600 mr-1">
                                 Filtrar por classificação:
                             </span>
                             {[
@@ -464,8 +464,8 @@ export default function TransparenciaPage() {
                                     onClick={() => setSelectedCriterio(crit.id)}
                                     className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                                         selectedCriterio === crit.id
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "bg-[#F5F7FA] hover:bg-slate-200/70 text-[#5B738B]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "bg-[#f4fbff] hover:bg-slate-200/70 text-slate-600"
                                     }`}
                                 >
                                     {crit.label}
@@ -479,7 +479,7 @@ export default function TransparenciaPage() {
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                                 aria-label="Filtrar por Área Temática"
-                                className="w-full bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl px-3.5 py-2 text-xs font-bold text-[#12304A] outline-none focus:ring-2 focus:ring-[#1254A3]/20 cursor-pointer"
+                                className="w-full bg-[#f4fbff] border border-sky-100 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-900 outline-none focus:ring-2 focus:ring-[#01b0ef]/25 cursor-pointer"
                             >
                                 <option value="TODAS">Todas as Áreas ({countTotalModulos} módulos)</option>
                                 {categoriasDeModulos.map((cat) => (
@@ -492,20 +492,20 @@ export default function TransparenciaPage() {
                     </div>
 
                     {/* Navegação Rápida por Categorias */}
-                    <div className="pt-3 border-t border-[#DDE3EA] flex flex-wrap items-center gap-2 py-0.5">
+                    <div className="pt-3 border-t border-[#e2e8f0] flex flex-wrap items-center gap-2 py-0.5">
                         <button
                             onClick={() => setSelectedCategory("TODAS")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                                 selectedCategory === "TODAS"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "bg-[#F5F7FA] hover:bg-slate-100 text-[#12304A] border border-[#DDE3EA]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "bg-[#f4fbff] hover:bg-slate-100 text-slate-900 border border-[#e2e8f0]"
                             }`}
                         >
                             <span>Todas as Áreas</span>
                             <span
                                 className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                                     selectedCategory === "TODAS"
-                                        ? "bg-[#F39A32] text-[#12304A]"
+                                        ? "bg-[#fdb913] text-slate-900"
                                         : "bg-slate-200 text-slate-700"
                                 }`}
                             >
@@ -522,8 +522,8 @@ export default function TransparenciaPage() {
                                     onClick={() => setSelectedCategory(cat.tituloCategoria)}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                                         isSelected
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "bg-[#F5F7FA] hover:bg-slate-100 text-[#12304A] border border-[#DDE3EA]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "bg-[#f4fbff] hover:bg-slate-100 text-slate-900 border border-[#e2e8f0]"
                                     }`}
                                 >
                                     <CatIcon size={14} className="shrink-0" />
@@ -531,7 +531,7 @@ export default function TransparenciaPage() {
                                     <span
                                         className={`text-[10px] px-2 py-0.5 rounded-full ${
                                             isSelected
-                                                ? "bg-[#FACC15] text-[#0F2942]"
+                                                ? "bg-[#fdb913] text-slate-900"
                                                 : "bg-slate-200 text-slate-700"
                                         }`}
                                     >
@@ -546,14 +546,14 @@ export default function TransparenciaPage() {
                     {(searchTerm || selectedCategory !== "TODAS" || selectedCriterio !== "TODOS") && (
                         <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
                             <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-semibold text-[#526B84]">Filtros ativos:</span>
+                                <span className="font-semibold text-slate-600">Filtros ativos:</span>
                                 {selectedCategory !== "TODAS" && (
-                                    <span className="bg-sky-50 border border-sky-200 text-[#0072CE] px-3 py-1 rounded-full font-bold">
+                                    <span className="bg-[#e6f8ff] border border-[#01b0ef]/25 text-[#01b0ef] px-3 py-1 rounded-full font-bold">
                                         Área: {selectedCategory}
                                     </span>
                                 )}
                                 {selectedCriterio !== "TODOS" && (
-                                    <span className="bg-sky-50 border border-sky-200 text-[#0072CE] px-3 py-1 rounded-full font-bold">
+                                    <span className="bg-[#e6f8ff] border border-[#01b0ef]/25 text-[#01b0ef] px-3 py-1 rounded-full font-bold">
                                         Classificação: {selectedCriterio}
                                     </span>
                                 )}
@@ -562,7 +562,7 @@ export default function TransparenciaPage() {
                                         Busca: &quot;{searchTerm}&quot;
                                     </span>
                                 )}
-                                <span className="text-[#526B84] font-medium">
+                                <span className="text-slate-600 font-medium">
                                     ({totalResultados}{" "}
                                     {totalResultados === 1 ? "módulo encontrado" : "módulos encontrados"})
                                 </span>
@@ -573,7 +573,7 @@ export default function TransparenciaPage() {
                                     setSelectedCategory("TODAS");
                                     setSelectedCriterio("TODOS");
                                 }}
-                                className="text-[#0072CE] hover:underline font-extrabold cursor-pointer"
+                                className="text-[#01b0ef] hover:underline font-extrabold cursor-pointer"
                             >
                                 Limpar filtros
                             </button>
@@ -596,12 +596,12 @@ export default function TransparenciaPage() {
                                 <section
                                     id={slug}
                                     key={categoria.tituloCategoria}
-                                    className="bg-white rounded-[24px] border border-[#DCE4EE] shadow-gov overflow-hidden"
+                                    className="bg-white rounded-[24px] border border-[#e2e8f0] shadow-gov overflow-hidden"
                                 >
                                     {/* Cabeçalho Institucional no Padrão Principal */}
-                                    <div className="bg-gradient-to-r from-[#002654] via-[#003B73] to-[#1254A3] px-6 py-4.5 sm:py-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#F39A32]">
+                                    <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] px-6 py-4.5 sm:py-5 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-4 border-[#fdb913]">
                                         <div className="flex items-center gap-3.5">
-                                            <div className="w-11 h-11 rounded-xl bg-white/15 border border-[#F39A32]/60 flex items-center justify-center text-[#F39A32] shrink-0">
+                                            <div className="w-11 h-11 rounded-xl bg-[#fdb913] flex items-center justify-center text-slate-900 shrink-0 shadow-xs">
                                                 <CatIcon size={21} />
                                             </div>
                                             <div>
@@ -609,7 +609,7 @@ export default function TransparenciaPage() {
                                                     <h2 className="text-base sm:text-lg font-black font-heading tracking-tight text-white">
                                                         {categoria.tituloCategoria}
                                                     </h2>
-                                                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#F39A32] text-[#12304A]">
+                                                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#fdb913] text-slate-900">
                                                         {categoria.modulos.length}{" "}
                                                         {categoria.modulos.length === 1 ? "módulo" : "módulos"}
                                                     </span>
@@ -656,42 +656,42 @@ export default function TransparenciaPage() {
                                                                     ? "noopener noreferrer"
                                                                     : undefined
                                                             }
-                                                            className="group relative flex flex-col justify-between h-full bg-white hover:bg-[#F8FAFC] rounded-2xl border border-[#DDE3EA] border-t-4 border-t-[#1254A3] hover:border-t-[#F39A32] shadow-sm hover:shadow-md p-5 transition-all duration-300 hover:-translate-y-0.5"
+                                                            className="group relative flex flex-col justify-between h-full bg-white hover:bg-[#f4fbff] rounded-2xl border border-sky-100 border-t-4 border-t-[#01b0ef] hover:border-t-[#fdb913] shadow-sm hover:shadow-md p-5 transition-all duration-300 hover:-translate-y-0.5"
                                                         >
                                                             <div>
                                                                 <div className="flex items-center justify-between mb-3.5">
-                                                                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#1254A3] group-hover:bg-[#1254A3] group-hover:text-white group-hover:border-[#1254A3] flex items-center justify-center transition-all shadow-xs">
+                                                                    <div className="w-10 h-10 rounded-xl bg-[#e6f8ff] border border-[#01b0ef]/20 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white group-hover:border-[#01b0ef] flex items-center justify-center transition-all shadow-xs">
                                                                         <ModIcon size={18} />
                                                                     </div>
                                                                     <div className="flex items-center gap-1.5">
-                                                                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-blue-50 text-[#1254A3] border border-blue-100">
+                                                                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[#e6f8ff] text-[#01b0ef] border border-[#01b0ef]/20">
                                                                             {m.tipoCriterio}
                                                                         </span>
-                                                                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#F5F7FA] border border-[#DDE3EA] text-[#5B738B]">
+                                                                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#f4fbff] border border-[#e2e8f0] text-slate-600">
                                                                             {m.badge}
                                                                         </span>
                                                                     </div>
                                                                 </div>
 
-                                                                <h3 className="text-sm font-extrabold text-[#12304A] group-hover:text-[#1254A3] transition-colors leading-snug mb-1.5">
+                                                                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#01b0ef] transition-colors leading-snug mb-1.5">
                                                                     {highlightText(m.titulo, searchTerm)}
                                                                 </h3>
-                                                                <p className="text-xs text-[#5B738B] leading-relaxed line-clamp-2">
+                                                                <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
                                                                     {highlightText(m.desc, searchTerm)}
                                                                 </p>
                                                             </div>
 
-                                                            <div className="mt-4 pt-3 border-t border-[#DDE3EA] flex items-center justify-between">
+                                                            <div className="mt-4 pt-3 border-t border-[#e2e8f0] flex items-center justify-between">
                                                                 {isExternal ? (
-                                                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#1254A3] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                                                                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#01b0ef] bg-[#e6f8ff] px-2 py-0.5 rounded border border-[#01b0ef]/20">
                                                                         <ExternalLink size={10} /> Sistema Integrado
                                                                     </span>
                                                                 ) : (
-                                                                    <span className="text-[11px] font-bold text-[#5B738B] group-hover:text-[#1254A3] transition-colors">
+                                                                    <span className="text-[11px] font-bold text-slate-600 group-hover:text-[#01b0ef] transition-colors">
                                                                         Acessar dados
                                                                     </span>
                                                                 )}
-                                                                <div className="w-7 h-7 rounded-full bg-[#F5F7FA] border border-[#DDE3EA] group-hover:bg-[#1254A3] group-hover:border-[#1254A3] text-[#5B738B] group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
+                                                                <div className="w-7 h-7 rounded-full bg-[#f4fbff] border border-sky-100 group-hover:bg-[#01b0ef] group-hover:border-[#01b0ef] text-slate-600 group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
                                                                     {isExternal ? (
                                                                         <ArrowUpRight size={13} />
                                                                     ) : (
@@ -709,16 +709,16 @@ export default function TransparenciaPage() {
                             );
                         })
                     ) : (
-                        <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-[#DCE4EE]">
+                        <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-[#e2e8f0]">
                             <div className="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                 <Search size={24} />
                             </div>
-                            <h3 className="text-lg font-extrabold text-[#0F2942] mb-1">
+                            <h3 className="text-lg font-extrabold text-slate-900 mb-1">
                                 Nenhum módulo encontrado
                             </h3>
-                            <p className="text-[#526B84] text-xs max-w-md mx-auto mb-6">
+                            <p className="text-slate-600 text-xs max-w-md mx-auto mb-6">
                                 Não encontramos nenhum módulo correspondente a{" "}
-                                <span className="font-bold text-[#0F2942]">&quot;{searchTerm}&quot;</span> com os filtros selecionados.
+                                <span className="font-bold text-slate-900">&quot;{searchTerm}&quot;</span> com os filtros selecionados.
                             </p>
                             <button
                                 onClick={() => {
@@ -726,7 +726,7 @@ export default function TransparenciaPage() {
                                     setSelectedCategory("TODAS");
                                     setSelectedCriterio("TODOS");
                                 }}
-                                className="bg-[#0072CE] hover:bg-[#005bb5] text-white px-5 py-2.5 rounded-full font-extrabold text-xs transition-all shadow-md cursor-pointer"
+                                className="bg-[#01b0ef] hover:bg-[#0098d4] text-white px-5 py-2.5 rounded-full font-extrabold text-xs transition-all shadow-md cursor-pointer"
                             >
                                 Limpar Todos os Filtros
                             </button>

@@ -22,7 +22,7 @@ export default async function LeisPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Leis Municipais"
                 subtitle="Acesso integral à legislação aprovada pelo Poder Legislativo e sancionada pelo Executivo."

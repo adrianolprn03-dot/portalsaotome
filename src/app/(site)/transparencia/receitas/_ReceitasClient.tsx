@@ -66,7 +66,7 @@ function fmt(v: number | null | undefined) {
     return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-const COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#F59E0B"];
+const COLORS = ["#01b0ef", "#fdb913", "#10B981", "#01b0ef", "#8B5CF6", "#fdb913"];
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -161,7 +161,7 @@ export default function ReceitasPage() {
     })).filter((d) => d.valor > 0);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Arrecadação de Receitas"
                 subtitle="Transparência sobre previsão, lançamento e arrecadação de receitas públicas por natureza e fonte."
@@ -190,36 +190,36 @@ export default function ReceitasPage() {
 
                 {/* Summary Section - Padrão Novo Modelo */}
                 <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
-                    <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] relative overflow-hidden flex flex-col justify-between">
+                    <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] relative overflow-hidden flex flex-col justify-between">
                         <div>
                             <div className="flex flex-wrap items-center gap-3 mb-6">
                                 <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-[11px] font-black uppercase tracking-wider border border-emerald-100">
                                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                     Fluxo Arrecadatório
                                 </span>
-                                <span className="flex items-center gap-1.5 px-3 py-1 bg-[#EEF4FB] text-[#1254A3] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#DDE3EA]">
+                                <span className="flex items-center gap-1.5 px-3 py-1 bg-[#e6f8ff] text-[#01b0ef] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#e2e8f0]">
                                     <FaCircleCheck size={11} /> LC 131/2009 · PNTP
                                 </span>
                             </div>
 
-                            <p className="text-xs font-bold uppercase tracking-widest text-[#5B738B] mb-1">
+                            <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-1">
                                 Volume Arrecadado no Período
                             </p>
-                            <div className="text-4xl sm:text-5xl font-black text-[#12304A] tracking-tight">
-                                {loading ? <FaSpinner className="animate-spin text-3xl text-[#1254A3]" /> : fmt(totalArrecadado)}
+                            <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                                {loading ? <FaSpinner className="animate-spin text-3xl text-[#01b0ef]" /> : fmt(totalArrecadado)}
                             </div>
                         </div>
 
-                        <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#DDE3EA] pt-6">
+                        <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#e2e8f0] pt-6">
                             <div className="flex flex-col">
-                                <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">
+                                <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">
                                     Exercício Consultado
                                 </span>
-                                <span className="text-xl font-black text-[#12304A]">{ano}</span>
+                                <span className="text-xl font-black text-slate-900">{ano}</span>
                             </div>
-                            <div className="w-px h-8 bg-[#DDE3EA] hidden md:block" />
+                            <div className="w-px h-8 bg-[#e2e8f0] hidden md:block" />
                             <div className="flex flex-col">
-                                <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">
+                                <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">
                                     Total Previsto Registrado
                                 </span>
                                 <span className="text-xl font-black text-emerald-600">
@@ -229,21 +229,21 @@ export default function ReceitasPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] flex flex-col justify-between">
+                    <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] flex flex-col justify-between">
                         <div>
                             <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-5 border border-emerald-100">
                                 <FaWallet />
                             </div>
-                            <h4 className="text-lg font-black text-[#12304A] tracking-tight mb-2">
+                            <h4 className="text-lg font-black text-slate-900 tracking-tight mb-2">
                                 Natureza e Origem das Receitas
                             </h4>
-                            <p className="text-xs text-[#5B738B] leading-relaxed">
+                            <p className="text-xs text-slate-600 leading-relaxed">
                                 Consulta detalhada de receitas correntes, de capital, tributárias e transferências constitucionais, diferenciando valores previstos, lançados e arrecadados.
                             </p>
                         </div>
-                        <div className="pt-5 border-t border-[#DDE3EA] flex items-center justify-between text-xs font-bold text-[#5B738B]">
+                        <div className="pt-5 border-t border-[#e2e8f0] flex items-center justify-between text-xs font-bold text-slate-600">
                             <span>Registros localizados: {receitas.length}</span>
-                            <span className="text-[#1254A3] font-semibold flex items-center gap-1">
+                            <span className="text-[#01b0ef] font-semibold flex items-center gap-1">
                                 <FaCircleInfo size={13} /> Siafic Ativo
                             </span>
                         </div>
@@ -272,7 +272,7 @@ export default function ReceitasPage() {
                                     id="select-cat-receita"
                                     value={categoria}
                                     onChange={(e) => setCategoria(e.target.value)}
-                                    className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
+                                    className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                 >
                                     <option value="">Todas as Categorias</option>
                                     <option value="impostos">Impostos, Taxas e Contribuições</option>
@@ -286,13 +286,13 @@ export default function ReceitasPage() {
                 </motion.div>
 
                 {/* Main Table / Chart */}
-                <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm overflow-hidden mb-12">
-                    <div className="flex flex-col sm:flex-row bg-[#F8FAFC] p-4 items-center justify-between border-b border-[#DDE3EA] gap-4">
-                        <div className="flex bg-white p-1 rounded-xl border border-[#DDE3EA] w-full sm:w-auto">
+                <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden mb-12">
+                    <div className="flex flex-col sm:flex-row bg-[#F8FAFC] p-4 items-center justify-between border-b border-[#e2e8f0] gap-4">
+                        <div className="flex bg-white p-1 rounded-xl border border-[#e2e8f0] w-full sm:w-auto">
                             <button
                                 onClick={() => setAba("tabela")}
                                 className={`flex items-center justify-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
-                                    aba === "tabela" ? "bg-[#1254A3] text-white shadow-sm" : "text-[#5B738B] hover:text-[#1254A3]"
+                                    aba === "tabela" ? "bg-[#01b0ef] text-white shadow-sm" : "text-slate-600 hover:text-[#01b0ef]"
                                 }`}
                             >
                                 <FaTable size={13} /> Visão em Tabela
@@ -300,7 +300,7 @@ export default function ReceitasPage() {
                             <button
                                 onClick={() => setAba("grafico")}
                                 className={`flex items-center justify-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
-                                    aba === "grafico" ? "bg-[#1254A3] text-white shadow-sm" : "text-[#5B738B] hover:text-[#1254A3]"
+                                    aba === "grafico" ? "bg-[#01b0ef] text-white shadow-sm" : "text-slate-600 hover:text-[#01b0ef]"
                                 }`}
                             >
                                 <FaChartLine size={13} /> Gráficos nos Resultados
@@ -381,7 +381,7 @@ export default function ReceitasPage() {
                                                     ))}
                                                 </tbody>
                                                 <tfoot>
-                                                    <tr className="bg-[#12304A] text-white font-bold">
+                                                    <tr className="bg-[#0f172a] text-white font-bold">
                                                         <td colSpan={3} className="px-6 py-5 uppercase text-xs">
                                                             Consolidado do Período Filtrado
                                                         </td>
@@ -400,19 +400,19 @@ export default function ReceitasPage() {
                             ) : (
                                 <motion.div key="grafico" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-2">
                                     <div className="mb-4">
-                                        <h3 className="text-base font-black text-[#12304A]">
+                                        <h3 className="text-base font-black text-slate-900">
                                             Evolução Mensal da Arrecadação ({ano})
                                         </h3>
-                                        <p className="text-xs text-[#5B738B]">
+                                        <p className="text-xs text-slate-600">
                                             Valores arrecadados mês a mês conforme lançamentos do SIAFIC.
                                         </p>
                                     </div>
-                                    <div className="h-[400px] w-full p-4 bg-[#F8FAFC] rounded-2xl border border-[#DDE3EA]">
+                                    <div className="h-[400px] w-full p-4 bg-[#F8FAFC] rounded-2xl border border-[#e2e8f0]">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <BarChart data={dadosGrafico}>
                                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#5B738B" }} />
-                                                <YAxis tick={{ fontSize: 11, fill: "#5B738B" }} tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} />
+                                                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#475569" }} />
+                                                <YAxis tick={{ fontSize: 11, fill: "#475569" }} tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} />
                                                 <Tooltip formatter={(v: number) => [fmt(v), "Arrecadação"]} />
                                                 <Bar dataKey="valor" radius={[6, 6, 0, 0]}>
                                                     {dadosGrafico.map((_, index) => (

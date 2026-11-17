@@ -17,7 +17,7 @@ export default async function UnidadesEscolaresPage() {
     const dados = await getDadosEducacaoPublica();
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Unidades Escolares, Creches e Lista de Espera"
                 subtitle="Relação completa de escolas e creches municipais, etapas de ensino, horários, critérios de priorização de vagas e situação da fila de espera em creches públicas (PNTP 2026 - Item 19.2)."

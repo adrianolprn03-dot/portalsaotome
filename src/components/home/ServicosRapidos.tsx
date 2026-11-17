@@ -18,9 +18,8 @@ const servicos = [
         href: "/transparencia",
         icon: ShieldCheck,
         badge: "PNTP 2026",
-        iconBg: "bg-primary-50 text-primary-600 group-hover:bg-primary-600 group-hover:text-white",
-        borderAccent: "hover:border-primary-400",
-        badgeClass: "bg-primary-50 text-primary-700 border-primary-100",
+        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
+        badgeClass: "bg-[#fdb913] text-slate-900 border-[#fdb913]",
     },
     {
         index: "02",
@@ -29,9 +28,8 @@ const servicos = [
         href: "/servicos/esic",
         icon: FileSearch,
         badge: "Lei 12.527/11",
-        iconBg: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-        borderAccent: "hover:border-emerald-400",
-        badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-100",
+        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
+        badgeClass: "bg-[#01b0ef]/10 text-[#01b0ef] border-[#01b0ef]/25",
     },
     {
         index: "03",
@@ -40,9 +38,8 @@ const servicos = [
         href: "/servicos/ouvidoria",
         icon: Headset,
         badge: "Lei 13.460/17",
-        iconBg: "bg-amber-50 text-amber-600 group-hover:bg-amber-500 group-hover:text-white",
-        borderAccent: "hover:border-amber-400",
-        badgeClass: "bg-amber-50 text-amber-800 border-amber-100",
+        iconBg: "bg-[#fdb913]/20 text-slate-900 group-hover:bg-[#fdb913] group-hover:text-slate-900",
+        badgeClass: "bg-[#fdb913]/25 text-slate-900 border-[#fdb913]/50",
     },
     {
         index: "04",
@@ -51,8 +48,7 @@ const servicos = [
         href: "/secretarias",
         icon: Building2,
         badge: "Institucional",
-        iconBg: "bg-sky-50 text-sky-700 group-hover:bg-[#071E3D] group-hover:text-white",
-        borderAccent: "hover:border-sky-400",
+        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
         badgeClass: "bg-slate-100 text-slate-700 border-slate-200",
     },
 ];
@@ -69,7 +65,7 @@ export default async function ServicosRapidos() {
 
     return (
         <section
-            className="py-12 md:py-16 bg-[#F6F9FC] border-b border-slate-200/80 relative z-10"
+            className="py-12 md:py-16 bg-[#f4fbff] border-b border-[#01b0ef]/15 relative z-10"
             id="servicos"
             aria-labelledby="servicos-titulo"
         >
@@ -104,9 +100,9 @@ export default async function ServicosRapidos() {
                                 href={finalHref}
                                 target={isExternal ? "_blank" : undefined}
                                 rel={isExternal ? "noopener noreferrer" : undefined}
-                                className={`group relative flex flex-col justify-between p-6 rounded-2xl bg-white border border-slate-200/90 ${s.borderAccent} shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden`}
+                                className="group relative flex flex-col justify-between p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#01b0ef] shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
                             >
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-slate-100 group-hover:heraldic-stripe transition-all" />
+                                <div className="absolute top-0 left-0 right-0 h-1 bg-[#01b0ef]/20 group-hover:heraldic-stripe transition-all" />
 
                                 <div>
                                     <div className="flex items-center justify-between mb-5">
@@ -115,7 +111,7 @@ export default async function ServicosRapidos() {
                                         >
                                             <Icon size={22} strokeWidth={1.8} />
                                             {isExternal && (
-                                                <div className="absolute -top-1.5 -right-1.5 bg-primary-600 text-white p-1 rounded-md shadow border border-white">
+                                                <div className="absolute -top-1.5 -right-1.5 bg-[#01b0ef] text-white p-1 rounded-md shadow border border-white">
                                                     <ExternalLink size={9} />
                                                 </div>
                                             )}
@@ -127,13 +123,13 @@ export default async function ServicosRapidos() {
                                             >
                                                 {s.badge}
                                             </span>
-                                            <span className="font-mono text-xs font-bold text-slate-300 group-hover:text-slate-400">
+                                            <span className="font-mono text-xs font-bold text-slate-300 group-hover:text-[#01b0ef]">
                                                 {s.index}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <h3 className="font-heading font-bold text-[#071E3D] text-base group-hover:text-primary-600 transition-colors leading-snug mb-2">
+                                    <h3 className="font-heading font-bold text-slate-900 text-base group-hover:text-[#01b0ef] transition-colors leading-snug mb-2">
                                         {s.label}
                                     </h3>
                                     <p className="text-slate-600 text-xs leading-relaxed mb-6">
@@ -142,10 +138,10 @@ export default async function ServicosRapidos() {
                                 </div>
 
                                 <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                                    <span className="text-xs font-semibold text-slate-600 group-hover:text-primary-700 transition-colors">
+                                    <span className="text-xs font-bold text-slate-600 group-hover:text-[#01b0ef] transition-colors">
                                         {isExternal ? "Acessar sistema" : "Acessar canal"}
                                     </span>
-                                    <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-primary-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
+                                    <div className="w-7 h-7 rounded-full bg-[#01b0ef]/10 group-hover:bg-[#01b0ef] text-[#01b0ef] group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
                                         {isExternal ? (
                                             <ArrowUpRight size={14} />
                                         ) : (

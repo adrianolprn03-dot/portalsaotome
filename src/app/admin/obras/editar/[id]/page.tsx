@@ -424,7 +424,7 @@ export default function EditarObraPage() {
                 {form.status === "paralisada" && (
                     <div className="bg-amber-50/70 border-2 border-amber-300 rounded-3xl p-8 space-y-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg">
+                            <div className="w-10 h-10 rounded-xl bg-[#fdb913] text-slate-900 flex items-center justify-center text-lg shadow-xs">
                                 <FaExclamationTriangle />
                             </div>
                             <div>
@@ -756,7 +756,7 @@ export default function EditarObraPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer"
+                        className="bg-blue-600 hover:bg-[#0098d4] disabled:opacity-50 text-white px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer"
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         Salvar Alterações da Obra

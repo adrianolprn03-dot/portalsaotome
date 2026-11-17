@@ -80,7 +80,7 @@ const statusMap: Record<string, { label: string; dot: string; text: string }> = 
 
 export default function GovernoDigitalPage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Governo Digital"
                 subtitle="Iniciativas de transformação digital do município para desburocratizar serviços e ampliar a transparência pública."

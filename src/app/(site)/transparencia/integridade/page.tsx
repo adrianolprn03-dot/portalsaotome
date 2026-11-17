@@ -86,7 +86,7 @@ const itemVariants = {
 
 export default function IntegridadePage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Ética e Integridade"
                 subtitle="Governança institucional focada na prevenção à corrupção e na cultura da transparência pública."
@@ -109,40 +109,40 @@ export default function IntegridadePage() {
                 <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-stretch">
                     
                     {/* Primary Highlight Card - Compromisso */}
-                    <div className="lg:col-span-2 bg-slate-900 rounded-[3rem] p-10 md:p-14 shadow-2xl shadow-slate-900/20 text-white relative overflow-hidden group border border-slate-800">
-                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-blue-600/20 transition-all duration-700" />
+                    <div className="lg:col-span-2 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-10 md:p-14 shadow-2xl shadow-[#01b0ef]/20 text-white relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/15 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-white/25 transition-all duration-700" />
                         <div className="relative z-10">
                             <div className="flex flex-wrap items-center gap-4 mb-10">
-                                <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+                                <div className="px-4 py-2 bg-[#fdb913] rounded-2xl shadow-sm">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">PNTP 2026 Conformidade</span>
+                                        <div className="w-2 h-2 rounded-full bg-slate-900 animate-pulse" />
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">PNTP 2026 Conformidade</span>
                                     </div>
                                 </div>
-                                <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+                                <div className="px-4 py-2 bg-white/20 rounded-2xl border border-white/30 backdrop-blur-md">
                                     <div className="flex items-center gap-2">
-                                        <FaCircleCheck className="text-emerald-400" size={12} />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Fiscalização MPE/RN</span>
+                                        <FaCircleCheck className="text-white" size={12} />
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Fiscalização MPE/RN</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <h2 className="text-5xl font-black tracking-tighter mb-8 leading-[0.9] italic text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/40">
-                                Governança & <br/> <span className="text-blue-400 not-italic">Integridade Pública</span>
+                            <h2 className="text-5xl font-black tracking-tighter mb-8 leading-[0.95] text-white">
+                                Governança & <br/> <span className="inline-block mt-1 px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900 not-italic">Integridade Pública</span>
                             </h2>
-                            <p className="text-white/40 font-bold leading-relaxed max-w-2xl text-lg mb-10">
+                            <p className="text-white/95 font-bold leading-relaxed max-w-2xl text-lg mb-10">
                                 O Programa de Integridade de São Tomé é o conjunto de medidas institucionalizadas com o objetivo de prevenir, detectar e remediar atos de corrupção, fraude e desvio de conduta.
                             </p>
                             
-                            <div className="flex flex-wrap gap-12 items-center border-t border-white/5 pt-10">
+                            <div className="flex flex-wrap gap-12 items-center border-t border-white/25 pt-10">
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Ciclo Vigente</span>
-                                    <span className="text-2xl font-black tracking-tight tracking-tighter italic">2024—2025</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80 mb-2">Ciclo Vigente</span>
+                                    <span className="text-2xl font-black tracking-tight italic text-white">2024—2025</span>
                                 </div>
-                                <div className="w-px h-12 bg-white/5 hidden md:block" />
+                                <div className="w-px h-12 bg-white/25 hidden md:block" />
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Coordenação Geral</span>
-                                    <span className="text-2xl font-black tracking-tight uppercase text-blue-400">Controladoria <span className="text-white/40">Geral</span></span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80 mb-2">Coordenação Geral</span>
+                                    <span className="text-2xl font-black tracking-tight uppercase text-white">Controladoria <span className="text-[#fdb913]">Geral</span></span>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,7 @@ export default function IntegridadePage() {
 
                 {/* Section Header */}
                 <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-center gap-8 mb-16">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-900 text-white rounded-[2rem] flex items-center justify-center shadow-2xl shadow-blue-500/20 shrink-0">
+                    <div className="w-20 h-20 bg-gradient-to-br from-[#01b0ef] to-[#0098d4] text-white rounded-[2rem] flex items-center justify-center shadow-2xl shadow-[#01b0ef]/25 shrink-0">
                         <FaFeatherPointed size={32} />
                     </div>
                     <div>

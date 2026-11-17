@@ -145,8 +145,8 @@ export default function Header() {
                 id="menu-principal"
                 className={`w-full transition-all duration-300 flex items-center justify-between gap-4 px-4 md:px-8 lg:px-12 relative ${
                     scrolled
-                        ? "h-[72px] bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-civic"
-                        : "h-[80px] bg-white/90 backdrop-blur-lg border-b border-slate-200/60"
+                        ? "h-[72px] bg-white/95 backdrop-blur-xl border-b-2 border-[#01b0ef]/20 shadow-civic"
+                        : "h-[80px] bg-white/95 backdrop-blur-lg border-b border-[#01b0ef]/15"
                 }`}
             >
                 {/* Brand Lockup */}
@@ -180,8 +180,8 @@ export default function Header() {
                                     href={item.href}
                                     className={`h-10 px-3.5 xl:px-4 flex items-center gap-1.5 text-[13px] font-semibold rounded-xl transition-all duration-200 ${
                                         isActive
-                                            ? "text-primary-700 bg-primary-50/90 font-bold"
-                                            : "text-slate-700 hover:text-primary-600 hover:bg-slate-100/70"
+                                            ? "text-[#01b0ef] bg-[#01b0ef]/10 font-bold"
+                                            : "text-slate-700 hover:text-[#01b0ef] hover:bg-[#01b0ef]/5"
                                     }`}
                                 >
                                     <span>{item.label}</span>
@@ -189,7 +189,7 @@ export default function Header() {
                                         <ChevronDown
                                             size={14}
                                             className={`transition-transform duration-200 opacity-70 ${
-                                                isDropdownOpen ? "rotate-180 text-primary-600" : ""
+                                                isDropdownOpen ? "rotate-180 text-[#01b0ef]" : ""
                                             }`}
                                         />
                                     )}
@@ -198,17 +198,17 @@ export default function Header() {
                                 {/* Mega Dropdown Menu */}
                                 {item.children && isDropdownOpen && (
                                     <div className="absolute top-full left-0 pt-1.5 w-80 animate-dropdown-fade z-50">
-                                        <div className="bg-white rounded-2xl p-2.5 shadow-civic-xl border border-slate-200/90 overflow-hidden">
+                                        <div className="bg-white rounded-2xl p-2.5 shadow-civic-xl border border-[#01b0ef]/20 overflow-hidden">
                                             <div className="h-1 w-full heraldic-stripe rounded-full mb-2" />
                                             <div className="space-y-0.5">
                                                 {item.children.map((sub, sIndex) => (
                                                     <Link
                                                         key={sIndex}
                                                         href={sub.href}
-                                                        className="flex items-start justify-between gap-3 px-3.5 py-2.5 rounded-xl hover:bg-primary-50/70 transition-all group/sub"
+                                                        className="flex items-start justify-between gap-3 px-3.5 py-2.5 rounded-xl hover:bg-[#01b0ef]/10 transition-all group/sub"
                                                     >
                                                         <div>
-                                                            <div className="text-[13px] font-bold text-slate-800 group-hover/sub:text-primary-700 transition-colors">
+                                                            <div className="text-[13px] font-bold text-slate-800 group-hover/sub:text-[#01b0ef] transition-colors">
                                                                 {sub.label}
                                                             </div>
                                                             <div className="text-[11px] text-slate-500 font-normal leading-snug mt-0.5">
@@ -217,7 +217,7 @@ export default function Header() {
                                                         </div>
                                                         <ArrowUpRight
                                                             size={14}
-                                                            className="text-slate-300 group-hover/sub:text-primary-600 group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5 transition-all shrink-0 mt-1"
+                                                            className="text-slate-300 group-hover/sub:text-[#fdb913] group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5 transition-all shrink-0 mt-1"
                                                         />
                                                     </Link>
                                                 ))}
@@ -232,8 +232,8 @@ export default function Header() {
                         href="/contato"
                         className={`h-10 px-3.5 xl:px-4 flex items-center gap-1.5 text-[13px] font-semibold rounded-xl transition-all ${
                             pathname === "/contato"
-                                ? "text-primary-700 bg-primary-50/90 font-bold"
-                                : "text-slate-700 hover:text-primary-600 hover:bg-slate-100/70"
+                                ? "text-[#01b0ef] bg-[#01b0ef]/10 font-bold"
+                                : "text-slate-700 hover:text-[#01b0ef] hover:bg-[#01b0ef]/5"
                         }`}
                     >
                         Contato
@@ -245,13 +245,13 @@ export default function Header() {
                     {/* Command Search Button */}
                     <button
                         onClick={() => setIsSearchOpen(true)}
-                        className="h-10 px-3.5 rounded-xl bg-slate-100/80 hover:bg-slate-200/70 text-slate-600 hover:text-slate-900 border border-slate-200/80 flex items-center gap-2.5 transition-all text-xs font-medium"
+                        className="h-10 px-3.5 rounded-xl bg-[#01b0ef]/10 hover:bg-[#01b0ef]/15 text-slate-700 hover:text-slate-900 border border-[#01b0ef]/20 flex items-center gap-2.5 transition-all text-xs font-medium"
                         title="Buscar no portal (Ctrl + K)"
                         aria-label="Abrir busca no portal"
                     >
-                        <Search size={16} className="text-primary-600" />
-                        <span className="hidden xl:inline text-slate-500">Buscar...</span>
-                        <kbd className="hidden xl:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-semibold text-slate-500 bg-white rounded border border-slate-200">
+                        <Search size={16} className="text-[#01b0ef]" />
+                        <span className="hidden xl:inline text-slate-600">Buscar...</span>
+                        <kbd className="hidden xl:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-semibold text-[#007bb0] bg-white rounded border border-[#01b0ef]/25">
                             Ctrl K
                         </kbd>
                     </button>
@@ -259,16 +259,16 @@ export default function Header() {
                     {/* Quick CTA: Transparência */}
                     <Link
                         href="/transparencia"
-                        className="hidden sm:inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-[#071E3D] hover:bg-primary-700 text-white text-xs font-bold tracking-wide transition-all shadow-civic-sm"
+                        className="hidden sm:inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold tracking-wide transition-all shadow-civic-sm"
                     >
-                        <ShieldCheck size={15} className="text-secondary-400" />
+                        <ShieldCheck size={15} className="text-[#fdb913]" />
                         <span>Transparência</span>
                     </Link>
 
                     {/* Admin Link */}
                     <Link
                         href="/admin"
-                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100/80 text-slate-500 hover:bg-primary-600 hover:text-white transition-all border border-slate-200/80"
+                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#fdb913]/15 text-slate-700 hover:bg-[#fdb913] hover:text-slate-900 transition-all border border-[#fdb913]/40"
                         title="Painel Administrativo"
                         aria-label="Painel Administrativo"
                     >
@@ -278,7 +278,7 @@ export default function Header() {
                     {/* Mobile Menu Trigger */}
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-primary-600 text-white hover:bg-primary-700 transition-all shadow-sm"
+                        className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-[#01b0ef] text-white hover:bg-[#0098d4] transition-all shadow-sm"
                         aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
                     >
                         {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -288,12 +288,12 @@ export default function Header() {
 
             {/* Mobile Drawer */}
             {mobileOpen && (
-                <div className="lg:hidden fixed inset-0 top-[108px] bg-white/98 backdrop-blur-xl z-40 overflow-y-auto animate-fade-in px-5 py-6 border-t border-slate-100">
+                <div className="lg:hidden fixed inset-0 top-[108px] bg-white/98 backdrop-blur-xl z-40 overflow-y-auto animate-fade-in px-5 py-6 border-t border-[#01b0ef]/20">
                     <div className="max-w-lg mx-auto flex flex-col gap-6 pb-12">
                         {navItems.map((item, index) => (
                             <div key={index} className="flex flex-col gap-2">
-                                <div className="text-xs font-bold uppercase tracking-wider text-primary-600 px-2 flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-secondary-500" />
+                                <div className="text-xs font-bold uppercase tracking-wider text-[#01b0ef] px-2 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#fdb913]" />
                                     {item.label}
                                 </div>
                                 <div className="grid grid-cols-1 gap-1.5">
@@ -304,10 +304,10 @@ export default function Header() {
                                             key={sIdx}
                                             href={sub.href}
                                             onClick={() => setMobileOpen(false)}
-                                            className="flex items-center justify-between px-4 py-3 text-slate-800 font-semibold text-sm bg-slate-50 hover:bg-primary-50 border border-slate-200/60 rounded-xl transition-all"
+                                            className="flex items-center justify-between px-4 py-3 text-slate-800 font-semibold text-sm bg-[#eefaff]/60 hover:bg-[#01b0ef]/10 border border-[#01b0ef]/15 rounded-xl transition-all"
                                         >
                                             <span>{sub.label}</span>
-                                            <ArrowUpRight size={15} className="text-primary-600" />
+                                            <ArrowUpRight size={15} className="text-[#01b0ef]" />
                                         </Link>
                                     ))}
                                 </div>
@@ -329,7 +329,7 @@ export default function Header() {
             {isSearchOpen && (
                 <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 px-4 md:pt-28">
                     <div
-                        className="absolute inset-0 bg-[#071E3D]/60 backdrop-blur-sm animate-fade-in"
+                        className="absolute inset-0 bg-[#01b0ef]/25 backdrop-blur-md animate-fade-in"
                         onClick={() => setIsSearchOpen(false)}
                     />
                     <div className="relative w-full max-w-2xl animate-fade-in-up">

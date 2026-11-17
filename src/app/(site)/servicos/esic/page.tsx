@@ -7,7 +7,6 @@ import {
     BarChart3,
     ShieldCheck,
     Phone,
-    Mail,
     MapPin,
     Clock,
     FileText,
@@ -22,6 +21,7 @@ import {
     ArrowLeft,
     Home,
     FileSearch,
+    Mail,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -232,7 +232,7 @@ export default function ESICPage() {
 
     if (loading && !user) {
         return (
-            <div className="min-h-screen bg-[#F6F9FC] flex items-center justify-center font-semibold text-sm text-slate-600">
+            <div className="min-h-screen bg-[#f4fbff] flex items-center justify-center font-semibold text-sm text-slate-600">
                 Carregando sistema e-SIC...
             </div>
         );
@@ -279,7 +279,7 @@ export default function ESICPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="e-SIC • Serviço de Informação ao Cidadão"
                 subtitle="Solicite informações públicas eletronicamente com garantia de protocolo, conforme a Lei Federal nº 12.527/2011 (LAI)."
@@ -304,11 +304,11 @@ export default function ESICPage() {
                                 }}
                                 className={`w-full text-left px-4 py-3.5 rounded-2xl flex items-center gap-3 text-xs font-bold transition-all ${
                                     view !== "info"
-                                        ? "bg-[#071E3D] text-white shadow-sm"
-                                        : "text-slate-600 hover:bg-slate-50"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "text-slate-600 hover:bg-[#f4fbff]"
                                 }`}
                             >
-                                <Home size={16} className={view !== "info" ? "text-secondary-400" : "text-primary-600"} />
+                                <Home size={16} className={view !== "info" ? "text-[#fdb913]" : "text-[#01b0ef]"} />
                                 <span>Acesso ao Sistema Digital</span>
                             </button>
 
@@ -322,16 +322,16 @@ export default function ESICPage() {
                                         }}
                                         className={`w-full text-left px-4 py-3.5 rounded-2xl flex items-center gap-3 text-xs font-bold transition-all ${
                                             infoTab === item.id && view === "info"
-                                                ? "bg-[#071E3D] text-white shadow-sm"
-                                                : "text-slate-600 hover:bg-slate-50"
+                                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                                : "text-slate-600 hover:bg-[#f4fbff]"
                                         }`}
                                     >
                                         <item.icon
                                             size={16}
                                             className={
                                                 infoTab === item.id && view === "info"
-                                                    ? "text-secondary-400"
-                                                    : "text-primary-600"
+                                                    ? "text-[#fdb913]"
+                                                    : "text-[#01b0ef]"
                                             }
                                         />
                                         <span>{item.label}</span>
@@ -340,10 +340,10 @@ export default function ESICPage() {
                                     <Link
                                         key={item.id}
                                         href={item.href || "#"}
-                                        className="w-full text-left px-4 py-3.5 rounded-2xl flex items-center justify-between gap-3 text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-primary-700 transition-all"
+                                        className="w-full text-left px-4 py-3.5 rounded-2xl flex items-center justify-between gap-3 text-xs font-bold text-slate-600 hover:bg-[#f4fbff] hover:text-[#01b0ef] transition-all"
                                     >
                                         <span className="flex items-center gap-3">
-                                            <item.icon size={16} className="text-primary-600" />
+                                            <item.icon size={16} className="text-[#01b0ef]" />
                                             <span>{item.label}</span>
                                         </span>
                                         <ArrowUpRight size={14} className="text-slate-300" />
@@ -353,12 +353,12 @@ export default function ESICPage() {
                         </div>
 
                         <div className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-civic-sm">
-                            <h4 className="font-heading text-sm font-extrabold text-[#071E3D] mb-4">
+                            <h4 className="font-heading text-sm font-extrabold text-slate-900 mb-4">
                                 Atendimento Presencial SIC
                             </h4>
                             <div className="space-y-3.5 text-xs">
                                 <div className="flex items-start gap-3">
-                                    <MapPin className="text-primary-600 mt-0.5 shrink-0" size={15} />
+                                    <MapPin className="text-[#01b0ef] mt-0.5 shrink-0" size={15} />
                                     <p className="font-semibold text-slate-700 leading-snug">
                                         Praça Antônio Assunção, s/n – Centro
                                         <br />
@@ -368,13 +368,13 @@ export default function ESICPage() {
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Phone className="text-primary-600 shrink-0" size={15} />
+                                    <Phone className="text-[#01b0ef] shrink-0" size={15} />
                                     <p className="font-mono font-bold text-slate-700">
                                         (84) 98748-0287
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Clock className="text-primary-600 shrink-0" size={15} />
+                                    <Clock className="text-[#fdb913] shrink-0" size={15} />
                                     <p className="font-semibold text-slate-700">
                                         Segunda a Sexta: 07h às 13h
                                     </p>
@@ -389,8 +389,8 @@ export default function ESICPage() {
                             <div className="bg-white rounded-3xl p-8 md:p-10 shadow-civic-sm border border-slate-200/80 animate-fade-in">
                                 {infoTab === "sic" && (
                                     <div className="space-y-6">
-                                        <h3 className="font-heading text-2xl font-extrabold text-[#071E3D] border-b border-slate-100 pb-5 flex items-center gap-3">
-                                            <Info className="text-primary-600" size={24} />
+                                        <h3 className="font-heading text-2xl font-extrabold text-slate-900 border-b border-slate-100 pb-5 flex items-center gap-3">
+                                            <Info className="text-[#01b0ef]" size={24} />
                                             <span>Informações do SIC</span>
                                         </h3>
                                         <p className="text-slate-600 leading-relaxed text-base">
@@ -398,9 +398,9 @@ export default function ESICPage() {
                                         </p>
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                                            <div className="p-5 rounded-2xl bg-[#F6F9FC] border border-slate-200/70 space-y-4">
+                                            <div className="p-5 rounded-2xl bg-[#f4fbff] border border-[#01b0ef]/20 space-y-4">
                                                 <div>
-                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
+                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#01b0ef]">
                                                         Unidade Responsável
                                                     </p>
                                                     <p className="font-heading font-bold text-slate-800 text-base mt-0.5">
@@ -408,7 +408,7 @@ export default function ESICPage() {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
+                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#01b0ef]">
                                                         Canais de Atendimento
                                                     </p>
                                                     <p className="font-mono font-semibold text-slate-700 text-xs mt-1">
@@ -419,9 +419,9 @@ export default function ESICPage() {
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div className="p-5 rounded-2xl bg-[#F6F9FC] border border-slate-200/70 space-y-4">
+                                            <div className="p-5 rounded-2xl bg-[#f4fbff] border border-[#01b0ef]/20 space-y-4">
                                                 <div>
-                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
+                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#01b0ef]">
                                                         Localização Física
                                                     </p>
                                                     <p className="font-semibold text-slate-700 text-xs mt-1">
@@ -429,7 +429,7 @@ export default function ESICPage() {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-primary-600">
+                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#01b0ef]">
                                                         Horário de Funcionamento
                                                     </p>
                                                     <p className="font-semibold text-slate-700 text-xs mt-1">
@@ -442,13 +442,13 @@ export default function ESICPage() {
                                 )}
                                 {infoTab === "prazos" && (
                                     <div className="space-y-6">
-                                        <h3 className="font-heading text-2xl font-extrabold text-[#071E3D] border-b border-slate-100 pb-5 flex items-center gap-3">
-                                            <Clock className="text-primary-600" size={24} />
+                                        <h3 className="font-heading text-2xl font-extrabold text-slate-900 border-b border-slate-100 pb-5 flex items-center gap-3">
+                                            <Clock className="text-[#01b0ef]" size={24} />
                                             <span>Prazos Legais de Resposta (Lei nº 12.527/2011)</span>
                                         </h3>
-                                        <div className="bg-primary-50/70 p-7 rounded-2xl border border-primary-100 space-y-4">
+                                        <div className="bg-[#eefaff] p-7 rounded-2xl border border-[#01b0ef]/25 space-y-4">
                                             <div className="flex items-start gap-3.5">
-                                                <span className="w-7 h-7 bg-[#071E3D] text-secondary-400 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+                                                <span className="w-7 h-7 bg-[#01b0ef] text-white rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
                                                     1
                                                 </span>
                                                 <p className="text-slate-700 text-sm pt-0.5">
@@ -456,7 +456,7 @@ export default function ESICPage() {
                                                 </p>
                                             </div>
                                             <div className="flex items-start gap-3.5">
-                                                <span className="w-7 h-7 bg-[#071E3D] text-secondary-400 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+                                                <span className="w-7 h-7 bg-[#fdb913] text-slate-900 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
                                                     2
                                                 </span>
                                                 <p className="text-slate-700 text-sm pt-0.5">
@@ -465,7 +465,7 @@ export default function ESICPage() {
                                                 </p>
                                             </div>
                                             <div className="flex items-start gap-3.5">
-                                                <span className="w-7 h-7 bg-[#071E3D] text-secondary-400 rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+                                                <span className="w-7 h-7 bg-[#01b0ef] text-white rounded-lg flex items-center justify-center shrink-0 font-mono font-bold text-xs">
                                                     3
                                                 </span>
                                                 <p className="text-slate-700 text-sm pt-0.5">
@@ -483,16 +483,16 @@ export default function ESICPage() {
                             <div className="animate-fade-in space-y-6">
                                 <div className="bg-white rounded-3xl shadow-civic-sm border border-slate-200/80 overflow-hidden relative">
                                     <div className="h-1.5 w-full heraldic-stripe" />
-                                    <div className="bg-[#F6F9FC] px-8 py-5 border-b border-slate-200/70">
-                                        <h3 className="font-heading text-base font-extrabold text-[#071E3D] flex items-center gap-2.5">
+                                    <div className="bg-[#f4fbff] px-8 py-5 border-b border-slate-200/70">
+                                        <h3 className="font-heading text-base font-extrabold text-slate-900 flex items-center gap-2.5">
                                             {authTab === "login" ? (
                                                 <>
-                                                    <ShieldCheck className="text-primary-600" size={20} />
+                                                    <ShieldCheck className="text-[#01b0ef]" size={20} />
                                                     <span>Identificação do Requerente</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <User className="text-primary-600" size={20} />
+                                                    <User className="text-[#01b0ef]" size={20} />
                                                     <span>Cadastro de Novo Requerente</span>
                                                 </>
                                             )}
@@ -509,7 +509,7 @@ export default function ESICPage() {
                                                     <div className="relative">
                                                         <Mail
                                                             size={17}
-                                                            className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#01b0ef]"
                                                         />
                                                         <input
                                                             type="text"
@@ -533,7 +533,7 @@ export default function ESICPage() {
                                                     <div className="relative">
                                                         <Lock
                                                             size={17}
-                                                            className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                                                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#01b0ef]"
                                                         />
                                                         <input
                                                             type="password"
@@ -565,13 +565,13 @@ export default function ESICPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => setAuthTab("register")}
-                                                        className="text-xs font-bold text-primary-600 hover:underline"
+                                                        className="text-xs font-bold text-[#01b0ef] hover:underline"
                                                     >
                                                         Não possui conta? Cadastre-se aqui
                                                     </button>
                                                     <Link
                                                         href="/servicos/consulta-protocolo"
-                                                        className="text-xs font-semibold text-slate-500 hover:text-slate-800"
+                                                        className="text-xs font-semibold text-slate-600 hover:text-[#01b0ef]"
                                                     >
                                                         Consultar protocolo rápido →
                                                     </Link>
@@ -583,19 +583,19 @@ export default function ESICPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => setAuthTab("login")}
-                                                        className="text-xs font-bold text-slate-600 flex items-center gap-1.5 hover:text-primary-600 transition-colors"
+                                                        className="text-xs font-bold text-slate-600 flex items-center gap-1.5 hover:text-[#01b0ef] transition-colors"
                                                     >
                                                         <ArrowLeft size={14} />
                                                         <span>Voltar para o login</span>
                                                     </button>
-                                                    <div className="flex gap-1.5 p-1 bg-slate-100 rounded-xl">
+                                                    <div className="flex gap-1.5 p-1 bg-[#eefaff] rounded-xl border border-[#01b0ef]/20">
                                                         <button
                                                             type="button"
                                                             onClick={() => setTipoPessoa("Física")}
                                                             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                                                 tipoPessoa === "Física"
-                                                                    ? "bg-white shadow-xs text-primary-700"
-                                                                    : "text-slate-500"
+                                                                    ? "bg-[#01b0ef] text-white shadow-xs"
+                                                                    : "text-slate-600"
                                                             }`}
                                                         >
                                                             Pessoa Física
@@ -607,8 +607,8 @@ export default function ESICPage() {
                                                             }
                                                             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                                                                 tipoPessoa === "Jurídica"
-                                                                    ? "bg-white shadow-xs text-primary-700"
-                                                                    : "text-slate-500"
+                                                                    ? "bg-[#01b0ef] text-white shadow-xs"
+                                                                    : "text-slate-600"
                                                             }`}
                                                         >
                                                             Pessoa Jurídica
@@ -751,7 +751,7 @@ export default function ESICPage() {
                                                     </div>
                                                 </div>
 
-                                                <div className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-xs text-slate-600">
+                                                <div className="flex items-start gap-3 p-4 bg-[#f4fbff] rounded-xl border border-[#01b0ef]/20 text-xs text-slate-600">
                                                     <input
                                                         type="checkbox"
                                                         checked={registerForm.concordo}
@@ -761,7 +761,7 @@ export default function ESICPage() {
                                                                 concordo: e.target.checked,
                                                             })
                                                         }
-                                                        className="mt-0.5 shrink-0 accent-primary-600"
+                                                        className="mt-0.5 shrink-0 accent-[#01b0ef]"
                                                     />
                                                     <label>
                                                         Declaro que as informações fornecidas são verdadeiras e estou ciente da política de privacidade (LGPD).
@@ -780,10 +780,10 @@ export default function ESICPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-primary-50/80 rounded-2xl p-5 border border-primary-100 flex items-start gap-3.5">
-                                    <Info className="text-primary-600 mt-0.5 shrink-0" size={18} />
+                                <div className="bg-[#eefaff] rounded-2xl p-5 border border-[#01b0ef]/25 flex items-start gap-3.5">
+                                    <Info className="text-[#01b0ef] mt-0.5 shrink-0" size={18} />
                                     <div>
-                                        <h4 className="text-xs font-bold text-[#071E3D] mb-0.5">
+                                        <h4 className="text-xs font-bold text-slate-900 mb-0.5">
                                             Direito Constitucional de Acesso à Informação
                                         </h4>
                                         <p className="text-xs text-slate-600 leading-relaxed">
@@ -798,14 +798,14 @@ export default function ESICPage() {
                             <div className="space-y-6 animate-fade-in">
                                 <div className="bg-white rounded-3xl p-6 shadow-civic-sm border border-slate-200/80 flex flex-wrap items-center justify-between gap-4">
                                     <div className="flex items-center gap-3.5">
-                                        <div className="w-12 h-12 bg-primary-50 border border-primary-100 text-primary-700 rounded-2xl flex items-center justify-center font-heading font-bold text-lg">
+                                        <div className="w-12 h-12 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-2xl flex items-center justify-center font-heading font-bold text-lg">
                                             {user.nome.charAt(0)}
                                         </div>
                                         <div>
                                             <p className="text-xs font-medium text-slate-500">
                                                 Requerente autenticado
                                             </p>
-                                            <p className="font-heading text-lg font-extrabold text-[#071E3D]">
+                                            <p className="font-heading text-lg font-extrabold text-slate-900">
                                                 {user.nome}
                                             </p>
                                         </div>
@@ -827,8 +827,8 @@ export default function ESICPage() {
                                 </div>
 
                                 <div className="bg-white rounded-3xl shadow-civic-sm p-8 border border-slate-200/80">
-                                    <h3 className="font-heading text-xl font-extrabold text-[#071E3D] mb-6 flex items-center gap-2.5">
-                                        <FileText className="text-primary-600" size={20} />
+                                    <h3 className="font-heading text-xl font-extrabold text-slate-900 mb-6 flex items-center gap-2.5">
+                                        <FileText className="text-[#01b0ef]" size={20} />
                                         <span>Novo Pedido de Acesso à Informação</span>
                                     </h3>
                                     {protocolo ? (
@@ -837,12 +837,12 @@ export default function ESICPage() {
                                                 className="text-emerald-600 mx-auto mb-3"
                                                 size={42}
                                             />
-                                            <h4 className="font-heading text-2xl font-bold text-[#071E3D] mb-1">
+                                            <h4 className="font-heading text-2xl font-bold text-slate-900 mb-1">
                                                 Pedido Registrado!
                                             </h4>
                                             <p className="text-slate-600 text-sm mb-6">
                                                 Protocolo:{" "}
-                                                <span className="font-mono font-bold text-primary-600">
+                                                <span className="font-mono font-bold text-[#01b0ef]">
                                                     {protocolo}
                                                 </span>
                                             </p>
@@ -914,13 +914,13 @@ export default function ESICPage() {
                         {view === "history" && (
                             <div className="bg-white rounded-3xl shadow-civic-sm p-8 border border-slate-200/80 animate-fade-in">
                                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
-                                    <h2 className="font-heading text-xl font-extrabold text-[#071E3D] flex items-center gap-2.5">
-                                        <History className="text-primary-600" size={20} />
+                                    <h2 className="font-heading text-xl font-extrabold text-slate-900 flex items-center gap-2.5">
+                                        <History className="text-[#01b0ef]" size={20} />
                                         <span>Histórico de Solicitações</span>
                                     </h2>
                                     <button
                                         onClick={() => setView("dashboard")}
-                                        className="text-xs font-bold text-primary-600 hover:underline"
+                                        className="text-xs font-bold text-[#01b0ef] hover:underline"
                                     >
                                         ← Voltar
                                     </button>
@@ -934,17 +934,17 @@ export default function ESICPage() {
                                         {pedidos.map((p) => (
                                             <div
                                                 key={p.id}
-                                                className="p-5 bg-[#F6F9FC] rounded-2xl border border-slate-200/80"
+                                                className="p-5 bg-[#f4fbff] rounded-2xl border border-[#01b0ef]/20"
                                             >
                                                 <div className="flex justify-between items-center mb-2">
-                                                    <span className="text-xs font-mono font-bold text-primary-700">
+                                                    <span className="text-xs font-mono font-bold text-[#01b0ef]">
                                                         #{p.protocolo}
                                                     </span>
-                                                    <span className="text-[11px] font-bold uppercase bg-white px-2.5 py-0.5 rounded-full border border-slate-200 text-slate-700">
+                                                    <span className="text-[11px] font-bold uppercase bg-[#fdb913] text-slate-900 px-2.5 py-0.5 rounded-full">
                                                         {p.status}
                                                     </span>
                                                 </div>
-                                                <p className="font-heading font-bold text-[#071E3D] text-sm mb-1">
+                                                <p className="font-heading font-bold text-slate-900 text-sm mb-1">
                                                     {p.orgao}
                                                 </p>
                                                 <p className="text-xs text-slate-600 line-clamp-2">

@@ -45,7 +45,7 @@ export default async function CulturaPage() {
                     ) : unidades.map((unidade: any) => (
                         <div key={unidade.id} className="group bg-white rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/50 hover:shadow-primary-900/10 transition-all duration-500 border border-transparent hover:border-primary-100 flex flex-col h-full">
                             {/* Header do Card com Gradiente */}
-                            <div className="bg-gradient-to-br from-[#4f6efe] to-[#3a4dff] p-8 md:p-10 text-white relative">
+                            <div className="bg-gradient-to-br from-[#01b0ef] to-[#0098d4] p-8 md:p-10 text-white relative">
                                 <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform duration-500">
                                     <HiOutlinePaintBrush size={120} />
                                 </div>
@@ -76,7 +76,7 @@ export default async function CulturaPage() {
                                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">
                                             Endereço
                                         </span>
-                                        <span className="text-[#002241] font-bold text-sm leading-relaxed">
+                                        <span className="text-slate-900 font-bold text-sm leading-relaxed">
                                             {unidade.endereco}
                                         </span>
                                     </div>
@@ -91,7 +91,7 @@ export default async function CulturaPage() {
                                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">
                                             Horário de Funcionamento
                                         </span>
-                                        <span className="text-[#002241] font-bold text-sm leading-relaxed">
+                                        <span className="text-slate-900 font-bold text-sm leading-relaxed">
                                             {unidade.horario}
                                         </span>
                                     </div>
@@ -107,7 +107,7 @@ export default async function CulturaPage() {
                                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">
                                                 Contato Info
                                             </span>
-                                            <span className="text-[#002241] font-bold text-sm leading-relaxed">
+                                            <span className="text-slate-900 font-bold text-sm leading-relaxed">
                                                 {unidade.telefone}
                                             </span>
                                         </div>

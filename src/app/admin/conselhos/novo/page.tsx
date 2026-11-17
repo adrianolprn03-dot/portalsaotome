@@ -132,7 +132,7 @@ export default function NovoConselhoPage() {
                 <div className="flex justify-end gap-4 pt-4 border-t border-gray-100">
                     <Link href="/admin/conselhos" className="btn-outline">Cancelar</Link>
                     <button type="submit" disabled={saving}
-                        className="btn-primary bg-blue-600 hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50">
+                        className="btn-primary bg-blue-600 hover:bg-[#0098d4] flex items-center gap-2 disabled:opacity-50">
                         {saving ? "Salvando..." : "Salvar Conselho"}
                     </button>
                 </div>

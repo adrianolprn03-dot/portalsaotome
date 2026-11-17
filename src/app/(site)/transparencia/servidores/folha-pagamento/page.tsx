@@ -29,7 +29,7 @@ import TransparencyFilters from "@/components/transparencia/TransparencyFilters"
 import PageHeader from "@/components/PageHeader";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
-const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#EC4899", "#F59E0B"];
+const CHART_COLORS = ["#01b0ef", "#fdb913", "#10B981", "#01b0ef", "#8B5CF6", "#EC4899", "#fdb913"];
 
 type Servidor = {
     id: string;
@@ -172,7 +172,7 @@ export default function FolhaPagamentoPage() {
     }, [servidores]);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Folha de Pagamento"
                 subtitle="Consulta pública de remunerações, proventos e dados funcionais dos agentes públicos municipais."
@@ -193,13 +193,13 @@ export default function FolhaPagamentoPage() {
             >
                 {/* Visual Switcher */}
                 <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#DDE3EA] shadow-sm">
+                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm">
                         <button
                             onClick={() => setAbaVisual("lista")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                                 abaVisual === "lista"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             <FaTable size={13} /> Relação Nominal
@@ -208,8 +208,8 @@ export default function FolhaPagamentoPage() {
                             onClick={() => setAbaVisual("graficos")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                                 abaVisual === "graficos"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             <FaChartPie size={13} /> Gráficos nos Resultados
@@ -219,13 +219,13 @@ export default function FolhaPagamentoPage() {
                     <div className="hidden sm:flex items-center gap-3">
                         <button
                             onClick={() => handleExport("pdf")}
-                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-semibold hover:border-[#1254A3] hover:text-[#1254A3] transition-all shadow-sm"
+                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-semibold hover:border-[#01b0ef] hover:text-[#01b0ef] transition-all shadow-sm"
                         >
                             <FaDownload size={11} /> PDF
                         </button>
                         <button
                             onClick={() => handleExport("xlsx")}
-                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-semibold hover:border-[#1254A3] hover:text-[#1254A3] transition-all shadow-sm"
+                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-semibold hover:border-[#01b0ef] hover:text-[#01b0ef] transition-all shadow-sm"
                         >
                             <FaDownload size={11} /> Excel
                         </button>
@@ -235,26 +235,26 @@ export default function FolhaPagamentoPage() {
                 {/* Cards de Métricas Consolidadas - Padrão Novo */}
                 <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     {/* Card Total Bruto */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-3">
-                            <span className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Volume Bruto Consolidado</span>
-                            <span className="p-2 bg-blue-50 text-[#1254A3] rounded-xl">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Volume Bruto Consolidado</span>
+                            <span className="p-2 bg-blue-50 text-[#01b0ef] rounded-xl">
                                 <FaCoins size={16} />
                             </span>
                         </div>
-                        <div className="text-3xl font-black text-[#12304A] tracking-tight">
-                            {loading ? <FaSpinner className="animate-spin text-2xl text-[#1254A3]" /> : fmt(totalBrutoValue)}
+                        <div className="text-3xl font-black text-slate-900 tracking-tight">
+                            {loading ? <FaSpinner className="animate-spin text-2xl text-[#01b0ef]" /> : fmt(totalBrutoValue)}
                         </div>
-                        <div className="mt-3 flex items-center justify-between text-xs text-[#5B738B] pt-3 border-t border-[#DDE3EA]">
+                        <div className="mt-3 flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-[#e2e8f0]">
                             <span>Competência: {mesesAbrev[Number(mes)-1]} / {ano}</span>
-                            <span className="text-[#1254A3] font-semibold">{servidores.length} servidores</span>
+                            <span className="text-[#01b0ef] font-semibold">{servidores.length} servidores</span>
                         </div>
                     </div>
 
                     {/* Card Total Líquido */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-3">
-                            <span className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Total Líquido Pago</span>
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Total Líquido Pago</span>
                             <span className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
                                 <FaMoneyCheck size={16} />
                             </span>
@@ -262,32 +262,32 @@ export default function FolhaPagamentoPage() {
                         <div className="text-3xl font-black text-emerald-600 tracking-tight">
                             {loading ? <FaSpinner className="animate-spin text-2xl text-emerald-600" /> : fmt(totalLiquidoValue)}
                         </div>
-                        <div className="mt-3 flex items-center justify-between text-xs text-[#5B738B] pt-3 border-t border-[#DDE3EA]">
+                        <div className="mt-3 flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-[#e2e8f0]">
                             <span>Crédito em conta</span>
                             <span className="text-emerald-600 font-semibold">Folha Quitada</span>
                         </div>
                     </div>
 
                     {/* Card Quadro de Agentes */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] border-t-4 border-t-[#fdb913] p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-3">
-                            <span className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Servidores na Base</span>
-                            <span className="p-2 bg-amber-50 text-[#F39A32] rounded-xl">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Servidores na Base</span>
+                            <span className="p-2 bg-[#fdb913] text-slate-900 rounded-xl shadow-xs">
                                 <FaUserGroup size={16} />
                             </span>
                         </div>
-                        <div className="text-3xl font-black text-[#12304A] tracking-tight">
+                        <div className="text-3xl font-black text-slate-900 tracking-tight">
                             {loading ? "..." : `${servidores.length} Agentes`}
                         </div>
-                        <div className="mt-3 flex items-center justify-between text-xs text-[#5B738B] pt-3 border-t border-[#DDE3EA]">
+                        <div className="mt-3 flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-[#e2e8f0]">
                             <span>Transparência Ativa</span>
-                            <span className="text-[#F39A32] font-semibold">LAI 12.527 / PNTP</span>
+                            <span className="text-slate-900 bg-[#fff4d4] px-2 py-0.5 rounded font-semibold">LAI 12.527 / PNTP</span>
                         </div>
                     </div>
                 </motion.div>
 
                 {/* Filters Section */}
-                <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm p-5 mb-8">
+                <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm p-5 mb-8">
                     <TransparencyFilters
                         searchValue={busca}
                         onSearch={setBusca}
@@ -304,7 +304,7 @@ export default function FolhaPagamentoPage() {
                                 <select 
                                     value={vinculoFiltro} 
                                     onChange={(e) => setVinculoFiltro(e.target.value)}
-                                    className="pl-4 pr-8 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:ring-2 focus:ring-[#1254A3] transition-all cursor-pointer min-w-[180px]"
+                                    className="pl-4 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:ring-2 focus:ring-[#01b0ef] transition-all cursor-pointer min-w-[180px]"
                                 >
                                     <option value="">TODOS OS VÍNCULOS</option>
                                     <option value="efetivo">EFETIVO</option>
@@ -318,7 +318,7 @@ export default function FolhaPagamentoPage() {
                                 <select 
                                     value={secretariaFiltro} 
                                     onChange={(e) => setSecretariaFiltro(e.target.value)}
-                                    className="pl-4 pr-8 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:ring-2 focus:ring-[#1254A3] transition-all cursor-pointer min-w-[200px]"
+                                    className="pl-4 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:ring-2 focus:ring-[#01b0ef] transition-all cursor-pointer min-w-[200px]"
                                 >
                                     <option value="">TODAS AS SECRETARIAS</option>
                                     <option value="educacao">EDUCAÇÃO</option>
@@ -340,13 +340,13 @@ export default function FolhaPagamentoPage() {
                         className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"
                     >
                         {/* Gráfico 1: Volume Bruto por Secretaria */}
-                        <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                        <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                             <div className="flex items-center justify-between mb-6">
                                 <div>
-                                    <h3 className="text-base font-bold text-[#12304A]">Folha por Secretaria / Órgão</h3>
-                                    <p className="text-xs text-[#5B738B]">Total bruto acumulado na competência selecionada</p>
+                                    <h3 className="text-base font-bold text-slate-900">Folha por Secretaria / Órgão</h3>
+                                    <p className="text-xs text-slate-600">Total bruto acumulado na competência selecionada</p>
                                 </div>
-                                <span className="p-2 bg-blue-50 text-[#1254A3] rounded-xl text-xs font-bold">
+                                <span className="p-2 bg-blue-50 text-[#01b0ef] rounded-xl text-xs font-bold">
                                     {dadosPorSecretaria.length} Órgãos
                                 </span>
                             </div>
@@ -355,8 +355,8 @@ export default function FolhaPagamentoPage() {
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={dadosPorSecretaria} layout="vertical" margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
                                             <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" horizontal={false} />
-                                            <XAxis type="number" tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 11, fill: '#5B738B' }} />
-                                            <YAxis type="category" dataKey="secretaria" tick={{ fontSize: 11, fill: '#12304A', fontWeight: 600 }} width={120} />
+                                            <XAxis type="number" tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 11, fill: '#475569' }} />
+                                            <YAxis type="category" dataKey="secretaria" tick={{ fontSize: 11, fill: '#0f172a', fontWeight: 600 }} width={120} />
                                             <Tooltip formatter={(value: number) => [fmt(value), "Total Bruto"]} />
                                             <Bar dataKey="bruto" radius={[0, 6, 6, 0]}>
                                                 {dadosPorSecretaria.map((_, index) => (
@@ -366,7 +366,7 @@ export default function FolhaPagamentoPage() {
                                         </BarChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <div className="h-full flex items-center justify-center text-sm text-[#5B738B]">
+                                    <div className="h-full flex items-center justify-center text-sm text-slate-600">
                                         Nenhum dado para exibir no período
                                     </div>
                                 )}
@@ -374,13 +374,13 @@ export default function FolhaPagamentoPage() {
                         </div>
 
                         {/* Gráfico 2: Distribuição por Vínculo */}
-                        <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                        <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                             <div className="flex items-center justify-between mb-6">
                                 <div>
-                                    <h3 className="text-base font-bold text-[#12304A]">Distribuição por Vínculo Funcional</h3>
-                                    <p className="text-xs text-[#5B738B]">Quantidade de agentes por regime de contratação</p>
+                                    <h3 className="text-base font-bold text-slate-900">Distribuição por Vínculo Funcional</h3>
+                                    <p className="text-xs text-slate-600">Quantidade de agentes por regime de contratação</p>
                                 </div>
-                                <span className="p-2 bg-amber-50 text-[#F39A32] rounded-xl text-xs font-bold">
+                                <span className="px-2.5 py-1 bg-[#fdb913] text-slate-900 rounded-xl text-xs font-bold">
                                     {dadosPorVinculo.length} Vínculos
                                 </span>
                             </div>
@@ -408,7 +408,7 @@ export default function FolhaPagamentoPage() {
                                         </PieChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <div className="h-full flex items-center justify-center text-sm text-[#5B738B]">
+                                    <div className="h-full flex items-center justify-center text-sm text-slate-600">
                                         Nenhum dado para exibir no período
                                     </div>
                                 )}
@@ -419,19 +419,19 @@ export default function FolhaPagamentoPage() {
 
                 {/* Table Section */}
                 {abaVisual === "lista" && (
-                    <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm overflow-hidden mb-12 relative min-h-[400px]">
-                        <div className="p-6 border-b border-[#DDE3EA] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#F5F7FA]">
+                    <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden mb-12 relative min-h-[400px]">
+                        <div className="p-6 border-b border-[#e2e8f0] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#f4fbff]">
                             <div>
-                                <h3 className="text-lg font-bold text-[#12304A] flex items-center gap-2">
-                                    <span className="w-2 h-6 bg-[#1254A3] rounded-full" />
+                                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                    <span className="w-2 h-6 bg-[#01b0ef] rounded-full" />
                                     Relação Nominal de Vencimentos
                                 </h3>
-                                <p className="text-xs text-[#5B738B] mt-1 ml-4">
+                                <p className="text-xs text-slate-600 mt-1 ml-4">
                                     Folha Atualizada • {mesesLabels[Number(mes)-1]} de {ano}
                                 </p>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="px-3 py-1 bg-white border border-[#DDE3EA] rounded-lg text-xs font-semibold text-[#12304A]">
+                                <span className="px-3 py-1 bg-white border border-[#e2e8f0] rounded-lg text-xs font-semibold text-slate-900">
                                     {servidores.length} Agentes listados
                                 </span>
                             </div>
@@ -444,20 +444,20 @@ export default function FolhaPagamentoPage() {
                                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                         className="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center"
                                     >
-                                        <FaSpinner className="animate-spin text-4xl text-[#1254A3] mb-3" />
-                                        <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Sincronizando Dados Funcionais...</p>
+                                        <FaSpinner className="animate-spin text-4xl text-[#01b0ef] mb-3" />
+                                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Sincronizando Dados Funcionais...</p>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
 
                             <table className="w-full border-collapse text-left">
                                 <thead>
-                                    <tr className="bg-[#F5F7FA] border-b border-[#DDE3EA]">
-                                        <th className="px-6 py-4 text-xs font-bold text-[#5B738B] uppercase tracking-wider">Agente Público / Cargo</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-[#5B738B] uppercase tracking-wider">Secretaria / Lotação</th>
-                                        <th className="px-6 py-4 text-center text-xs font-bold text-[#5B738B] uppercase tracking-wider">Vínculo</th>
-                                        <th className="px-6 py-4 text-right text-xs font-bold text-[#5B738B] uppercase tracking-wider">Bruto</th>
-                                        <th className="px-6 py-4 text-right text-xs font-bold text-[#5B738B] uppercase tracking-wider">Líquido</th>
+                                    <tr className="bg-[#f4fbff] border-b border-[#e2e8f0]">
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Agente Público / Cargo</th>
+                                        <th className="px-6 py-4 text-xs font-bold text-slate-600 uppercase tracking-wider">Secretaria / Lotação</th>
+                                        <th className="px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider">Vínculo</th>
+                                        <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">Bruto</th>
+                                        <th className="px-6 py-4 text-right text-xs font-bold text-slate-600 uppercase tracking-wider">Líquido</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -467,16 +467,16 @@ export default function FolhaPagamentoPage() {
                                                 <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
                                                     <FaMagnifyingGlass className="text-slate-400 text-2xl" />
                                                 </div>
-                                                <h4 className="text-lg font-bold text-[#12304A] mb-1">Nenhum registro localizado</h4>
-                                                <p className="text-xs text-[#5B738B] mb-4">Verifique o período consultado ou refine os filtros.</p>
-                                                <button onClick={handleClearFilters} className="px-5 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d3f7c] transition-all shadow-sm">Resetar Filtros</button>
+                                                <h4 className="text-lg font-bold text-slate-900 mb-1">Nenhum registro localizado</h4>
+                                                <p className="text-xs text-slate-600 mb-4">Verifique o período consultado ou refine os filtros.</p>
+                                                <button onClick={handleClearFilters} className="px-5 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all shadow-sm">Resetar Filtros</button>
                                             </td>
                                         </tr>
                                     ) : (
                                         servidores.map((s) => (
                                             <tr 
                                                 key={s.id}
-                                                className="hover:bg-[#EEF4FB] transition-all duration-150 border-b border-[#DDE3EA] last:border-0"
+                                                className="hover:bg-[#e6f8ff] transition-all duration-150 border-b border-[#e2e8f0] last:border-0"
                                             >
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">
@@ -484,15 +484,15 @@ export default function FolhaPagamentoPage() {
                                                             <FaUserTie size={15} />
                                                         </div>
                                                         <div>
-                                                            <p className="text-sm font-bold text-[#12304A] leading-tight">{s.nome}</p>
-                                                            <span className="text-xs text-[#5B738B]">{s.cargo}</span>
+                                                            <p className="text-sm font-bold text-slate-900 leading-tight">{s.nome}</p>
+                                                            <span className="text-xs text-slate-600">{s.cargo}</span>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
                                                         <FaBuilding className="text-slate-400" size={13} />
-                                                        <span className="text-xs font-medium text-[#12304A]">{s.secretaria}</span>
+                                                        <span className="text-xs font-medium text-slate-900">{s.secretaria}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
@@ -501,7 +501,7 @@ export default function FolhaPagamentoPage() {
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 text-right">
-                                                    <span className="text-xs font-semibold text-[#5B738B]">
+                                                    <span className="text-xs font-semibold text-slate-600">
                                                         {fmt(s.totalBruto)}
                                                     </span>
                                                 </td>
@@ -516,7 +516,7 @@ export default function FolhaPagamentoPage() {
                                 </tbody>
                                 {!loading && servidores.length > 0 && (
                                     <tfoot>
-                                        <tr className="bg-[#12304A] text-white">
+                                        <tr className="bg-[#0f172a] text-white">
                                             <td colSpan={3} className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-200">Total Consolidado da Folha</td>
                                             <td className="px-6 py-4 text-right text-xs font-bold text-slate-300">{fmt(totalBrutoValue)}</td>
                                             <td className="px-6 py-4 text-right text-base font-black text-emerald-400">{fmt(totalLiquidoValue)}</td>
@@ -529,23 +529,23 @@ export default function FolhaPagamentoPage() {
                 )}
 
                 {/* Footer Guide Section */}
-                <motion.div variants={itemVariants} className="mt-12 flex flex-col md:flex-row justify-between items-center bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm gap-6">
+                <motion.div variants={itemVariants} className="mt-12 flex flex-col md:flex-row justify-between items-center bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm gap-6">
                     <div className="flex items-center gap-4 text-center md:text-left">
-                         <div className="w-12 h-12 bg-blue-50 text-[#1254A3] rounded-xl flex items-center justify-center shrink-0">
+                         <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
                             <FaClockRotateLeft size={20} />
                          </div>
                          <div>
-                            <span className="text-xs font-bold text-[#1254A3] uppercase tracking-wider">Ciclo Mensal de Atualização</span>
-                            <h4 className="text-base font-bold text-[#12304A]">Folha de Pagamento Municipal</h4>
-                            <p className="text-xs text-[#5B738B]">{new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                            <span className="text-xs font-bold text-[#01b0ef] uppercase tracking-wider">Ciclo Mensal de Atualização</span>
+                            <h4 className="text-base font-bold text-slate-900">Folha de Pagamento Municipal</h4>
+                            <p className="text-xs text-slate-600">{new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                          </div>
                     </div>
                     
                     <div className="flex items-center gap-3">
-                        <button onClick={() => handleExport("pdf")} className="flex items-center gap-2 px-5 py-2.5 bg-[#1254A3] text-white rounded-xl text-xs font-bold transition-all hover:bg-[#0d3f7c] shadow-sm active:scale-95">
+                        <button onClick={() => handleExport("pdf")} className="flex items-center gap-2 px-5 py-2.5 bg-[#01b0ef] text-white rounded-xl text-xs font-bold transition-all hover:bg-[#0098d4] shadow-sm active:scale-95">
                             <FaDownload size={11} /> Exportar PDF
                         </button>
-                        <button onClick={() => handleExport("xlsx")} className="flex items-center gap-2 px-5 py-2.5 bg-white text-[#12304A] border border-[#DDE3EA] rounded-xl text-xs font-bold transition-all hover:bg-slate-50 shadow-sm active:scale-95">
+                        <button onClick={() => handleExport("xlsx")} className="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-900 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all hover:bg-slate-50 shadow-sm active:scale-95">
                             <FaDownload size={11} /> Tabela Excel
                         </button>
                     </div>
@@ -554,7 +554,7 @@ export default function FolhaPagamentoPage() {
                 <motion.div variants={itemVariants} className="mt-12">
                     <BannerPNTP />
                     <div className="mt-8 text-center">
-                        <p className="text-xs text-[#5B738B]">
+                        <p className="text-xs text-slate-600">
                             GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="italic">Base de dados sincronizada conforme as diretrizes do Tribunal de Contas do Estado e Lei 12.527/2011.</span>
                         </p>

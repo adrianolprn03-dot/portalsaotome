@@ -97,7 +97,7 @@ export default async function SICRelatoriosPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Relatórios do Serviço de Informação (e-SIC)"
                 subtitle="Relatório estatístico anual, rol de informações classificadas em grau de sigilo e lista de informações desclassificadas (Lei nº 12.527/2011 - Art. 30)."
@@ -139,10 +139,10 @@ export default async function SICRelatoriosPage() {
                         <span className="text-3xl font-black text-amber-700">{comSigilo}</span>
                     </div>
                     <div className="col-span-2 lg:col-span-1 bg-white p-6 rounded-3xl border border-blue-100 shadow-sm text-center">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-[#1254A3] block mb-1">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[#01b0ef] block mb-1">
                             Desclassif. (12m)
                         </span>
-                        <span className="text-3xl font-black text-[#1254A3]">{desclassificados12m}</span>
+                        <span className="text-3xl font-black text-[#01b0ef]">{desclassificados12m}</span>
                     </div>
                 </div>
 
@@ -165,14 +165,14 @@ export default async function SICRelatoriosPage() {
                                         {opt.count}
                                     </span>
                                 </div>
-                                <h2 className="text-xl font-black text-gray-800 tracking-tight mb-3 group-hover:text-[#1254A3] transition-colors">
+                                <h2 className="text-xl font-black text-gray-800 tracking-tight mb-3 group-hover:text-[#01b0ef] transition-colors">
                                     {opt.titulo}
                                 </h2>
                                 <p className="text-gray-500 font-medium text-sm leading-relaxed">
                                     {opt.desc}
                                 </p>
                             </div>
-                            <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#1254A3] tracking-widest">
+                            <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#01b0ef] tracking-widest">
                                 Consultar Relatório Completo{" "}
                                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
                             </div>
@@ -181,19 +181,21 @@ export default async function SICRelatoriosPage() {
                 </div>
 
                 {/* Painel Consolidado e Dados Abertos */}
-                <div className="bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 text-white relative overflow-hidden">
+                <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 sm:p-12 text-white relative overflow-hidden shadow-xl shadow-[#01b0ef]/20">
                     <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                         <div className="max-w-2xl">
                             <div className="flex items-center gap-3 mb-4">
-                                <FileSpreadsheet className="text-blue-400" size={24} />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-blue-400">
+                                <div className="w-9 h-9 rounded-xl bg-[#fdb913] text-slate-900 flex items-center justify-center">
+                                    <FileSpreadsheet size={20} />
+                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full">
                                     Lei nº 12.527/2011 • Art. 30 • Dados Abertos
                                 </span>
                             </div>
                             <h3 className="text-2xl sm:text-3xl font-black tracking-tight mb-3">
                                 Exportação de Séries Históricas (2021–{new Date().getFullYear()})
                             </h3>
-                            <p className="text-gray-400 text-sm font-medium leading-relaxed">
+                            <p className="text-white/95 text-sm font-medium leading-relaxed">
                                 Todos os relatórios do e-SIC estão disponíveis para consulta online por exercício e exportação em formatos abertos e legíveis por máquina (PDF, XLSX, CSV e JSON).
                             </p>
                         </div>
@@ -201,13 +203,13 @@ export default async function SICRelatoriosPage() {
                         <div className="flex flex-wrap gap-3 shrink-0">
                             <Link
                                 href="/transparencia/passiva/relatorios/estatisticas"
-                                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-[#1254A3] hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-lg transition-all"
+                                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 font-black text-xs uppercase tracking-wider shadow-lg transition-all"
                             >
                                 <BarChart3 size={16} /> Abrir Relatório Estatístico & Exportar
                             </Link>
                             <Link
                                 href="/servicos/esic"
-                                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-black text-xs uppercase tracking-wider border border-white/10 transition-all"
+                                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-white hover:bg-[#f4fbff] text-[#01b0ef] font-black text-xs uppercase tracking-wider shadow-md transition-all"
                             >
                                 Protocolar Pedido no e-SIC
                             </Link>

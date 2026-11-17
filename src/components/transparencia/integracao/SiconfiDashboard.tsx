@@ -169,14 +169,14 @@ export default function SiconfiDashboard() {
                         <p className="text-[10px] text-rose-700/60 font-medium mt-2">Total de gastos liquidados no período.</p>
                     </div>
 
-                    <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-900/40">
-                        <h4 className="text-[9px] font-black text-white/40 uppercase tracking-widest mb-2">Equilíbrio Fiscal</h4>
-                        <div className={`text-2xl font-black tracking-tighter ${saldo >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 text-white shadow-2xl shadow-[#01b0ef]/20">
+                        <h4 className="text-[9px] font-black text-slate-900 bg-[#fdb913] px-3 py-0.5 rounded-full w-fit uppercase tracking-widest mb-3">Equilíbrio Fiscal</h4>
+                        <div className="text-2xl font-black tracking-tighter text-white">
                             {saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                         </div>
-                        <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-white/60">Status</span>
-                            <span className={`text-[9px] font-black uppercase tracking-widest rounded-full px-3 py-1 ${saldo >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+                        <div className="mt-4 pt-4 border-t border-white/25 flex items-center justify-between">
+                            <span className="text-[9px] font-black uppercase tracking-widest text-white/90">Status</span>
+                            <span className={`text-[9px] font-black uppercase tracking-widest rounded-full px-3 py-1 ${saldo >= 0 ? 'bg-white text-emerald-700' : 'bg-white text-rose-700'}`}>
                                 {saldo >= 0 ? 'Superavit' : 'Deficit'}
                             </span>
                         </div>

@@ -29,7 +29,7 @@ export default function AdminSaudeLayout({ children }: { children: React.ReactNo
                                 href={item.href}
                                 className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
                                     active
-                                        ? "bg-[#003366] text-white shadow-sm"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
                                         : "text-slate-600 hover:bg-slate-100"
                                 }`}
                             >

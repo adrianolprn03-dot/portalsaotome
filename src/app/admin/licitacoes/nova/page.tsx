@@ -301,7 +301,7 @@ export default function NovaLicitacaoPage() {
                                 type="checkbox"
                                 checked={form.ataRegistroPreco}
                                 onChange={(e) => setForm({ ...form, ataRegistroPreco: e.target.checked })}
-                                className="w-4 h-4 rounded text-[#1254A3]"
+                                className="w-4 h-4 rounded text-[#01b0ef]"
                             />
                             <span>Gera Ata de Registro de Preços (ARP Própria)</span>
                         </label>
@@ -336,7 +336,7 @@ export default function NovaLicitacaoPage() {
                 <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div>
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-                            <FaShieldAlt className="text-[#1254A3]" /> Documentos das Fases Interna e Externa (PNTP 8.3 e 8.4)
+                            <FaShieldAlt className="text-[#01b0ef]" /> Documentos das Fases Interna e Externa (PNTP 8.3 e 8.4)
                         </h3>
                         <p className="text-xs text-gray-500">
                             Classifique os anexos por fase (Interna ou Externa), tipo de peça processual e data para cumprimento integral da LAI e do PNTP.
@@ -403,7 +403,7 @@ export default function NovaLicitacaoPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddDoc}
-                                    className="px-3 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-blue-800 shrink-0"
+                                    className="px-3 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] shrink-0"
                                 >
                                     <FaPlus />
                                 </button>
@@ -466,7 +466,7 @@ export default function NovaLicitacaoPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-2 bg-[#1254A3] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50"
+                        className="flex items-center gap-2 bg-[#01b0ef] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#0098d4] transition-all shadow-sm disabled:opacity-50"
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         <span>Salvar Licitação</span>

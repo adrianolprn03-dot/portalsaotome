@@ -106,7 +106,7 @@ export default function OrdemCronologicaClient() {
     const totalPago = filtrados.filter(p => p.status === "pago").reduce((acc, p) => acc + p.valor, 0);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Ordem Cronológica de Pagamentos"
                 subtitle="Acompanhe a fila de pagamentos a fornecedores conforme art. 141 da Lei 14.133/2021."

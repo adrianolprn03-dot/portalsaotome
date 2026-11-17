@@ -162,7 +162,7 @@ export default function SICRelatoriosClassificadosPage() {
             <PageHeader
                 title="Rol de Informações Classificadas"
                 subtitle="Lista de documentos classificados em cada grau de sigilo (Reservado, Secreto e Ultrassecreto), contendo assunto, categoria, dispositivo legal fundamentador e prazo."
-                icon={<FaShieldAlt className="w-8 h-8 text-[#1254A3]" />}
+                icon={<FaShieldAlt className="w-8 h-8 text-[#01b0ef]" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
@@ -186,8 +186,8 @@ export default function SICRelatoriosClassificadosPage() {
                         onClick={() => setGrauFiltro("TODOS")}
                         className={`text-left p-5 rounded-2xl border shadow-sm transition-all flex items-center justify-between ${
                             grauFiltro === "TODOS"
-                                ? "bg-[#1254A3] text-white border-[#1254A3]"
-                                : "bg-white text-gray-900 border-gray-200 hover:border-[#1254A3]"
+                                ? "bg-[#01b0ef] text-white border-[#01b0ef]"
+                                : "bg-white text-gray-900 border-gray-200 hover:border-[#01b0ef]"
                         }`}
                     >
                         <div>
@@ -209,7 +209,7 @@ export default function SICRelatoriosClassificadosPage() {
                         </div>
                         <FaShieldAlt
                             className={`text-2xl ${
-                                grauFiltro === "TODOS" ? "text-white" : "text-[#1254A3]"
+                                grauFiltro === "TODOS" ? "text-white" : "text-[#01b0ef]"
                             }`}
                         />
                     </button>
@@ -219,14 +219,14 @@ export default function SICRelatoriosClassificadosPage() {
                         onClick={() => setGrauFiltro(grauFiltro === "Reservado" ? "TODOS" : "Reservado")}
                         className={`text-left p-5 rounded-2xl border shadow-sm transition-all flex items-center justify-between ${
                             grauFiltro === "Reservado"
-                                ? "bg-amber-600 text-white border-amber-700"
-                                : "bg-white border-amber-200 hover:border-amber-400"
+                                ? "bg-[#fdb913] text-slate-900 border-[#fdb913]"
+                                : "bg-white border-amber-200 hover:border-[#fdb913]"
                         }`}
                     >
                         <div>
                             <span
                                 className={`text-[10px] font-black uppercase tracking-widest block ${
-                                    grauFiltro === "Reservado" ? "text-amber-100" : "text-amber-700"
+                                    grauFiltro === "Reservado" ? "text-slate-900/80" : "text-slate-600"
                                 }`}
                             >
                                 Grau Reservado (Até 5 anos)
@@ -316,7 +316,7 @@ export default function SICRelatoriosClassificadosPage() {
                     <div
                         className={`rounded-3xl p-6 sm:p-8 shadow-sm border ${
                             statsGlobais.total === 0
-                                ? "bg-gradient-to-br from-slate-900 via-[#1254A3] to-[#002855] text-white border-blue-900"
+                                ? "bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] text-white border-[#fdb913]"
                                 : "bg-blue-50/70 border-blue-200 text-slate-800"
                         }`}
                     >
@@ -324,7 +324,7 @@ export default function SICRelatoriosClassificadosPage() {
                             <div className="space-y-2 max-w-4xl">
                                 <span
                                     className={`text-[10px] font-black uppercase tracking-widest block ${
-                                        statsGlobais.total === 0 ? "text-amber-300" : "text-[#1254A3]"
+                                        statsGlobais.total === 0 ? "text-slate-900 bg-[#fdb913] px-3 py-0.5 rounded-full w-fit" : "text-[#01b0ef]"
                                     }`}
                                 >
                                     Nota Oficial • {declaracao.fundamentoLegal}
@@ -351,7 +351,7 @@ export default function SICRelatoriosClassificadosPage() {
                                 className={`shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all ${
                                     statsGlobais.total === 0
                                         ? "bg-amber-400 hover:bg-amber-300 text-slate-900 shadow-lg"
-                                        : "bg-[#1254A3] hover:bg-blue-800 text-white"
+                                        : "bg-[#01b0ef] hover:bg-[#0098d4] text-white"
                                 }`}
                             >
                                 <FaFilePdf /> Baixar Relatório Oficial (PDF)
@@ -408,7 +408,7 @@ export default function SICRelatoriosClassificadosPage() {
 
                     {loading ? (
                         <div className="p-16 text-center">
-                            <FaSpinner className="animate-spin text-3xl text-[#1254A3] mx-auto mb-2" />
+                            <FaSpinner className="animate-spin text-3xl text-[#01b0ef] mx-auto mb-2" />
                             <p className="text-xs text-gray-500 font-semibold">Consultando rol de sigilo...</p>
                         </div>
                     ) : filtered.length === 0 ? (
@@ -441,7 +441,7 @@ export default function SICRelatoriosClassificadosPage() {
                                 <tbody className="divide-y divide-gray-100">
                                     {filtered.map((item) => (
                                         <tr key={item.id} className="hover:bg-blue-50/30 transition-colors">
-                                            <td className="py-4 px-5 font-mono text-xs font-bold text-[#1254A3] whitespace-nowrap">
+                                            <td className="py-4 px-5 font-mono text-xs font-bold text-[#01b0ef] whitespace-nowrap">
                                                 {item.documentoUrl ? (
                                                     <Link
                                                         href={item.documentoUrl}
@@ -489,7 +489,7 @@ export default function SICRelatoriosClassificadosPage() {
                                             </td>
                                             <td className="py-4 px-5 text-xs text-gray-700 whitespace-nowrap">
                                                 <span className="flex items-center gap-1.5 font-bold text-gray-900">
-                                                    <FaClock className="text-[#1254A3]" />
+                                                    <FaClock className="text-[#01b0ef]" />
                                                     {item.prazoRestricaoAnos}{" "}
                                                     {item.prazoRestricaoAnos === 1 ? "ano" : "anos"}
                                                 </span>
@@ -514,14 +514,14 @@ export default function SICRelatoriosClassificadosPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Link
                         href="/transparencia/passiva/relatorios/estatisticas"
-                        className="bg-white hover:border-[#1254A3] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
+                        className="bg-white hover:border-[#01b0ef] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
                     >
                         <div className="flex items-center gap-4">
-                            <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                            <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                                 <FaChartBar />
                             </div>
                             <div>
-                                <h4 className="font-black text-sm text-gray-900 group-hover:text-[#1254A3]">
+                                <h4 className="font-black text-sm text-gray-900 group-hover:text-[#01b0ef]">
                                     Relatório Estatístico Anual (e-SIC)
                                 </h4>
                                 <p className="text-xs text-gray-500">
@@ -529,7 +529,7 @@ export default function SICRelatoriosClassificadosPage() {
                                 </p>
                             </div>
                         </div>
-                        <span className="text-xs font-bold text-[#1254A3]">Acessar →</span>
+                        <span className="text-xs font-bold text-[#01b0ef]">Acessar →</span>
                     </Link>
 
                     <Link

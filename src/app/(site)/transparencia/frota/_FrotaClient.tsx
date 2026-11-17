@@ -66,7 +66,7 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
     const emManutencao = initialVeiculos.filter(v => v.status === 'manutencao').length;
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Frota Municipal"
                 subtitle="Gestão e transparência sobre o patrimônio móvel, máquinas pesadas e equipamentos de transporte do município."
@@ -137,19 +137,19 @@ export default function FrotaClient({ initialVeiculos }: FrotaClientProps) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden group"
+                        className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden group"
                     >
-                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/5 rounded-full -mb-16 -mr-16 blur-2xl group-hover:bg-white/10 transition-all duration-700" />
+                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/15 rounded-full -mb-16 -mr-16 blur-2xl group-hover:bg-white/25 transition-all duration-700" />
                         <div className="relative z-10 h-full flex flex-col justify-between">
                             <div className="flex justify-between items-start">
-                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Manutenção</span>
-                                <div className="p-3 bg-white/10 text-white rounded-2xl group-hover:bg-amber-500 transition-all">
+                                <span className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full uppercase tracking-widest">Manutenção</span>
+                                <div className="p-3 bg-white/20 text-white rounded-2xl group-hover:bg-[#fdb913] group-hover:text-slate-900 transition-all">
                                     <FaScrewdriverWrench size={20} />
                                 </div>
                             </div>
                             <div className="mt-8">
                                 <div className="text-4xl font-black text-white tracking-tighter">{emManutencao}</div>
-                                <p className="text-[10px] font-bold text-amber-500 uppercase tracking-widest mt-1">Recuperação</p>
+                                <p className="text-[10px] font-bold text-[#fdb913] uppercase tracking-widest mt-1">Recuperação</p>
                             </div>
                         </div>
                     </motion.div>

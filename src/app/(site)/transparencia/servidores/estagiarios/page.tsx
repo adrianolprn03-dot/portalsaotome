@@ -96,7 +96,7 @@ export default function EstagiariosPage() {
     const totalLiquido = filtrados.reduce((acc: number, curr: Servidor) => acc + curr.totalLiquido, 0);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Estagiários"
                 subtitle="Relação de estudantes em regime de estágio na administração pública municipal."

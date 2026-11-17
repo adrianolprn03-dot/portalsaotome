@@ -147,7 +147,7 @@ export default function CartaServicosClient({ servicos }: { servicos: Servico[] 
                                 )}
                                 <button 
                                     onClick={() => { setSelectedServico(servico); setIsEvalModalOpen(true); }}
-                                    className="px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-yellow-400 text-white hover:bg-yellow-500 transition-colors shadow-lg shadow-yellow-100 flex items-center gap-2 cursor-pointer"
+                                    className="px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-[#fdb913] text-slate-900 hover:bg-[#e5a60d] transition-colors shadow-lg shadow-[#fdb913]/20 flex items-center gap-2 cursor-pointer"
                                 >
                                     <FaStar /> Avaliar
                                 </button>
@@ -188,18 +188,18 @@ export default function CartaServicosClient({ servicos }: { servicos: Servico[] 
                                 </section>
 
                                 <section className="space-y-8">
-                                    <div className="bg-blue-900 text-white p-8 rounded-[2rem] shadow-xl shadow-blue-200 flex flex-col h-full">
-                                        <h5 className="flex items-center gap-3 text-xs font-black text-blue-300 uppercase tracking-widest mb-6 border-b border-blue-800 pb-4">
+                                    <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] text-white p-8 rounded-[2rem] shadow-xl shadow-[#01b0ef]/20 flex flex-col h-full">
+                                        <h5 className="flex items-center gap-3 text-xs font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit uppercase tracking-widest mb-6">
                                             <FaExternalLinkAlt /> Formas de Acesso
                                         </h5>
-                                        <p className="text-sm text-blue-100 leading-relaxed font-medium whitespace-pre-line flex-1">{selectedServico.formasAcesso || "Informação não disponível."}</p>
+                                        <p className="text-sm text-white leading-relaxed font-medium whitespace-pre-line flex-1">{selectedServico.formasAcesso || "Informação não disponível."}</p>
                                         
                                         {selectedServico.linkAcesso && (
                                             <a 
                                                 href={selectedServico.linkAcesso} 
                                                 target={selectedServico.linkAcesso.startsWith("http") ? "_blank" : "_self"} 
                                                 rel={selectedServico.linkAcesso.startsWith("http") ? "noopener noreferrer" : undefined}
-                                                className="mt-8 bg-blue-500 hover:bg-white hover:text-blue-900 text-white px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
+                                                className="mt-8 bg-[#fdb913] hover:bg-white hover:text-[#01b0ef] text-slate-900 px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                                             >
                                                 Acessar Serviço Agora <FaExternalLinkAlt />
                                             </a>
@@ -225,7 +225,7 @@ export default function CartaServicosClient({ servicos }: { servicos: Servico[] 
 
                                     <button 
                                         onClick={() => setIsEvalModalOpen(true)}
-                                        className="w-full bg-yellow-400 text-white p-6 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-yellow-500 transition-all shadow-lg shadow-yellow-100 flex items-center justify-center gap-3"
+                                        className="w-full bg-[#fdb913] text-slate-900 p-6 rounded-[2rem] text-[10px] font-black uppercase tracking-widest hover:bg-[#e5a60d] transition-all shadow-lg shadow-[#fdb913]/20 flex items-center justify-center gap-3"
                                     >
                                         <FaStar size={16} /> Avaliar Qualidade deste Serviço
                                     </button>
@@ -292,7 +292,7 @@ export default function CartaServicosClient({ servicos }: { servicos: Servico[] 
                                         <button 
                                             disabled={isSubmitting}
                                             type="submit"
-                                            className="flex-1 bg-blue-600 text-white px-8 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+                                            className="flex-1 bg-blue-600 text-white px-8 py-5 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-100 hover:bg-[#0098d4] transition-all flex items-center justify-center gap-2"
                                         >
                                             {isSubmitting ? <FaSpinner className="animate-spin" /> : "Enviar Avaliação"}
                                         </button>

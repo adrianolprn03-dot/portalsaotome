@@ -71,7 +71,7 @@ export default async function AgendaPublicaPage() {
                     </span>
                 </div>
                 
-                <h3 className="font-black text-[#0088b9] text-xl leading-tight group-hover:text-[#01b0ef] transition-colors">
+                <h3 className="font-black text-[#01b0ef] text-xl leading-tight group-hover:text-[#01b0ef] transition-colors">
                     {e.titulo}
                 </h3>
                 
@@ -96,7 +96,7 @@ export default async function AgendaPublicaPage() {
     );
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Agenda Oficial de Compromissos"
                 subtitle="Acompanhe de forma transparente as reuniões, audiências públicas e agendas de trabalho oficiais de nosso município."
@@ -170,7 +170,7 @@ export default async function AgendaPublicaPage() {
                 </section>
 
                 {/* Banner de Transparência Adicional */}
-                <div className="mt-20 p-10 bg-[#0088b9] text-white rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8">
+                <div className="mt-20 p-10 bg-[#01b0ef] text-white rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl" />
                     <div className="relative z-10 flex-1 space-y-2 text-center md:text-left">
                         <h3 className="text-2xl font-black uppercase tracking-tight">Transparência como prioridade</h3>
@@ -179,7 +179,7 @@ export default async function AgendaPublicaPage() {
                         </p>
                     </div>
                     <div className="shrink-0 relative z-10">
-                        <Link href="/a-prefeitura/prefeito" className="px-10 py-5 bg-white text-[#0088b9] hover:bg-[#FDB913] hover:text-slate-900 rounded-full text-[11px] font-black uppercase tracking-widest transition-all shadow-xl">
+                        <Link href="/a-prefeitura/prefeito" className="px-10 py-5 bg-white text-[#01b0ef] hover:bg-[#FDB913] hover:text-slate-900 rounded-full text-[11px] font-black uppercase tracking-widest transition-all shadow-xl">
                             Conhecer a Gestão
                         </Link>
                     </div>

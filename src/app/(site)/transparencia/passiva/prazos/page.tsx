@@ -44,7 +44,7 @@ const prazos = [
 
 export default function SICPrazosPage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Prazos de Atendimento"
                 subtitle="Transparência com agilidade: saiba quanto tempo o município tem para responder seu pedido."

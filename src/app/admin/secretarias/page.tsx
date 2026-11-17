@@ -141,7 +141,7 @@ export default function AdminSecretariasPage() {
                 </div>
                 <button 
                     onClick={() => handleOpenModal()}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-lg shadow-blue-200 hover:bg-[#0098d4] hover:-translate-y-1 transition-all"
                 >
                     <FaPlus /> Nova Secretaria
                 </button>
@@ -268,7 +268,7 @@ export default function AdminSecretariasPage() {
                         <button
                             type="submit"
                             form="form-secretaria-admin"
-                            className="flex-1 bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all"
+                            className="flex-1 bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl shadow-blue-200 hover:bg-[#0098d4] transition-all"
                         >
                             Salvar Secretaria
                         </button>

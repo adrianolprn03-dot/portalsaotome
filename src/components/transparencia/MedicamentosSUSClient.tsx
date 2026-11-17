@@ -65,14 +65,14 @@ function BlocoOrientacaoPublica({
 }) {
     const isCeaf = tema === "ceaf";
     const gradientClass = isCeaf
-        ? "from-[#1e1b4b] via-[#312e81] to-[#6366f1]"
-        : "from-[#002241] via-[#003366] to-[#01b0ef]";
-    const accentBadgeClass = isCeaf ? "text-purple-200" : "text-blue-200";
-    const accentIconColor = isCeaf ? "text-indigo-600" : "text-[#003366]";
+        ? "from-[#01b0ef] via-[#1dc0fa] to-[#0098d4]"
+        : "from-[#01b0ef] via-[#1dc0fa] to-[#0098d4]";
+    const accentBadgeClass = isCeaf ? "text-slate-900 bg-[#fdb913]" : "text-slate-900 bg-[#fdb913]";
+    const accentIconColor = isCeaf ? "text-[#01b0ef]" : "text-[#01b0ef]";
     const accentIconBg = isCeaf
-        ? "bg-indigo-50 text-indigo-700 border-indigo-100"
-        : "bg-blue-50 text-[#003366] border-blue-100";
-    const stepBadgeClass = isCeaf ? "bg-indigo-700 text-white" : "bg-[#003366] text-white";
+        ? "bg-[#e6f8ff] text-[#01b0ef] border-[#01b0ef]/25"
+        : "bg-[#e6f8ff] text-[#01b0ef] border-[#01b0ef]/25";
+    const stepBadgeClass = isCeaf ? "bg-[#fdb913] text-slate-900" : "bg-[#01b0ef] text-white";
 
     return (
         <div className="space-y-10 animate-in fade-in zoom-in-95 duration-300">
@@ -286,7 +286,7 @@ function BlocoOrientacaoPublica({
                     <div className="pt-2">
                         <Link
                             href="/unidades-de-saude"
-                            className="inline-flex items-center gap-2 text-xs font-bold text-[#003366] hover:underline"
+                            className="inline-flex items-center gap-2 text-xs font-bold text-[#01b0ef] hover:underline"
                         >
                             Ver todas as Unidades de Saúde e Farmácias <FaArrowUpRightFromSquare size={10} />
                         </Link>
@@ -318,7 +318,7 @@ function BlocoOrientacaoPublica({
                     </div>
                     <p className="text-xs text-gray-500 font-medium">
                         Você também pode solicitar informações pelo{" "}
-                        <Link href="/esic" className="text-[#003366] font-bold underline">
+                        <Link href="/esic" className="text-[#01b0ef] font-bold underline">
                             e-SIC / Ouvidoria Digital
                         </Link>
                         .
@@ -329,7 +329,7 @@ function BlocoOrientacaoPublica({
             {/* 5. Observações Importantes e Base Legal */}
             <div className="bg-gradient-to-r from-slate-50 to-blue-50/50 rounded-[2.5rem] p-8 md:p-10 border border-slate-200 space-y-4">
                 <div className="flex items-center gap-3 text-slate-900">
-                    <FaCircleInfo size={20} className="text-[#003366]" />
+                    <FaCircleInfo size={20} className="text-[#01b0ef]" />
                     <h3 className="text-base font-black uppercase tracking-tight">
                         Orientações Complementares e Regras Sanitárias
                     </h3>
@@ -337,7 +337,7 @@ function BlocoOrientacaoPublica({
                 <ul className="space-y-2 text-xs md:text-sm text-gray-700 font-medium leading-relaxed">
                     {bloco.observacoesImportantes.map((obs, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                            <span className="text-[#003366] font-black mt-0.5">•</span>
+                            <span className="text-[#01b0ef] font-black mt-0.5">•</span>
                             <span>{obs}</span>
                         </li>
                     ))}
@@ -411,7 +411,7 @@ export default function MedicamentosSUSClient({
                     onClick={() => setAbaAtiva("lista")}
                     className={`flex-1 py-4 px-5 rounded-[1.5rem] font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                         abaAtiva === "lista"
-                            ? "bg-[#003366] text-white shadow-lg shadow-blue-900/20 scale-[1.02]"
+                            ? "bg-[#01b0ef] text-white shadow-lg shadow-blue-900/20 scale-[1.02]"
                             : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                 >
@@ -423,7 +423,7 @@ export default function MedicamentosSUSClient({
                     onClick={() => setAbaAtiva("como-obter")}
                     className={`flex-1 py-4 px-5 rounded-[1.5rem] font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                         abaAtiva === "como-obter"
-                            ? "bg-[#003366] text-white shadow-lg shadow-blue-900/20 scale-[1.02]"
+                            ? "bg-[#01b0ef] text-white shadow-lg shadow-blue-900/20 scale-[1.02]"
                             : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                 >
@@ -435,7 +435,7 @@ export default function MedicamentosSUSClient({
                     onClick={() => setAbaAtiva("especializado")}
                     className={`flex-1 py-4 px-5 rounded-[1.5rem] font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
                         abaAtiva === "especializado"
-                            ? "bg-indigo-800 text-white shadow-lg shadow-indigo-900/20 scale-[1.02]"
+                            ? "bg-[#fdb913] text-slate-900 shadow-lg shadow-[#fdb913]/25 scale-[1.02]"
                             : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                 >
@@ -488,8 +488,8 @@ export default function MedicamentosSUSClient({
                                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                                             componenteFiltro === comp
                                                 ? comp === "Especializado (CEAF)"
-                                                    ? "bg-indigo-700 text-white shadow-sm"
-                                                    : "bg-[#003366] text-white shadow-sm"
+                                                    ? "bg-[#fdb913] text-slate-900 shadow-sm"
+                                                    : "bg-[#01b0ef] text-white shadow-sm"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                         }`}
                                     >
@@ -503,7 +503,7 @@ export default function MedicamentosSUSClient({
                                     value={statusFiltro}
                                     onChange={(e) => setStatusFiltro(e.target.value)}
                                     aria-label="Filtrar por disponibilidade"
-                                    className="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 focus:outline-none focus:border-[#003366]"
+                                    className="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 focus:outline-none focus:border-[#01b0ef]"
                                 >
                                     <option value="todos">Qualquer Situação</option>
                                     <option value="disponivel">Apenas Disponíveis</option>
@@ -518,7 +518,7 @@ export default function MedicamentosSUSClient({
                                     placeholder="Buscar nome, princípio ativo, categoria..."
                                     value={busca}
                                     onChange={(e) => setBusca(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#003366]"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                         </div>
@@ -531,7 +531,7 @@ export default function MedicamentosSUSClient({
                                     onClick={() => setCategoriaFiltro("todos")}
                                     className={`px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all ${
                                         categoriaFiltro === "todos"
-                                            ? "bg-[#003366] text-white shadow-sm"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
                                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                     }`}
                                 >
@@ -544,7 +544,7 @@ export default function MedicamentosSUSClient({
                                         onClick={() => setCategoriaFiltro(cat)}
                                         className={`px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all ${
                                             categoriaFiltro === cat
-                                                ? "bg-[#003366] text-white shadow-sm"
+                                                ? "bg-[#01b0ef] text-white shadow-sm"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                         }`}
                                     >
@@ -563,14 +563,14 @@ export default function MedicamentosSUSClient({
                             className="text-left bg-white hover:bg-blue-50/40 border border-blue-100 rounded-3xl p-6 shadow-sm flex items-center justify-between gap-4 transition-all group"
                         >
                             <div>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-[#003366]">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[#01b0ef]">
                                     Atenção Básica (CBAF)
                                 </span>
                                 <h4 className="text-sm font-black text-gray-900 mt-0.5">
                                     Como obter medicamentos gratuitos nas UBS / Farmácia Básica?
                                 </h4>
                             </div>
-                            <span className="px-3.5 py-2 rounded-xl bg-blue-50 text-[#003366] text-xs font-black shrink-0 group-hover:bg-[#003366] group-hover:text-white transition-colors">
+                            <span className="px-3.5 py-2 rounded-xl bg-blue-50 text-[#01b0ef] text-xs font-black shrink-0 group-hover:bg-[#01b0ef] group-hover:text-white transition-colors">
                                 Ver Guia
                             </span>
                         </button>
@@ -642,7 +642,7 @@ export default function MedicamentosSUSClient({
                                                             ? "bg-indigo-50 text-indigo-800 border-indigo-200"
                                                             : isCesaf
                                                               ? "bg-teal-50 text-teal-800 border-teal-200"
-                                                              : "bg-blue-50 text-[#003366] border-blue-100"
+                                                              : "bg-blue-50 text-[#01b0ef] border-blue-100"
                                                     }`}
                                                 >
                                                     {isCeaf ? "Alto Custo • CEAF" : componente}
@@ -652,7 +652,7 @@ export default function MedicamentosSUSClient({
                                                 </span>
                                             </div>
 
-                                            <h4 className="text-lg font-black text-slate-800 uppercase tracking-tight mb-2 group-hover:text-[#003366] transition-colors leading-tight">
+                                            <h4 className="text-lg font-black text-slate-800 uppercase tracking-tight mb-2 group-hover:text-[#01b0ef] transition-colors leading-tight">
                                                 {item.nome}
                                             </h4>
 
@@ -721,7 +721,7 @@ export default function MedicamentosSUSClient({
                                                 onClick={() =>
                                                     setAbaAtiva(isCeaf ? "especializado" : "como-obter")
                                                 }
-                                                className="text-[10px] font-black text-[#003366] hover:underline uppercase"
+                                                className="text-[10px] font-black text-[#01b0ef] hover:underline uppercase"
                                             >
                                                 Como obter →
                                             </button>

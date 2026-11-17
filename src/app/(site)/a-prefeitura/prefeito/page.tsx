@@ -57,7 +57,7 @@ export default async function PrefeitoPage() {
     );
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Gestão Municipal"
                 subtitle="Conheça os representantes eleitos para liderar o desenvolvimento de nossa cidade."
@@ -144,32 +144,33 @@ export default async function PrefeitoPage() {
                 </div>
 
                 {/* Secretaria de Governo */}
-                <div className="mt-20 p-12 bg-blue-950 rounded-[4rem] text-white shadow-2xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
+                <div className="mt-20 p-12 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[4rem] text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/15 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
                     <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
                         <div className="flex-1 text-center md:text-left">
+                            <span className="inline-block px-3.5 py-1 rounded-full bg-[#fdb913] text-slate-900 text-[10px] font-black uppercase tracking-widest mb-4">Gabinete & Participação</span>
                             <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Secretaria de Governo</h3>
-                            <p className="text-blue-100 font-medium max-w-xl leading-relaxed">
+                            <p className="text-white/95 font-medium max-w-xl leading-relaxed">
                                 O Gabinete é o canal direto de interlocução entre a população e os gestores. Estamos abertos para ouvir sugestões e demandas que ajudem a construir uma cidade melhor.
                             </p>
                         </div>
                         <div className="shrink-0 space-y-4 w-full md:w-auto">
-                            <div className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all">
-                                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white">
+                            <div className="flex items-center gap-4 bg-white/15 p-5 rounded-2xl backdrop-blur-md border border-white/25 hover:bg-white/25 transition-all">
+                                <div className="w-10 h-10 bg-[#fdb913] rounded-xl flex items-center justify-center text-slate-900">
                                     <FaEnvelope size={18} />
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-blue-400">E-mail Oficial</p>
-                                    <span className="text-sm font-bold">{emailGabinete}</span>
+                                    <p className="text-[8px] font-black uppercase tracking-widest text-white/85">E-mail Oficial</p>
+                                    <span className="text-sm font-bold text-white">{emailGabinete}</span>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all">
-                                <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white">
+                            <div className="flex items-center gap-4 bg-white/15 p-5 rounded-2xl backdrop-blur-md border border-white/25 hover:bg-white/25 transition-all">
+                                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#01b0ef]">
                                     <span className="text-lg">📞</span>
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-emerald-400">Telefone Gabinete</p>
-                                    <span className="text-sm font-bold">{telefoneGabinete}</span>
+                                    <p className="text-[8px] font-black uppercase tracking-widest text-white/85">Telefone Gabinete</p>
+                                    <span className="text-sm font-bold text-white">{telefoneGabinete}</span>
                                 </div>
                             </div>
                         </div>

@@ -233,7 +233,7 @@ export default function AdminEducacaoPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#1254A3] text-white flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#01b0ef] text-white flex items-center justify-center shrink-0">
                         <FaGraduationCap size={22} />
                     </div>
                     <div>
@@ -249,7 +249,7 @@ export default function AdminEducacaoPage() {
                 <button
                     type="button"
                     onClick={() => abrirModal()}
-                    className="px-5 py-2.5 bg-[#1254A3] hover:bg-blue-800 text-white rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer shrink-0"
+                    className="px-5 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer shrink-0"
                 >
                     <FaPlus /> Publicar Documento PME / Relatório
                 </button>
@@ -261,7 +261,7 @@ export default function AdminEducacaoPage() {
                     <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                         <FaBookOpen className="text-blue-600" /> Planos de Educação (PME)
                     </span>
-                    <div className="text-2xl font-black text-[#1254A3]">{pmes.length}</div>
+                    <div className="text-2xl font-black text-[#01b0ef]">{pmes.length}</div>
                     <p className="text-xs text-gray-500">Documentos do Plano Municipal vigentes ou históricos.</p>
                 </div>
 
@@ -308,7 +308,7 @@ export default function AdminEducacaoPage() {
                             onClick={() => setFiltroTipo(tab.id)}
                             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                                 filtroTipo === tab.id
-                                    ? "bg-[#1254A3] text-white"
+                                    ? "bg-[#01b0ef] text-white"
                                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                             }`}
                         >
@@ -335,7 +335,7 @@ export default function AdminEducacaoPage() {
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 {loading ? (
                     <div className="p-16 text-center text-gray-400">
-                        <FaSpinner className="animate-spin inline-block text-2xl mb-2 text-[#1254A3]" />
+                        <FaSpinner className="animate-spin inline-block text-2xl mb-2 text-[#01b0ef]" />
                         <p className="text-sm">Carregando documentos da Educação...</p>
                     </div>
                 ) : filtrados.length === 0 ? (
@@ -426,7 +426,7 @@ export default function AdminEducacaoPage() {
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 title={editingDoc ? "Editar Documento da Educação" : "Publicar PME ou Relatório de Resultados (19.1)"}
-                icon={<FaGraduationCap className="text-[#1254A3] text-lg" />}
+                icon={<FaGraduationCap className="text-[#01b0ef] text-lg" />}
                 maxWidth="xl"
                 footer={
                     <>
@@ -441,7 +441,7 @@ export default function AdminEducacaoPage() {
                             type="submit"
                             form="form-doc-educacao"
                             disabled={saving || uploading}
-                            className="px-5 py-2 bg-[#1254A3] text-white rounded-xl text-sm font-bold hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2 bg-[#01b0ef] text-white rounded-xl text-sm font-bold hover:bg-[#0098d4] disabled:opacity-50 cursor-pointer"
                         >
                             {saving ? "Salvando..." : editingDoc ? "Salvar Alterações" : "Publicar Documento"}
                         </button>
@@ -459,7 +459,7 @@ export default function AdminEducacaoPage() {
                             placeholder="Ex: Relatório Bienal de Avaliação e Monitoramento das Metas do PME 2025/2026"
                             value={formData.titulo}
                             onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#1254A3]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#01b0ef]"
                         />
                     </div>
 
@@ -542,7 +542,7 @@ export default function AdminEducacaoPage() {
                                 onClick={() => setUploadModo("upload")}
                                 className={`flex-1 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                                     uploadModo === "upload"
-                                        ? "bg-[#1254A3] text-white border-[#1254A3]"
+                                        ? "bg-[#01b0ef] text-white border-[#01b0ef]"
                                         : "bg-gray-50 text-gray-600 border-gray-200"
                                 }`}
                             >
@@ -553,7 +553,7 @@ export default function AdminEducacaoPage() {
                                 onClick={() => setUploadModo("url")}
                                 className={`flex-1 py-2 rounded-xl text-xs font-bold border cursor-pointer ${
                                     uploadModo === "url"
-                                        ? "bg-[#1254A3] text-white border-[#1254A3]"
+                                        ? "bg-[#01b0ef] text-white border-[#01b0ef]"
                                         : "bg-gray-50 text-gray-600 border-gray-200"
                                 }`}
                             >
@@ -599,7 +599,7 @@ export default function AdminEducacaoPage() {
                             type="checkbox"
                             checked={formData.ativo}
                             onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
-                            className="w-4 h-4 accent-[#1254A3]"
+                            className="w-4 h-4 accent-[#01b0ef]"
                         />
                         Publicar imediatamente no Portal da Transparência
                     </label>

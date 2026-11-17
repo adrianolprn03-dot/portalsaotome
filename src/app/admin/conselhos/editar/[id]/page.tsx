@@ -279,7 +279,7 @@ export default function EditarConselhoPage({ params }: { params: { id: string } 
                                     className="input-field bg-white" placeholder="https://..." />
                             </div>
                             <div className="md:col-span-1 flex justify-end">
-                                <button type="button" onClick={handleAddAta} className="w-full h-[42px] flex items-center justify-center bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
+                                <button type="button" onClick={handleAddAta} className="w-full h-[42px] flex items-center justify-center bg-blue-600 text-white rounded-xl hover:bg-[#0098d4] transition">
                                     <FaPlus />
                                 </button>
                             </div>
@@ -290,7 +290,7 @@ export default function EditarConselhoPage({ params }: { params: { id: string } 
                 <div className="flex justify-end gap-4 pt-6 border-t border-gray-100">
                     <Link href="/admin/conselhos" className="btn-outline">Cancelar</Link>
                     <button type="submit" disabled={saving}
-                        className="btn-primary bg-blue-600 hover:bg-blue-700 flex items-center gap-2 disabled:opacity-50">
+                        className="btn-primary bg-blue-600 hover:bg-[#0098d4] flex items-center gap-2 disabled:opacity-50">
                         {saving ? "Salvando..." : "Salvar Alterações"}
                     </button>
                 </div>

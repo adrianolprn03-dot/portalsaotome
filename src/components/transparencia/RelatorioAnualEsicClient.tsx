@@ -95,12 +95,12 @@ type ExercicioStats = {
 };
 
 const CHART_COLORS = {
-    recebidos: "#1254A3",
+    recebidos: "#01b0ef",
     atendidos: "#10B981",
     indeferidos: "#F43F5E",
-    tramitacao: "#F59E0B",
-    pessoaFisica: "#1254A3",
-    pessoaJuridica: "#F39A32",
+    tramitacao: "#fdb913",
+    pessoaFisica: "#01b0ef",
+    pessoaJuridica: "#fdb913",
     anonimo: "#64748B",
 };
 
@@ -125,7 +125,7 @@ function BlocoDistribuicao({
     return (
         <div className="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 space-y-3">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                <span className="text-[#1254A3]">{icon}</span>
+                <span className="text-[#01b0ef]">{icon}</span>
                 {titulo}
             </h4>
             {totalBase === 0 || lista.length === 0 ? (
@@ -146,7 +146,7 @@ function BlocoDistribuicao({
                             </div>
                             <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                                 <div
-                                    className="bg-[#1254A3] h-2 rounded-full transition-all duration-500"
+                                    className="bg-[#01b0ef] h-2 rounded-full transition-all duration-500"
                                     style={{ width: `${Math.min(100, item.percentual)}%` }}
                                 />
                             </div>
@@ -308,7 +308,7 @@ export default function RelatorioAnualEsicClient({
             <PageHeader
                 title={titulo}
                 subtitle={subtitulo}
-                icon={<FaChartBar className="w-8 h-8 text-[#1254A3]" />}
+                icon={<FaChartBar className="w-8 h-8 text-[#01b0ef]" />}
                 breadcrumbs={breadcrumbs}
             />
 
@@ -321,7 +321,7 @@ export default function RelatorioAnualEsicClient({
 
                 {loading ? (
                     <div className="bg-white rounded-3xl p-20 flex flex-col items-center justify-center border border-gray-200">
-                        <FaSpinner className="animate-spin text-4xl text-[#1254A3] mb-3" />
+                        <FaSpinner className="animate-spin text-4xl text-[#01b0ef] mb-3" />
                         <p className="text-sm font-semibold text-gray-500">
                             Consolidando estatísticas oficiais do e-SIC...
                         </p>
@@ -332,7 +332,7 @@ export default function RelatorioAnualEsicClient({
                         <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
                             <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-xs font-bold text-gray-500 uppercase flex items-center gap-1.5 mr-2">
-                                    <FaCalendarAlt className="text-[#1254A3]" /> Exercício:
+                                    <FaCalendarAlt className="text-[#01b0ef]" /> Exercício:
                                 </span>
                                 {anosDisponiveis.map((ano) => (
                                     <button
@@ -340,7 +340,7 @@ export default function RelatorioAnualEsicClient({
                                         onClick={() => setExercicioSelecionado(ano)}
                                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                                             exercicioSelecionado === ano
-                                                ? "bg-[#1254A3] text-white shadow-sm"
+                                                ? "bg-[#01b0ef] text-white shadow-sm"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                         }`}
                                     >
@@ -355,7 +355,7 @@ export default function RelatorioAnualEsicClient({
                                         onClick={() => setAbaVisualizacao("graficos")}
                                         className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
                                             abaVisualizacao === "graficos"
-                                                ? "bg-white text-[#1254A3] shadow-sm"
+                                                ? "bg-white text-[#01b0ef] shadow-sm"
                                                 : "text-gray-500 hover:text-gray-700"
                                         }`}
                                     >
@@ -365,7 +365,7 @@ export default function RelatorioAnualEsicClient({
                                         onClick={() => setAbaVisualizacao("tabela")}
                                         className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
                                             abaVisualizacao === "tabela"
-                                                ? "bg-white text-[#1254A3] shadow-sm"
+                                                ? "bg-white text-[#01b0ef] shadow-sm"
                                                 : "text-gray-500 hover:text-gray-700"
                                         }`}
                                     >
@@ -411,7 +411,7 @@ export default function RelatorioAnualEsicClient({
                             <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-2">
                                 <div className="flex items-center justify-between text-gray-500">
                                     <span className="text-xs font-bold uppercase tracking-wider">Pedidos Recebidos</span>
-                                    <FaFileAlt className="text-[#1254A3]" />
+                                    <FaFileAlt className="text-[#01b0ef]" />
                                 </div>
                                 <div className="text-3xl font-black text-gray-900">{atual.totalRecebidos}</div>
                                 <p className="text-xs text-gray-400 font-medium">
@@ -464,7 +464,7 @@ export default function RelatorioAnualEsicClient({
                                     <div className="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm">
                                         <div className="mb-6">
                                             <h3 className="text-base font-black text-gray-900 flex items-center gap-2">
-                                                <FaChartBar className="text-[#1254A3]" /> Evolução Anual Comparada ({anosDisponiveis[0]}–{anosDisponiveis[anosDisponiveis.length - 1]})
+                                                <FaChartBar className="text-[#01b0ef]" /> Evolução Anual Comparada ({anosDisponiveis[0]}–{anosDisponiveis[anosDisponiveis.length - 1]})
                                             </h3>
                                             <p className="text-xs text-gray-500 mt-1">
                                                 Comparativo histórico de pedidos recebidos, atendidos e indeferidos por exercício.
@@ -525,7 +525,7 @@ export default function RelatorioAnualEsicClient({
                                     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm flex flex-col">
                                         <div className="mb-4">
                                             <h3 className="text-base font-black text-gray-900 flex items-center gap-2">
-                                                <FaChartPie className="text-[#F39A32]" /> Desfecho ({atual.exercicio})
+                                                <FaChartPie className="text-[#fdb913]" /> Desfecho ({atual.exercicio})
                                             </h3>
                                             <p className="text-xs text-gray-500 mt-1">
                                                 Proporção de resolutividade do exercício selecionado.
@@ -574,7 +574,7 @@ export default function RelatorioAnualEsicClient({
                                     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm">
                                         <div className="mb-4">
                                             <h3 className="text-base font-black text-gray-900 flex items-center gap-2">
-                                                <FaCalendarAlt className="text-[#1254A3]" /> Movimento Mensal em {atual.exercicio}
+                                                <FaCalendarAlt className="text-[#01b0ef]" /> Movimento Mensal em {atual.exercicio}
                                             </h3>
                                             <p className="text-xs text-gray-500 mt-1">
                                                 Distribuição mês a mês dos pedidos recebidos, atendidos e indeferidos.
@@ -628,8 +628,8 @@ export default function RelatorioAnualEsicClient({
                                                 <AreaChart data={tempoMedioData} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
                                                     <defs>
                                                         <linearGradient id="colorTempoEsic" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="5%" stopColor="#1254A3" stopOpacity={0.25} />
-                                                            <stop offset="95%" stopColor="#1254A3" stopOpacity={0} />
+                                                            <stop offset="5%" stopColor="#01b0ef" stopOpacity={0.25} />
+                                                            <stop offset="95%" stopColor="#01b0ef" stopOpacity={0} />
                                                         </linearGradient>
                                                     </defs>
                                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -657,7 +657,7 @@ export default function RelatorioAnualEsicClient({
                                                     <Area
                                                         type="monotone"
                                                         dataKey="Tempo Médio (Dias)"
-                                                        stroke="#1254A3"
+                                                        stroke="#01b0ef"
                                                         strokeWidth={2}
                                                         fillOpacity={1}
                                                         fill="url(#colorTempoEsic)"
@@ -683,13 +683,13 @@ export default function RelatorioAnualEsicClient({
                             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-gray-100 pb-5">
                                 <div>
                                     <h3 className="text-lg font-black text-gray-900 flex items-center gap-2">
-                                        <FaUsers className="text-[#1254A3]" /> Informações Genéricas sobre os Solicitantes ({atual.exercicio})
+                                        <FaUsers className="text-[#01b0ef]" /> Informações Genéricas sobre os Solicitantes ({atual.exercicio})
                                     </h3>
                                     <p className="text-xs text-gray-500 mt-1 max-w-3xl leading-relaxed">
                                         Divulgação estatística, consolidada e anonimizada (em conformidade com a LGPD e o art. 30, III da Lei nº 12.527/2011), sem exposição de nomes, documentos ou dados pessoais identificáveis.
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-3 bg-blue-50/70 px-4 py-2.5 rounded-2xl border border-blue-100 text-xs font-bold text-[#1254A3] shrink-0">
+                                <div className="flex items-center gap-3 bg-blue-50/70 px-4 py-2.5 rounded-2xl border border-blue-100 text-xs font-bold text-[#01b0ef] shrink-0">
                                     <span>Total analisado em {atual.exercicio}:</span>
                                     <span className="text-lg font-black">{atual.totalRecebidos}</span>
                                 </div>
@@ -707,7 +707,7 @@ export default function RelatorioAnualEsicClient({
                                         </div>
                                         <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
                                             <div
-                                                className="bg-[#1254A3] h-3 rounded-full transition-all duration-500"
+                                                className="bg-[#01b0ef] h-3 rounded-full transition-all duration-500"
                                                 style={{ width: `${pctPF}%` }}
                                             />
                                         </div>
@@ -722,7 +722,7 @@ export default function RelatorioAnualEsicClient({
                                         </div>
                                         <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
                                             <div
-                                                className="bg-[#F39A32] h-3 rounded-full transition-all duration-500"
+                                                className="bg-[#fdb913] h-3 rounded-full transition-all duration-500"
                                                 style={{ width: `${pctPJ}%` }}
                                             />
                                         </div>
@@ -828,7 +828,7 @@ export default function RelatorioAnualEsicClient({
                             <div className="flex flex-wrap items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-base font-black text-gray-900 flex items-center gap-2">
-                                        <FaBalanceScale className="text-[#F39A32]" /> Recursos Administrativos Interpostos ({atual.exercicio})
+                                        <FaBalanceScale className="text-[#fdb913]" /> Recursos Administrativos Interpostos ({atual.exercicio})
                                     </h3>
                                     <p className="text-xs text-gray-500 mt-1">
                                         Pedidos de revisão protocolados em 1ª e 2ª instâncias administrativas nos termos da LAI (Arts. 15 a 18).
@@ -842,10 +842,10 @@ export default function RelatorioAnualEsicClient({
                                     <span className="text-[11px] font-bold text-gray-500 uppercase">Total Interpostos</span>
                                 </div>
                                 <div className="bg-blue-50/70 p-4 rounded-2xl border border-blue-100 text-center">
-                                    <span className="block text-2xl font-black text-[#1254A3]">
+                                    <span className="block text-2xl font-black text-[#01b0ef]">
                                         {atual.recursos.primeiraInstancia ?? atual.recursos.interpostos}
                                     </span>
-                                    <span className="text-[11px] font-bold text-[#1254A3] uppercase">1ª Instância</span>
+                                    <span className="text-[11px] font-bold text-[#01b0ef] uppercase">1ª Instância</span>
                                 </div>
                                 <div className="bg-indigo-50/70 p-4 rounded-2xl border border-indigo-100 text-center">
                                     <span className="block text-2xl font-black text-indigo-700">
@@ -906,7 +906,7 @@ export default function RelatorioAnualEsicClient({
                                                         : "hover:bg-gray-50"
                                                 }`}
                                             >
-                                                <td className="py-3.5 px-5 font-black text-[#1254A3]">{s.exercicio}</td>
+                                                <td className="py-3.5 px-5 font-black text-[#01b0ef]">{s.exercicio}</td>
                                                 <td className="py-3.5 px-5 text-center font-bold">{s.totalRecebidos}</td>
                                                 <td className="py-3.5 px-5 text-center text-emerald-700 font-bold">{s.atendidos}</td>
                                                 <td className="py-3.5 px-5 text-center text-rose-700 font-bold">{s.indeferidos}</td>
@@ -949,14 +949,14 @@ export default function RelatorioAnualEsicClient({
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Link
                                 href="/transparencia/passiva/relatorios/com-sigilo"
-                                className="bg-white hover:border-[#1254A3] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
+                                className="bg-white hover:border-[#01b0ef] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
                             >
                                 <div className="flex items-center gap-4">
                                     <div className="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
                                         <FaLock />
                                     </div>
                                     <div>
-                                        <h4 className="font-black text-sm text-gray-900 group-hover:text-[#1254A3]">
+                                        <h4 className="font-black text-sm text-gray-900 group-hover:text-[#01b0ef]">
                                             Rol de Documentos Classificados (Sigilo)
                                         </h4>
                                         <p className="text-xs text-gray-500">
@@ -964,7 +964,7 @@ export default function RelatorioAnualEsicClient({
                                         </p>
                                     </div>
                                 </div>
-                                <span className="text-xs font-bold text-[#1254A3]">Acessar →</span>
+                                <span className="text-xs font-bold text-[#01b0ef]">Acessar →</span>
                             </Link>
 
                             <Link

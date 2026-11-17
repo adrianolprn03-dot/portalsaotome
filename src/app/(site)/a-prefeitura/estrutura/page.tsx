@@ -24,7 +24,7 @@ export default async function EstruturaPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Estrutura Administrativa"
                 subtitle="Organograma hierárquico e distribuição das pastas que compõem a gestão do município."
@@ -43,10 +43,10 @@ export default async function EstruturaPage() {
                     <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
                     <div className="flex flex-col items-center mb-8">
                         <span className="section-eyebrow mb-3">
-                            <Network size={14} />
+                            <Network size={14} className="text-[#01b0ef]" />
                             <span>Esquema Hierárquico Oficial</span>
                         </span>
-                        <h2 className="font-heading font-extrabold text-2xl md:text-3xl text-[#071E3D] tracking-tight">
+                        <h2 className="font-heading font-extrabold text-2xl md:text-3xl text-slate-900 tracking-tight">
                             Organograma da Prefeitura Municipal
                         </h2>
                         <p className="text-slate-600 text-sm mt-2 max-w-xl">
@@ -54,7 +54,7 @@ export default async function EstruturaPage() {
                         </p>
                     </div>
 
-                    <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 bg-[#F6F9FC] p-3 md:p-6 group/image">
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 bg-[#f4fbff] p-3 md:p-6 group/image">
                         <img
                             src="/organograma.png"
                             alt="Organograma Oficial da Prefeitura de São Tomé/RN"
@@ -75,7 +75,7 @@ export default async function EstruturaPage() {
                         <a
                             href="/organograma.png"
                             download="organograma-prefeitura-sao-tome.png"
-                            className="btn-outline"
+                            className="btn-secondary"
                         >
                             <Download size={16} />
                             <span>Baixar Imagem (PNG)</span>
@@ -87,10 +87,10 @@ export default async function EstruturaPage() {
                 <div>
                     <div className="flex flex-col items-center mb-10 text-center">
                         <span className="section-eyebrow mb-3">
-                            <Building2 size={14} />
+                            <Building2 size={14} className="text-[#01b0ef]" />
                             <span>Administração Direta</span>
                         </span>
-                        <h3 className="font-heading font-extrabold text-2xl md:text-3xl text-[#071E3D]">
+                        <h3 className="font-heading font-extrabold text-2xl md:text-3xl text-slate-900">
                             Órgãos e Secretarias Municipais
                         </h3>
                         <p className="text-slate-600 text-sm mt-2 max-w-xl">
@@ -99,7 +99,7 @@ export default async function EstruturaPage() {
                     </div>
 
                     {secretarias.length === 0 ? (
-                        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
+                        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-[#01b0ef]/30">
                             <p className="text-slate-500 font-medium">
                                 Nenhuma secretaria cadastrada no momento.
                             </p>
@@ -113,25 +113,25 @@ export default async function EstruturaPage() {
                                     <Link
                                         key={sec.id}
                                         href={`/secretarias/${sec.slug}`}
-                                        className="group bg-white rounded-2xl border border-slate-200/80 shadow-civic-sm p-6 hover:-translate-y-1 hover:border-primary-400 hover:shadow-civic-lg transition-all duration-300 flex items-start gap-4"
+                                        className="group bg-white rounded-2xl border border-slate-200/80 shadow-civic-sm p-6 hover:-translate-y-1 hover:border-[#01b0ef] hover:shadow-civic-lg transition-all duration-300 flex items-start gap-4"
                                     >
-                                        <div className="w-11 h-11 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl group-hover:bg-primary-600 group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+                                        <div className="w-11 h-11 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl group-hover:bg-[#01b0ef] group-hover:text-white flex items-center justify-center transition-colors shrink-0">
                                             <IconCard size={20} />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <h4 className="font-heading font-bold text-[#071E3D] text-sm leading-snug group-hover:text-primary-600 transition-colors">
+                                            <h4 className="font-heading font-bold text-slate-900 text-sm leading-snug group-hover:text-[#01b0ef] transition-colors">
                                                 {sec.nome}
                                             </h4>
                                             {sec.secretario && (
                                                 <p className="text-xs text-slate-500 font-medium mt-1.5 flex items-center gap-1.5 truncate">
-                                                    <UserCheck size={13} className="text-primary-600 shrink-0" />
+                                                    <UserCheck size={13} className="text-[#01b0ef] shrink-0" />
                                                     <span className="truncate">{sec.secretario}</span>
                                                 </p>
                                             )}
                                         </div>
                                         <ArrowRight
                                             size={15}
-                                            className="text-slate-300 group-hover:text-primary-600 group-hover:translate-x-0.5 transition-all shrink-0 mt-1"
+                                            className="text-slate-300 group-hover:text-[#01b0ef] group-hover:translate-x-0.5 transition-all shrink-0 mt-1"
                                         />
                                     </Link>
                                 );

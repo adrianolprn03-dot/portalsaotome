@@ -110,7 +110,7 @@ export default function EmendaPixClientPage({ initialData }: { initialData: Emen
                                 </div>
                                 <div className="pt-6 flex flex-col md:flex-row gap-4">
                                     {detalhe.urlFonteOficial && (
-                                        <a href={detalhe.urlFonteOficial} target="_blank" rel="noopener noreferrer" className="flex-1 inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
+                                        <a href={detalhe.urlFonteOficial} target="_blank" rel="noopener noreferrer" className="flex-1 inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-[#0098d4] transition-all shadow-lg shadow-blue-200">
                                             <FaExternalLinkAlt /> Ver Fonte Oficial
                                         </a>
                                     )}

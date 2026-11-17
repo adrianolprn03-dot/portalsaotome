@@ -15,10 +15,10 @@ export default function SeletorPeriodos({ periodoAtivo }: SeletorPeriodosProps) 
             sublabel: "Gestão Anterior",
             href: "/transparencia-2018-2022",
             badge: "Histórico",
-            corBadge: "bg-amber-100 text-amber-800 border-amber-200",
-            activeColor: "bg-gradient-to-r from-amber-600 to-amber-700 text-white border-transparent shadow-xl shadow-amber-600/20",
-            hoverBorder: "hover:border-amber-100",
-            hoverIconBgText: "group-hover:bg-amber-50 group-hover:text-amber-650",
+            corBadge: "bg-[#fff4d4] text-slate-900 border-[#fdb913]/40",
+            activeColor: "bg-[#fdb913] text-slate-900 border-transparent shadow-xl shadow-[#fdb913]/25",
+            hoverBorder: "hover:border-[#fdb913]/40",
+            hoverIconBgText: "group-hover:bg-[#fff4d4] group-hover:text-slate-900",
             icon: History,
         },
         {
@@ -27,10 +27,10 @@ export default function SeletorPeriodos({ periodoAtivo }: SeletorPeriodosProps) 
             sublabel: "Gestão Anterior",
             href: "/transparencia-2023-2025",
             badge: "Histórico",
-            corBadge: "bg-blue-100 text-blue-800 border-blue-200",
-            activeColor: "bg-gradient-to-r from-blue-600 to-blue-700 text-white border-transparent shadow-xl shadow-blue-600/20",
-            hoverBorder: "hover:border-blue-100",
-            hoverIconBgText: "group-hover:bg-blue-50 group-hover:text-blue-600",
+            corBadge: "bg-[#e6f8ff] text-[#01b0ef] border-[#01b0ef]/25",
+            activeColor: "bg-gradient-to-r from-[#01b0ef] to-[#0098d4] text-white border-transparent shadow-xl shadow-[#01b0ef]/25",
+            hoverBorder: "hover:border-[#01b0ef]/30",
+            hoverIconBgText: "group-hover:bg-[#e6f8ff] group-hover:text-[#01b0ef]",
             icon: History,
         },
         {
@@ -39,10 +39,10 @@ export default function SeletorPeriodos({ periodoAtivo }: SeletorPeriodosProps) 
             sublabel: "Gestão Atual",
             href: "/transparencia-2026", // O portal geral mapeia 2026+
             badge: "Atual",
-            corBadge: "bg-[#fff112]/20 text-[#8c6f00] border-[#cca300]/25",
-            activeColor: "bg-gradient-to-r from-[#cca300] to-[#997a00] text-white border-transparent shadow-xl shadow-[#cca300]/25",
-            hoverBorder: "hover:border-[#cca300]/30",
-            hoverIconBgText: "group-hover:bg-[#fff112]/10 group-hover:text-[#cca300]",
+            corBadge: "bg-[#fff4d4] text-slate-900 border-[#fdb913]/40",
+            activeColor: "bg-[#fdb913] text-slate-900 border-transparent shadow-xl shadow-[#fdb913]/25",
+            hoverBorder: "hover:border-[#fdb913]/40",
+            hoverIconBgText: "group-hover:bg-[#fff4d4] group-hover:text-slate-900",
             icon: Sparkles,
         },
     ];
@@ -52,8 +52,8 @@ export default function SeletorPeriodos({ periodoAtivo }: SeletorPeriodosProps) 
             <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
                 <div className="text-left shrink-0">
                     <div className="flex items-center gap-2 mb-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-indigo-650 animate-pulse" />
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-indigo-650">Linha do Tempo de Gestão</h4>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#01b0ef] animate-pulse" />
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-[#01b0ef]">Linha do Tempo de Gestão</h4>
                     </div>
                     <h3 className="text-xl font-black text-slate-900 tracking-tight leading-none uppercase">
                         Períodos de <span className="text-slate-400 italic">Transparência</span>

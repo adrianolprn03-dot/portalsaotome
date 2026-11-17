@@ -178,7 +178,7 @@ export default function UnidadesSaudeCatalog({
                 </div>
 
                 <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                         <FaUserMd size={20} />
                     </div>
                     <div>
@@ -231,7 +231,7 @@ export default function UnidadesSaudeCatalog({
                                 onClick={() => setCategoriaFiltro(cat.id as any)}
                                 className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition cursor-pointer ${
                                     categoriaFiltro === cat.id
-                                        ? "bg-[#1254A3] text-white shadow-sm"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
                                         : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                                 }`}
                             >
@@ -267,7 +267,7 @@ export default function UnidadesSaudeCatalog({
                             className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
                         >
                             {/* Barra superior da unidade */}
-                            <div className="bg-gradient-to-r from-[#0F2942] to-[#1254A3] text-white p-6 md:p-7 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <div className="bg-gradient-to-r from-[#0f172a] to-[#01b0ef] text-white p-6 md:p-7 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                 <div className="space-y-2">
                                     <div className="flex flex-wrap items-center gap-2">
                                         <span className="px-3 py-1 rounded-full bg-white/15 border border-white/20 text-[11px] font-bold uppercase tracking-wider">
@@ -305,7 +305,7 @@ export default function UnidadesSaudeCatalog({
                                 {/* Endereço, Horário, Contatos */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                        <FaMapMarkerAlt className="text-[#1254A3] mt-1 shrink-0" />
+                                        <FaMapMarkerAlt className="text-[#01b0ef] mt-1 shrink-0" />
                                         <div className="text-xs">
                                             <span className="font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
                                                 Localização
@@ -316,7 +316,7 @@ export default function UnidadesSaudeCatalog({
                                                     href={u.mapa}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1 text-[#1254A3] font-bold hover:underline mt-1"
+                                                    className="inline-flex items-center gap-1 text-[#01b0ef] font-bold hover:underline mt-1"
                                                 >
                                                     Ver no Mapa <FaArrowRight size={9} />
                                                 </a>
@@ -360,7 +360,7 @@ export default function UnidadesSaudeCatalog({
                                     </div>
 
                                     <div className="lg:col-span-5 p-5 rounded-2xl bg-blue-50/50 border border-blue-100 space-y-2.5">
-                                        <h3 className="text-xs font-black uppercase tracking-wider text-[#1254A3] flex items-center gap-2">
+                                        <h3 className="text-xs font-black uppercase tracking-wider text-[#01b0ef] flex items-center gap-2">
                                             <FaStethoscope /> Especialidades Ofertadas
                                         </h3>
                                         {u.especialidades.length > 0 ? (
@@ -368,7 +368,7 @@ export default function UnidadesSaudeCatalog({
                                                 {u.especialidades.map((esp, i) => (
                                                     <span
                                                         key={i}
-                                                        className="px-3 py-1 rounded-xl bg-white border border-blue-200 text-xs font-bold text-[#1254A3]"
+                                                        className="px-3 py-1 rounded-xl bg-white border border-blue-200 text-xs font-bold text-[#01b0ef]"
                                                     >
                                                         {esp}
                                                     </span>
@@ -386,7 +386,7 @@ export default function UnidadesSaudeCatalog({
                                 <div className="space-y-3">
                                     <div className="flex flex-wrap items-center justify-between gap-2">
                                         <h3 className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                                            <FaUserMd className="text-[#1254A3]" /> Profissionais Prestadores de Serviços, Especialidades e Escalas de Atendimento
+                                            <FaUserMd className="text-[#01b0ef]" /> Profissionais Prestadores de Serviços, Especialidades e Escalas de Atendimento
                                         </h3>
                                         <span className="text-[11px] font-bold text-slate-500">
                                             Critério PNTP 2026 - Item 18.2
@@ -424,7 +424,7 @@ export default function UnidadesSaudeCatalog({
                                                             <td className="py-3 px-4 font-mono text-xs text-slate-700">
                                                                 {prof.registroProfissional || "-"}
                                                             </td>
-                                                            <td className="py-3 px-4 font-semibold text-[#1254A3]">
+                                                            <td className="py-3 px-4 font-semibold text-[#01b0ef]">
                                                                 {prof.diasHorarios || u.horario}
                                                             </td>
                                                         </tr>
@@ -442,9 +442,9 @@ export default function UnidadesSaudeCatalog({
 
             {/* Links Relacionados da Saúde PNTP 18.1 - 18.6 */}
             {!compactNavigation && (
-                <div className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] text-white rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl shadow-[#01b0ef]/20">
                     <div>
-                        <span className="text-[11px] font-black uppercase tracking-widest text-sky-400 block mb-1">
+                        <span className="inline-block px-3 py-0.5 rounded-full bg-[#fdb913] text-slate-900 text-[10px] font-black uppercase tracking-widest mb-2">
                             Transparência Integral da Saúde (PNTP Dimensão 18)
                         </span>
                         <h3 className="text-lg font-bold">

@@ -77,7 +77,7 @@ export default function TerceirizadosPage() {
     };
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
+        <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
                 title="Terceirizados"
                 subtitle="Consulte a relação de pessoal terceirizado e as empresas prestadoras de serviço."
@@ -92,7 +92,7 @@ export default function TerceirizadosPage() {
 
             {/* Banner PNTP */}
             <div className="bg-[#01b0ef]/10 py-5 px-6 border-b border-blue-100">
-                <div className="max-w-[1200px] mx-auto flex flex-wrap items-center justify-center gap-6 text-[#0088b9] text-[10px] font-black uppercase tracking-widest">
+                <div className="max-w-[1200px] mx-auto flex flex-wrap items-center justify-center gap-6 text-[#01b0ef] text-[10px] font-black uppercase tracking-widest">
                     {["Lei de Licitações", "Transparência Pública", "PNTP 2026"].map((item) => (
                         <span key={item} className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-blue-100">
                             <span className="text-[#50B749]">✓</span> {item}
@@ -229,13 +229,13 @@ export default function TerceirizadosPage() {
                         <div className="flex flex-col sm:flex-row gap-6">
                             <Link 
                                 href="/transparencia/contratos" 
-                                className="flex-1 bg-slate-900 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95 flex items-center justify-center gap-3"
+                                className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <FileText size={16} /> Consultar Contratos
                             </Link>
                             <a 
                                 href="/transparencia" 
-                                className="flex-1 bg-blue-600 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20 active:scale-95 flex items-center justify-center gap-3"
+                                className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 Voltar ao Portal
                             </a>

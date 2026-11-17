@@ -224,7 +224,7 @@ export default function AtasRegistroClient() {
     };
 
     return (
-        <div className="min-h-screen bg-[#fcfdfe] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Atas de Registro de Preços"
                 subtitle="Consulte os instrumentos homologados para aquisição de bens e serviços com fornecedores pré-qualificados."
@@ -287,29 +287,29 @@ export default function AtasRegistroClient() {
                     </div>
 
                     {/* Montante Registrado */}
-                    <div className="md:col-span-2 bg-gradient-to-br from-indigo-600 to-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-indigo-500/10 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform duration-700 group-hover:rotate-6">
+                    <div className="md:col-span-2 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-10 text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 p-10 opacity-15 group-hover:scale-110 transition-transform duration-700 group-hover:rotate-6">
                             <FaWallet size={120} />
                         </div>
                         <div className="relative z-10">
-                            <span className="text-[10px] font-black text-indigo-300 uppercase tracking-[0.3em] mb-4 block">Potencial de Aquisição</span>
+                            <span className="inline-block px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 text-[10px] font-black uppercase tracking-[0.25em] mb-4">Potencial de Aquisição</span>
                             <div className="text-4xl font-black tracking-tighter mb-2">{loading ? "..." : fmt(filtradas.reduce((s, a) => s + a.valor, 0))}</div>
-                            <div className="flex items-center gap-2 mt-4 text-xs font-bold text-indigo-100/60 uppercase tracking-widest">
-                                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" /> Soma total registrada
+                            <div className="flex items-center gap-2 mt-4 text-xs font-bold text-white/90 uppercase tracking-widest">
+                                <span className="w-2 h-2 rounded-full bg-[#fdb913] animate-pulse" /> Soma total registrada
                             </div>
                         </div>
                     </div>
 
                     {/* Total de Atas */}
-                    <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/50 group hover:border-indigo-100 transition-colors">
+                    <div className="bg-white rounded-[2.5rem] p-8 border border-sky-100 shadow-xl shadow-[#01b0ef]/10 group hover:border-[#01b0ef]/40 transition-colors">
                         <div className="flex justify-between items-start mb-6">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Volume Total</span>
-                            <div className="p-3 bg-slate-50 rounded-xl text-slate-400 group-hover:bg-slate-900 group-hover:text-white transition-all">
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none">Volume Total</span>
+                            <div className="p-3 bg-[#e6f8ff] rounded-xl text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white transition-all">
                                 <FaFileSignature size={18} />
                             </div>
                         </div>
-                        <div className="text-3xl font-black text-slate-800 tracking-tighter mb-1">{filtradas.length}</div>
-                        <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">Instrumentos ARP</span>
+                        <div className="text-3xl font-black text-slate-900 tracking-tighter mb-1">{filtradas.length}</div>
+                        <span className="text-[9px] font-black text-[#01b0ef] uppercase tracking-widest">Instrumentos ARP</span>
                     </div>
                 </motion.div>
 

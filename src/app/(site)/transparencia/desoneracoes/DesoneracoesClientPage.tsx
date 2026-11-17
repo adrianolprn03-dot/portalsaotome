@@ -36,7 +36,7 @@ export default function DesoneracoesClientPage({ initialData }: { initialData: D
     const totalRenunciado = filteredItems.reduce((s, d) => s + d.valorRenunciado, 0);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Desonerações e Incentivos Fiscais"
                 subtitle="Transparência sobre isenções, anistias e demais renúncias tributárias concedidas pelo município."

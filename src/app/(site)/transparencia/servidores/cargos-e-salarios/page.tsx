@@ -22,7 +22,7 @@ const tabelas = [
 
 export default function CargosSalariosPage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Padrão Remuneratório"
                 subtitle="Consulte a estrutura remuneratória e a tabela de vencimentos dos servidores municipais."

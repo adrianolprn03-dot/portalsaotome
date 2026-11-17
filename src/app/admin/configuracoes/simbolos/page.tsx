@@ -82,7 +82,7 @@ export default function SimbolosMunicipaisPage() {
     if (loading) return <div className="p-10 text-center font-bold text-gray-400">Carregando símbolos...</div>;
 
     return (
-        <div className="p-6 max-w-5xl mx-auto font-['Montserrat',sans-serif]">
+        <div className="p-6 max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                 <div>
                     <h1 className="text-3xl font-black text-gray-800 uppercase tracking-tighter">Símbolos Oficiais</h1>
@@ -91,7 +91,7 @@ export default function SimbolosMunicipaisPage() {
                 <button 
                     onClick={handleSave}
                     disabled={salvando}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200 disabled:opacity-50"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-[#0098d4] text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200 disabled:opacity-50"
                 >
                     <FaSave /> {salvando ? "Salvando..." : "Salvar Alterações"}
                 </button>

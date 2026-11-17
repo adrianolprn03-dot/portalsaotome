@@ -35,7 +35,7 @@ export default function SICPerguntasPage() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Perguntas Frequentes (FAQ)"
                 subtitle="Dúvidas comuns sobre o acesso à informação e funcionamento do e-SIC."

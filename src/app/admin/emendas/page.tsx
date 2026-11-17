@@ -140,7 +140,7 @@ export default function AdminEmendasPage() {
                     <button
                         onClick={handleSync}
                         disabled={isSyncing}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all disabled:opacity-50"
+                        className="bg-blue-600 hover:bg-[#0098d4] text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm transition-all disabled:opacity-50"
                     >
                         <FaSyncAlt className={isSyncing ? "animate-spin" : ""} size={11} />
                         {isSyncing ? "Consultando..." : "Sincronizar"}

@@ -265,12 +265,12 @@ export default function TransparenciaPage() {
     };
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif] text-slate-800">
+        <div className="bg-[#f4fbff] min-h-screen text-slate-900">
             <PageHeader
                 title="Portal da Transparência"
                 subtitle={`Acesso integral aos dados públicos, fiscalização social e prestação de contas de ${MUNICIPIO.nome}/${MUNICIPIO.uf}.`}
                 variant="premium"
-                icon={<Landmark className="text-white" size={32} />}
+                icon={<Landmark className="text-slate-900" size={32} />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência" }
@@ -286,17 +286,17 @@ export default function TransparenciaPage() {
                         initial={{ scale: 0.98, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-white rounded-[3rem] p-8 md:p-10 shadow-2xl shadow-slate-200/60 border border-slate-100 mb-8"
+                        className="bg-white rounded-[3rem] p-8 md:p-10 shadow-2xl shadow-[#01b0ef]/10 border border-sky-100 mb-8"
                     >
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                             {/* Indicador Radial do Selo */}
-                            <div className="lg:col-span-4 bg-slate-950 text-white rounded-[2rem] p-8 relative flex flex-col justify-between overflow-hidden shadow-xl">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-[#fff112]/5 rounded-full blur-[80px] -mr-32 -mt-32" />
-                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#cca300]/10 rounded-full blur-[80px] -ml-32 -mb-32" />
+                            <div className="lg:col-span-4 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] text-white rounded-[2rem] p-8 relative flex flex-col justify-between overflow-hidden shadow-xl shadow-[#01b0ef]/25 border-t-4 border-[#fdb913]">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-white/15 rounded-full blur-[80px] -mr-32 -mt-32" />
+                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#fdb913]/20 rounded-full blur-[80px] -ml-32 -mb-32" />
                                 
                                 <div className="relative z-10 flex flex-col items-center text-center">
-                                    <div className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6 flex items-center gap-2 border border-cyan-500/20 px-4 py-1.5 rounded-full bg-cyan-500/5">
-                                        <ShieldCheck size={12} className="text-cyan-400" /> PNTP Metodologia 2026
+                                    <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-900 mb-6 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fdb913] shadow-sm">
+                                        <ShieldCheck size={12} className="text-slate-900" /> PNTP Metodologia 2026
                                     </div>
 
                                     {/* Circular Progress */}
@@ -306,7 +306,7 @@ export default function TransparenciaPage() {
                                                 cx="64"
                                                 cy="64"
                                                 r="52"
-                                                className="stroke-slate-800"
+                                                className="stroke-white/30"
                                                 strokeWidth="6"
                                                 fill="transparent"
                                             />
@@ -314,7 +314,7 @@ export default function TransparenciaPage() {
                                                 cx="64"
                                                 cy="64"
                                                 r="52"
-                                                className="stroke-cyan-400 transition-all duration-1000"
+                                                className="stroke-[#fdb913] transition-all duration-1000"
                                                 strokeWidth="8"
                                                 fill="transparent"
                                                 strokeDasharray={2 * Math.PI * 52}
@@ -324,25 +324,25 @@ export default function TransparenciaPage() {
                                         </svg>
                                         <div className="absolute flex flex-col items-center">
                                             <span className="text-3xl font-black text-white leading-none tracking-tight">{configs.transparencia_pntp_indice}</span>
-                                            <span className="text-[9px] font-black text-cyan-400 tracking-widest mt-1 uppercase">ÍNDICE</span>
+                                            <span className="text-[9px] font-black text-[#fdb913] tracking-widest mt-1 uppercase">ÍNDICE</span>
                                         </div>
                                     </div>
 
                                     {configs.transparencia_pntp_selo !== "SEM SELO" && (
                                         <div className="mt-4">
                                             <h4 className="text-md font-black text-white uppercase tracking-wider flex items-center gap-1.5 justify-center">
-                                                <Sparkles size={16} className="text-amber-400 animate-pulse" /> {configs.transparencia_pntp_selo}
+                                                <Sparkles size={16} className="text-[#fdb913] animate-pulse" /> {configs.transparencia_pntp_selo}
                                             </h4>
-                                            <p className="text-white/60 text-[9px] font-bold uppercase tracking-widest mt-1 max-w-[200px] mx-auto leading-relaxed">
+                                            <p className="text-white/90 text-[9px] font-bold uppercase tracking-widest mt-1 max-w-[200px] mx-auto leading-relaxed">
                                                 Grau de Transparência Pública Recomendado pela ATRICON
                                             </p>
                                         </div>
                                     )}
                                 </div>
 
-                                <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-[8px] font-black text-white/40 tracking-widest uppercase">
+                                <div className="relative z-10 mt-8 pt-6 border-t border-white/25 flex items-center justify-between text-[8px] font-black text-white/85 tracking-widest uppercase">
                                     <span>ÚLTIMA AUDITORIA: 2026</span>
-                                    <span className="text-emerald-400">ATIVO</span>
+                                    <span className="text-slate-900 bg-[#fdb913] px-2 py-0.5 rounded-full">ATIVO</span>
                                 </div>
                             </div>
 
@@ -388,21 +388,21 @@ export default function TransparenciaPage() {
                                         onClick={() => setSelectedCriterio(selectedCriterio === "OBRIGATÓRIO" ? "TODOS" : "OBRIGATÓRIO")}
                                         className={`p-5 rounded-[2rem] border text-left transition-all duration-300 relative overflow-hidden group ${
                                             selectedCriterio === "OBRIGATÓRIO"
-                                                ? "bg-gradient-to-br from-amber-500 to-orange-600 text-white border-transparent shadow-xl shadow-amber-500/20"
-                                                : "bg-amber-50/50 hover:bg-amber-50 hover:border-amber-200 border-amber-100 text-slate-900 shadow-sm"
+                                                ? "bg-[#fdb913] text-slate-900 border-transparent shadow-xl shadow-[#fdb913]/25"
+                                                : "bg-[#fff9eb] hover:bg-[#fff4d4] hover:border-[#fdb913] border-[#fdb913]/40 text-slate-900 shadow-sm"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedCriterio === "OBRIGATÓRIO" ? "bg-white/20" : "bg-amber-100 text-amber-600"}`}>
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedCriterio === "OBRIGATÓRIO" ? "bg-slate-900/10 text-slate-900" : "bg-[#fdb913]/25 text-slate-900"}`}>
                                                 <FileSearch size={20} />
                                             </div>
-                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg ${selectedCriterio === "OBRIGATÓRIO" ? "bg-white/20 text-white" : "bg-amber-100 text-amber-700"}`}>
+                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg ${selectedCriterio === "OBRIGATÓRIO" ? "bg-slate-900 text-[#fdb913]" : "bg-[#fdb913] text-slate-900"}`}>
                                                 NÍVEL 2
                                             </span>
                                         </div>
-                                        <span className={`text-[10px] font-black uppercase tracking-widest block ${selectedCriterio === "OBRIGATÓRIO" ? "text-amber-100" : "text-slate-400"}`}>Obrigatórios</span>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest block ${selectedCriterio === "OBRIGATÓRIO" ? "text-slate-900/80" : "text-slate-600"}`}>Obrigatórios</span>
                                         <span className="text-2xl font-black tracking-tight leading-none mt-1 block">{configs.transparencia_pntp_obrigatorios}</span>
-                                        <span className={`text-[8px] font-black uppercase tracking-widest mt-3 flex items-center gap-1.5 ${selectedCriterio === "OBRIGATÓRIO" ? "text-white" : "text-amber-600"}`}>
+                                        <span className={`text-[8px] font-black uppercase tracking-widest mt-3 flex items-center gap-1.5 ${selectedCriterio === "OBRIGATÓRIO" ? "text-slate-900" : "text-slate-800"}`}>
                                             <Check size={10} /> {selectedCriterio === "OBRIGATÓRIO" ? "FILTRO ATIVO" : "CLIQUE PARA FILTRAR"}
                                         </span>
                                     </button>
@@ -412,21 +412,21 @@ export default function TransparenciaPage() {
                                         onClick={() => setSelectedCriterio(selectedCriterio === "RECOMENDADO" ? "TODOS" : "RECOMENDADO")}
                                         className={`p-5 rounded-[2rem] border text-left transition-all duration-300 relative overflow-hidden group ${
                                             selectedCriterio === "RECOMENDADO"
-                                                ? "bg-gradient-to-br from-[#cca300] to-[#997a00] text-white border-transparent shadow-xl shadow-[#cca300]/20"
-                                                : "bg-blue-50/50 hover:bg-blue-50 hover:border-blue-200 border-blue-100 text-slate-900 shadow-sm"
+                                                ? "bg-[#01b0ef] text-white border-transparent shadow-xl shadow-[#01b0ef]/25"
+                                                : "bg-[#e6f8ff]/60 hover:bg-[#e6f8ff] hover:border-[#01b0ef]/40 border-[#01b0ef]/20 text-slate-900 shadow-sm"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedCriterio === "RECOMENDADO" ? "bg-white/20" : "bg-blue-100 text-blue-600"}`}>
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedCriterio === "RECOMENDADO" ? "bg-white/20 text-white" : "bg-[#e6f8ff] text-[#01b0ef]"}`}>
                                                 <Sparkles size={20} />
                                             </div>
-                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg ${selectedCriterio === "RECOMENDADO" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-700"}`}>
+                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg ${selectedCriterio === "RECOMENDADO" ? "bg-[#fdb913] text-slate-900" : "bg-[#01b0ef]/15 text-[#01b0ef]"}`}>
                                                 BOAS PRÁTICAS
                                             </span>
                                         </div>
-                                        <span className={`text-[10px] font-black uppercase tracking-widest block ${selectedCriterio === "RECOMENDADO" ? "text-blue-100" : "text-slate-400"}`}>Recomendados</span>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest block ${selectedCriterio === "RECOMENDADO" ? "text-white/90" : "text-slate-500"}`}>Recomendados</span>
                                         <span className="text-2xl font-black tracking-tight leading-none mt-1 block">{configs.transparencia_pntp_recomendados}</span>
-                                        <span className={`text-[8px] font-black uppercase tracking-widest mt-3 flex items-center gap-1.5 ${selectedCriterio === "RECOMENDADO" ? "text-white" : "text-blue-650"}`}>
+                                        <span className={`text-[8px] font-black uppercase tracking-widest mt-3 flex items-center gap-1.5 ${selectedCriterio === "RECOMENDADO" ? "text-white" : "text-[#01b0ef]"}`}>
                                             <Check size={10} /> {selectedCriterio === "RECOMENDADO" ? "FILTRO ATIVO" : "CLIQUE PARA FILTRAR"}
                                         </span>
                                     </button>
@@ -443,24 +443,24 @@ export default function TransparenciaPage() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.15 }}
-                    className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-xl shadow-slate-200/40 mb-8"
+                    className="bg-white rounded-[2.5rem] p-8 border border-sky-100 shadow-xl shadow-[#01b0ef]/10 mb-8"
                 >
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-sky-100">
                         <div className="flex items-center gap-3">
-                            <span className="p-2 rounded-xl bg-[#fff112]/20 text-[#8c6f00]">
+                            <span className="p-2 rounded-xl bg-[#fdb913] text-slate-900">
                                 <LayoutGrid size={20} />
                             </span>
                             <div>
-                                <h4 className="text-xs font-black uppercase tracking-widest text-slate-800">Navegue por Dimensão Temática</h4>
-                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Clique em uma dimensão para filtrar e focar nos seus módulos</p>
+                                <h4 className="text-xs font-black uppercase tracking-widest text-slate-900">Navegue por Dimensão Temática</h4>
+                                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">Clique em uma dimensão para filtrar e focar nos seus módulos</p>
                             </div>
                         </div>
                         <button
                             onClick={() => setSelectedCategory("TODAS")}
                             className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${
                                 selectedCategory === "TODAS"
-                                    ? "bg-slate-950 border-transparent text-white shadow-lg"
-                                    : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
+                                    ? "bg-[#01b0ef] border-transparent text-white shadow-lg shadow-[#01b0ef]/25"
+                                    : "bg-[#f4fbff] border-sky-100 hover:bg-[#e6f8ff] text-slate-800"
                             }`}
                         >
                             Ver Todas as Áreas
@@ -477,20 +477,20 @@ export default function TransparenciaPage() {
                                     onClick={() => handleCategorySelect(cat.tituloCategoria)}
                                     className={`p-5 rounded-[1.8rem] border text-left flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
                                         isSelected
-                                            ? "bg-gradient-to-br from-[#cca300] to-[#997a00] text-white border-transparent shadow-xl shadow-[#cca300]/25"
-                                            : "bg-slate-50/50 hover:bg-white border-slate-200/60 hover:border-[#cca300]/30 text-slate-855 hover:shadow-lg hover:shadow-slate-100"
+                                            ? "bg-[#fdb913] text-slate-900 border-transparent shadow-xl shadow-[#fdb913]/25"
+                                            : "bg-[#f4fbff] hover:bg-white border-sky-100 hover:border-[#01b0ef]/40 text-slate-900 hover:shadow-lg hover:shadow-[#01b0ef]/10"
                                     }`}
                                 >
                                     <div className="flex items-center justify-between w-full mb-6">
-                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${isSelected ? "bg-white/20" : "bg-[#fff112]/20 text-[#cca300]"}`}>
+                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${isSelected ? "bg-slate-900 text-[#fdb913]" : "bg-[#e6f8ff] text-[#01b0ef]"}`}>
                                             <cat.icon size={16} />
                                         </div>
-                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded ${isSelected ? "bg-white/20 text-white" : "bg-slate-200/70 text-slate-600"}`}>
+                                        <span className={`text-[8px] font-black px-2 py-0.5 rounded ${isSelected ? "bg-slate-900/10 text-slate-900" : "bg-[#fff4d4] text-slate-900"}`}>
                                             {countItems} {countItems === 1 ? "MÓDULO" : "MÓDULOS"}
                                         </span>
                                     </div>
                                     <div>
-                                        <span className={`text-[8px] font-black uppercase tracking-widest ${isSelected ? "text-yellow-100" : "text-[#8c6f00]"} block mb-1`}>
+                                        <span className={`text-[8px] font-black uppercase tracking-widest ${isSelected ? "text-slate-900/80" : "text-[#01b0ef]"} block mb-1`}>
                                             ÁREA {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                                         </span>
                                         <h5 className="text-[10px] font-black uppercase tracking-tight leading-snug line-clamp-2">
@@ -504,11 +504,11 @@ export default function TransparenciaPage() {
                 </motion.div>
 
                 {/* 4. Barra de Busca */}
-                <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-slate-100/80 border border-slate-100 mb-12">
+                <div className="bg-white rounded-[2rem] p-6 shadow-xl shadow-[#01b0ef]/10 border border-sky-100 mb-12">
                     <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                         {/* Campo de Pesquisa */}
                         <div className="flex-1 relative group">
-                            <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#cca300] transition-colors">
+                            <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#01b0ef] transition-colors">
                                 <Search size={20} />
                             </div>
                             <input 
@@ -516,12 +516,12 @@ export default function TransparenciaPage() {
                                 placeholder="Busque pelo nome do módulo, termo ou descrição (ex: 'folha', 'diárias', 'obras')..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-16 pr-12 py-5 text-xs font-bold placeholder:text-slate-300 outline-none focus:ring-4 focus:ring-[#cca300]/5 focus:bg-white focus:border-[#cca300]/30 transition-all shadow-inner"
+                                className="w-full bg-[#f4fbff] border border-sky-100 rounded-2xl pl-16 pr-12 py-5 text-xs font-bold placeholder:text-slate-400 outline-none focus:ring-4 focus:ring-[#01b0ef]/15 focus:bg-white focus:border-[#01b0ef] transition-all shadow-inner"
                             />
                             {searchTerm && (
                                 <button 
                                     onClick={() => setSearchTerm("")}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-slate-400 hover:text-slate-800 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-slate-500 hover:text-slate-900 transition-colors"
                                 >
                                     LIMPAR
                                 </button>
@@ -529,7 +529,7 @@ export default function TransparenciaPage() {
                         </div>
 
                         {/* Dropdown Auxiliar */}
-                        <div className="lg:w-80 relative flex items-center bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus-within:ring-4 focus-within:ring-[#cca300]/5 focus-within:bg-white focus-within:border-[#cca300]/30 transition-all">
+                        <div className="lg:w-80 relative flex items-center bg-[#f4fbff] border border-sky-100 rounded-2xl px-5 py-4 focus-within:ring-4 focus-within:ring-[#01b0ef]/15 focus-within:bg-white focus-within:border-[#01b0ef] transition-all">
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -551,7 +551,7 @@ export default function TransparenciaPage() {
                             <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Filtros Ativos:</span>
                                 {selectedCriterio !== "TODOS" && (
-                                    <span className="flex items-center gap-1 bg-[#fff112]/20 border border-[#cca300]/25 text-[#8c6f00] px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider">
+                                    <span className="flex items-center gap-1 bg-[#fdb913]/20 border border-[#fdb913]/25 text-slate-900 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider">
                                         Rigor: {selectedCriterio}
                                     </span>
                                 )}
@@ -602,10 +602,10 @@ export default function TransparenciaPage() {
                                         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 border-b border-slate-100 pb-6">
                                             <div className="max-w-3xl">
                                                 <motion.div variants={itemVariants} className="flex items-center gap-4 mb-3">
-                                                    <span className="px-4 py-1.5 bg-slate-950 text-white rounded-full text-[9px] font-black uppercase tracking-[0.25em] shadow-lg shadow-slate-950/20">
+                                                    <span className="px-4 py-1.5 bg-[#01b0ef] text-white rounded-full text-[9px] font-black uppercase tracking-[0.25em] shadow-md shadow-[#01b0ef]/20">
                                                         ÁREA TEMÁTICA {catIdx + 1 < 10 ? `0${catIdx + 1}` : catIdx + 1}
                                                     </span>
-                                                    <div className="h-0.5 w-10 bg-[#cca300] rounded-full" />
+                                                    <div className="h-0.5 w-10 bg-[#fdb913] rounded-full" />
                                                 </motion.div>
                                                 <motion.h2 variants={itemVariants} className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase mb-2 leading-none">
                                                     {categoria.tituloCategoria}
@@ -616,7 +616,7 @@ export default function TransparenciaPage() {
                                             </div>
                                             <motion.div variants={itemVariants}>
                                                 <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100 text-[9px] font-black uppercase tracking-wider text-slate-500 shadow-inner">
-                                                    <FileSearch size={12} className="text-[#cca300]" /> {categoria.modulos.length} {categoria.modulos.length === 1 ? "Módulo" : "Módulos"}
+                                                    <FileSearch size={12} className="text-[#fdb913]" /> {categoria.modulos.length} {categoria.modulos.length === 1 ? "Módulo" : "Módulos"}
                                                 </div>
                                             </motion.div>
                                         </div>
@@ -642,51 +642,51 @@ export default function TransparenciaPage() {
                                                             href={finalHref} 
                                                             target={isExternal ? "_blank" : undefined}
                                                             rel={isExternal ? "noopener noreferrer" : undefined}
-                                                            className="group relative flex flex-col h-full bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_20px_50px_rgba(30,41,59,0.08)] hover:border-[#cca300]/10 transition-all duration-500 overflow-hidden"
+                                                            className="group relative flex flex-col h-full bg-white rounded-[2rem] border border-sky-100 shadow-sm hover:shadow-xl hover:shadow-[#01b0ef]/15 hover:border-[#01b0ef]/40 transition-all duration-500 overflow-hidden"
                                                         >
                                                             {/* Header do Card (Gradiente de Identificação) */}
                                                             <div className={`h-20 bg-gradient-to-br ${m.cor} relative p-5 flex items-start justify-between`}>
-                                                                <div className="absolute inset-0 bg-slate-950/10 backdrop-blur-[1px]" />
+                                                                <div className="absolute inset-0 bg-white/5" />
                                                                 <div className="absolute top-0 right-0 p-5 opacity-0 group-hover:opacity-10 group-hover:scale-125 transition-all duration-700">
                                                                     <m.icon size={80} strokeWidth={1} />
                                                                 </div>
-                                                                <span className={`relative z-10 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border shadow-inner backdrop-blur-md ${
+                                                                <span className={`relative z-10 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border shadow-xs ${
                                                                     m.tipoCriterio === "ESSENCIAL" 
-                                                                        ? "bg-red-500/20 border-red-400/30 text-red-100" 
+                                                                        ? "bg-white/95 border-red-200 text-red-700" 
                                                                         : m.tipoCriterio === "OBRIGATÓRIO"
-                                                                        ? "bg-amber-500/20 border-amber-400/30 text-amber-100"
-                                                                        : "bg-blue-500/20 border-blue-400/30 text-blue-100"
+                                                                        ? "bg-[#fdb913] border-[#fdb913] text-slate-900"
+                                                                        : "bg-white/95 border-[#01b0ef]/30 text-[#01b0ef]"
                                                                 }`}>
                                                                     {m.tipoCriterio}
                                                                 </span>
-                                                                <span className="relative z-10 px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest text-white border border-white/20 shadow-sm">
+                                                                <span className="relative z-10 px-2.5 py-1 bg-white/25 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest text-white border border-white/30 shadow-sm">
                                                                     {m.badge}
                                                                 </span>
                                                             </div>
 
                                                             {/* Ícone Flutuante */}
                                                             <div className="absolute top-10 left-6 transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:scale-105">
-                                                                <div className="w-14 h-14 bg-white rounded-2xl shadow-lg shadow-slate-200/50 flex items-center justify-center border border-slate-50 group-hover:shadow-[#cca300]/10 transition-all">
-                                                                    <m.icon className="text-slate-900 group-hover:text-[#cca300] transition-colors" size={24} />
+                                                                <div className="w-14 h-14 bg-white rounded-2xl shadow-lg shadow-[#01b0ef]/15 flex items-center justify-center border border-sky-100 group-hover:border-[#fdb913] transition-all">
+                                                                    <m.icon className="text-[#01b0ef] group-hover:text-slate-900 transition-colors" size={24} />
                                                                 </div>
                                                             </div>
 
                                                             {/* Conteúdo do Card */}
                                                             <div className="px-6 pt-9 pb-6 flex flex-col flex-1 bg-white">
-                                                                <h3 className="text-xs font-black text-slate-900 group-hover:text-[#cca300] transition-colors tracking-tight leading-snug mb-3 uppercase mt-2">
+                                                                <h3 className="text-xs font-black text-slate-900 group-hover:text-[#01b0ef] transition-colors tracking-tight leading-snug mb-3 uppercase mt-2">
                                                                     {highlightText(m.titulo, searchTerm)}
                                                                 </h3>
-                                                                <p className="text-slate-400 text-[9px] font-semibold uppercase tracking-wider leading-relaxed mb-8 opacity-90 grow line-clamp-3">
+                                                                <p className="text-slate-500 text-[9px] font-semibold uppercase tracking-wider leading-relaxed mb-8 grow line-clamp-3">
                                                                     {highlightText(m.desc, searchTerm)}
                                                                 </p>
 
                                                                 {/* Footer de Acesso */}
-                                                                <div className="pt-4 border-t border-slate-100 mt-auto flex items-center justify-between">
-                                                                    <span className="text-[8px] font-black uppercase tracking-[0.25em] text-[#cca300] opacity-0 group-hover:opacity-100 -translate-x-3 group-hover:translate-x-0 transition-all duration-300">
+                                                                <div className="pt-4 border-t border-sky-50 mt-auto flex items-center justify-between">
+                                                                    <span className="text-[8px] font-black uppercase tracking-[0.25em] text-[#01b0ef] opacity-0 group-hover:opacity-100 -translate-x-3 group-hover:translate-x-0 transition-all duration-300">
                                                                         ACESSAR BASE
                                                                     </span>
-                                                                    <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 transition-all duration-350 shadow-inner group-hover:rotate-[360deg]">
-                                                                        <ArrowRight size={14} className="text-slate-400 group-hover:text-white transition-colors" />
+                                                                    <div className="w-8 h-8 rounded-xl bg-[#f4fbff] flex items-center justify-center group-hover:bg-[#01b0ef] transition-all duration-350 shadow-inner group-hover:rotate-[360deg]">
+                                                                        <ArrowRight size={14} className="text-[#01b0ef] group-hover:text-white transition-colors" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -727,7 +727,7 @@ export default function TransparenciaPage() {
                                     setSelectedCriterio("TODOS");
                                     setSelectedCategory("TODAS");
                                 }}
-                                className="bg-slate-950 hover:bg-slate-900 text-white px-6 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg active:scale-95"
+                                className="bg-[#01b0ef] hover:bg-[#0098d4] text-white px-6 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg active:scale-95"
                             >
                                 Limpar Todos os Filtros
                             </button>
@@ -736,41 +736,42 @@ export default function TransparenciaPage() {
                 </div>
             </div>
 
-            {/* Hub Footer - Ultra Premium */}
-            <div className="relative py-24 overflow-hidden bg-slate-950 border-t border-slate-900">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#cca300]/10 rounded-full blur-[120px]" />
+            {/* Hub Footer - Bright Brand */}
+            <div className="relative py-24 overflow-hidden bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-t-4 border-[#fdb913] text-white">
+                <div className="absolute inset-0 opacity-25 pointer-events-none">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/25 rounded-full blur-[120px]" />
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <div className="flex items-center gap-4 mb-8">
-                                <Landmark className="text-white" size={40} />
-                                <div className="h-8 w-px bg-white/15" />
+                                <div className="w-12 h-12 rounded-2xl bg-[#fdb913] text-slate-900 flex items-center justify-center shadow-lg">
+                                    <Landmark size={26} />
+                                </div>
+                                <div className="h-8 w-px bg-white/30" />
                                 <div className="text-left">
                                     <div className="text-white font-black text-md uppercase tracking-[0.25em] leading-none mb-1">Portal da Transparência</div>
-                                    <div className="text-white/30 text-[9px] uppercase font-bold tracking-[0.2em]">{MUNICIPIO.nome} - {MUNICIPIO.uf}</div>
+                                    <div className="text-white/85 text-[9px] uppercase font-bold tracking-[0.2em]">{MUNICIPIO.nome} - {MUNICIPIO.uf}</div>
                                 </div>
                             </div>
-                            <h4 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase mb-6 leading-tight italic">
-                                Transparência Ativa e <br/> <span className="text-cyan-400">Controle Social do Cidadão.</span>
+                            <h4 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase mb-6 leading-tight">
+                                Transparência Ativa e <br/> <span className="inline-block mt-1 px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900">Controle Social do Cidadão.</span>
                             </h4>
-                            <p className="text-white/40 text-[10px] font-semibold uppercase tracking-[0.2em] leading-relaxed max-w-lg mb-8 italic border-l border-white/10 pl-6">
+                            <p className="text-white/95 text-[10px] font-semibold uppercase tracking-[0.18em] leading-relaxed max-w-lg mb-8 border-l-2 border-[#fdb913] pl-6">
                                 Em cumprimento à Lei Federal nº 12.527/2011 (Lei de Acesso à Informação) e ao Programa Nacional de Transparência Pública, garantimos a integridade e atualização dos atos oficiais municipais.
                             </p>
                             <div className="flex gap-4">
-                                <Link href="/contato" className="px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest text-white hover:text-white transition-all active:scale-95 shadow-md">Suporte e Dúvidas</Link>
+                                <Link href="/contato" className="px-6 py-3.5 bg-[#fdb913] hover:bg-[#e5a60d] rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-900 transition-all active:scale-95 shadow-md">Suporte e Dúvidas</Link>
                             </div>
                         </div>
 
-                        <div className="bg-white/5 rounded-[2.5rem] p-10 border border-white/5 backdrop-blur-md relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-700">
+                        <div className="bg-white/15 rounded-[2.5rem] p-10 border border-white/30 backdrop-blur-md relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-15 group-hover:rotate-12 transition-transform duration-700">
                                 <ShieldCheck size={140} className="text-white" />
                             </div>
-                            <h5 className="text-[10px] font-black text-white uppercase tracking-[0.25em] mb-8 flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Certificações de Acesso
+                            <h5 className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit uppercase tracking-[0.25em] mb-8 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-slate-900 animate-pulse" /> Certificações de Acesso
                             </h5>
                             <div className="grid grid-cols-2 gap-6">
                                 {[
@@ -779,22 +780,22 @@ export default function TransparenciaPage() {
                                     { label: "AUDITOR", val: "TCE/RN" },
                                     { label: "TIPO DADOS", val: "DADOS ABERTOS" },
                                 ].map((stat) => (
-                                    <div key={stat.label} className="border-l border-white/10 pl-5 group/stat cursor-default">
-                                        <p className="text-[8px] font-black text-white/20 uppercase tracking-widest mb-0.5 group-hover/stat:text-cyan-400 transition-colors">{stat.label}</p>
-                                        <p className="text-[11px] font-black text-white/50 group-hover/stat:text-white transition-colors uppercase tracking-widest">{stat.val}</p>
+                                    <div key={stat.label} className="border-l-2 border-[#fdb913] pl-5 group/stat cursor-default">
+                                        <p className="text-[8px] font-black text-white/85 uppercase tracking-widest mb-0.5">{stat.label}</p>
+                                        <p className="text-[11px] font-black text-white uppercase tracking-widest">{stat.val}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
                     
-                    <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                        <p className="text-white/20 text-[9px] font-bold uppercase tracking-[0.25em]">
+                    <div className="mt-20 pt-10 border-t border-white/25 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <p className="text-white/90 text-[9px] font-bold uppercase tracking-[0.25em]">
                             © {new Date().getFullYear()} PREFEITURA DE {MUNICIPIO.nome.toUpperCase()}/{MUNICIPIO.uf} • CNPJ: {MUNICIPIO.cnpj}
                         </p>
                         <div className="flex gap-8">
                             {["Privacidade", "Termos", "Ouvidoria"].map(l => (
-                                <Link key={l} href="#" className="text-white/20 hover:text-white transition-colors text-[8px] font-black uppercase tracking-widest">{l}</Link>
+                                <Link key={l} href="#" className="text-white/85 hover:text-[#fdb913] transition-colors text-[8px] font-black uppercase tracking-widest">{l}</Link>
                             ))}
                         </div>
                     </div>

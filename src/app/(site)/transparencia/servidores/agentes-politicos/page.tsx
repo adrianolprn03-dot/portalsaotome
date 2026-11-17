@@ -4,7 +4,7 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
 export default function AgentesPoliticosPage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Agentes Políticos"
                 subtitle="Remuneração e subsídios do Prefeito, Vice-Prefeito e Secretários Municipais."

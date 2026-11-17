@@ -17,7 +17,7 @@ export default async function TransparenciaUnidadesSaudePage() {
     const unidades = await getUnidadesSaudeAtivas();
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Unidades de Saúde, Serviços e Equipes"
                 subtitle="Transparência da Rede Municipal de Saúde (SUS): horários de atendimento, serviços ofertados, especialidades, médicos, enfermeiros, dentistas e locais (Cartilha PNTP 2026 - Item 18.2)."

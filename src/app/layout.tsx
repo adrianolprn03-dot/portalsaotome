@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     rel="stylesheet"
                 />
             </head>
-            <body className="font-sans antialiased bg-[#F6F9FC] text-slate-900 selection:bg-primary-500 selection:text-white">
+            <body className="font-sans antialiased bg-[#f4fbff] text-slate-900 selection:bg-[#01b0ef] selection:text-white">
                 <Providers>
                     <a href="#conteudo-principal" className="skip-link">
                         Ir para o conteúdo principal

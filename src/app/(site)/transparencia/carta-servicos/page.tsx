@@ -19,7 +19,7 @@ export default async function CartaServicosTransparencyPage() {
     });
 
     return (
-        <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-gray-50">
             <PageHeader
                 title="Carta de Serviços ao Cidadão"
                 subtitle="O seu guia para entender como acessar e utilizar os serviços públicos municipais conforme as diretrizes do PNTP 2026."

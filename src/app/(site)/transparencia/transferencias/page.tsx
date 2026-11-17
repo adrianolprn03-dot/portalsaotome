@@ -167,7 +167,7 @@ export default function TransferenciasPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#fcfdfe] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Transferências e Repasses"
                 subtitle="Acompanhe os recursos fiscais, constitucionais e legais repassados pela União e pelo Estado ao nosso município."
@@ -253,7 +253,7 @@ export default function TransferenciasPage() {
                                 href="https://portaldatransparencia.gov.br/transferencias/por-municipio?codigoIbge=2412005" 
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-16 flex items-center justify-between bg-slate-900 hover:bg-emerald-600 text-white font-black px-8 rounded-2xl transition-all duration-500 shadow-xl shadow-slate-200 text-[10px] uppercase tracking-widest group/btn"
+                                className="h-16 flex items-center justify-between bg-[#01b0ef] hover:bg-[#0098d4] text-white font-black px-8 rounded-2xl transition-all duration-300 shadow-lg shadow-[#01b0ef]/25 text-[10px] uppercase tracking-widest group/btn"
                             >
                                 Acessar Portal CGU (São Tomé • 2412005) <FaExternalLinkAlt className="group-hover/btn:rotate-12 transition-transform" />
                             </a>
@@ -293,13 +293,13 @@ export default function TransferenciasPage() {
                         
                         <div className="relative z-10 flex flex-col h-full">
                             <div className="flex items-center gap-4 mb-8">
-                                <div className="p-4 bg-amber-500 text-white rounded-2xl shadow-xl shadow-amber-500/20">
+                                <div className="p-4 bg-[#fdb913] text-slate-900 rounded-2xl shadow-lg shadow-[#fdb913]/25">
                                     <FaSchool size={24} />
                                 </div>
-                                <h3 className="font-black text-lg text-slate-800 uppercase tracking-tighter">FNDE Educ.</h3>
+                                <h3 className="font-black text-lg text-slate-900 uppercase tracking-tighter">FNDE Educ.</h3>
                             </div>
                             
-                            <p className="text-xs text-slate-500 mb-10 flex-1 font-bold italic leading-relaxed">
+                            <p className="text-xs text-slate-600 mb-10 flex-1 font-bold italic leading-relaxed">
                                 Merenda, Transporte Escolar, PDDE e recursos do Caminho da Escola.
                             </p>
                             
@@ -307,7 +307,7 @@ export default function TransferenciasPage() {
                                 href="https://www.fnde.gov.br/liberacaoderecursos/" 
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="h-14 flex items-center justify-between bg-white hover:bg-amber-50 text-slate-700 hover:text-amber-700 font-black px-6 rounded-2xl transition-all border border-slate-100 hover:border-amber-200 text-[9px] uppercase tracking-widest"
+                                className="h-14 flex items-center justify-between bg-[#f4fbff] hover:bg-[#fdb913] text-slate-900 font-black px-6 rounded-2xl transition-all border border-[#fdb913]/40 text-[9px] uppercase tracking-widest"
                             >
                                 Acessar FNDE <FaExternalLinkAlt />
                             </a>
@@ -318,17 +318,17 @@ export default function TransferenciasPage() {
                 {/* Emendas e Alerta Legal */}
                 <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Emendas Parlamentares - Destaque */}
-                    <div className="lg:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 rounded-[2.5rem] p-10 lg:p-12 text-white shadow-2xl shadow-indigo-900/10 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform">
+                    <div className="lg:col-span-2 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-10 lg:p-12 text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 p-12 opacity-15 group-hover:scale-110 transition-transform">
                             <FaMoneyCheck size={160} />
                         </div>
                         <div className="relative z-10">
-                            <div className="flex items-center gap-2 mb-6">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-[10px] font-black text-indigo-200 uppercase tracking-[0.3em]">Painel de Investimentos Externos</span>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 mb-6">
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-900 animate-pulse" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.25em]">Painel de Investimentos Externos</span>
                             </div>
                             <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Emendas Parlamentares</h3>
-                            <p className="text-indigo-100/60 leading-relaxed font-bold italic text-sm mb-10 max-w-2xl">
+                            <p className="text-white/95 leading-relaxed font-bold italic text-sm mb-10 max-w-2xl">
                                 Detalhamento dos recursos indicados por Deputados e Senadores para aplicação direta no município de ${MUNICIPIO.nome}.
                             </p>
                             <div className="flex flex-wrap gap-4">
@@ -336,13 +336,13 @@ export default function TransferenciasPage() {
                                     href="https://portaldatransparencia.gov.br/emendas/consulta?codigoIbge=2412005" 
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="h-16 inline-flex items-center gap-4 bg-white text-slate-900 px-10 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-50 transition-all shadow-xl group/btn"
+                                    className="h-16 inline-flex items-center gap-4 bg-[#fdb913] text-slate-900 px-10 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#e5a60d] transition-all shadow-xl group/btn"
                                 >
                                     Ver Painel Federal (IBGE 2412005) <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
                                 </a>
                                 <Link 
                                     href="/transparencia/emendas" 
-                                    className="h-16 inline-flex items-center gap-4 bg-indigo-500/20 backdrop-blur-md text-white px-10 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500/40 transition-all border border-indigo-400/20"
+                                    className="h-16 inline-flex items-center gap-4 bg-white text-[#01b0ef] px-10 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#f4fbff] transition-all shadow-md"
                                 >
                                     Filtro Local Municipal
                                 </Link>

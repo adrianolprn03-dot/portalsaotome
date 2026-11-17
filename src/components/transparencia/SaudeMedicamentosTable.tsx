@@ -66,7 +66,7 @@ export default function SaudeMedicamentosTable({ medicamentos }: { medicamentos:
                         onClick={() => setComponente("todos")}
                         className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                             componente === "todos"
-                                ? "bg-[#003366] text-white"
+                                ? "bg-[#01b0ef] text-white"
                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                         }`}
                     >
@@ -81,7 +81,7 @@ export default function SaudeMedicamentosTable({ medicamentos }: { medicamentos:
                                 componente === comp
                                     ? comp === "Especializado (CEAF)"
                                         ? "bg-indigo-700 text-white"
-                                        : "bg-[#003366] text-white"
+                                        : "bg-[#01b0ef] text-white"
                                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                             }`}
                         >
@@ -150,7 +150,7 @@ export default function SaudeMedicamentosTable({ medicamentos }: { medicamentos:
                                                     className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                                                         isCeaf
                                                             ? "bg-indigo-100 text-indigo-800"
-                                                            : "bg-blue-50 text-[#003366]"
+                                                            : "bg-blue-50 text-[#01b0ef]"
                                                     }`}
                                                 >
                                                     {isCeaf ? "Alto Custo (CEAF)" : comp}

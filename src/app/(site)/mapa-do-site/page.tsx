@@ -70,7 +70,7 @@ const sitemapData = [
 
 export default function MapaDoSitePage() {
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Mapa do Site"
                 subtitle="Índice completo para navegação estruturada por todas as seções do portal institucional de São Tomé."
@@ -90,10 +90,10 @@ export default function MapaDoSitePage() {
                             className="bg-white rounded-3xl border border-slate-200/80 shadow-civic-sm p-8"
                         >
                             <div className="flex items-center gap-3.5 mb-6 pb-4 border-b border-slate-100">
-                                <div className="w-11 h-11 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center">
+                                <div className="w-11 h-11 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center">
                                     <secao.icon size={22} />
                                 </div>
-                                <h2 className="font-heading text-xl font-extrabold text-[#071E3D]">
+                                <h2 className="font-heading text-xl font-extrabold text-slate-900">
                                     {secao.secao}
                                 </h2>
                             </div>
@@ -103,14 +103,14 @@ export default function MapaDoSitePage() {
                                     <li key={link.href}>
                                         <Link
                                             href={link.href}
-                                            className="flex items-center justify-between px-4 py-3 bg-[#F6F9FC] rounded-xl border border-slate-200/60 hover:border-primary-300 hover:bg-primary-50/60 text-slate-700 hover:text-primary-700 transition-all group"
+                                            className="flex items-center justify-between px-4 py-3 bg-[#f4fbff] rounded-xl border border-[#01b0ef]/15 hover:border-[#01b0ef] hover:bg-[#01b0ef] text-slate-700 hover:text-white transition-all group"
                                         >
                                             <span className="text-xs font-semibold">
                                                 {link.label}
                                             </span>
                                             <ChevronRight
                                                 size={14}
-                                                className="text-slate-400 group-hover:text-primary-600 group-hover:translate-x-0.5 transition-all shrink-0"
+                                                className="text-[#01b0ef] group-hover:text-[#fdb913] group-hover:translate-x-0.5 transition-all shrink-0"
                                             />
                                         </Link>
                                     </li>
@@ -120,15 +120,14 @@ export default function MapaDoSitePage() {
                     ))}
                 </div>
 
-                <div className="mt-12 bg-[#071E3D] rounded-3xl p-8 md:p-10 text-center text-white shadow-civic-xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 text-secondary-400 flex items-center justify-center mx-auto mb-4">
+                <div className="mt-12 bg-gradient-to-r from-[#01b0ef] to-[#0098d4] rounded-3xl p-8 md:p-10 text-center text-white shadow-civic-xl relative overflow-hidden border-b-4 border-[#fdb913]">
+                    <div className="w-12 h-12 rounded-2xl bg-[#fdb913] text-slate-900 flex items-center justify-center mx-auto mb-4 shadow-sm">
                         <Accessibility size={24} />
                     </div>
                     <h3 className="font-heading text-xl font-extrabold mb-2">
                         Compromisso com a Acessibilidade Digital (e-MAG)
                     </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed max-w-2xl mx-auto mb-6">
+                    <p className="text-white/95 text-sm leading-relaxed max-w-2xl mx-auto mb-6">
                         Utilize a barra superior de acessibilidade para alternar o alto contraste, redimensionar fontes ou navegar por atalhos de teclado.
                     </p>
                     <Link

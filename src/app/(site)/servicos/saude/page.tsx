@@ -44,7 +44,7 @@ export default async function ServicosSaudePage() {
     ];
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Serviços Municipais de Saúde (SUS)"
                 subtitle="Atendimento médico, odontológico, imunização, pronto atendimento 24h, assistência farmacêutica e regulação em saúde em São Tomé/RN."
@@ -65,16 +65,16 @@ export default async function ServicosSaudePage() {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-[#1254A3]/40 transition group flex flex-col justify-between gap-3"
+                                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-[#01b0ef]/40 transition group flex flex-col justify-between gap-3"
                             >
                                 <div className="space-y-2">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center group-hover:bg-[#1254A3] group-hover:text-white transition">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center group-hover:bg-[#01b0ef] group-hover:text-white transition">
                                         <Icon size={18} />
                                     </div>
                                     <h3 className="font-bold text-slate-900 text-sm">{item.titulo}</h3>
                                     <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
                                 </div>
-                                <span className="text-[11px] font-bold text-[#1254A3] uppercase tracking-wider">
+                                <span className="text-[11px] font-bold text-[#01b0ef] uppercase tracking-wider">
                                     Acessar →
                                 </span>
                             </Link>
@@ -85,7 +85,7 @@ export default async function ServicosSaudePage() {
                 {/* Catálogo Completo de Unidades, Serviços e Equipes (PNTP 18.2) */}
                 <div className="space-y-4">
                     <div className="flex items-center gap-2 text-slate-800">
-                        <FaClipboardList className="text-[#1254A3]" />
+                        <FaClipboardList className="text-[#01b0ef]" />
                         <h2 className="text-xl font-black tracking-tight">
                             Rede de Atendimento, Serviços e Profissionais por Unidade
                         </h2>

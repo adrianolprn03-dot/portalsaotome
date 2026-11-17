@@ -40,7 +40,7 @@ const leis = [
 
 export default function SICRegulamentacaoPage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Regulamentação e Leis"
                 subtitle="O arcabouço jurídico que sustenta o seu direito à transparência pública."

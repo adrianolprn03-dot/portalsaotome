@@ -147,7 +147,7 @@ export default function RelatoriosFiscaisPage() {
     );
 
     return (
-        <div className="p-6 max-w-7xl mx-auto font-['Montserrat',sans-serif]">
+        <div className="p-6 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                 <div>
                     <h1 className="text-3xl font-black text-gray-800 uppercase tracking-tighter">Relatórios e Contas</h1>
@@ -160,7 +160,7 @@ export default function RelatoriosFiscaisPage() {
                         setOrigem("file");
                         setModalOpen(true); 
                     }}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-[#0098d4] text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200"
                 >
                     <FaPlus /> Novo Relatório
                 </button>
@@ -243,7 +243,7 @@ export default function RelatoriosFiscaisPage() {
                             type="submit"
                             form="form-relatorio-fiscal"
                             disabled={uploading}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="bg-blue-600 hover:bg-[#0098d4] text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {uploading ? "Aguarde o envio do PDF..." : "Gravar Relatório"}
                         </button>

@@ -181,7 +181,7 @@ export default function SICRelatoriosDesclassificadosPage() {
             <PageHeader
                 title="Rol de Informações Desclassificadas (Últimos 12 Meses)"
                 subtitle="Lista das informações e documentos cujo sigilo expirou ou foi extinto por reavaliação nos últimos 12 (doze) meses (Lei nº 12.527/2011 - Art. 30, I)."
-                icon={<FaLockOpen className="w-8 h-8 text-[#1254A3]" />}
+                icon={<FaLockOpen className="w-8 h-8 text-[#01b0ef]" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
@@ -202,7 +202,7 @@ export default function SICRelatoriosDesclassificadosPage() {
                 {periodoInicio && periodoFim && (
                     <div className="bg-white rounded-2xl border border-gray-200 px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
                         <div className="flex items-center gap-2 text-gray-700 font-semibold">
-                            <FaCalendarCheck className="text-[#1254A3] text-base" />
+                            <FaCalendarCheck className="text-[#01b0ef] text-base" />
                             <span>
                                 Período legal de apuração (últimos 12 meses):{" "}
                                 <strong className="text-gray-900">
@@ -218,7 +218,7 @@ export default function SICRelatoriosDesclassificadosPage() {
                 )}
 
                 {/* Declaração Oficial */}
-                <div className="bg-gradient-to-br from-[#0F172A] via-[#1254A3] to-[#002855] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                <div className="bg-gradient-to-br from-[#0F172A] via-[#01b0ef] to-[#01b0ef] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
                     <div className="absolute right-0 top-0 opacity-10 pointer-events-none">
                         <FaShieldAlt className="w-64 h-64 -mr-10 -mt-10" />
                     </div>
@@ -298,7 +298,7 @@ export default function SICRelatoriosDesclassificadosPage() {
 
                     {loading ? (
                         <div className="p-16 text-center">
-                            <FaSpinner className="animate-spin text-3xl text-[#1254A3] mx-auto mb-2" />
+                            <FaSpinner className="animate-spin text-3xl text-[#01b0ef] mx-auto mb-2" />
                             <p className="text-xs text-gray-500 font-semibold">
                                 Verificando base de informações desclassificadas...
                             </p>
@@ -330,7 +330,7 @@ export default function SICRelatoriosDesclassificadosPage() {
                                 <tbody className="divide-y divide-gray-100">
                                     {filtered.map((item) => (
                                         <tr key={item.id} className="hover:bg-blue-50/30 transition-colors">
-                                            <td className="py-4 px-5 font-mono text-xs font-bold text-[#1254A3] whitespace-nowrap">
+                                            <td className="py-4 px-5 font-mono text-xs font-bold text-[#01b0ef] whitespace-nowrap">
                                                 {item.documentoUrl ? (
                                                     <Link
                                                         href={item.documentoUrl}
@@ -390,14 +390,14 @@ export default function SICRelatoriosDesclassificadosPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Link
                         href="/transparencia/passiva/relatorios/estatisticas"
-                        className="bg-white hover:border-[#1254A3] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
+                        className="bg-white hover:border-[#01b0ef] border border-gray-200 rounded-2xl p-5 flex items-center justify-between gap-4 transition-all group shadow-sm"
                     >
                         <div className="flex items-center gap-4">
-                            <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                            <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                                 <FaChartBar />
                             </div>
                             <div>
-                                <h4 className="font-black text-sm text-gray-900 group-hover:text-[#1254A3]">
+                                <h4 className="font-black text-sm text-gray-900 group-hover:text-[#01b0ef]">
                                     Relatório Estatístico Anual (e-SIC)
                                 </h4>
                                 <p className="text-xs text-gray-500">
@@ -405,7 +405,7 @@ export default function SICRelatoriosDesclassificadosPage() {
                                 </p>
                             </div>
                         </div>
-                        <span className="text-xs font-bold text-[#1254A3]">Acessar →</span>
+                        <span className="text-xs font-bold text-[#01b0ef]">Acessar →</span>
                     </Link>
 
                     <Link

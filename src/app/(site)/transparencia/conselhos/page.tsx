@@ -47,7 +47,7 @@ export default async function ConselhosPage() {
     }));
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Conselhos Municipais e Controle Social"
                 subtitle="Composição atualizada por segmentos, atas de reunião, calendários e regimentos do Conselho Municipal de Saúde (18.6), Conselho do FUNDEB (19.3) e Assistência Social (19.4)."

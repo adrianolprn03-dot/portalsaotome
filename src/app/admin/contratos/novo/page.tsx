@@ -344,7 +344,7 @@ export default function NovoContratoPage() {
                 <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div>
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-                            <FaUserShield className="text-[#1254A3]" /> Fiscais do Contrato e Atos de Designação (PNTP 9.3)
+                            <FaUserShield className="text-[#01b0ef]" /> Fiscais do Contrato e Atos de Designação (PNTP 9.3)
                         </h3>
                         <p className="text-xs text-gray-500">
                             Registre os fiscais designados por portaria, períodos de atuação e eventuais substituições.
@@ -399,7 +399,7 @@ export default function NovoContratoPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddFiscal}
-                                    className="px-3 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-blue-800 shrink-0"
+                                    className="px-3 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] shrink-0"
                                 >
                                     <FaPlus />
                                 </button>
@@ -443,7 +443,7 @@ export default function NovoContratoPage() {
                 <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div>
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-                            <FaFileContract className="text-[#1254A3]" /> Termos Aditivos ao Contrato (PNTP 9.2)
+                            <FaFileContract className="text-[#01b0ef]" /> Termos Aditivos ao Contrato (PNTP 9.2)
                         </h3>
                         <p className="text-xs text-gray-500">
                             Vincule aditivos de valor, vigência ou objeto com número, justificativa e link do documento assinado.
@@ -498,7 +498,7 @@ export default function NovoContratoPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddAditivo}
-                                    className="px-3 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-blue-800 shrink-0"
+                                    className="px-3 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] shrink-0"
                                 >
                                     <FaPlus />
                                 </button>
@@ -541,7 +541,7 @@ export default function NovoContratoPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-2 bg-[#1254A3] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50"
+                        className="flex items-center gap-2 bg-[#01b0ef] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#0098d4] transition-all shadow-sm disabled:opacity-50"
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         <span>Salvar Contrato</span>

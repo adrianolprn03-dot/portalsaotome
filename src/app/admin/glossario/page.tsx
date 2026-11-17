@@ -101,7 +101,7 @@ export default function AdminGlossarioPage() {
                                 </tr>
                             ) : filtered.map((t) => (
                                 <tr key={t.id} className="hover:bg-gray-50 transition-colors group">
-                                    <td className="px-6 py-4 font-black text-[#0088b9] uppercase text-xs tracking-widest">{t.termo}</td>
+                                    <td className="px-6 py-4 font-black text-[#01b0ef] uppercase text-xs tracking-widest">{t.termo}</td>
                                     <td className="px-6 py-4 text-gray-500 line-clamp-2 max-w-md">{t.definicao}</td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

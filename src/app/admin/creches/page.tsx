@@ -335,7 +335,7 @@ export default function AdminCrechesPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                        <FaBabyCarriage className="text-[#1254A3]" />
+                        <FaBabyCarriage className="text-[#01b0ef]" />
                         Gestão de Creches, Critérios e Demanda Escolar (PNTP 19.2)
                     </h1>
                     <p className="text-sm text-gray-500 mt-1">
@@ -346,13 +346,13 @@ export default function AdminCrechesPage() {
                 <div className="flex flex-wrap gap-3">
                     <button
                         onClick={abrirNovaDeclaracao}
-                        className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer"
+                        className="px-4 py-2.5 bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer"
                     >
                         <FaShieldAlt /> Nova Declaração Oficial
                     </button>
                     <button
                         onClick={abrirNovaInscricao}
-                        className="px-4 py-2.5 bg-[#1254A3] hover:bg-blue-800 text-white rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer"
+                        className="px-4 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl font-bold text-sm flex items-center gap-2 transition shadow-sm cursor-pointer"
                     >
                         <FaPlus /> Nova Inscrição na Fila
                     </button>
@@ -378,7 +378,7 @@ export default function AdminCrechesPage() {
                     <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                         Critérios de Priorização (19.2)
                     </span>
-                    <span className="text-2xl font-black text-[#1254A3]">{criterios.length}</span>
+                    <span className="text-2xl font-black text-[#01b0ef]">{criterios.length}</span>
                     <p className="text-xs text-gray-500">Regras oficiais ordenadas por prioridade legal.</p>
                 </div>
 
@@ -461,7 +461,7 @@ export default function AdminCrechesPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                     <div>
                         <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                            <FaListOl className="text-[#1254A3]" /> Critérios de Priorização de Acesso em Creches (PNTP 19.2)
+                            <FaListOl className="text-[#01b0ef]" /> Critérios de Priorização de Acesso em Creches (PNTP 19.2)
                         </h2>
                         <p className="text-xs text-gray-500">
                             Defina a ordem de prioridade legal publicada na aba “Critérios de Prioridade” do portal público.
@@ -589,7 +589,7 @@ export default function AdminCrechesPage() {
                         <button
                             type="button"
                             onClick={handleAdicionarCriterio}
-                            className="w-full py-2 px-3 bg-[#1254A3] hover:bg-blue-800 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                            className="w-full py-2 px-3 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                             <FaPlus /> Incluir
                         </button>
@@ -634,7 +634,7 @@ export default function AdminCrechesPage() {
                             ) : (
                                 fila.map((item) => (
                                     <tr key={item.id} className="hover:bg-gray-50">
-                                        <td className="p-4 font-bold text-[#1254A3]">#{item.posicaoFila}</td>
+                                        <td className="p-4 font-bold text-[#01b0ef]">#{item.posicaoFila}</td>
                                         <td className="p-4 font-mono font-bold">{item.protocoloAnonimizado}</td>
                                         <td className="p-4">{item.iniciaisCrianca}</td>
                                         <td className="p-4">{item.unidadeEscolar}</td>
@@ -702,7 +702,7 @@ export default function AdminCrechesPage() {
                             type="submit"
                             form="form-creche-declaracao"
                             disabled={salvando}
-                            className="px-5 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold hover:bg-amber-600 disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2 bg-[#fdb913] text-slate-900 rounded-xl text-sm font-bold hover:bg-[#e5a60d] disabled:opacity-50 cursor-pointer"
                         >
                             {salvando ? "Salvando..." : editDecId ? "Atualizar Declaração" : "Publicar Declaração"}
                         </button>
@@ -808,7 +808,7 @@ export default function AdminCrechesPage() {
                             type="submit"
                             form="form-creche-inscricao"
                             disabled={salvando}
-                            className="px-5 py-2 bg-[#1254A3] text-white rounded-xl text-sm font-bold hover:bg-blue-800 disabled:opacity-50 cursor-pointer"
+                            className="px-5 py-2 bg-[#01b0ef] text-white rounded-xl text-sm font-bold hover:bg-[#0098d4] disabled:opacity-50 cursor-pointer"
                         >
                             {salvando ? "Salvando..." : editFilaId ? "Atualizar Inscrição" : "Salvar Inscrição"}
                         </button>

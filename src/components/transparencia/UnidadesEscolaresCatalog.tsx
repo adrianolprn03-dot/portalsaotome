@@ -191,7 +191,7 @@ export default function UnidadesEscolaresCatalog({
                             onClick={() => setTipoFiltro(tab.id as any)}
                             className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition ${
                                 tipoFiltro === tab.id
-                                    ? "bg-[#1254A3] text-white"
+                                    ? "bg-[#01b0ef] text-white"
                                     : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                             }`}
                         >
@@ -219,11 +219,11 @@ export default function UnidadesEscolaresCatalog({
                         >
                             <div className="space-y-3">
                                 <div className="flex items-start justify-between gap-2">
-                                    <div className="w-11 h-11 rounded-2xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                                    <div className="w-11 h-11 rounded-2xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                                         <FaGraduationCap size={20} />
                                     </div>
                                     <div className="flex flex-wrap justify-end gap-1.5">
-                                        <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1254A3] text-[10px] font-bold">
+                                        <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#01b0ef] text-[10px] font-bold">
                                             {u.subtipo || u.tipo}
                                         </span>
                                         {u.cnes && (
@@ -259,7 +259,7 @@ export default function UnidadesEscolaresCatalog({
 
                                 {u.equipe.length > 0 && (
                                     <div className="p-3 rounded-xl bg-blue-50/40 border border-blue-100 space-y-1">
-                                        <span className="text-[10px] font-black uppercase tracking-wider text-[#1254A3] flex items-center gap-1">
+                                        <span className="text-[10px] font-black uppercase tracking-wider text-[#01b0ef] flex items-center gap-1">
                                             <FaUserTie /> Direção e Equipe Gestora
                                         </span>
                                         {u.equipe.map((p, idx) => (
@@ -274,7 +274,7 @@ export default function UnidadesEscolaresCatalog({
 
                             <div className="space-y-2 text-xs text-slate-600 pt-3 border-t border-slate-100">
                                 <div className="flex items-start gap-2">
-                                    <FaMapMarkerAlt className="text-[#1254A3] shrink-0 mt-0.5" />
+                                    <FaMapMarkerAlt className="text-[#01b0ef] shrink-0 mt-0.5" />
                                     <span>{u.endereco}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -296,7 +296,7 @@ export default function UnidadesEscolaresCatalog({
                                             href={u.mapa}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[#1254A3] hover:underline"
+                                            className="text-[#01b0ef] hover:underline"
                                         >
                                             Ver Mapa →
                                         </a>

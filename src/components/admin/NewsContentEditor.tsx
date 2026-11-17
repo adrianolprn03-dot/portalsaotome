@@ -187,7 +187,7 @@ export default function NewsContentEditor({
                         onClick={() => setIsPreview(false)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
                             !isPreview
-                                ? "bg-white text-[#0088b9] shadow-sm"
+                                ? "bg-white text-[#01b0ef] shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
                         }`}
                     >
@@ -198,7 +198,7 @@ export default function NewsContentEditor({
                         onClick={() => setIsPreview(true)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
                             isPreview
-                                ? "bg-white text-[#0088b9] shadow-sm"
+                                ? "bg-white text-[#01b0ef] shadow-sm"
                                 : "text-gray-600 hover:text-gray-900"
                         }`}
                     >
@@ -265,7 +265,7 @@ export default function NewsContentEditor({
                     <button
                         type="button"
                         onClick={handleOpenInternalModal}
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#0088b9] bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-all"
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#01b0ef] bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-all"
                     >
                         <FaLink className="w-3.5 h-3.5 text-[#01b0ef]" /> Link Interno (Página do Site)
                     </button>
@@ -295,8 +295,8 @@ export default function NewsContentEditor({
                     {value.trim() ? (
                         <div
                             className="prose prose-blue max-w-none text-gray-700
-                            prose-headings:font-bold prose-headings:text-[#0088b9]
-                            prose-a:text-[#01b0ef] hover:prose-a:text-[#0088b9] prose-a:font-bold prose-a:underline
+                            prose-headings:font-bold prose-headings:text-[#01b0ef]
+                            prose-a:text-[#01b0ef] hover:prose-a:text-[#01b0ef] prose-a:font-bold prose-a:underline
                             prose-p:leading-relaxed"
                             dangerouslySetInnerHTML={{ __html: value }}
                         />
@@ -405,7 +405,7 @@ export default function NewsContentEditor({
                             type="button"
                             onClick={handleConfirmInternalLink}
                             disabled={isCustomPath && !customPath.trim()}
-                            className="px-5 py-2 text-xs font-bold text-white bg-[#0088b9] hover:bg-[#00739d] disabled:opacity-50 rounded-xl shadow-md transition-all flex items-center gap-1.5"
+                            className="px-5 py-2 text-xs font-bold text-white bg-[#01b0ef] hover:bg-[#0098d4] disabled:opacity-50 rounded-xl shadow-md transition-all flex items-center gap-1.5"
                         >
                             <FaCheck /> Inserir Link Interno
                         </button>

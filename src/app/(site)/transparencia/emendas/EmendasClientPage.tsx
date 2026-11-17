@@ -22,7 +22,7 @@ import {
     Cell
 } from "recharts";
 
-const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#8B5CF6", "#EC4899", "#06B6D4", "#F59E0B"];
+const CHART_COLORS = ["#01b0ef", "#fdb913", "#10B981", "#8B5CF6", "#EC4899", "#06B6D4", "#fdb913"];
 
 type Emenda = {
     id: string;
@@ -199,22 +199,22 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                             initial={{ scale: 0.95, opacity: 0, y: 30 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 30 }}
-                            className="bg-white rounded-[2.5rem] w-full max-w-2xl p-8 sm:p-10 shadow-2xl max-h-[92vh] overflow-y-auto border border-[#DDE3EA] relative" 
+                            className="bg-white rounded-[2.5rem] w-full max-w-2xl p-8 sm:p-10 shadow-2xl max-h-[92vh] overflow-y-auto border border-[#e2e8f0] relative" 
                             onClick={e => e.stopPropagation()}
                         >
-                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#1254A3] via-blue-500 to-[#F39A32]" />
+                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#01b0ef] via-blue-500 to-[#fdb913]" />
                             
                             <div className="flex items-start justify-between mb-8">
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className="px-3 py-1 bg-blue-50 text-[#1254A3] rounded-full text-[10px] font-black uppercase tracking-wider border border-blue-200 flex items-center gap-1.5">
+                                        <span className="px-3 py-1 bg-blue-50 text-[#01b0ef] rounded-full text-[10px] font-black uppercase tracking-wider border border-blue-200 flex items-center gap-1.5">
                                             <FaFileInvoiceDollar /> Critério PNTP
                                         </span>
                                         <span className="px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded-full text-[10px] font-bold uppercase">
                                             {detalhe.esfera || "Federal"}
                                         </span>
                                     </div>
-                                    <h2 className="text-2xl font-black text-[#12304A] tracking-tight leading-none">
+                                    <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">
                                         Detalhamento da Emenda
                                     </h2>
                                 </div>
@@ -228,14 +228,14 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Autor da Emenda</span>
-                                        <div className="flex items-center gap-2 text-[#12304A] font-bold text-xs">
-                                            <FaUserTie className="text-[#1254A3] shrink-0" /> {detalhe.autorNome}
+                                        <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
+                                            <FaUserTie className="text-[#01b0ef] shrink-0" /> {detalhe.autorNome}
                                         </div>
                                     </div>
                                     <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ano / Esfera</span>
-                                        <div className="flex items-center gap-2 text-[#12304A] font-bold text-xs">
-                                            <FaCalendar className="text-[#1254A3] shrink-0" /> {detalhe.anoEmenda} • {detalhe.esfera || "Federal"}
+                                        <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
+                                            <FaCalendar className="text-[#01b0ef] shrink-0" /> {detalhe.anoEmenda} • {detalhe.esfera || "Federal"}
                                         </div>
                                     </div>
                                     <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
@@ -248,8 +248,8 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
 
                                 {/* Objeto da Emenda */}
                                 <div className="bg-blue-50/60 p-5 rounded-2xl border border-blue-200/70">
-                                    <span className="text-[10px] font-bold text-[#1254A3] uppercase tracking-wider block mb-1">Objeto e Finalidade Pública</span>
-                                    <p className="text-sm font-semibold text-[#12304A] leading-relaxed">
+                                    <span className="text-[10px] font-bold text-[#01b0ef] uppercase tracking-wider block mb-1">Objeto e Finalidade Pública</span>
+                                    <p className="text-sm font-semibold text-slate-900 leading-relaxed">
                                         {detalhe.objeto || "Não informado na base oficial."}
                                     </p>
                                 </div>
@@ -301,7 +301,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                             href={detalhe.urlFonteOficial}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#1254A3] text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#0d4282] transition-all"
+                                            className="flex-1 inline-flex items-center justify-center gap-2 bg-[#01b0ef] text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#0098d4] transition-all"
                                         >
                                             <FaExternalLinkAlt size={11} /> Fonte Oficial Transferegov
                                         </a>
@@ -323,34 +323,34 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-3xl shadow-sm border border-[#DDE3EA] overflow-hidden"
+                className="bg-white rounded-3xl shadow-sm border border-[#e2e8f0] overflow-hidden"
             >
                 {/* Header e Ações */}
-                <div className="p-6 sm:p-8 space-y-6 border-b border-[#DDE3EA]">
+                <div className="p-6 sm:p-8 space-y-6 border-b border-[#e2e8f0]">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-2 mb-1.5">
-                                <span className="text-[10px] font-black uppercase tracking-wider text-[#1254A3] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+                                <span className="text-[10px] font-black uppercase tracking-wider text-[#01b0ef] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
                                     Critério PNTP
                                 </span>
                             </div>
-                            <h3 className="text-xl sm:text-2xl font-black text-[#12304A] tracking-tight">
+                            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                                 Consulta de Emendas Parlamentares
                             </h3>
-                            <p className="text-xs text-[#5B738B] font-medium mt-1">
-                                Total no recorte ativo: <strong className="text-[#12304A]">{filtered.length} registro(s)</strong>
+                            <p className="text-xs text-slate-600 font-medium mt-1">
+                                Total no recorte ativo: <strong className="text-slate-900">{filtered.length} registro(s)</strong>
                             </p>
                         </div>
 
                         <div className="flex flex-wrap gap-2.5 items-center">
                             {/* Alternador de Modo: Tabela vs Gráficos */}
-                            <div className="flex items-center bg-white p-1 rounded-xl border border-[#DDE3EA] shadow-sm">
+                            <div className="flex items-center bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm">
                                 <button
                                     onClick={() => setVisualizacao("tabela")}
                                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                         visualizacao === "tabela"
-                                            ? "bg-[#1254A3] text-white shadow-xs"
-                                            : "text-[#5B738B] hover:text-[#12304A]"
+                                            ? "bg-[#01b0ef] text-white shadow-xs"
+                                            : "text-slate-600 hover:text-slate-900"
                                     }`}
                                 >
                                     <FaTable size={12} /> Tabela
@@ -359,8 +359,8 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                     onClick={() => setVisualizacao("grafico")}
                                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                         visualizacao === "grafico"
-                                            ? "bg-[#1254A3] text-white shadow-xs"
-                                            : "text-[#5B738B] hover:text-[#12304A]"
+                                            ? "bg-[#01b0ef] text-white shadow-xs"
+                                            : "text-slate-600 hover:text-slate-900"
                                     }`}
                                 >
                                     <FaChartLine size={12} /> Gráficos nos Resultados
@@ -374,7 +374,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                     placeholder="Autor, objeto ou código..."
                                     value={busca}
                                     onChange={(e) => setBusca(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-medium text-[#12304A] focus:border-[#1254A3] focus:bg-white outline-none transition-all"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-medium text-slate-900 focus:border-[#01b0ef] focus:bg-white outline-none transition-all"
                                 />
                             </div>
 
@@ -382,8 +382,8 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                 onClick={() => setShowFilters(!showFilters)}
                                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                     showFilters || hasFilters
-                                        ? "bg-[#1254A3] text-white shadow-sm"
-                                        : "bg-white border border-[#DDE3EA] text-[#12304A] hover:border-[#1254A3]"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "bg-white border border-[#e2e8f0] text-slate-900 hover:border-[#01b0ef]"
                                 }`}
                             >
                                 <FaFilter size={10} /> Filtros {hasFilters && `(Ativos)`}
@@ -392,7 +392,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                             <button
                                 onClick={handleSync}
                                 disabled={isSyncing}
-                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-50 text-[#1254A3] border border-blue-200 hover:bg-blue-100 transition-all cursor-pointer disabled:opacity-50"
+                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-50 text-[#01b0ef] border border-blue-200 hover:bg-blue-100 transition-all cursor-pointer disabled:opacity-50"
                             >
                                 <FaSyncAlt className={isSyncing ? "animate-spin" : ""} size={10} />
                                 {isSyncing ? "Consultando..." : "Sincronizar"}
@@ -514,13 +514,13 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
 
                 {/* Alternância: Gráficos nos Resultados vs Tabela */}
                 {visualizacao === "grafico" ? (
-                    <div className="p-6 sm:p-8 space-y-8 bg-[#F5F7FA]/50 animate-in fade-in duration-300">
+                    <div className="p-6 sm:p-8 space-y-8 bg-[#f4fbff]/50 animate-in fade-in duration-300">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Gráfico 1: Execução Orçamentária e Financeira */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
-                                        <FaChartLine className="text-[#1254A3]" /> Execução Orçamentária e Financeira (R$)
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                                        <FaChartLine className="text-[#01b0ef]" /> Execução Orçamentária e Financeira (R$)
                                     </h3>
                                     <span className="text-[10px] text-slate-500 font-bold bg-slate-100 px-2.5 py-0.5 rounded-full">
                                         Fases Contábeis
@@ -542,17 +542,17 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                                     fontSize: "12px"
                                                 }}
                                             />
-                                            <Bar dataKey="valor" fill="#1254A3" radius={[6, 6, 0, 0]} name="Valor (R$)" />
+                                            <Bar dataKey="valor" fill="#01b0ef" radius={[6, 6, 0, 0]} name="Valor (R$)" />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
                             </div>
 
                             {/* Gráfico 2: Distribuição por Esfera */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div>
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
-                                        <FaChartPie className="text-[#F39A32]" /> Distribuição por Esfera Federativa
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                                        <FaChartPie className="text-[#fdb913]" /> Distribuição por Esfera Federativa
                                     </h3>
                                     <p className="text-[11px] text-gray-500">Origem das emendas parlamentares no recorte selecionado</p>
                                 </div>
@@ -590,9 +590,9 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                             </div>
 
                             {/* Gráfico 3: Modalidade de Repasse */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div>
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                         <FaChartPie className="text-[#10B981]" /> Forma de Repasse (Modalidades)
                                     </h3>
                                     <p className="text-[11px] text-gray-500">Transferência Especial (PIX), Convênios e Fundo a Fundo</p>
@@ -631,9 +631,9 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                             </div>
 
                             {/* Gráfico 4: Principais Funções de Governo */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                         <FaChartLine className="text-[#8B5CF6]" /> Recursos por Função de Governo
                                     </h3>
                                     <span className="text-[10px] text-slate-500 font-bold bg-slate-100 px-2.5 py-0.5 rounded-full">
@@ -667,7 +667,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                     /* Tabela de Resultados */
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs">
-                            <thead className="bg-[#F5F7FA] text-slate-600 uppercase text-[10px] font-bold">
+                            <thead className="bg-[#f4fbff] text-slate-600 uppercase text-[10px] font-bold">
                                 <tr>
                                     <th className="px-6 py-4">Parlamentar / Identificador</th>
                                     <th className="px-4 py-4 text-center">Esfera & Ano</th>
@@ -682,7 +682,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                 variants={tableVariants}
                                 initial="hidden"
                                 animate="visible"
-                                className="divide-y divide-[#DDE3EA]"
+                                className="divide-y divide-[#e2e8f0]"
                             >
                                 {filtered.length === 0 ? (
                                     <tr>
@@ -699,7 +699,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                             onClick={() => setDetalheId(e.id)}
                                         >
                                             <td className="px-6 py-4">
-                                                <div className="font-bold text-[#12304A] text-xs group-hover:text-[#1254A3] transition-colors">{e.autorNome}</div>
+                                                <div className="font-bold text-slate-900 text-xs group-hover:text-[#01b0ef] transition-colors">{e.autorNome}</div>
                                                 <div className="text-[10px] font-mono text-slate-400 mt-0.5">
                                                     {e.codigoEmenda} {e.numeroEmenda ? `• Nº ${e.numeroEmenda}` : ""}
                                                 </div>
@@ -742,7 +742,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
                                             <td className="px-6 py-4 text-right">
                                                 <button
                                                     onClick={(evt) => { evt.stopPropagation(); setDetalheId(e.id); }}
-                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-[#1254A3] hover:bg-[#1254A3] hover:text-white transition-all text-xs font-bold cursor-pointer"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-[#01b0ef] hover:bg-[#01b0ef] hover:text-white transition-all text-xs font-bold cursor-pointer"
                                                 >
                                                     Detalhes <FaChevronRight size={9} />
                                                 </button>
@@ -757,7 +757,7 @@ export default function EmendasClientPage({ initialData }: { initialData: Emenda
 
                 {/* Resumo Final Dinâmico refletindo o recorte ativo */}
                 {filtered.length > 0 && (
-                    <div className="p-6 bg-[#12304A] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="p-6 bg-[#0f172a] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div className="flex items-center gap-8">
                             <div>
                                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-300">Total Previsto / Indicado</span>

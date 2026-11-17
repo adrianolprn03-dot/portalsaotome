@@ -104,13 +104,13 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
     };
 
     return (
-        <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-10 font-['Montserrat',sans-serif]">
+        <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-10">
             {/* Banner Informativo PNTP 2026 */}
-            <div className="bg-gradient-to-r from-[#002241] via-[#003366] to-[#01b0ef] rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
-                <div className="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+            <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden">
+                <div className="absolute right-0 top-0 w-96 h-96 bg-white/15 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
                 <div className="relative z-10 max-w-3xl space-y-4">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-200">
-                        <FaShieldAlt className="text-emerald-400" /> PNTP 2026 • Item Saúde Pública
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#fdb913] rounded-full text-[10px] font-black uppercase tracking-widest text-slate-900 shadow-sm">
+                        <FaShieldAlt /> PNTP 2026 • Item Saúde Pública
                     </div>
                     <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight leading-tight">
                         Instrumentos de Planejamento e Gestão da Saúde
@@ -138,7 +138,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
                                 onClick={() => setCategoriaFiltro(tab.id)}
                                 className={`px-4 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all ${
                                     categoriaFiltro === tab.id
-                                        ? "bg-[#003366] text-white shadow-lg shadow-blue-900/20 scale-105"
+                                        ? "bg-[#01b0ef] text-white shadow-lg shadow-blue-900/20 scale-105"
                                         : "bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-100"
                                 }`}
                             >
@@ -154,7 +154,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
                             <select
                                 value={anoFiltro}
                                 onChange={(e) => setAnoFiltro(e.target.value)}
-                                className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 focus:outline-none focus:border-[#003366]"
+                                className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-bold text-gray-700 focus:outline-none focus:border-[#01b0ef]"
                             >
                                 <option value="todos">Todos os Anos</option>
                                 {anosDisponiveis.map(ano => (
@@ -173,7 +173,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
                         placeholder="Pesquisar por título, objetivo, metas ou número da resolução do CMS..."
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
-                        className="w-full pl-12 pr-6 py-3.5 bg-gray-50/80 border border-gray-200 rounded-2xl text-xs font-medium text-gray-800 focus:outline-none focus:border-[#003366] focus:bg-white transition-all"
+                        className="w-full pl-12 pr-6 py-3.5 bg-gray-50/80 border border-gray-200 rounded-2xl text-xs font-medium text-gray-800 focus:outline-none focus:border-[#01b0ef] focus:bg-white transition-all"
                     />
                 </div>
             </div>
@@ -202,7 +202,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
                             <div className="space-y-5">
                                 {/* Header do Card */}
                                 <div className="flex items-start justify-between gap-4">
-                                    <div className="w-14 h-14 bg-blue-50 text-[#003366] rounded-2xl flex items-center justify-center text-2xl font-black shrink-0 border border-blue-100 group-hover:bg-[#003366] group-hover:text-white transition-colors">
+                                    <div className="w-14 h-14 bg-blue-50 text-[#01b0ef] rounded-2xl flex items-center justify-center text-2xl font-black shrink-0 border border-blue-100 group-hover:bg-[#01b0ef] group-hover:text-white transition-colors">
                                         <FaHeartbeat />
                                     </div>
                                     <div className="flex flex-col items-end gap-1">
@@ -215,7 +215,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
 
                                 {/* Título & Período */}
                                 <div>
-                                    <h3 className="text-lg font-black text-gray-900 uppercase tracking-tight leading-snug group-hover:text-[#003366] transition-colors">
+                                    <h3 className="text-lg font-black text-gray-900 uppercase tracking-tight leading-snug group-hover:text-[#01b0ef] transition-colors">
                                         {doc.titulo}
                                     </h3>
                                     {doc.periodoVigencia && (
@@ -255,7 +255,7 @@ export default function PlanoSaudeClientPage({ categoriaInicial = "todos" }: { c
                                         href={formatDocumentUrl(doc.linkDocumento)}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full py-4 bg-[#003366] hover:bg-[#01b0ef] text-white font-black rounded-2xl transition-all text-xs uppercase tracking-widest flex items-center justify-center gap-3 shadow-lg shadow-blue-900/10 active:scale-95"
+                                        className="w-full py-4 bg-[#01b0ef] hover:bg-[#01b0ef] text-white font-black rounded-2xl transition-all text-xs uppercase tracking-widest flex items-center justify-center gap-3 shadow-lg shadow-blue-900/10 active:scale-95"
                                     >
                                         <FaFileDownload className="text-sm" /> BAIXAR DOCUMENTO OFICIAL (PDF)
                                     </a>

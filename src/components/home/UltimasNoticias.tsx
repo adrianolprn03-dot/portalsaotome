@@ -92,11 +92,12 @@ export default function UltimasNoticias() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div className="space-y-3 max-w-xl">
                         <div className="section-eyebrow">
-                            <Newspaper size={14} className="text-primary-600" />
+                            <Newspaper size={14} className="text-[#01b0ef]" />
                             <span>Agência Municipal de Notícias</span>
                         </div>
                         <h2 id="noticias-titulo" className="section-title">
-                            Acompanhe as ações e investimentos da Prefeitura
+                            Acompanhe as ações e investimentos da{" "}
+                            <span className="text-[#01b0ef]">Prefeitura</span>
                         </h2>
                     </div>
                     <Link
@@ -106,7 +107,7 @@ export default function UltimasNoticias() {
                         <span>Ver todas as notícias</span>
                         <ArrowRight
                             size={16}
-                            className="text-primary-600 group-hover:translate-x-1 transition-transform"
+                            className="text-[#01b0ef] group-hover:translate-x-1 transition-transform"
                         />
                     </Link>
                 </div>
@@ -117,9 +118,9 @@ export default function UltimasNoticias() {
                     <div className="lg:col-span-7 flex">
                         <Link
                             href={`/noticias/${destaque.slug}`}
-                            className="group relative flex flex-col w-full min-h-[440px] lg:min-h-[520px] rounded-3xl overflow-hidden shadow-civic-lg border border-slate-200/80 transition-all duration-300 hover:shadow-civic-xl"
+                            className="group relative flex flex-col w-full min-h-[440px] lg:min-h-[520px] rounded-3xl overflow-hidden shadow-civic-lg border border-[#01b0ef]/20 transition-all duration-300 hover:shadow-civic-xl"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#071E3D] via-[#071E3D]/60 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/35 to-transparent z-10" />
 
                             {destaque.imagem ? (
                                 <img
@@ -128,34 +129,34 @@ export default function UltimasNoticias() {
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                             ) : (
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#071E3D] via-primary-900 to-primary-700" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#01b0ef] to-[#0098d4]" />
                             )}
 
                             <div className="relative z-20 flex flex-col justify-end h-full p-7 sm:p-10">
                                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-500 text-[#071E3D] text-xs font-bold shadow-sm">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 text-xs font-extrabold shadow-sm">
                                         <Sparkles size={12} />
                                         {destaque.secretaria?.nome || "Destaque Oficial"}
                                     </span>
-                                    <span className="text-slate-200 text-xs font-mono flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
-                                        <Calendar size={12} className="text-secondary-400" />
+                                    <span className="text-white text-xs font-mono flex items-center gap-1.5 bg-[#01b0ef] px-3 py-1 rounded-full shadow-sm">
+                                        <Calendar size={12} />
                                         {formatarData(destaque.publicadoEm)}
                                     </span>
                                 </div>
 
-                                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3 group-hover:text-secondary-300 transition-colors line-clamp-3">
+                                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3 group-hover:text-[#fdb913] transition-colors line-clamp-3">
                                     {destaque.titulo}
                                 </h3>
 
-                                <p className="text-slate-200/85 text-sm sm:text-base line-clamp-2 mb-6 font-normal leading-relaxed">
+                                <p className="text-white/90 text-sm sm:text-base line-clamp-2 mb-6 font-normal leading-relaxed">
                                     {destaque.resumo}
                                 </p>
 
-                                <div className="inline-flex items-center gap-2 text-white font-semibold text-xs bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-xl border border-white/20 w-fit group-hover:bg-primary-600 group-hover:border-primary-500 transition-all">
+                                <div className="inline-flex items-center gap-2 text-slate-900 font-bold text-xs bg-[#01b0ef] px-5 py-2.5 rounded-xl w-fit group-hover:bg-[#fdb913] group-hover:text-slate-900 transition-all shadow-sm">
                                     <span>Ler matéria completa</span>
                                     <ArrowRight
                                         size={15}
-                                        className="text-secondary-400 group-hover:translate-x-1 transition-transform"
+                                        className="group-hover:translate-x-1 transition-transform"
                                     />
                                 </div>
                             </div>
@@ -168,9 +169,9 @@ export default function UltimasNoticias() {
                             <Link
                                 key={n.id}
                                 href={`/noticias/${n.slug}`}
-                                className="group flex items-center gap-4 p-4 rounded-2xl bg-[#F6F9FC] hover:bg-white border border-slate-200/80 hover:border-primary-300 hover:shadow-civic transition-all duration-300"
+                                className="group flex items-center gap-4 p-4 rounded-2xl bg-[#f4fbff] hover:bg-white border border-slate-200/80 hover:border-[#01b0ef] hover:shadow-civic transition-all duration-300"
                             >
-                                <div className="relative w-28 h-24 sm:w-32 sm:h-28 rounded-xl overflow-hidden bg-slate-200 shrink-0">
+                                <div className="relative w-28 h-24 sm:w-32 sm:h-28 rounded-xl overflow-hidden bg-[#eefaff] shrink-0">
                                     {n.imagem ? (
                                         <img
                                             src={n.imagem}
@@ -178,7 +179,7 @@ export default function UltimasNoticias() {
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-[#071E3D] to-primary-700 flex items-center justify-center text-white/40">
+                                        <div className="w-full h-full bg-gradient-to-br from-[#01b0ef] to-[#0098d4] flex items-center justify-center text-white/70">
                                             <Newspaper size={24} />
                                         </div>
                                     )}
@@ -186,7 +187,7 @@ export default function UltimasNoticias() {
 
                                 <div className="flex flex-col flex-1 min-w-0">
                                     <div className="flex items-center gap-2 mb-1.5">
-                                        <span className="text-[11px] font-mono font-semibold text-primary-600">
+                                        <span className="text-[11px] font-mono font-bold text-[#01b0ef]">
                                             {formatarData(n.publicadoEm)}
                                         </span>
                                         {n.secretaria?.nome && (
@@ -199,11 +200,11 @@ export default function UltimasNoticias() {
                                         )}
                                     </div>
 
-                                    <h3 className="font-heading font-bold text-[#071E3D] text-sm sm:text-base leading-snug group-hover:text-primary-600 transition-colors line-clamp-2 mb-2">
+                                    <h3 className="font-heading font-bold text-slate-900 text-sm sm:text-base leading-snug group-hover:text-[#01b0ef] transition-colors line-clamp-2 mb-2">
                                         {n.titulo}
                                     </h3>
 
-                                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 group-hover:text-primary-600 transition-colors">
+                                    <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 group-hover:text-[#01b0ef] transition-colors">
                                         <span>Ler publicação</span>
                                         <ArrowRight
                                             size={13}

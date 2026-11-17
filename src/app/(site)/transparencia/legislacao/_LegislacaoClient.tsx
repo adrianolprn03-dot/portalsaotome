@@ -324,23 +324,23 @@ export default function LegislacaoClient({
     const hasActiveFilters = Boolean(buscaFiltro || anoFiltro || mesFiltro !== null || (tipoFiltro !== "TODOS" && !hideTipoFilter));
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20 font-['Montserrat',sans-serif]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20">
             
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
                     <div>
-                        <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Total de Atos Registrados</p>
-                        <p className="text-3xl font-black text-[#12304A] tracking-tight">{stats.total}</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Total de Atos Registrados</p>
+                        <p className="text-3xl font-black text-slate-900 tracking-tight">{stats.total}</p>
                     </div>
-                    <div className="w-12 h-12 bg-blue-50 text-[#1254A3] rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center">
                         <FaScaleBalanced size={20} />
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
                     <div>
-                        <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Publicados em {new Date().getFullYear()}</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Publicados em {new Date().getFullYear()}</p>
                         <p className="text-3xl font-black text-emerald-600 tracking-tight">{stats.esteAno}</p>
                     </div>
                     <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
@@ -348,24 +348,24 @@ export default function LegislacaoClient({
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] border-t-4 border-t-[#fdb913] flex items-center justify-between">
                     <div>
-                        <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Arquivos Disponíveis</p>
-                        <p className="text-3xl font-black text-[#F39A32] tracking-tight">{stats.comArquivo}</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Arquivos Disponíveis</p>
+                        <p className="text-3xl font-black text-slate-900 tracking-tight">{stats.comArquivo}</p>
                     </div>
-                    <div className="w-12 h-12 bg-amber-50 text-[#F39A32] rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[#fdb913] text-slate-900 rounded-xl flex items-center justify-center shadow-xs">
                         <FaFilePdf size={20} />
                     </div>
                 </div>
             </div>
 
             {/* ═══════ PAINEL DE FILTROS (MÊS, ANO, BUSCA, ORDENAÇÃO) ═══════ */}
-            <div className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm mb-8">
+            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm mb-8">
                 
                 {/* Abas de Tipo (se não estiver escondido) */}
                 {!hideTipoFilter && (
                     <div className="px-5 pt-5 pb-0">
-                        <label className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2.5 block">Tipo de Ato / Legislação</label>
+                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5 block">Tipo de Ato / Legislação</label>
                         <div className="flex flex-wrap gap-2">
                             {[
                                 { id: "TODOS", label: "Todos" },
@@ -380,8 +380,8 @@ export default function LegislacaoClient({
                                     onClick={() => setTipoFiltro(tab.id)}
                                     className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                         tipoFiltro === tab.id
-                                        ? "bg-[#1254A3] text-white shadow-sm"
-                                        : "bg-[#F5F7FA] text-[#5B738B] hover:bg-slate-200 hover:text-[#12304A]"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "bg-[#f4fbff] text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                                     }`}
                                 >
                                     {tab.label}
@@ -400,7 +400,7 @@ export default function LegislacaoClient({
                         <input
                             type="text"
                             placeholder="Pesquisar por número ou ementa..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-medium text-[#12304A] placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#1254A3]/20 focus:border-[#1254A3] transition-all outline-none"
+                            className="w-full pl-10 pr-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none"
                             value={buscaFiltro}
                             onChange={(e) => setBuscaFiltro(e.target.value)}
                         />
@@ -413,7 +413,7 @@ export default function LegislacaoClient({
                             aria-label="Filtrar por ano"
                             value={anoFiltro ?? ""}
                             onChange={(e) => setAnoFiltro(e.target.value ? Number(e.target.value) : null)}
-                            className="w-full pl-10 pr-8 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] focus:bg-white focus:ring-2 focus:ring-[#1254A3]/20 focus:border-[#1254A3] transition-all outline-none cursor-pointer appearance-none"
+                            className="w-full pl-10 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none cursor-pointer appearance-none"
                         >
                             <option value="">Todos os anos</option>
                             {todosOsAnos.map(ano => (
@@ -434,7 +434,7 @@ export default function LegislacaoClient({
                             aria-label="Filtrar por mês"
                             value={mesFiltro ?? ""}
                             onChange={(e) => setMesFiltro(e.target.value ? Number(e.target.value) : null)}
-                            className="w-full pl-10 pr-8 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] focus:bg-white focus:ring-2 focus:ring-[#1254A3]/20 focus:border-[#1254A3] transition-all outline-none cursor-pointer appearance-none"
+                            className="w-full pl-10 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none cursor-pointer appearance-none"
                         >
                             {MESES.map(m => (
                                 <option key={m.v} value={m.v}>{m.l}</option>
@@ -451,26 +451,26 @@ export default function LegislacaoClient({
                     <button
                         onClick={() => setOrdem(prev => prev === "desc" ? "asc" : "desc")}
                         title="Alternar ordem de exibição (atual/antigo)"
-                        className="flex items-center justify-center gap-2 px-3.5 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] hover:bg-slate-200 transition-all cursor-pointer shadow-sm shrink-0"
+                        className="flex items-center justify-center gap-2 px-3.5 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 hover:bg-slate-200 transition-all cursor-pointer shadow-sm shrink-0"
                     >
                         {ordem === "desc" ? (
                             <>
-                                <FaArrowDownShortWide className="text-[#1254A3]" size={14} />
+                                <FaArrowDownShortWide className="text-[#01b0ef]" size={14} />
                                 <span className="hidden sm:inline">Mais atuais primeiro</span>
                             </>
                         ) : (
                             <>
-                                <FaArrowUpWideShort className="text-[#1254A3]" size={14} />
+                                <FaArrowUpWideShort className="text-[#01b0ef]" size={14} />
                                 <span className="hidden sm:inline">Mais antigos primeiro</span>
                             </>
                         )}
                     </button>
 
-                    <div className="hidden md:block w-px h-8 bg-[#DDE3EA]" />
+                    <div className="hidden md:block w-px h-8 bg-[#e2e8f0]" />
 
                     {/* Ferramentas de Exportação */}
                     <div className="flex items-center gap-1.5 justify-end">
-                        <span className="text-[10px] font-bold text-[#5B738B] uppercase tracking-wider mr-1 hidden lg:block">Exportar:</span>
+                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mr-1 hidden lg:block">Exportar:</span>
                         {[
                             { id: 'pdf' as const, icon: <FaFilePdf size={13} />, label: 'PDF', color: 'text-red-500 hover:bg-red-50' },
                             { id: 'xlsx' as const, icon: <FaFileExcel size={13} />, label: 'Excel', color: 'text-emerald-500 hover:bg-emerald-50' },
@@ -490,10 +490,10 @@ export default function LegislacaoClient({
 
                 {/* Badges de Filtros Ativos */}
                 {hasActiveFilters && (
-                    <div className="px-5 pb-4 flex items-center gap-2 flex-wrap border-t border-[#DDE3EA] pt-3">
-                        <span className="text-[10px] font-bold text-[#5B738B] uppercase">Filtros Ativos:</span>
+                    <div className="px-5 pb-4 flex items-center gap-2 flex-wrap border-t border-[#e2e8f0] pt-3">
+                        <span className="text-[10px] font-bold text-slate-600 uppercase">Filtros Ativos:</span>
                         {tipoFiltro !== "TODOS" && !hideTipoFilter && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-[#1254A3] rounded-md text-[11px] font-semibold border border-blue-200">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-[#01b0ef] rounded-md text-[11px] font-semibold border border-blue-200">
                                 {tipoInfo[tipoFiltro]?.label || tipoFiltro}
                                 <button onClick={() => setTipoFiltro("TODOS")} className="ml-0.5 hover:text-blue-900 cursor-pointer"><FaXmark size={8} /></button>
                             </span>
@@ -518,7 +518,7 @@ export default function LegislacaoClient({
                         )}
                         <button
                             onClick={handleClearFilters}
-                            className="text-[10px] font-bold text-[#5B738B] hover:text-red-600 uppercase transition-colors ml-1 cursor-pointer"
+                            className="text-[10px] font-bold text-slate-600 hover:text-red-600 uppercase transition-colors ml-1 cursor-pointer"
                         >
                             Limpar filtros
                         </button>
@@ -530,7 +530,7 @@ export default function LegislacaoClient({
             <div className="space-y-12 min-h-[400px]">
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-40">
-                        <div className="w-12 h-12 border-4 border-[#1254A3]/20 border-t-[#1254A3] rounded-full animate-spin mb-4" />
+                        <div className="w-12 h-12 border-4 border-[#01b0ef]/20 border-t-[#01b0ef] rounded-full animate-spin mb-4" />
                         <p className="text-sm text-slate-400 font-black tracking-widest uppercase text-[10px]">Carregando legislação...</p>
                     </div>
                 ) : anosDisponiveis.length === 0 ? (
@@ -544,7 +544,7 @@ export default function LegislacaoClient({
                         </p>
                         <button
                             onClick={handleClearFilters}
-                            className="px-4 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d4282] transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-colors cursor-pointer"
                         >
                             Limpar filtros
                         </button>
@@ -586,13 +586,13 @@ export default function LegislacaoClient({
                                     {/* Cabeçalho do Exercício / Ano */}
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-[#1254A3] text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
+                                            <div className="w-10 h-10 bg-[#01b0ef] text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
                                                 <FaCalendarDays size={14} />
                                             </div>
-                                            <h3 className="text-2xl font-black text-[#12304A]">Exercício {ano}</h3>
+                                            <h3 className="text-2xl font-black text-slate-900">Exercício {ano}</h3>
                                         </div>
-                                        <div className="flex-1 h-px bg-[#DDE3EA]" />
-                                        <span className="text-xs font-bold text-[#5B738B] bg-[#F5F7FA] border border-[#DDE3EA] px-3 py-1.5 rounded-lg">
+                                        <div className="flex-1 h-px bg-[#e2e8f0]" />
+                                        <span className="text-xs font-bold text-slate-600 bg-[#f4fbff] border border-[#e2e8f0] px-3 py-1.5 rounded-lg">
                                             {itensDoAno.length} {itensDoAno.length === 1 ? "Ato" : "Atos"} ({ordem === "desc" ? "Mais atual ao mais antigo" : "Mais antigo ao mais atual"})
                                         </span>
                                     </div>
@@ -607,16 +607,16 @@ export default function LegislacaoClient({
                                                     initial={{ opacity: 0, y: 16 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: idx * 0.02 }}
-                                                    className="group bg-white rounded-2xl border border-[#DDE3EA] hover:border-[#1254A3]/50 shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden"
+                                                    className="group bg-white rounded-2xl border border-[#e2e8f0] hover:border-[#01b0ef]/50 shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden"
                                                 >
                                                     {/* Card body */}
                                                     <div className="p-6 flex-1">
                                                         <div className="flex justify-between items-start mb-4">
                                                             <div className="flex flex-col">
-                                                                <span className="text-[10px] font-bold text-[#1254A3] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 uppercase tracking-wider mb-2 w-fit">
+                                                                <span className="text-[10px] font-bold text-[#01b0ef] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 uppercase tracking-wider mb-2 w-fit">
                                                                     {info.label}
                                                                 </span>
-                                                                <h4 className="text-xl font-black text-[#12304A] group-hover:text-[#1254A3] transition-colors duration-200">
+                                                                <h4 className="text-xl font-black text-slate-900 group-hover:text-[#01b0ef] transition-colors duration-200">
                                                                     Nº {l.numero}
                                                                 </h4>
                                                             </div>
@@ -625,14 +625,14 @@ export default function LegislacaoClient({
                                                             </div>
                                                         </div>
                                                         
-                                                        <p className="text-xs font-medium text-[#5B738B] leading-relaxed mb-4 line-clamp-4 group-hover:text-[#12304A] transition-colors" title={l.ementa}>
+                                                        <p className="text-xs font-medium text-slate-600 leading-relaxed mb-4 line-clamp-4 group-hover:text-slate-900 transition-colors" title={l.ementa}>
                                                             {l.ementa}
                                                         </p>
 
                                                         {/* Data Real da Legislação */}
                                                         <div className="flex items-center gap-2 mt-auto pt-2">
                                                             <FaCalendarDays size={12} className="text-slate-400 shrink-0" />
-                                                            <span className="text-xs font-semibold text-[#5B738B]">
+                                                            <span className="text-xs font-semibold text-slate-600">
                                                                 {l.meta.displayDate.startsWith("Exercício") 
                                                                     ? l.meta.displayDate 
                                                                     : `Publicado em ${l.meta.displayDate}`
@@ -650,7 +650,7 @@ export default function LegislacaoClient({
                                                                         const exibirNumero = l.numero.endsWith(`/${l.meta.year}`) ? l.numero : `${l.numero}/${l.meta.year}`;
                                                                         setPdfViewer({ url: l.arquivo!, titulo: `${info.label} Nº ${exibirNumero}` });
                                                                     }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 py-2 bg-white text-[#1254A3] border border-[#DDE3EA] rounded-xl text-xs font-bold hover:bg-[#1254A3] hover:text-white hover:border-[#1254A3] transition-all duration-150 shadow-sm cursor-pointer"
+                                                                    className="flex-1 flex items-center justify-center gap-2 py-2 bg-white text-[#01b0ef] border border-[#e2e8f0] rounded-xl text-xs font-bold hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all duration-150 shadow-sm cursor-pointer"
                                                                 >
                                                                     <FaEye size={12} />
                                                                     Visualizar
@@ -659,7 +659,7 @@ export default function LegislacaoClient({
                                                                     href={l.arquivo}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="flex items-center justify-center gap-2 py-2 px-3.5 bg-white text-[#12304A] border border-[#DDE3EA] rounded-xl text-xs font-bold hover:bg-[#12304A] hover:text-white transition-all duration-150 cursor-pointer"
+                                                                    className="flex items-center justify-center gap-2 py-2 px-3.5 bg-white text-slate-900 border border-[#e2e8f0] rounded-xl text-xs font-bold hover:bg-[#0f172a] hover:text-white transition-all duration-150 cursor-pointer"
                                                                 >
                                                                     <FaDownload size={11} />
                                                                     Baixar

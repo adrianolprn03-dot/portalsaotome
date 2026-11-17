@@ -22,7 +22,7 @@ export default async function DecretosPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Decretos do Executivo"
                 subtitle="Consulta aos decretos e atos normativos emitidos pelo Chefe do Poder Executivo Municipal."

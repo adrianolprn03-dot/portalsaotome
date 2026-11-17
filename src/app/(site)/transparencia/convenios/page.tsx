@@ -152,7 +152,7 @@ export default function ConveniosPage() {
             const st = (c.status || "Outros").toUpperCase();
             counts[st] = (counts[st] || 0) + 1;
         });
-        const colors = ["#10B981", "#1254A3", "#F43F5E", "#F59E0B"];
+        const colors = ["#10B981", "#01b0ef", "#F43F5E", "#fdb913"];
         return Object.entries(counts).map(([name, value], i) => ({ name, value, color: colors[i % colors.length] }));
     }, [convenios]);
 
@@ -189,7 +189,7 @@ export default function ConveniosPage() {
     }, [convenios]);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Convênios e Transferências"
                 subtitle="Transparência sobre transferências concedidas (município para OSCs e entidades parceiras - Critério PNTP) e transferências recebidas dos governos federal e estadual."
@@ -204,13 +204,13 @@ export default function ConveniosPage() {
             <main className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8">
                 {/* Abas e Ações de Exportação */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#DDE3EA] shadow-sm flex-wrap">
+                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm flex-wrap">
                         <button
                             onClick={() => setAbaTipo("todos")}
                             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                 abaTipo === "todos"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             Todas as Parcerias ({convenios.length})
@@ -220,7 +220,7 @@ export default function ConveniosPage() {
                             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                 abaTipo === "concedido"
                                     ? "bg-pink-600 text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             Transferências Concedidas
@@ -229,8 +229,8 @@ export default function ConveniosPage() {
                             onClick={() => setAbaTipo("recebido")}
                             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                 abaTipo === "recebido"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             Transferências Recebidas
@@ -239,13 +239,13 @@ export default function ConveniosPage() {
 
                     <div className="flex items-center gap-2 flex-wrap">
                         {/* Alternador de Modo: Lista vs Gráficos */}
-                        <div className="flex items-center bg-white p-1 rounded-xl border border-[#DDE3EA] shadow-sm">
+                        <div className="flex items-center bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm">
                             <button
                                 onClick={() => setVisualizacao("tabela")}
                                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                     visualizacao === "tabela"
-                                        ? "bg-[#1254A3] text-white shadow-xs"
-                                        : "text-[#5B738B] hover:text-[#12304A]"
+                                        ? "bg-[#01b0ef] text-white shadow-xs"
+                                        : "text-slate-600 hover:text-slate-900"
                                 }`}
                             >
                                 <FaTable size={12} /> Lista
@@ -254,30 +254,30 @@ export default function ConveniosPage() {
                                 onClick={() => setVisualizacao("grafico")}
                                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                     visualizacao === "grafico"
-                                        ? "bg-[#1254A3] text-white shadow-xs"
-                                        : "text-[#5B738B] hover:text-[#12304A]"
+                                        ? "bg-[#01b0ef] text-white shadow-xs"
+                                        : "text-slate-600 hover:text-slate-900"
                                 }`}
                             >
                                 <FaChartLine size={12} /> Gráficos nos Resultados
                             </button>
                         </div>
 
-                        <span className="text-[11px] font-bold text-[#5B738B] mr-1 hidden md:inline">Exportar Relatório:</span>
+                        <span className="text-[11px] font-bold text-slate-600 mr-1 hidden md:inline">Exportar Relatório:</span>
                         <button
                             onClick={() => handleExport("pdf")}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-bold hover:border-[#1254A3] transition-all shadow-sm cursor-pointer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-bold hover:border-[#01b0ef] transition-all shadow-sm cursor-pointer"
                         >
                             <FaDownload size={10} /> PDF
                         </button>
                         <button
                             onClick={() => handleExport("xlsx")}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-bold hover:border-[#1254A3] transition-all shadow-sm cursor-pointer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-bold hover:border-[#01b0ef] transition-all shadow-sm cursor-pointer"
                         >
                             <FaDownload size={10} /> Excel
                         </button>
                         <button
                             onClick={() => handleExport("csv")}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-bold hover:border-[#1254A3] transition-all shadow-sm cursor-pointer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-bold hover:border-[#01b0ef] transition-all shadow-sm cursor-pointer"
                         >
                             <FaDownload size={10} /> CSV
                         </button>
@@ -286,38 +286,38 @@ export default function ConveniosPage() {
 
                 {/* Dashboard Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-                    <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm">
-                        <span className="text-xs font-bold text-[#5B738B] uppercase tracking-wider block mb-2">Volume Total Previsto</span>
-                        <h3 className="text-2xl font-black text-[#12304A] tracking-tight">{loading ? "..." : fmt(totalValor)}</h3>
-                        <p className="text-xs text-[#5B738B] mt-2 pt-2 border-t border-[#DDE3EA]">Exercício {ano}</p>
+                    <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm">
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider block mb-2">Volume Total Previsto</span>
+                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">{loading ? "..." : fmt(totalValor)}</h3>
+                        <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-[#e2e8f0]">Exercício {ano}</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm">
+                    <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm">
                         <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider block mb-2">Total Efetivamente Repassado</span>
                         <h3 className="text-2xl font-black text-emerald-700 tracking-tight">{loading ? "..." : fmt(totalLiberado)}</h3>
-                        <p className="text-xs text-[#5B738B] mt-2 pt-2 border-t border-[#DDE3EA]">Valores liberados/pagos</p>
+                        <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-[#e2e8f0]">Valores liberados/pagos</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm">
+                    <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm">
                         <span className="text-xs font-bold text-pink-700 uppercase tracking-wider block mb-2">Transferências Concedidas</span>
                         <h3 className="text-2xl font-black text-pink-700 tracking-tight">{loading ? "..." : totalConcedidas}</h3>
-                        <p className="text-xs text-[#5B738B] mt-2 pt-2 border-t border-[#DDE3EA]">Critério PNTP (OSCs e consórcios)</p>
+                        <p className="text-xs text-slate-600 mt-2 pt-2 border-t border-[#e2e8f0]">Critério PNTP (OSCs e consórcios)</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm">
-                        <span className="text-xs font-bold text-[#1254A3] uppercase tracking-wider block mb-2">Recorte Municipal Oficial</span>
-                        <h3 className="text-base font-black text-[#12304A] tracking-tight">São Tomé • RN</h3>
-                        <p className="text-[11px] font-mono text-[#5B738B] mt-2 pt-2 border-t border-[#DDE3EA]">
+                    <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm">
+                        <span className="text-xs font-bold text-[#01b0ef] uppercase tracking-wider block mb-2">Recorte Municipal Oficial</span>
+                        <h3 className="text-base font-black text-slate-900 tracking-tight">São Tomé • RN</h3>
+                        <p className="text-[11px] font-mono text-slate-600 mt-2 pt-2 border-t border-[#e2e8f0]">
                             IBGE {MUNICIPIO.ibge} • CNPJ {MUNICIPIO.cnpj}
                         </p>
                     </div>
                 </div>
 
                 {/* Filtros de Busca */}
-                <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm mb-8">
+                <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm mb-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                         <div className="md:col-span-2">
-                            <label className="block text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">
+                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
                                 Buscar por Objeto, Número, Beneficiário ou Concedente
                             </label>
                             <div className="relative">
@@ -327,17 +327,17 @@ export default function ConveniosPage() {
                                     value={busca}
                                     onChange={(e) => setBusca(e.target.value)}
                                     placeholder="Ex: Saúde, Associação, Transporte, Termo..."
-                                    className="w-full bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl pl-11 pr-4 py-2.5 text-xs font-medium text-[#12304A] focus:border-[#1254A3] focus:bg-white outline-none transition-all"
+                                    className="w-full bg-[#f4fbff] border border-[#e2e8f0] rounded-xl pl-11 pr-4 py-2.5 text-xs font-medium text-slate-900 focus:border-[#01b0ef] focus:bg-white outline-none transition-all"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">Exercício / Ano</label>
+                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Exercício / Ano</label>
                             <select
                                 value={ano}
                                 onChange={(e) => setAno(e.target.value)}
-                                className="w-full bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl px-4 py-2.5 text-xs font-bold text-[#12304A] focus:border-[#1254A3] outline-none"
+                                className="w-full bg-[#f4fbff] border border-[#e2e8f0] rounded-xl px-4 py-2.5 text-xs font-bold text-slate-900 focus:border-[#01b0ef] outline-none"
                             >
                                 <option value="2026">2026</option>
                                 <option value="2025">2025</option>
@@ -349,11 +349,11 @@ export default function ConveniosPage() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">Status</label>
+                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Status</label>
                             <select
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value)}
-                                className="w-full bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl px-4 py-2.5 text-xs font-bold text-[#12304A] focus:border-[#1254A3] outline-none"
+                                className="w-full bg-[#f4fbff] border border-[#e2e8f0] rounded-xl px-4 py-2.5 text-xs font-bold text-slate-900 focus:border-[#01b0ef] outline-none"
                             >
                                 <option value="">Todos os status</option>
                                 <option value="vigente">Vigente</option>
@@ -369,10 +369,10 @@ export default function ConveniosPage() {
                     <div className="space-y-6 mb-8 animate-in fade-in duration-500">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Gráfico 1: Comparativo Financeiro */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
-                                        <FaChartLine className="text-[#1254A3]" /> Comparativo Financeiro: Concedidas vs Recebidas
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                                        <FaChartLine className="text-[#01b0ef]" /> Comparativo Financeiro: Concedidas vs Recebidas
                                     </h3>
                                 </div>
                                 <div className="h-64 w-full pt-2">
@@ -392,7 +392,7 @@ export default function ConveniosPage() {
                                                 }}
                                             />
                                             <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }} />
-                                            <Bar dataKey="Valor Previsto" fill="#1254A3" radius={[4, 4, 0, 0]} />
+                                            <Bar dataKey="Valor Previsto" fill="#01b0ef" radius={[4, 4, 0, 0]} />
                                             <Bar dataKey="Valor Liberado" fill="#10B981" radius={[4, 4, 0, 0]} />
                                         </BarChart>
                                     </ResponsiveContainer>
@@ -400,9 +400,9 @@ export default function ConveniosPage() {
                             </div>
 
                             {/* Gráfico 2: Situação / Status */}
-                            <div className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm space-y-3">
+                            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm space-y-3">
                                 <div>
-                                    <h3 className="text-xs font-bold text-[#12304A] uppercase tracking-wider flex items-center gap-2">
+                                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                         <FaChartPie className="text-[#10B981]" /> Situação dos Instrumentos Vigentes
                                     </h3>
                                     <p className="text-[11px] text-gray-500">Distribuição por status cadastral no exercício</p>
@@ -449,28 +449,28 @@ export default function ConveniosPage() {
                 {/* Conteúdo: Lista de Instrumentos ou Declaração Oficial de Inexistência */}
                 <AnimatePresence mode="wait">
                     {loading ? (
-                        <div className="bg-white rounded-2xl p-16 text-center border border-[#DDE3EA] shadow-sm">
-                            <FaSpinner className="animate-spin text-3xl text-[#1254A3] mx-auto mb-3" />
-                            <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Consultando base de convênios e transferências...</p>
+                        <div className="bg-white rounded-2xl p-16 text-center border border-[#e2e8f0] shadow-sm">
+                            <FaSpinner className="animate-spin text-3xl text-[#01b0ef] mx-auto mb-3" />
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Consultando base de convênios e transferências...</p>
                         </div>
                     ) : convenios.length === 0 ? (
-                        <div className="bg-white rounded-3xl p-12 text-center border-2 border-dashed border-[#DDE3EA] shadow-sm space-y-4">
-                            <div className="w-16 h-16 rounded-2xl bg-amber-50 text-[#F39A32] flex items-center justify-center mx-auto text-2xl">
+                        <div className="bg-white rounded-3xl p-12 text-center border-2 border-dashed border-[#e2e8f0] shadow-sm space-y-4">
+                            <div className="w-16 h-16 rounded-2xl bg-amber-50 text-[#fdb913] flex items-center justify-center mx-auto text-2xl">
                                 <FaFileAlt />
                             </div>
                             <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-full">
                                 Declaração Oficial de Inexistência • Critério PNTP
                             </span>
-                            <h4 className="text-xl font-black text-[#12304A]">
+                            <h4 className="text-xl font-black text-slate-900">
                                 Não Houve Transferências Concedidas no Exercício Selecionado
                             </h4>
-                            <p className="text-xs text-[#5B738B] max-w-xl mx-auto leading-relaxed">
+                            <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
                                 A Prefeitura Municipal de São Tomé/RN declara formalmente, para fins de transparência pública ativa e cumprimento do Critério PNTP, que não realizou transferências voluntárias ou termos de fomento concedidos a entidades no período consultado ({ano}).
                             </p>
                             <div className="pt-2 flex justify-center gap-3">
                                 <button
                                     onClick={handleClearFilters}
-                                    className="px-5 py-2.5 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d4282] transition-all cursor-pointer"
+                                    className="px-5 py-2.5 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all cursor-pointer"
                                 >
                                     Ver Todos os Exercícios
                                 </button>
@@ -494,7 +494,7 @@ export default function ConveniosPage() {
                                         variants={itemVariants}
                                         initial="hidden"
                                         animate="visible"
-                                        className="bg-white rounded-3xl border border-[#DDE3EA] shadow-sm hover:border-[#1254A3]/50 transition-all p-6 sm:p-8"
+                                        className="bg-white rounded-3xl border border-[#e2e8f0] shadow-sm hover:border-[#01b0ef]/50 transition-all p-6 sm:p-8"
                                     >
                                         <div className="flex flex-col lg:flex-row justify-between gap-6 mb-6 pb-6 border-b border-slate-100">
                                             <div>
@@ -513,7 +513,7 @@ export default function ConveniosPage() {
                                                         Vigência: {new Date(c.dataInicio).toLocaleDateString("pt-BR")} a {new Date(c.dataFim).toLocaleDateString("pt-BR")}
                                                     </span>
                                                 </div>
-                                                <h3 className="text-lg sm:text-xl font-black text-[#12304A]">
+                                                <h3 className="text-lg sm:text-xl font-black text-slate-900">
                                                     Instrumento Nº {c.numero}
                                                 </h3>
                                                 <p className="text-xs text-slate-500 font-medium mt-1">
@@ -526,11 +526,11 @@ export default function ConveniosPage() {
                                             </div>
 
                                             <div className="flex items-center gap-4">
-                                                <div className="bg-[#F5F7FA] px-6 py-4 rounded-2xl border border-[#DDE3EA] text-right">
-                                                    <span className="text-[10px] font-bold uppercase text-[#5B738B] block mb-0.5">
+                                                <div className="bg-[#f4fbff] px-6 py-4 rounded-2xl border border-[#e2e8f0] text-right">
+                                                    <span className="text-[10px] font-bold uppercase text-slate-600 block mb-0.5">
                                                         {isConcedido ? "Valor Previsto" : "Valor do Repasse"}
                                                     </span>
-                                                    <span className="text-xl font-black text-[#12304A]">{fmt(c.valor)}</span>
+                                                    <span className="text-xl font-black text-slate-900">{fmt(c.valor)}</span>
                                                 </div>
                                                 {isConcedido && c.valorLiberado !== null && c.valorLiberado !== undefined && (
                                                     <div className="bg-emerald-50 px-6 py-4 rounded-2xl border border-emerald-200 text-right">
@@ -545,17 +545,17 @@ export default function ConveniosPage() {
 
                                         <div className="space-y-4">
                                             <div>
-                                                <span className="text-[10px] font-bold text-[#5B738B] uppercase tracking-wider block mb-1">
+                                                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider block mb-1">
                                                     Objeto e Finalidade Pública
                                                 </span>
-                                                <p className="text-sm text-[#12304A] bg-[#F5F7FA] p-4 rounded-2xl border border-[#DDE3EA] leading-relaxed">
+                                                <p className="text-sm text-slate-900 bg-[#f4fbff] p-4 rounded-2xl border border-[#e2e8f0] leading-relaxed">
                                                     "{c.objeto}"
                                                 </p>
                                             </div>
 
                                             <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-                                                <span className="text-xs text-[#5B738B]">
-                                                    Secretaria Gestora: <strong className="text-[#12304A]">{c.secretaria}</strong>
+                                                <span className="text-xs text-slate-600">
+                                                    Secretaria Gestora: <strong className="text-slate-900">{c.secretaria}</strong>
                                                 </span>
 
                                                 <div className="flex items-center gap-3">
@@ -564,7 +564,7 @@ export default function ConveniosPage() {
                                                             href={c.arquivoInteiroTeor}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="inline-flex items-center gap-2 bg-[#1254A3] hover:bg-[#0d4282] text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-sm"
+                                                            className="inline-flex items-center gap-2 bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-sm"
                                                         >
                                                             <FaFilePdf size={12} />
                                                             Inteiro Teor do Instrumento
@@ -588,7 +588,7 @@ export default function ConveniosPage() {
                 <div className="mt-12 space-y-6">
                     <BannerPNTP />
                     <div className="text-center pt-2">
-                        <p className="text-xs text-[#5B738B]">
+                        <p className="text-xs text-slate-600">
                             PORTAL DA TRANSPARÊNCIA • PREFEITURA DE LAJES PINTADAS/RN <br/>
                             <span className="italic">
                                 Identificador Municipal Oficial: Código IBGE 2412005 • CNPJ 08.080.210/0001-49 (Distinto de Lajes/RN - IBGE 2406700).

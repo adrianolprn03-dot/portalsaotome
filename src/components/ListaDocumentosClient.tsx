@@ -80,15 +80,15 @@ export default function ListaDocumentosClient({
     return (
         <div className="max-w-[1240px] mx-auto px-6 py-10">
             {/* Painel de Filtros */}
-            <div className="bg-white rounded-2xl p-6 shadow-civic-sm border border-slate-200/80 flex flex-col md:flex-row items-end gap-4 mb-10">
+            <div className="bg-white rounded-2xl p-6 shadow-civic-sm border border-[#01b0ef]/20 flex flex-col md:flex-row items-end gap-4 mb-10">
                 <div className="flex-1 w-full">
-                    <label className="block text-xs font-bold text-slate-600 mb-2">
+                    <label className="block text-xs font-bold text-slate-700 mb-2">
                         Pesquisar no Acervo Oficial
                     </label>
                     <div className="relative">
                         <Search
                             size={18}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#01b0ef]"
                         />
                         <input
                             type="text"
@@ -101,13 +101,13 @@ export default function ListaDocumentosClient({
                 </div>
 
                 <div className="w-full md:w-56">
-                    <label className="block text-xs font-bold text-slate-600 mb-2">
+                    <label className="block text-xs font-bold text-slate-700 mb-2">
                         Exercício Financeiro
                     </label>
                     <div className="relative">
                         <Calendar
                             size={16}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#01b0ef] pointer-events-none"
                         />
                         <select
                             value={anoFiltro}
@@ -133,12 +133,12 @@ export default function ListaDocumentosClient({
             <div className="space-y-6">
                 <div className="flex items-center justify-between px-1">
                     <div className="flex items-center gap-2.5">
-                        <span className="w-2 h-2 rounded-full bg-primary-600" />
-                        <h2 className="font-heading text-sm font-bold text-slate-700 uppercase tracking-wider">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#01b0ef]" />
+                        <h2 className="font-heading text-sm font-bold text-slate-800 uppercase tracking-wider">
                             Base Oficial de Documentos
                         </h2>
                     </div>
-                    <div className="text-xs font-mono font-bold bg-primary-50 text-primary-700 px-3.5 py-1.5 rounded-full border border-primary-100">
+                    <div className="text-xs font-mono font-extrabold bg-[#fdb913] text-slate-900 px-3.5 py-1.5 rounded-full">
                         {documentosFiltrados.length}{" "}
                         {documentosFiltrados.length === 1
                             ? "registro"
@@ -148,7 +148,7 @@ export default function ListaDocumentosClient({
 
                 {loading ? (
                     <div className="flex flex-col justify-center items-center py-24 gap-4 bg-white rounded-3xl border border-slate-200/80">
-                        <div className="w-10 h-10 border-3 border-primary-600 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-10 h-10 border-3 border-[#01b0ef] border-t-transparent rounded-full animate-spin" />
                         <p className="font-semibold text-slate-500 text-xs">
                             Consultando acervo documental...
                         </p>
@@ -157,12 +157,12 @@ export default function ListaDocumentosClient({
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white rounded-3xl border border-dashed border-slate-200 p-16 text-center"
+                        className="bg-white rounded-3xl border border-dashed border-[#01b0ef]/30 p-16 text-center"
                     >
-                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 mb-4">
+                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#01b0ef]/10 text-[#01b0ef] mb-4">
                             <Search size={22} />
                         </div>
-                        <h3 className="font-heading text-lg font-bold text-[#071E3D] mb-1">
+                        <h3 className="font-heading text-lg font-bold text-slate-900 mb-1">
                             {tituloVazio}
                         </h3>
                         <p className="text-slate-500 text-sm max-w-sm mx-auto">
@@ -179,32 +179,32 @@ export default function ListaDocumentosClient({
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.96 }}
                                     transition={{ delay: idx * 0.03 }}
-                                    className="group bg-white rounded-2xl border border-slate-200/80 hover:border-primary-400 shadow-civic-sm hover:shadow-civic-lg transition-all duration-200 flex flex-col justify-between"
+                                    className="group bg-white rounded-2xl border border-slate-200/80 hover:border-[#01b0ef] shadow-civic-sm hover:shadow-civic-lg transition-all duration-200 flex flex-col justify-between"
                                 >
                                     <div className="p-5 flex-1">
                                         <div className="flex items-start gap-3.5">
-                                            <div className="w-11 h-11 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary-600 group-hover:text-white transition-colors">
+                                            <div className="w-11 h-11 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0 group-hover:bg-[#01b0ef] group-hover:text-white transition-colors">
                                                 <FileText size={20} />
                                             </div>
                                             <div className="min-w-0 flex-1">
                                                 <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                                                    <span className="text-[10px] font-bold text-primary-700 bg-primary-50 px-2 py-0.5 rounded border border-primary-100 uppercase tracking-wider">
+                                                    <span className="text-[10px] font-bold text-slate-900 bg-[#fdb913]/25 px-2 py-0.5 rounded border border-[#fdb913]/50 uppercase tracking-wider">
                                                         {tipoDocumento.replace("-", " ")}
                                                     </span>
                                                     {doc.ano && (
-                                                        <span className="text-[11px] font-mono font-semibold text-slate-500">
+                                                        <span className="text-[11px] font-mono font-bold text-[#01b0ef]">
                                                             {doc.ano}
                                                         </span>
                                                     )}
                                                 </div>
-                                                <h4 className="font-heading font-bold text-[#071E3D] text-sm leading-snug line-clamp-2 group-hover:text-primary-600 transition-colors">
+                                                <h4 className="font-heading font-bold text-slate-900 text-sm leading-snug line-clamp-2 group-hover:text-[#01b0ef] transition-colors">
                                                     {doc.titulo.replace(/\.pdf$/i, "")}
                                                 </h4>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="px-5 py-3.5 bg-[#F6F9FC] border-t border-slate-100 flex items-center gap-2 rounded-b-2xl">
+                                    <div className="px-5 py-3.5 bg-[#f4fbff] border-t border-slate-100 flex items-center gap-2 rounded-b-2xl">
                                         {doc.arquivo || doc.documentUrl ? (
                                             <>
                                                 <button
@@ -217,7 +217,7 @@ export default function ListaDocumentosClient({
                                                             ),
                                                         })
                                                     }
-                                                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-white hover:bg-primary-600 text-primary-700 hover:text-white border border-slate-200/80 hover:border-primary-600 rounded-xl text-xs font-bold transition-all"
+                                                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl text-xs font-bold transition-all"
                                                 >
                                                     <Eye size={14} />
                                                     <span>Visualizar</span>
@@ -226,7 +226,7 @@ export default function ListaDocumentosClient({
                                                     href={doc.arquivo || doc.documentUrl || "#"}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 bg-white hover:bg-[#071E3D] text-slate-700 hover:text-white border border-slate-200/80 hover:border-[#071E3D] rounded-xl text-xs font-bold transition-all"
+                                                    className="flex items-center justify-center gap-1.5 py-2 px-3.5 bg-[#fdb913] hover:brightness-105 text-slate-900 rounded-xl text-xs font-bold transition-all"
                                                 >
                                                     <Download size={13} />
                                                     <span>PDF</span>

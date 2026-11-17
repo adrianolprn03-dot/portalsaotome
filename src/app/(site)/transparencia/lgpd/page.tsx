@@ -158,7 +158,7 @@ export default function LGPDPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Privacidade e Proteção de Dados (LGPD)"
                 subtitle="Segurança jurídica, diretrizes institucionais e integridade digital no tratamento das informações da nossa população."
@@ -174,67 +174,67 @@ export default function LGPDPage() {
                 {/* Destaque e Canal DPO */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                     {/* Card de Compromisso Institucional */}
-                    <div className="lg:col-span-2 bg-white rounded-2xl p-6 sm:p-8 border border-[#DDE3EA] shadow-sm flex flex-col justify-between">
+                    <div className="lg:col-span-2 bg-white rounded-2xl p-6 sm:p-8 border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
                         <div>
-                            <span className="text-xs font-bold text-[#1254A3] uppercase tracking-wider mb-2 block">
+                            <span className="text-xs font-bold text-[#01b0ef] uppercase tracking-wider mb-2 block">
                                 Governança e Transparência Pública
                             </span>
-                            <h2 className="text-2xl sm:text-3xl font-black text-[#12304A] mb-4 tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4 tracking-tight">
                                 Proteção de Dados Pessoais em São Tomé
                             </h2>
-                            <p className="text-sm text-[#5B738B] leading-relaxed mb-6 font-medium">
+                            <p className="text-sm text-slate-600 leading-relaxed mb-6 font-medium">
                                 A Prefeitura Municipal de {MUNICIPIO.nome} implementa medidas de segurança, privacidade por padrão (Privacy by Default) e transparência no tratamento de dados pessoais, assegurando o cumprimento integral da Lei Federal nº 13.709/2018 (LGPD).
                             </p>
                         </div>
 
-                        <div className="pt-4 border-t border-[#DDE3EA] grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div className="flex items-center gap-2 text-xs font-semibold text-[#12304A]">
+                        <div className="pt-4 border-t border-[#e2e8f0] grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div className="flex items-center gap-2 text-xs font-semibold text-slate-900">
                                 <FaCheckCircle className="text-emerald-500 shrink-0" />
                                 <span>Consentimento Legítimo</span>
                             </div>
-                            <div className="flex items-center gap-2 text-xs font-semibold text-[#12304A]">
-                                <FaLock className="text-[#1254A3] shrink-0" />
+                            <div className="flex items-center gap-2 text-xs font-semibold text-slate-900">
+                                <FaLock className="text-[#01b0ef] shrink-0" />
                                 <span>Criptografia e Segurança</span>
                             </div>
-                            <div className="flex items-center gap-2 text-xs font-semibold text-[#12304A]">
-                                <FaUserCheck className="text-[#F39A32] shrink-0" />
+                            <div className="flex items-center gap-2 text-xs font-semibold text-slate-900">
+                                <FaUserCheck className="text-[#fdb913] shrink-0" />
                                 <span>Direitos do Titular (Art. 18)</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Card do Encarregado de Dados (DPO) */}
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#DDE3EA] shadow-sm flex flex-col justify-between">
+                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#e2e8f0] shadow-sm flex flex-col justify-between">
                         <div>
-                            <div className="w-12 h-12 bg-blue-50 text-[#1254A3] rounded-xl flex items-center justify-center mb-4">
+                            <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center mb-4">
                                 <FaUserShield size={24} />
                             </div>
-                            <span className="text-xs font-bold text-[#1254A3] uppercase tracking-wider block mb-1">
+                            <span className="text-xs font-bold text-[#01b0ef] uppercase tracking-wider block mb-1">
                                 Encarregado pelo Tratamento (DPO)
                             </span>
-                            <h3 className="text-lg font-black text-[#12304A] mb-4">Canal Oficial com o Cidadão</h3>
+                            <h3 className="text-lg font-black text-slate-900 mb-4">Canal Oficial com o Cidadão</h3>
                             
                             <div className="space-y-3 text-xs mb-6">
                                 <div>
-                                    <span className="text-[10px] font-bold text-[#5B738B] uppercase block">Nome do Encarregado:</span>
-                                    <span className="font-bold text-[#12304A]">{MUNICIPIO.dpo}</span>
+                                    <span className="text-[10px] font-bold text-slate-600 uppercase block">Nome do Encarregado:</span>
+                                    <span className="font-bold text-slate-900">{MUNICIPIO.dpo}</span>
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-bold text-[#5B738B] uppercase block">E-mail Institucional:</span>
-                                    <a href={`mailto:${MUNICIPIO.dpoEmail}`} className="font-bold text-[#1254A3] hover:underline break-all">
+                                    <span className="text-[10px] font-bold text-slate-600 uppercase block">E-mail Institucional:</span>
+                                    <a href={`mailto:${MUNICIPIO.dpoEmail}`} className="font-bold text-[#01b0ef] hover:underline break-all">
                                         {MUNICIPIO.dpoEmail}
                                     </a>
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-bold text-[#5B738B] uppercase block">Horário de Expediente:</span>
-                                    <span className="font-medium text-[#5B738B]">07h às 13h (segunda a sexta-feira)</span>
+                                    <span className="text-[10px] font-bold text-slate-600 uppercase block">Horário de Expediente:</span>
+                                    <span className="font-medium text-slate-600">07h às 13h (segunda a sexta-feira)</span>
                                 </div>
                             </div>
                         </div>
 
                         <a 
                             href="/servicos/esic" 
-                            className="w-full py-2.5 px-4 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d3f7c] transition-all text-center shadow-sm"
+                            className="w-full py-2.5 px-4 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all text-center shadow-sm"
                         >
                             Solicitar Acesso / Exercer Direitos (e-SIC)
                         </a>
@@ -245,12 +245,12 @@ export default function LGPDPage() {
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                            <span className="w-2 h-6 bg-[#1254A3] rounded-full" />
-                            <h3 className="text-lg font-bold text-[#12304A]">
+                            <span className="w-2 h-6 bg-[#01b0ef] rounded-full" />
+                            <h3 className="text-lg font-bold text-slate-900">
                                 Atos Normativos, Regulamentações e Documentos de Privacidade
                             </h3>
                         </div>
-                        <span className="text-xs font-semibold text-[#5B738B]">
+                        <span className="text-xs font-semibold text-slate-600">
                             {filtrados.length} documento{filtrados.length !== 1 ? "s" : ""} localizado{filtrados.length !== 1 ? "s" : ""}
                         </span>
                     </div>
@@ -269,7 +269,7 @@ export default function LGPDPage() {
                         <select
                             value={tipoFiltro}
                             onChange={(e) => setTipoFiltro(e.target.value)}
-                            className="bg-[#F5F7FA] border border-[#DDE3EA] px-4 py-2.5 rounded-xl text-xs font-bold text-[#12304A] outline-none shadow-sm cursor-pointer"
+                            className="bg-[#f4fbff] border border-[#e2e8f0] px-4 py-2.5 rounded-xl text-xs font-bold text-slate-900 outline-none shadow-sm cursor-pointer"
                         >
                             <option value="">Todos os Tipos de Documento</option>
                             {TIPOS_PRIVACIDADE.map(t => (
@@ -282,13 +282,13 @@ export default function LGPDPage() {
                 {/* Lista de Documentos Filtrados */}
                 <div className="space-y-4 mb-12">
                     {filtrados.length === 0 ? (
-                        <div className="bg-white rounded-2xl p-16 text-center border border-[#DDE3EA] shadow-sm">
+                        <div className="bg-white rounded-2xl p-16 text-center border border-[#e2e8f0] shadow-sm">
                             <FaShieldAlt className="text-slate-300 text-4xl mx-auto mb-3" />
-                            <h4 className="text-base font-bold text-[#12304A] mb-1">Nenhum documento localizado</h4>
-                            <p className="text-xs text-[#5B738B] mb-4">Verifique o período de mês/ano selecionado ou limpe os filtros de busca.</p>
+                            <h4 className="text-base font-bold text-slate-900 mb-1">Nenhum documento localizado</h4>
+                            <p className="text-xs text-slate-600 mb-4">Verifique o período de mês/ano selecionado ou limpe os filtros de busca.</p>
                             <button 
                                 onClick={handleClear} 
-                                className="px-5 py-2.5 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d3f7c] transition-all shadow-sm"
+                                className="px-5 py-2.5 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all shadow-sm"
                             >
                                 Resetar Filtros
                             </button>
@@ -297,29 +297,29 @@ export default function LGPDPage() {
                         filtrados.map((doc) => (
                             <div 
                                 key={doc.id}
-                                className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm hover:border-[#1254A3]/50 transition-all p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+                                className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm hover:border-[#01b0ef]/50 transition-all p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
                             >
                                 <div className="flex items-start gap-4 flex-1">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0 border border-blue-100">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0 border border-blue-100">
                                         <FaFilePdf size={18} />
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex flex-wrap items-center gap-2 mb-1">
-                                            <span className="text-[10px] font-bold text-[#1254A3] bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200 uppercase tracking-wider">
+                                            <span className="text-[10px] font-bold text-[#01b0ef] bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200 uppercase tracking-wider">
                                                 {doc.tipo}
                                             </span>
-                                            <span className="text-xs font-semibold text-[#5B738B] flex items-center gap-1">
+                                            <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
                                                 <FaCalendarAlt size={10} className="text-slate-400" />
                                                 {new Date(doc.dataPublicacao).toLocaleDateString("pt-BR")} (Mês {doc.mes})
                                             </span>
                                         </div>
-                                        <h4 className="text-base font-bold text-[#12304A] mb-1">
+                                        <h4 className="text-base font-bold text-slate-900 mb-1">
                                             {doc.titulo}
                                         </h4>
-                                        <p className="text-xs font-semibold text-[#1254A3] mb-1">
+                                        <p className="text-xs font-semibold text-[#01b0ef] mb-1">
                                             {doc.subtitulo}
                                         </p>
-                                        <p className="text-xs text-[#5B738B] leading-relaxed">
+                                        <p className="text-xs text-slate-600 leading-relaxed">
                                             {doc.desc}
                                         </p>
                                     </div>
@@ -330,14 +330,14 @@ export default function LGPDPage() {
                                         href={doc.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-4 py-2 bg-white text-[#1254A3] border border-[#DDE3EA] rounded-xl text-xs font-bold hover:bg-[#1254A3] hover:text-white hover:border-[#1254A3] transition-all shadow-sm"
+                                        className="flex items-center gap-2 px-4 py-2 bg-white text-[#01b0ef] border border-[#e2e8f0] rounded-xl text-xs font-bold hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all shadow-sm"
                                     >
                                         <FaEye size={12} /> Visualizar
                                     </a>
                                     <a
                                         href={doc.url}
                                         download
-                                        className="flex items-center gap-2 px-4 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-[#0d3f7c] transition-all shadow-sm"
+                                        className="flex items-center gap-2 px-4 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all shadow-sm"
                                     >
                                         <FaDownload size={11} /> Baixar PDF
                                     </a>
@@ -348,11 +348,11 @@ export default function LGPDPage() {
                 </div>
 
                 {/* Finalidade do Tratamento */}
-                <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#DDE3EA] shadow-sm mb-12">
-                    <h3 className="text-lg font-bold text-[#12304A] mb-2">Finalidades de Tratamento no Poder Público</h3>
-                    <p className="text-xs text-[#5B738B] mb-6">Embasamento legal estrito conforme os artigos 7º e 11 da Lei Federal nº 13.709/2018:</p>
+                <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#e2e8f0] shadow-sm mb-12">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">Finalidades de Tratamento no Poder Público</h3>
+                    <p className="text-xs text-slate-600 mb-6">Embasamento legal estrito conforme os artigos 7º e 11 da Lei Federal nº 13.709/2018:</p>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-medium text-[#12304A]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-medium text-slate-900">
                         {[
                             "Execução de serviços públicos de Saúde Básica e Farmácia SUS",
                             "Matrículas e registros escolares na Rede Municipal de Ensino",
@@ -361,7 +361,7 @@ export default function LGPDPage() {
                             "Folha de pagamento e recolhimento de obrigações previdenciárias",
                             "Processamento de pedidos via Sistema Eletrônico do e-SIC e Ouvidoria"
                         ].map((item, idx) => (
-                            <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-[#F5F7FA] border border-[#DDE3EA]">
+                            <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-[#f4fbff] border border-[#e2e8f0]">
                                 <FaCheckCircle className="text-emerald-500 text-xs shrink-0 mt-0.5" />
                                 <span>{item}</span>
                             </div>

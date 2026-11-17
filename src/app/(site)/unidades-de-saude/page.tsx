@@ -17,7 +17,7 @@ export default async function UnidadesDeSaudePage() {
     const unidades = await getUnidadesSaudeAtivas();
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Unidades de Saúde"
                 subtitle="Rede Municipal de Atenção Básica e Pronto Atendimento: consulte locais, horários de funcionamento, serviços ofertados, especialidades e profissionais de plantão ou rotina."

@@ -42,7 +42,7 @@ export default async function InstitucionalSICPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Institucional do SIC"
                 subtitle="Unidade de atendimento presencial e eletrônico para acesso à informação pública."
@@ -146,7 +146,7 @@ export default async function InstitucionalSICPage() {
                                 <p className="text-[11px] font-bold text-gray-400 leading-relaxed">
                                     Você também pode abrir sua solicitação de forma totalmente eletrônica através do e-SIC.
                                 </p>
-                                <a href="/servicos/esic" className="mt-6 inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30">
+                                <a href="/servicos/esic" className="mt-6 inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-[#0098d4] transition-all shadow-lg hover:shadow-blue-500/30">
                                     Acessar e-SIC Online
                                 </a>
                             </div>

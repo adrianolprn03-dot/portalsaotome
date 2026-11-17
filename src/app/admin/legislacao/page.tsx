@@ -79,7 +79,7 @@ export default function LegislacaoAdminPage() {
                 <h1 className="text-2xl font-bold text-gray-800">Legislação Municipal</h1>
                 <Link
                     href="/admin/legislacao/new"
-                    className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-[#0098d4] transition-colors"
                 >
                     <FiPlus />
                     Nova Legislação

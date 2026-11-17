@@ -37,7 +37,7 @@ export default function SancoesAdministrativasPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Sanções Administrativas a Fornecedores"
                 subtitle="Consulta pública de sanções administrativas, advertências, multas, impedimentos de licitar e declarações de inidoneidade aplicadas pela Administração Municipal (Art. 156 da Lei nº 14.133/2021 e Critério PNTP)."
@@ -57,7 +57,7 @@ export default function SancoesAdministrativasPage() {
                         <select
                             value={ano}
                             onChange={(e) => setAno(e.target.value)}
-                            className="bg-white border border-[#DDE3EA] rounded-xl px-4 py-2 text-xs font-bold text-[#12304A] shadow-sm outline-none"
+                            className="bg-white border border-[#e2e8f0] rounded-xl px-4 py-2 text-xs font-bold text-slate-900 shadow-sm outline-none"
                         >
                             <option value="2026">2026</option>
                             <option value="2025">2025</option>
@@ -71,13 +71,13 @@ export default function SancoesAdministrativasPage() {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => handleExport("pdf")}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-bold hover:border-[#1254A3] transition-all shadow-sm cursor-pointer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-bold hover:border-[#01b0ef] transition-all shadow-sm cursor-pointer"
                         >
                             <FaDownload size={10} /> Exportar Declaração PDF
                         </button>
                         <button
                             onClick={() => handleExport("xlsx")}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#DDE3EA] text-[#12304A] rounded-lg text-xs font-bold hover:border-[#1254A3] transition-all shadow-sm cursor-pointer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-[#e2e8f0] text-slate-900 rounded-lg text-xs font-bold hover:border-[#01b0ef] transition-all shadow-sm cursor-pointer"
                         >
                             <FaDownload size={10} /> Excel
                         </button>
@@ -85,7 +85,7 @@ export default function SancoesAdministrativasPage() {
                 </div>
 
                 {/* Card Oficial de Declaração de Inexistência / Regularidade (Critério PNTP) */}
-                <div className="bg-white rounded-3xl p-8 sm:p-10 border border-[#DDE3EA] shadow-sm space-y-6">
+                <div className="bg-white rounded-3xl p-8 sm:p-10 border border-[#e2e8f0] shadow-sm space-y-6">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
                         <div className="flex items-center gap-4">
                             <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl shrink-0">
@@ -95,10 +95,10 @@ export default function SancoesAdministrativasPage() {
                                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-0.5 rounded-full">
                                     Critério PNTP • Transparência Ativa
                                 </span>
-                                <h3 className="text-xl font-black text-[#12304A] mt-1">
+                                <h3 className="text-xl font-black text-slate-900 mt-1">
                                     Declaração Oficial de Inexistência de Sanções Administrativas Vigentes
                                 </h3>
-                                <p className="text-xs text-[#5B738B] font-medium">
+                                <p className="text-xs text-slate-600 font-medium">
                                     {MUNICIPIO.nomeCompleto} • CNPJ {MUNICIPIO.cnpj} • Exercício {ano}
                                 </p>
                             </div>
@@ -106,30 +106,30 @@ export default function SancoesAdministrativasPage() {
 
                         <button
                             onClick={() => handleExport("pdf")}
-                            className="bg-[#1254A3] hover:bg-[#0d4282] text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+                            className="bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-sm transition-all cursor-pointer"
                         >
                             <FaFilePdf /> Baixar Certidão / Declaração
                         </button>
                     </div>
 
-                    <div className="bg-[#F5F7FA] rounded-2xl p-6 border border-[#DDE3EA] space-y-4">
-                        <p className="text-sm text-[#12304A] leading-relaxed font-medium">
+                    <div className="bg-[#f4fbff] rounded-2xl p-6 border border-[#e2e8f0] space-y-4">
+                        <p className="text-sm text-slate-900 leading-relaxed font-medium">
                             A <strong>{MUNICIPIO.nomeCompleto}</strong>, no uso de suas atribuições legais e em cumprimento ao disposto no <strong>art. 156 da Lei Federal nº 14.133/2021 (Nova Lei de Licitações)</strong> e às diretrizes da <strong>Matriz de Fiscalização PNTP 2026 (Critério PNTP)</strong>, declara para os devidos fins de direito e controle público que:
                         </p>
                         <blockquote className="bg-white p-5 rounded-xl border-l-4 border-emerald-500 text-sm font-semibold text-slate-800 italic shadow-xs">
                             "No exercício de {ano}, não constam sanções administrativas vigentes (advertência, multa rescisória, impedimento de licitar ou contratar, ou declaração de inidoneidade) aplicadas pela Administração Direta a fornecedores, pessoas físicas ou jurídicas licitantes."
                         </blockquote>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
-                            <div className="bg-white p-3.5 rounded-xl border border-[#DDE3EA]">
-                                <span className="text-[10px] font-bold text-[#5B738B] uppercase block mb-0.5">Órgão Emissor:</span>
-                                <span className="font-bold text-[#12304A]">Setor de Licitações e Contratos / Gabinete</span>
+                            <div className="bg-white p-3.5 rounded-xl border border-[#e2e8f0]">
+                                <span className="text-[10px] font-bold text-slate-600 uppercase block mb-0.5">Órgão Emissor:</span>
+                                <span className="font-bold text-slate-900">Setor de Licitações e Contratos / Gabinete</span>
                             </div>
-                            <div className="bg-white p-3.5 rounded-xl border border-[#DDE3EA]">
-                                <span className="text-[10px] font-bold text-[#5B738B] uppercase block mb-0.5">Fundamentação:</span>
-                                <span className="font-bold text-[#12304A]">Art. 156 da Lei nº 14.133/21 • Critério PNTP</span>
+                            <div className="bg-white p-3.5 rounded-xl border border-[#e2e8f0]">
+                                <span className="text-[10px] font-bold text-slate-600 uppercase block mb-0.5">Fundamentação:</span>
+                                <span className="font-bold text-slate-900">Art. 156 da Lei nº 14.133/21 • Critério PNTP</span>
                             </div>
-                            <div className="bg-white p-3.5 rounded-xl border border-[#DDE3EA]">
-                                <span className="text-[10px] font-bold text-[#5B738B] uppercase block mb-0.5">Atualização:</span>
+                            <div className="bg-white p-3.5 rounded-xl border border-[#e2e8f0]">
+                                <span className="text-[10px] font-bold text-slate-600 uppercase block mb-0.5">Atualização:</span>
                                 <span className="font-bold text-emerald-700">Verificação Periódica Concluída</span>
                             </div>
                         </div>
@@ -137,16 +137,16 @@ export default function SancoesAdministrativasPage() {
                 </div>
 
                 {/* Consultas Públicas Oficiais aos Cadastros Nacionais de Sanções */}
-                <div className="bg-white rounded-3xl p-8 border border-[#DDE3EA] shadow-sm space-y-6">
+                <div className="bg-white rounded-3xl p-8 border border-[#e2e8f0] shadow-sm space-y-6">
                     <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-                        <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center text-lg">
+                        <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center text-lg">
                             <FaShieldAlt />
                         </div>
                         <div>
-                            <h4 className="text-base font-black text-[#12304A]">
+                            <h4 className="text-base font-black text-slate-900">
                                 Consultas Integradas aos Bancos Nacionais de Sanções
                             </h4>
-                            <p className="text-xs text-[#5B738B]">
+                            <p className="text-xs text-slate-600">
                                 Verifique a idoneidade de licitantes e empresas nos cadastros unificados do Governo Federal e Tribunais de Contas
                             </p>
                         </div>
@@ -157,20 +157,20 @@ export default function SancoesAdministrativasPage() {
                             href="https://portaldatransparencia.gov.br/sancoes/ceis"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-[#F5F7FA] hover:bg-blue-50 p-5 rounded-2xl border border-[#DDE3EA] hover:border-[#1254A3] transition-all flex flex-col justify-between group"
+                            className="bg-[#f4fbff] hover:bg-blue-50 p-5 rounded-2xl border border-[#e2e8f0] hover:border-[#01b0ef] transition-all flex flex-col justify-between group"
                         >
                             <div>
-                                <span className="text-[10px] font-black uppercase tracking-wider text-[#1254A3] bg-blue-50 px-2 py-0.5 rounded">
+                                <span className="text-[10px] font-black uppercase tracking-wider text-[#01b0ef] bg-blue-50 px-2 py-0.5 rounded">
                                     CGU • Portal da Transparência
                                 </span>
-                                <h5 className="text-sm font-bold text-[#12304A] mt-2 group-hover:text-[#1254A3]">
+                                <h5 className="text-sm font-bold text-slate-900 mt-2 group-hover:text-[#01b0ef]">
                                     CEIS - Empresas Inidôneas e Suspensas
                                 </h5>
-                                <p className="text-xs text-[#5B738B] mt-1">
+                                <p className="text-xs text-slate-600 mt-1">
                                     Relação nacional de empresas e pessoas físicas impedidas de licitar com a administração pública.
                                 </p>
                             </div>
-                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#1254A3]">
+                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#01b0ef]">
                                 <span>Consultar CEIS</span>
                                 <FaExternalLinkAlt size={10} />
                             </div>
@@ -180,20 +180,20 @@ export default function SancoesAdministrativasPage() {
                             href="https://portaldatransparencia.gov.br/sancoes/cnep"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-[#F5F7FA] hover:bg-blue-50 p-5 rounded-2xl border border-[#DDE3EA] hover:border-[#1254A3] transition-all flex flex-col justify-between group"
+                            className="bg-[#f4fbff] hover:bg-blue-50 p-5 rounded-2xl border border-[#e2e8f0] hover:border-[#01b0ef] transition-all flex flex-col justify-between group"
                         >
                             <div>
                                 <span className="text-[10px] font-black uppercase tracking-wider text-purple-700 bg-purple-50 px-2 py-0.5 rounded">
                                     Lei Anticorrupção (Lei 12.846)
                                 </span>
-                                <h5 className="text-sm font-bold text-[#12304A] mt-2 group-hover:text-[#1254A3]">
+                                <h5 className="text-sm font-bold text-slate-900 mt-2 group-hover:text-[#01b0ef]">
                                     CNEP - Empresas Punidas
                                 </h5>
-                                <p className="text-xs text-[#5B738B] mt-1">
+                                <p className="text-xs text-slate-600 mt-1">
                                     Sanções aplicadas com fundamento na Lei Anticorrupção em todas as esferas governamentais.
                                 </p>
                             </div>
-                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#1254A3]">
+                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#01b0ef]">
                                 <span>Consultar CNEP</span>
                                 <FaExternalLinkAlt size={10} />
                             </div>
@@ -203,20 +203,20 @@ export default function SancoesAdministrativasPage() {
                             href="https://contas.tcu.gov.br/ords/f?p=INABILITADO:INIDONEOS"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-[#F5F7FA] hover:bg-blue-50 p-5 rounded-2xl border border-[#DDE3EA] hover:border-[#1254A3] transition-all flex flex-col justify-between group"
+                            className="bg-[#f4fbff] hover:bg-blue-50 p-5 rounded-2xl border border-[#e2e8f0] hover:border-[#01b0ef] transition-all flex flex-col justify-between group"
                         >
                             <div>
                                 <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2 py-0.5 rounded">
                                     TCU Oficial
                                 </span>
-                                <h5 className="text-sm font-bold text-[#12304A] mt-2 group-hover:text-[#1254A3]">
+                                <h5 className="text-sm font-bold text-slate-900 mt-2 group-hover:text-[#01b0ef]">
                                     Licitantes Inidôneos do TCU
                                 </h5>
-                                <p className="text-xs text-[#5B738B] mt-1">
+                                <p className="text-xs text-slate-600 mt-1">
                                     Pessoas e empresas declaradas inidôneas pelo Tribunal de Contas da União para licitar no país.
                                 </p>
                             </div>
-                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#1254A3]">
+                            <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#01b0ef]">
                                 <span>Consultar TCU</span>
                                 <FaExternalLinkAlt size={10} />
                             </div>

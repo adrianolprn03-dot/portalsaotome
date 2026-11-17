@@ -30,7 +30,7 @@ import TransparencyFilters from "@/components/transparencia/TransparencyFilters"
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 
-const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#EC4899", "#F59E0B", "#64748B"];
+const CHART_COLORS = ["#01b0ef", "#fdb913", "#10B981", "#01b0ef", "#8B5CF6", "#EC4899", "#fdb913", "#64748B"];
 
 type Contrato = {
     id: string;
@@ -157,7 +157,7 @@ export default function ContratosPage() {
     }, [contratos]);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Contratos Administrativos"
                 subtitle="Transparência sobre a execução contratual, termos aditivos e parcerias celebradas."
@@ -180,54 +180,54 @@ export default function ContratosPage() {
                 <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
                     
                     {/* Primary Highlight Card */}
-                    <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] relative overflow-hidden flex flex-col justify-between">
+                    <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] relative overflow-hidden flex flex-col justify-between">
                         <div>
                             <div className="flex flex-wrap items-center gap-3 mb-6">
-                                <span className="flex items-center gap-1.5 px-3 py-1 bg-[#EEF4FB] text-[#1254A3] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#DDE3EA]">
-                                    <div className="w-2 h-2 rounded-full bg-[#F39A32] animate-pulse" />
+                                <span className="flex items-center gap-1.5 px-3 py-1 bg-[#e6f8ff] text-[#01b0ef] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#e2e8f0]">
+                                    <div className="w-2 h-2 rounded-full bg-[#fdb913] animate-pulse" />
                                     Comprometimento Orçamentário
                                 </span>
                                 <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-[11px] font-black uppercase tracking-wider border border-emerald-100">
                                     <FaShieldHalved size={11} /> Fiscalização Ativa
                                 </span>
                             </div>
-                            <p className="text-xs font-bold uppercase tracking-widest text-[#5B738B] mb-1">
+                            <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-1">
                                 Montante Contratual no Exercício
                             </p>
-                            <div className="text-4xl sm:text-5xl font-black text-[#12304A] tracking-tight">
-                                {loading ? <FaSpinner className="animate-spin text-3xl text-[#1254A3]" /> : fmt(totalValor)}
+                            <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                                {loading ? <FaSpinner className="animate-spin text-3xl text-[#01b0ef]" /> : fmt(totalValor)}
                             </div>
                         </div>
                         
-                        <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#DDE3EA] pt-6">
+                        <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#e2e8f0] pt-6">
                             <div className="flex flex-col">
-                                <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Ano Base</span>
-                                <span className="text-xl font-black text-[#12304A]">{ano}</span>
+                                <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">Ano Base</span>
+                                <span className="text-xl font-black text-slate-900">{ano}</span>
                             </div>
-                            <div className="w-px h-8 bg-[#DDE3EA] hidden md:block" />
+                            <div className="w-px h-8 bg-[#e2e8f0] hidden md:block" />
                             <div className="flex flex-col">
-                                <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Instrumentos Firmados</span>
-                                <span className="text-xl font-black text-[#1254A3]">{contratos.length} <span className="text-sm font-bold text-[#5B738B]">contratos</span></span>
+                                <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">Instrumentos Firmados</span>
+                                <span className="text-xl font-black text-[#01b0ef]">{contratos.length} <span className="text-sm font-bold text-slate-600">contratos</span></span>
                             </div>
                         </div>
                     </div>
 
                     {/* Secondary Context Card */}
-                    <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] flex flex-col justify-between">
+                    <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] flex flex-col justify-between">
                          <div>
-                            <div className="w-14 h-14 bg-[#EEF4FB] text-[#1254A3] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#DDE3EA]">
+                            <div className="w-14 h-14 bg-[#e6f8ff] text-[#01b0ef] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#e2e8f0]">
                                 <FaFileContract />
                             </div>
-                            <h4 className="text-lg font-black text-[#12304A] tracking-tight mb-2">
+                            <h4 className="text-lg font-black text-slate-900 tracking-tight mb-2">
                                 Contratos & Aditivos
                             </h4>
-                            <p className="text-xs text-[#5B738B] leading-relaxed">
+                            <p className="text-xs text-slate-600 leading-relaxed">
                                 Gestão e acompanhamento das contratações públicas, aditivos, vigências e fiscais designados.
                             </p>
                          </div>
-                         <div className="pt-5 border-t border-[#DDE3EA] flex items-center justify-between text-xs font-bold text-[#5B738B]">
+                         <div className="pt-5 border-t border-[#e2e8f0] flex items-center justify-between text-xs font-bold text-slate-600">
                              <div className="flex items-center gap-2">
-                                 <div className="w-2 h-2 rounded-full bg-[#1254A3] animate-pulse" />
+                                 <div className="w-2 h-2 rounded-full bg-[#01b0ef] animate-pulse" />
                                  <span>Critério PNTP</span>
                              </div>
                              <FaCheckCircle className="text-emerald-500" />
@@ -253,7 +253,7 @@ export default function ContratosPage() {
                                 <select 
                                     value={status} 
                                     onChange={(e) => setStatus(e.target.value)}
-                                    className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
+                                    className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                 >
                                     <option value="">Todos os Status</option>
                                     <option value="vigente">Vigente</option>
@@ -266,13 +266,13 @@ export default function ContratosPage() {
                 </motion.div>
 
                 {/* View Switcher: Lista vs Gráficos */}
-                <div className="flex bg-white p-1 rounded-xl border border-[#DDE3EA] w-fit mb-8 shadow-sm">
+                <div className="flex bg-white p-1 rounded-xl border border-[#e2e8f0] w-fit mb-8 shadow-sm">
                     <button
                         onClick={() => setAbaVisual("lista")}
                         className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
                             abaVisual === "lista"
-                                ? "bg-[#1254A3] text-white shadow-sm"
-                                : "text-[#5B738B] hover:text-[#1254A3]"
+                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                : "text-slate-600 hover:text-[#01b0ef]"
                         }`}
                     >
                         <FaFileLines size={13} /> Lista de Contratos ({contratos.length})
@@ -281,8 +281,8 @@ export default function ContratosPage() {
                         onClick={() => setAbaVisual("graficos")}
                         className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
                             abaVisual === "graficos"
-                                ? "bg-[#1254A3] text-white shadow-sm"
-                                : "text-[#5B738B] hover:text-[#1254A3]"
+                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                : "text-slate-600 hover:text-[#01b0ef]"
                         }`}
                     >
                         <FaChartLine size={13} /> Gráficos nos Resultados
@@ -295,21 +295,21 @@ export default function ContratosPage() {
                         animate={{ opacity: 1 }}
                         className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"
                     >
-                        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
-                            <h3 className="text-base font-black text-[#12304A] mb-1">
+                        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#e2e8f0] shadow-sm">
+                            <h3 className="text-base font-black text-slate-900 mb-1">
                                 Volume Contratado por Secretaria
                             </h3>
-                            <p className="text-xs text-[#5B738B] mb-4">
+                            <p className="text-xs text-slate-600 mb-4">
                                 Maiores valores em contratos administrativos no exercício de {ano}.
                             </p>
                             <div className="h-[300px] w-full">
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart data={dadosPorSecretaria} layout="vertical">
                                         <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E2E8F0" />
-                                        <XAxis type="number" tick={{ fontSize: 10, fill: "#5B738B" }} tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} />
-                                        <YAxis dataKey="name" type="category" width={150} tick={{ fontSize: 10, fill: "#12304A" }} />
+                                        <XAxis type="number" tick={{ fontSize: 10, fill: "#475569" }} tickFormatter={(v) => `R$ ${(v / 1000).toFixed(0)}k`} />
+                                        <YAxis dataKey="name" type="category" width={150} tick={{ fontSize: 10, fill: "#0f172a" }} />
                                         <Tooltip formatter={(v: number) => [fmt(v), "Total Contratado"]} />
-                                        <Bar dataKey="valor" fill="#1254A3" radius={[0, 6, 6, 0]}>
+                                        <Bar dataKey="valor" fill="#01b0ef" radius={[0, 6, 6, 0]}>
                                             {dadosPorSecretaria.map((_, i) => (
                                                 <Cell key={`cell-sec-${i}`} fill={CHART_COLORS[i % CHART_COLORS.length]} />
                                             ))}
@@ -319,11 +319,11 @@ export default function ContratosPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
-                            <h3 className="text-base font-black text-[#12304A] mb-1">
+                        <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#e2e8f0] shadow-sm">
+                            <h3 className="text-base font-black text-slate-900 mb-1">
                                 Distribuição de Contratos por Status
                             </h3>
-                            <p className="text-xs text-[#5B738B] mb-4">
+                            <p className="text-xs text-slate-600 mb-4">
                                 Quantitativo de instrumentos vigentes, finalizados e cancelados.
                             </p>
                             <div className="h-[300px] w-full">
@@ -388,18 +388,18 @@ export default function ContratosPage() {
                                     <motion.div 
                                         key={c.id} 
                                         variants={itemVariants}
-                                        className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
+                                        className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
                                     >
                                         <div className="p-6 lg:p-8">
                                             <div className="flex flex-col lg:flex-row justify-between gap-8 mb-6">
                                                 {/* Contrato Info */}
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-16 h-16 bg-[#EEF4FB] text-[#1254A3] rounded-2xl flex items-center justify-center shrink-0 border border-[#DDE3EA] shadow-sm">
+                                                    <div className="w-16 h-16 bg-[#e6f8ff] text-[#01b0ef] rounded-2xl flex items-center justify-center shrink-0 border border-[#e2e8f0] shadow-sm">
                                                         <FaFileContract size={26} />
                                                     </div>
                                                     <div>
                                                         <div className="flex flex-wrap items-center gap-3 mb-2">
-                                                            <h3 className="text-2xl font-black text-[#12304A] tracking-tight">Contrato Nº {c.numero}</h3>
+                                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Contrato Nº {c.numero}</h3>
                                                             <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border shadow-sm ${getStatusStyles(c.status)}`}>
                                                                 {c.status.toLowerCase() === 'vigente' ? <FaCheckCircle size={12} className="animate-pulse" /> : c.status.toLowerCase() === 'finalizado' ? <FaFileContract size={12} /> : <FaTimesCircle size={12} />}
                                                                 {c.status}
@@ -477,7 +477,7 @@ export default function ContratosPage() {
                                                         href={c.instrumentoIntegralUrl || c.arquivo || "#"}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                        className="h-14 flex items-center gap-4 px-10 bg-[#01b0ef] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0098d4] transition-all shadow-lg shadow-[#01b0ef]/20 group/btn active:scale-95"
                                                     >
                                                         <FaFileLines size={14} />
                                                         Íntegra do Contrato (PDF)
@@ -487,7 +487,7 @@ export default function ContratosPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => setSelectedContrato(c)}
-                                                        className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                        className="h-14 flex items-center gap-4 px-10 bg-[#01b0ef] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0098d4] transition-all shadow-lg shadow-[#01b0ef]/20 group/btn active:scale-95"
                                                     >
                                                         <FaFileLines size={14} />
                                                         Ficha Integral do Contrato
@@ -622,7 +622,7 @@ export default function ContratosPage() {
                                         href={selectedContrato.instrumentoIntegralUrl || selectedContrato.arquivo || "#"}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1254A3] text-white text-xs font-bold hover:bg-blue-800 transition-colors shadow-sm"
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#01b0ef] text-white text-xs font-bold hover:bg-[#0098d4] transition-colors shadow-sm"
                                     >
                                         <FaFileLines /> Abrir Contrato Integral Assinado (PDF) <FaExternalLinkAlt size={10} />
                                     </a>

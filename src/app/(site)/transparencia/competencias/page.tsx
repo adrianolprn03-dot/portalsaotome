@@ -50,7 +50,7 @@ export default async function CompetenciasPage() {
     const secretarias = await getSecretarias();
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Competências e Atribuições"
                 subtitle="Atribuições legais, competências institucionais do município e funções atribuídas a cada secretaria e órgão municipal."
@@ -66,13 +66,13 @@ export default async function CompetenciasPage() {
             <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-12">
 
                 {/* Banner de Conformidade Legal */}
-                <div className="bg-blue-950 rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden shadow-xl">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
-                    <div className="w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shadow-xl shrink-0">
+                <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden shadow-xl shadow-[#01b0ef]/20">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/15 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
+                    <div className="w-14 h-14 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shadow-lg shrink-0">
                         <Shield size={26} />
                     </div>
                     <div className="flex-1">
-                        <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Lei de Acesso à Informação — Art. 8º, I</p>
+                        <p className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit uppercase tracking-widest mb-2">Lei de Acesso à Informação — Art. 8º, I</p>
                         <p className="text-white font-bold text-sm leading-relaxed">
                             Esta seção atende ao <strong>Art. 8º, §1º, Inciso I da Lei nº 12.527/2011 (LAI)</strong> e aos critérios de transparência pública, 
                             exibindo as competências legais oficiais da prefeitura e de todas as pastas governamentais cadastradas.

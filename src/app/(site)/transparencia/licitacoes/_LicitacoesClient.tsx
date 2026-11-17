@@ -32,7 +32,7 @@ import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import ListaPNCP from "@/components/transparencia/integracao/ListaPNCP";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#EC4899", "#F59E0B", "#64748B"];
+const CHART_COLORS = ["#01b0ef", "#fdb913", "#10B981", "#01b0ef", "#8B5CF6", "#EC4899", "#fdb913", "#64748B"];
 
 type Licitacao = {
     id: string;
@@ -188,7 +188,7 @@ export default function LicitacoesClient() {
     }, [filtrados]);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA] text-[#12304A]">
+        <div className="min-h-screen bg-[#f4fbff] text-slate-900">
             <PageHeader 
                 title="Compras & Licitações"
                 subtitle="Portal de transparência para processos de aquisição, alienação e contratação de serviços."
@@ -248,54 +248,54 @@ export default function LicitacoesClient() {
                             <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
                                 
                                 {/* Primary Highlight Card */}
-                                <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] relative overflow-hidden flex flex-col justify-between">
+                                <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] relative overflow-hidden flex flex-col justify-between">
                                     <div>
                                         <div className="flex flex-wrap items-center gap-3 mb-6">
-                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-[#EEF4FB] text-[#1254A3] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#DDE3EA]">
-                                                <div className="w-2 h-2 rounded-full bg-[#1254A3] animate-pulse" />
+                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-[#e6f8ff] text-[#01b0ef] rounded-lg text-[11px] font-black uppercase tracking-wider border border-[#e2e8f0]">
+                                                <div className="w-2 h-2 rounded-full bg-[#01b0ef] animate-pulse" />
                                                 Fiscalização Pública
                                             </span>
                                             <span className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg text-[11px] font-black uppercase tracking-wider border border-emerald-100">
                                                 <FaShieldHalved size={11} /> Base Transparente
                                             </span>
                                         </div>
-                                        <p className="text-xs font-bold uppercase tracking-widest text-[#5B738B] mb-1">
+                                        <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-1">
                                             Volume Estimado no Exercício
                                         </p>
-                                        <div className="text-4xl sm:text-5xl font-black text-[#12304A] tracking-tight">
-                                            {loading ? <FaSpinner className="animate-spin text-3xl text-[#1254A3]" /> : formatarMoeda(totalEstimado)}
+                                        <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                                            {loading ? <FaSpinner className="animate-spin text-3xl text-[#01b0ef]" /> : formatarMoeda(totalEstimado)}
                                         </div>
                                     </div>
                                     
-                                    <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#DDE3EA] pt-6">
+                                    <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#e2e8f0] pt-6">
                                         <div className="flex flex-col">
-                                            <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Ano Base</span>
-                                            <span className="text-xl font-black text-[#12304A]">{anoFiltro}</span>
+                                            <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">Ano Base</span>
+                                            <span className="text-xl font-black text-slate-900">{anoFiltro}</span>
                                         </div>
-                                        <div className="w-px h-8 bg-[#DDE3EA] hidden md:block" />
+                                        <div className="w-px h-8 bg-[#e2e8f0] hidden md:block" />
                                         <div className="flex flex-col">
-                                            <span className="text-[11px] font-bold uppercase text-[#5B738B] mb-0.5">Processos Localizados</span>
-                                            <span className="text-xl font-black text-[#1254A3]">{filtrados.length} <span className="text-sm font-bold text-[#5B738B]">editais</span></span>
+                                            <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">Processos Localizados</span>
+                                            <span className="text-xl font-black text-[#01b0ef]">{filtrados.length} <span className="text-sm font-bold text-slate-600">editais</span></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Secondary Context Card */}
-                                <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#DDE3EA] flex flex-col justify-between">
+                                <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] flex flex-col justify-between">
                                      <div>
-                                        <div className="w-14 h-14 bg-[#EEF4FB] text-[#1254A3] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#DDE3EA]">
+                                        <div className="w-14 h-14 bg-[#e6f8ff] text-[#01b0ef] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#e2e8f0]">
                                             <FaGavel />
                                         </div>
-                                        <h4 className="text-lg font-black text-[#12304A] tracking-tight mb-2">
+                                        <h4 className="text-lg font-black text-slate-900 tracking-tight mb-2">
                                             Licitações Municipais
                                         </h4>
-                                        <p className="text-xs text-[#5B738B] leading-relaxed">
+                                        <p className="text-xs text-slate-600 leading-relaxed">
                                             Controle social das aquisições, editais públicos, compras diretas e dispensas com transparência integral.
                                         </p>
                                      </div>
-                                     <div className="pt-5 border-t border-[#DDE3EA] flex items-center justify-between text-xs font-bold text-[#5B738B]">
+                                     <div className="pt-5 border-t border-[#e2e8f0] flex items-center justify-between text-xs font-bold text-slate-600">
                                          <div className="flex items-center gap-2">
-                                             <div className="w-2 h-2 rounded-full bg-[#1254A3] animate-pulse" />
+                                             <div className="w-2 h-2 rounded-full bg-[#01b0ef] animate-pulse" />
                                              <span>Lei 14.133/2021</span>
                                          </div>
                                          <FaCheckCircle className="text-emerald-500" />
@@ -321,7 +321,7 @@ export default function LicitacoesClient() {
                                             <select 
                                                 value={modalidadeFiltro} 
                                                 onChange={(e) => setModalidadeFiltro(e.target.value)}
-                                                className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
+                                                className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                             >
                                                 <option value="">Todas as Modalidades</option>
                                                 {Object.entries(modalidadeLabel).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
@@ -331,7 +331,7 @@ export default function LicitacoesClient() {
                                             <select 
                                                 value={statusFiltro} 
                                                 onChange={(e) => setStatusFiltro(e.target.value)}
-                                                className="px-4 py-2.5 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3]"
+                                                className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                             >
                                                 <option value="">Todos os Status</option>
                                                 {Object.entries(statusConfig).map(([v, c]) => <option key={v} value={v}>{c.label}</option>)}
@@ -342,13 +342,13 @@ export default function LicitacoesClient() {
                             </motion.div>
 
                             {/* View Mode Switcher: Editais vs Gráficos */}
-                            <div className="flex bg-white p-1 rounded-xl border border-[#DDE3EA] w-fit mb-8 shadow-sm">
+                            <div className="flex bg-white p-1 rounded-xl border border-[#e2e8f0] w-fit mb-8 shadow-sm">
                                 <button
                                     onClick={() => setAbaVisual("processos")}
                                     className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
                                         abaVisual === "processos"
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "text-[#5B738B] hover:text-[#1254A3]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "text-slate-600 hover:text-[#01b0ef]"
                                     }`}
                                 >
                                     <FaFileLines size={13} /> Lista de Editais ({filtrados.length})
@@ -357,8 +357,8 @@ export default function LicitacoesClient() {
                                     onClick={() => setAbaVisual("graficos")}
                                     className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
                                         abaVisual === "graficos"
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "text-[#5B738B] hover:text-[#1254A3]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "text-slate-600 hover:text-[#01b0ef]"
                                     }`}
                                 >
                                     <FaChartLine size={13} /> Gráficos nos Resultados
@@ -371,21 +371,21 @@ export default function LicitacoesClient() {
                                     animate={{ opacity: 1 }}
                                     className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"
                                 >
-                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
-                                        <h3 className="text-base font-black text-[#12304A] mb-1">
+                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#e2e8f0] shadow-sm">
+                                        <h3 className="text-base font-black text-slate-900 mb-1">
                                             Processos por Modalidade de Contratação
                                         </h3>
-                                        <p className="text-xs text-[#5B738B] mb-4">
+                                        <p className="text-xs text-slate-600 mb-4">
                                             Quantidade de licitações e dispensas registradas em {anoFiltro}.
                                         </p>
                                         <div className="h-[300px] w-full">
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <BarChart data={dadosPorModalidade}>
                                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#5B738B" }} />
-                                                    <YAxis tick={{ fontSize: 11, fill: "#5B738B" }} allowDecimals={false} />
+                                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#475569" }} />
+                                                    <YAxis tick={{ fontSize: 11, fill: "#475569" }} allowDecimals={false} />
                                                     <Tooltip formatter={(v: number) => [`${v} editais`, "Quantidade"]} />
-                                                    <Bar dataKey="quantidade" fill="#1254A3" radius={[6, 6, 0, 0]}>
+                                                    <Bar dataKey="quantidade" fill="#01b0ef" radius={[6, 6, 0, 0]}>
                                                         {dadosPorModalidade.map((_, i) => (
                                                             <Cell key={`cell-lic-${i}`} fill={CHART_COLORS[i % CHART_COLORS.length]} />
                                                         ))}
@@ -395,11 +395,11 @@ export default function LicitacoesClient() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#DDE3EA] shadow-sm">
-                                        <h3 className="text-base font-black text-[#12304A] mb-1">
+                                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#e2e8f0] shadow-sm">
+                                        <h3 className="text-base font-black text-slate-900 mb-1">
                                             Situação / Status dos Processos
                                         </h3>
-                                        <p className="text-xs text-[#5B738B] mb-4">
+                                        <p className="text-xs text-slate-600 mb-4">
                                             Distribuição de processos abertos, em execução e concluídos.
                                         </p>
                                         <div className="h-[300px] w-full">
@@ -464,18 +464,18 @@ export default function LicitacoesClient() {
                                                 <motion.div 
                                                     key={l.id} 
                                                     variants={itemVariants}
-                                                    className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
+                                                    className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
                                                 >
                                                     <div className="p-6 lg:p-8">
                                                         <div className="flex flex-col lg:flex-row justify-between gap-8 mb-6">
                                                             {/* Licitacao Info */}
                                                             <div className="flex items-center gap-5">
-                                                                <div className="w-16 h-16 bg-[#EEF4FB] text-[#1254A3] rounded-2xl flex items-center justify-center shrink-0 border border-[#DDE3EA] shadow-sm">
+                                                                <div className="w-16 h-16 bg-[#e6f8ff] text-[#01b0ef] rounded-2xl flex items-center justify-center shrink-0 border border-[#e2e8f0] shadow-sm">
                                                                     <FaFileContract size={26} />
                                                                 </div>
                                                                 <div>
                                                                     <div className="flex flex-wrap items-center gap-3 mb-2">
-                                                                        <h3 className="text-2xl font-black text-[#12304A] tracking-tight">{l.numero}</h3>
+                                                                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">{l.numero}</h3>
                                                                         <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border shadow-sm ${statusConfig[l.status]?.cor || "bg-slate-50 text-slate-400"}`}>
                                                                             {statusConfig[l.status]?.icon && (
                                                                                 <div className={l.status === 'aberta' ? 'animate-pulse' : ''}>
@@ -559,7 +559,7 @@ export default function LicitacoesClient() {
                                                                     href={l.editalUrl || l.arquivo || "#"}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
-                                                                    className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                                    className="h-14 flex items-center gap-4 px-10 bg-[#01b0ef] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0098d4] transition-all shadow-lg shadow-[#01b0ef]/20 group/btn active:scale-95"
                                                                 >
                                                                     <FaFileLines size={14} />
                                                                     Baixar Edital Oficial
@@ -569,7 +569,7 @@ export default function LicitacoesClient() {
                                                                 <button
                                                                     type="button"
                                                                     onClick={() => setSelectedLicitacao(l)}
-                                                                    className="h-14 flex items-center gap-4 px-10 bg-slate-950 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-900/20 group/btn active:scale-95"
+                                                                    className="h-14 flex items-center gap-4 px-10 bg-[#01b0ef] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0098d4] transition-all shadow-lg shadow-[#01b0ef]/20 group/btn active:scale-95"
                                                                 >
                                                                     <FaFileLines size={14} />
                                                                     Visualizar Edital e Anexos
@@ -593,18 +593,18 @@ export default function LicitacoesClient() {
                             exit={{ opacity: 0, scale: 0.98 }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
                         >
-                            <div className="bg-slate-900 rounded-[3rem] p-12 lg:p-16 mb-8 relative overflow-hidden border border-slate-800 shadow-2xl shadow-blue-500/10 group">
-                                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-600/30 to-transparent rounded-full -mr-60 -mt-60 blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
+                            <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-12 lg:p-16 mb-8 relative overflow-hidden shadow-2xl shadow-[#01b0ef]/20 group">
+                                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/15 rounded-full -mr-60 -mt-60 blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
                                 <div className="relative z-10 flex flex-col md:flex-row items-center gap-12 text-white">
-                                    <div className="w-28 h-28 bg-blue-600/20 backdrop-blur-3xl rounded-[2.5rem] flex items-center justify-center border border-white/10 shadow-2xl group-hover:rotate-12 transition-transform duration-700 shrink-0">
-                                        <FaRotate size={48} className="text-blue-500 animate-spin-slow" />
+                                    <div className="w-28 h-28 bg-white/20 backdrop-blur-3xl rounded-[2.5rem] flex items-center justify-center border border-white/30 shadow-2xl group-hover:rotate-12 transition-transform duration-700 shrink-0">
+                                        <FaRotate size={48} className="text-[#fdb913] animate-spin-slow" />
                                     </div>
                                     <div className="text-center md:text-left flex-1">
-                                        <div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-xl shadow-blue-500/40">
+                                        <div className="inline-flex items-center gap-3 px-5 py-2 bg-[#fdb913] text-slate-900 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-8 shadow-lg">
                                             <FaShieldHalved size={12} /> Sincronização PNCP
                                         </div>
-                                        <h3 className="text-5xl font-black tracking-tighter mb-6 leading-none italic">Integração <span className="text-blue-400 not-italic">Nacional</span></h3>
-                                        <p className="text-slate-400 text-lg font-bold italic leading-relaxed max-w-3xl opacity-80 group-hover:opacity-100 transition-opacity">
+                                        <h3 className="text-5xl font-black tracking-tighter mb-6 leading-none">Integração <span className="inline-block px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900">Nacional</span></h3>
+                                        <p className="text-white/95 text-lg font-bold leading-relaxed max-w-3xl transition-opacity">
                                             Acompanhe em tempo real todos os processos públicos de São Tomé registrados no Portal Nacional de Contratações Públicas. Conformidade total com a Nova Lei de Licitações (14.133/2021).
                                         </p>
                                     </div>
@@ -707,7 +707,7 @@ export default function LicitacoesClient() {
                                             href={selectedLicitacao.editalUrl || selectedLicitacao.arquivo || "#"}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1254A3] text-white text-xs font-bold hover:bg-blue-800 transition-colors shadow-sm"
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#01b0ef] text-white text-xs font-bold hover:bg-[#0098d4] transition-colors shadow-sm"
                                         >
                                             <FaFileLines /> Abrir Edital Integral <FaExternalLinkAlt size={10} />
                                         </a>

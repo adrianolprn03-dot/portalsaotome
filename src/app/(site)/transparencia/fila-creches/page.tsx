@@ -147,7 +147,7 @@ export default function FilaCrechesPage() {
             <PageHeader
                 title="Fila de Creches e Educação Infantil"
                 subtitle="Critérios de prioridade, unidades de ensino, acompanhamento de demanda e declaração oficial de atendimento integral."
-                icon={<FaGraduationCap className="w-8 h-8 text-[#1254A3]" />}
+                icon={<FaGraduationCap className="w-8 h-8 text-[#01b0ef]" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
@@ -169,7 +169,7 @@ export default function FilaCrechesPage() {
                         onClick={() => setAbaAtiva("declaracao")}
                         className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${
                             abaAtiva === "declaracao"
-                                ? "bg-[#1254A3] text-white shadow-md shadow-blue-900/10"
+                                ? "bg-[#01b0ef] text-white shadow-md shadow-blue-900/10"
                                 : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
                         }`}
                     >
@@ -180,7 +180,7 @@ export default function FilaCrechesPage() {
                         onClick={() => setAbaAtiva("criterios")}
                         className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${
                             abaAtiva === "criterios"
-                                ? "bg-[#1254A3] text-white shadow-md shadow-blue-900/10"
+                                ? "bg-[#01b0ef] text-white shadow-md shadow-blue-900/10"
                                 : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
                         }`}
                     >
@@ -191,7 +191,7 @@ export default function FilaCrechesPage() {
                         onClick={() => setAbaAtiva("fila")}
                         className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${
                             abaAtiva === "fila"
-                                ? "bg-[#1254A3] text-white shadow-md shadow-blue-900/10"
+                                ? "bg-[#01b0ef] text-white shadow-md shadow-blue-900/10"
                                 : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
                         }`}
                     >
@@ -202,7 +202,7 @@ export default function FilaCrechesPage() {
                         onClick={() => setAbaAtiva("unidades")}
                         className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${
                             abaAtiva === "unidades"
-                                ? "bg-[#1254A3] text-white shadow-md shadow-blue-900/10"
+                                ? "bg-[#01b0ef] text-white shadow-md shadow-blue-900/10"
                                 : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
                         }`}
                     >
@@ -214,14 +214,14 @@ export default function FilaCrechesPage() {
                 {/* ABA 1: DECLARAÇÃO OFICIAL */}
                 {abaAtiva === "declaracao" && (
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-[#0B2545] via-[#1254A3] to-[#1E3A8A] text-white rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] text-white rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
 
                             <div className="relative z-10 space-y-6">
                                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/15">
                                     <div className="flex items-center gap-4">
                                         <div className="w-14 h-14 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center font-bold text-2xl shadow-lg">
-                                            <FaCheckCircle className="w-8 h-8 text-[#0B2545]" />
+                                            <FaCheckCircle className="w-8 h-8 text-slate-900" />
                                         </div>
                                         <div>
                                             <span className="text-[11px] font-black uppercase tracking-widest text-amber-300 block">
@@ -287,7 +287,7 @@ export default function FilaCrechesPage() {
                         {/* Card explicativo sobre a garantia de vagas */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center font-bold">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center font-bold">
                                     100%
                                 </div>
                                 <h3 className="font-bold text-gray-900 text-base">Atendimento Imediato</h3>
@@ -322,7 +322,7 @@ export default function FilaCrechesPage() {
                     <div className="space-y-6">
                         <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm">
                             <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                                <FaListOl className="text-[#1254A3]" />
+                                <FaListOl className="text-[#01b0ef]" />
                                 Critérios Legais de Priorização de Acesso
                             </h2>
                             <p className="text-sm text-gray-600 mb-6">
@@ -331,14 +331,14 @@ export default function FilaCrechesPage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {criterios.map((c) => (
-                                    <div key={c.ordem} className="p-6 rounded-2xl border border-gray-200 bg-[#FAFBFD] space-y-3 hover:border-blue-300 transition-colors">
+                                    <div key={c.ordem} className="p-6 rounded-2xl border border-gray-200 bg-[#f4fbff] space-y-3 hover:border-blue-300 transition-colors">
                                         <div className="flex items-center gap-3">
-                                            <span className="w-8 h-8 rounded-full bg-[#1254A3] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                                            <span className="w-8 h-8 rounded-full bg-[#01b0ef] text-white flex items-center justify-center font-bold text-sm shrink-0">
                                                 {c.ordem}º
                                             </span>
                                             <h3 className="font-bold text-gray-900 text-base">{c.titulo}</h3>
                                         </div>
-                                        <p className="text-xs font-semibold text-[#1254A3] bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 inline-block">
+                                        <p className="text-xs font-semibold text-[#01b0ef] bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 inline-block">
                                             {c.fundamento}
                                         </p>
                                         <p className="text-xs text-gray-600 leading-relaxed">
@@ -373,7 +373,7 @@ export default function FilaCrechesPage() {
 
                             {loading ? (
                                 <div className="py-16 text-center text-gray-500 flex flex-col items-center justify-center gap-3">
-                                    <FaSpinner className="animate-spin text-3xl text-[#1254A3]" />
+                                    <FaSpinner className="animate-spin text-3xl text-[#01b0ef]" />
                                     <span>Consultando base oficial de matrículas...</span>
                                 </div>
                             ) : itensFiltrados.length === 0 ? (
@@ -417,7 +417,7 @@ export default function FilaCrechesPage() {
                                         <tbody className="divide-y divide-gray-100">
                                             {itensFiltrados.map((item) => (
                                                 <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                                                    <td className="py-4 px-4 font-black text-[#1254A3]">#{item.posicaoFila}</td>
+                                                    <td className="py-4 px-4 font-black text-[#01b0ef]">#{item.posicaoFila}</td>
                                                     <td className="py-4 px-4 font-mono font-bold text-gray-800">{item.protocoloAnonimizado}</td>
                                                     <td className="py-4 px-4 font-semibold text-gray-700">{item.iniciaisCrianca}</td>
                                                     <td className="py-4 px-4 text-gray-700">{item.unidadeEscolar}</td>
@@ -452,7 +452,7 @@ export default function FilaCrechesPage() {
                     <div className="space-y-6">
                         <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm">
                             <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                                <FaSchool className="text-[#1254A3]" />
+                                <FaSchool className="text-[#01b0ef]" />
                                 Creches e Escolas Municipais da Rede Básica
                             </h2>
                             <p className="text-sm text-gray-600 mb-6">
@@ -461,9 +461,9 @@ export default function FilaCrechesPage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {unidades.map((u) => (
-                                    <div key={u.id} className="p-6 rounded-2xl border border-gray-200 bg-[#FAFBFD] space-y-4 flex flex-col justify-between">
+                                    <div key={u.id} className="p-6 rounded-2xl border border-gray-200 bg-[#f4fbff] space-y-4 flex flex-col justify-between">
                                         <div className="space-y-2">
-                                            <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#1254A3] flex items-center justify-center font-bold text-xl">
+                                            <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#01b0ef] flex items-center justify-center font-bold text-xl">
                                                 <FaSchool />
                                             </div>
                                             <h3 className="font-bold text-gray-900 text-base leading-snug">{u.nome}</h3>
@@ -472,16 +472,16 @@ export default function FilaCrechesPage() {
 
                                         <div className="space-y-2 text-xs text-gray-600 border-t border-gray-200 pt-3">
                                             <div className="flex items-start gap-2">
-                                                <FaMapMarkerAlt className="text-[#1254A3] shrink-0 mt-0.5" />
+                                                <FaMapMarkerAlt className="text-[#01b0ef] shrink-0 mt-0.5" />
                                                 <span>{u.endereco}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <FaClock className="text-[#1254A3] shrink-0" />
+                                                <FaClock className="text-[#01b0ef] shrink-0" />
                                                 <span>{u.horario}</span>
                                             </div>
                                             {u.telefone && (
                                                 <div className="flex items-center gap-2">
-                                                    <FaPhone className="text-[#1254A3] shrink-0" />
+                                                    <FaPhone className="text-[#01b0ef] shrink-0" />
                                                     <span>{u.telefone}</span>
                                                 </div>
                                             )}

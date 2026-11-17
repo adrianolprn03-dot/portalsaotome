@@ -81,7 +81,7 @@ export default async function InstitucionalPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Dados Institucionais"
                 subtitle="Identificação, competências, estrutura organizacional e localização da Prefeitura Municipal de São Tomé/RN."
@@ -97,13 +97,13 @@ export default async function InstitucionalPage() {
             <div className="max-w-[1240px] mx-auto px-6 py-12 space-y-12">
 
                 {/* Banner PNTP */}
-                <div className="bg-blue-950 rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
-                    <div className="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center shadow-xl shrink-0">
+                <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden shadow-xl shadow-[#01b0ef]/20">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/15 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
+                    <div className="w-14 h-14 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shadow-lg shrink-0">
                         <Shield size={26} />
                     </div>
                     <div className="flex-1">
-                        <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">PNTP 2026 — Conformidade</p>
+                        <p className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit uppercase tracking-widest mb-2">PNTP 2026 — Conformidade</p>
                         <p className="text-white font-bold text-sm leading-relaxed">
                             Esta página atende ao <strong>Art. 8º, §1º da Lei nº 12.527/2011 (LAI)</strong> e aos critérios do
                             Programa Nacional de Transparência Pública (PNTP 2026), publicando os dados de identificação
@@ -112,7 +112,7 @@ export default async function InstitucionalPage() {
                     </div>
                     <Link
                         href="/transparencia/radar"
-                        className="shrink-0 flex items-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-400 transition-all"
+                        className="shrink-0 flex items-center gap-2 px-6 py-3 bg-[#fdb913] text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#e5a60d] transition-all shadow-md"
                     >
                         <Award size={14} /> Ver Radar PNTP
                     </Link>
@@ -265,9 +265,9 @@ export default async function InstitucionalPage() {
                         </section>
 
                         {/* Símbolos Municipais */}
-                        <section className="bg-white rounded-[3rem] p-10 shadow-xl shadow-gray-200/40 border border-white">
-                            <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tighter mb-8 flex items-center gap-4">
-                                <span className="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center shadow-lg">
+                        <section className="bg-white rounded-[3rem] p-10 shadow-xl shadow-[#01b0ef]/10 border border-sky-100">
+                            <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-8 flex items-center gap-4">
+                                <span className="w-12 h-12 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shadow-lg">
                                     <Award size={20} />
                                 </span>
                                 Símbolos Municipais
@@ -276,8 +276,8 @@ export default async function InstitucionalPage() {
                                 {/* Brasão e Bandeira */}
                                 <div className="space-y-6">
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col items-center gap-4 group hover:border-amber-200 transition-all">
-                                            <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest">Brasão Oficial</p>
+                                        <div className="bg-[#f4fbff] rounded-2xl p-6 border border-sky-100 flex flex-col items-center gap-4 group hover:border-[#fdb913] transition-all">
+                                            <p className="text-[9px] font-black text-[#01b0ef] uppercase tracking-widest">Brasão Oficial</p>
                                             <div className="w-24 h-24 relative flex items-center justify-center">
                                                 {simboloBrasao ? (
                                                     <img src={simboloBrasao} alt="Brasão" className="max-w-full max-h-full object-contain" />
@@ -286,8 +286,8 @@ export default async function InstitucionalPage() {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col items-center gap-4 group hover:border-amber-200 transition-all">
-                                            <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest">Bandeira Municipal</p>
+                                        <div className="bg-[#f4fbff] rounded-2xl p-6 border border-sky-100 flex flex-col items-center gap-4 group hover:border-[#fdb913] transition-all">
+                                            <p className="text-[9px] font-black text-[#01b0ef] uppercase tracking-widest">Bandeira Municipal</p>
                                             <div className="w-24 h-24 relative flex items-center justify-center">
                                                 {simboloBandeira ? (
                                                     <img src={simboloBandeira} alt="Bandeira" className="max-w-full max-h-full object-contain" />
@@ -297,28 +297,28 @@ export default async function InstitucionalPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="bg-amber-50 rounded-2xl p-6 border border-amber-100">
-                                        <p className="text-[10px] font-bold text-amber-800 leading-relaxed italic">
+                                    <div className="bg-[#fff4d4] rounded-2xl p-6 border border-[#fdb913]/40">
+                                        <p className="text-[10px] font-bold text-slate-900 leading-relaxed italic">
                                             "O brasão e a bandeira constituem a identidade visual máxima do município, representando sua história, valores e soberania."
                                         </p>
                                     </div>
                                 </div>
 
                                 {/* Hino */}
-                                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 flex flex-col">
-                                    <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest mb-4">Hino Municipal</p>
+                                <div className="bg-[#f4fbff] rounded-2xl p-8 border border-sky-100 flex flex-col">
+                                    <p className="text-[9px] font-black text-[#01b0ef] uppercase tracking-widest mb-4">Hino Municipal</p>
                                     <div className="flex-1">
-                                        <p className="text-[11px] text-gray-600 font-medium leading-relaxed line-clamp-[8] whitespace-pre-line">
+                                        <p className="text-[11px] text-slate-600 font-medium leading-relaxed line-clamp-[8] whitespace-pre-line">
                                             {simboloHino || "A letra do hino oficial está disponível para consulta nos canais de transparência municipal."}
                                         </p>
                                     </div>
-                                    <div className="mt-6 pt-6 border-t border-gray-200">
+                                    <div className="mt-6 pt-6 border-t border-sky-100">
                                         {simboloHinoAudio && (
                                             <audio controls src={simboloHinoAudio} className="w-full h-8 mb-4" />
                                         )}
                                         <Link
                                             href="/transparencia/simbolos"
-                                            className="inline-flex items-center gap-2 text-[10px] font-black text-amber-600 uppercase tracking-widest hover:text-amber-800 transition-colors"
+                                            className="inline-flex items-center gap-2 text-[10px] font-black text-[#01b0ef] uppercase tracking-widest hover:text-[#0098d4] transition-colors"
                                         >
                                             Ver hino completo e baixar <ChevronRight size={12} />
                                         </Link>
@@ -331,14 +331,16 @@ export default async function InstitucionalPage() {
                     {/* Sidebar */}
                     <div className="space-y-8">
                         {/* Localização */}
-                        <div className="bg-[#0f172a] rounded-[3rem] p-8 text-white shadow-2xl overflow-hidden relative">
-                            <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none" />
+                        <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-t-4 border-[#fdb913] rounded-[3rem] p-8 text-white shadow-2xl shadow-[#01b0ef]/20 overflow-hidden relative">
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none" />
                             <h3 className="text-base font-black uppercase tracking-tighter mb-6 flex items-center gap-3">
-                                <MapPin size={18} className="text-blue-400" />
+                                <span className="w-9 h-9 rounded-xl bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0">
+                                    <MapPin size={18} />
+                                </span>
                                 Localização da Sede
                             </h3>
                             {/* Mapa embed */}
-                            <div className="rounded-2xl overflow-hidden mb-6 border border-white/10">
+                            <div className="rounded-2xl overflow-hidden mb-6 border-2 border-white/40 bg-white">
                                 <iframe
                                     title="Localização da Prefeitura de São Tomé"
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.6!2d-36.01!3d-6.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMDAuMCJTIDM2wrAwMCcwMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1"
@@ -352,8 +354,8 @@ export default async function InstitucionalPage() {
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
-                                    <MapPin size={14} className="text-blue-400 shrink-0 mt-1" />
-                                    <p className="text-sm font-medium text-white/70 leading-snug">
+                                    <MapPin size={14} className="text-[#fdb913] shrink-0 mt-1" />
+                                    <p className="text-sm font-medium text-white/95 leading-snug">
                                         {endereco}<br />
                                         São Tomé – RN<br />
                                         CEP: {cep}

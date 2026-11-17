@@ -184,7 +184,7 @@ export default function CentralRegulacaoClient({
                     <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
                         Categorias / Especialidades Monitoradas
                     </span>
-                    <span className="text-2xl font-black text-[#1254A3]">{itens.length}</span>
+                    <span className="text-2xl font-black text-[#01b0ef]">{itens.length}</span>
                 </div>
                 <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
@@ -313,7 +313,7 @@ export default function CentralRegulacaoClient({
                                         <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">
                                             Tempo Médio de Espera
                                         </span>
-                                        <span className="text-sm font-bold text-[#1254A3] block mt-1.5">
+                                        <span className="text-sm font-bold text-[#01b0ef] block mt-1.5">
                                             {item.tempoEspera}
                                         </span>
                                     </div>
@@ -321,7 +321,7 @@ export default function CentralRegulacaoClient({
 
                                 {item.procedimentos && (
                                     <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 text-xs text-slate-700 leading-relaxed">
-                                        <strong className="text-[#1254A3] uppercase tracking-wider block mb-1">
+                                        <strong className="text-[#01b0ef] uppercase tracking-wider block mb-1">
                                             Especialidades / Procedimentos Abrangidos:
                                         </strong>
                                         {item.procedimentos}
@@ -429,21 +429,21 @@ export default function CentralRegulacaoClient({
                     </div>
                 </div>
 
-                <div className="lg:col-span-5 bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+                <div className="lg:col-span-5 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] text-white rounded-3xl p-6 md:p-8 shadow-lg shadow-[#01b0ef]/20 space-y-4">
                     <h3 className="text-base font-black uppercase tracking-tight">
                         Atendimento ao Cidadão na Regulação
                     </h3>
-                    <div className="space-y-3 text-sm text-slate-200">
+                    <div className="space-y-3 text-sm text-white/95">
                         <div className="flex items-start gap-3">
-                            <FaMapMarkerAlt className="text-rose-400 mt-1 shrink-0" />
+                            <FaMapMarkerAlt className="text-[#fdb913] mt-1 shrink-0" />
                             <span>{config.endereco || "Secretaria Municipal de Saúde"}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                            <FaClock className="text-rose-400 shrink-0" />
+                            <FaClock className="text-[#fdb913] shrink-0" />
                             <span>{config.horarioFuncionamento || "Segunda a Sexta, 07h às 13h"}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                            <FaPhoneAlt className="text-rose-400 shrink-0" />
+                            <FaPhoneAlt className="text-[#fdb913] shrink-0" />
                             <span>{config.telefone || "(84) 98796-9881"}</span>
                         </div>
                     </div>

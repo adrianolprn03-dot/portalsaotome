@@ -184,7 +184,7 @@ export default function OrcamentoPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Planejamento e Orçamento"
                 subtitle="Instrumentos que definem as prioridades e a aplicação dos recursos públicos municipais (LOA, LDO e PPA)."
@@ -229,20 +229,22 @@ export default function OrcamentoPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden group"
+                        className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-10 text-white shadow-2xl shadow-[#01b0ef]/20 relative overflow-hidden group"
                     >
-                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/5 rounded-full -mb-16 -mr-16 blur-2xl" />
+                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/15 rounded-full -mb-16 -mr-16 blur-2xl" />
                         <div className="relative z-10 flex flex-col h-full justify-between">
                             <div>
-                                <FaChartPie size={32} className="mb-6 text-blue-400 opacity-80" />
+                                <div className="w-12 h-12 rounded-2xl bg-[#fdb913] text-slate-900 flex items-center justify-center mb-6 shadow-md">
+                                    <FaChartPie size={24} />
+                                </div>
                                 <h3 className="text-xl font-black uppercase tracking-tight mb-2">Ciclo Orçamentário</h3>
-                                <p className="text-slate-400 text-sm font-medium leading-relaxed">
+                                <p className="text-white/95 text-sm font-medium leading-relaxed">
                                     Acompanhe o planejamento plurianual, as diretrizes e a execução anual do orçamento.
                                 </p>
                             </div>
                             <Link 
                                 href="/servicos/esic"
-                                className="mt-8 flex items-center justify-between bg-white text-slate-900 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:bg-blue-50 transition-all group/btn"
+                                className="mt-8 flex items-center justify-between bg-[#fdb913] text-slate-900 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:bg-[#e5a60d] transition-all group/btn"
                             >
                                 Solicitar LAI <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
                             </Link>

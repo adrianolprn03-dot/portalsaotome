@@ -185,7 +185,7 @@ export default function ConsultaProtocoloPage() {
                 <div className="max-w-3xl mx-auto space-y-8">
                     {/* Barra de Busca */}
                     <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-[#0088b9]"></div>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-[#01b0ef]"></div>
                         <h2 className="text-2xl font-bold text-gray-800 mb-2">Rastrear Manifestação Oficial</h2>
                         <p className="text-gray-500 text-sm mb-6">
                             Informe o número de protocolo e, se possuir, o código verificador ou e-mail utilizado na abertura.
@@ -278,11 +278,11 @@ export default function ConsultaProtocoloPage() {
 
                             {/* Resposta do Município */}
                             {data.resposta && (
-                                <div className="bg-[#f0f9ff] border border-[#bae6fd] p-6 rounded-2xl">
-                                    <h4 className="text-sm font-bold text-[#0369a1] mb-3 flex items-center gap-2">
-                                        <FaCheckCircle className="text-[#0ea5e9]" /> Resposta Oficial do Órgão
+                                <div className="bg-[#f4fbff] border border-[#e6f8ff] p-6 rounded-2xl">
+                                    <h4 className="text-sm font-bold text-[#01b0ef] mb-3 flex items-center gap-2">
+                                        <FaCheckCircle className="text-[#01b0ef]" /> Resposta Oficial do Órgão
                                     </h4>
-                                    <div className="text-[#0c4a6e] leading-relaxed text-sm whitespace-pre-wrap bg-white p-5 rounded-xl border border-[#e0f2fe] mb-4">
+                                    <div className="text-[#01b0ef] leading-relaxed text-sm whitespace-pre-wrap bg-white p-5 rounded-xl border border-[#e6f8ff] mb-4">
                                         {data.resposta}
                                     </div>
 
@@ -291,13 +291,13 @@ export default function ConsultaProtocoloPage() {
                                             href={data.anexoResposta}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-bold text-[#0284c7] hover:text-[#0369a1] bg-white px-4 py-2 rounded-xl border border-[#bae6fd] hover:bg-[#e0f2fe] transition-colors shadow-sm mb-4"
+                                            className="inline-flex items-center gap-2 text-sm font-bold text-[#01b0ef] hover:text-[#01b0ef] bg-white px-4 py-2 rounded-xl border border-[#e6f8ff] hover:bg-[#e6f8ff] transition-colors shadow-sm mb-4"
                                         >
                                             <FaPaperclip /> Visualizar Documento Anexo
                                         </a>
                                     )}
 
-                                    <div className="text-xs font-semibold text-[#0369a1] flex flex-wrap justify-between items-center gap-2">
+                                    <div className="text-xs font-semibold text-[#01b0ef] flex flex-wrap justify-between items-center gap-2">
                                         <span>
                                             Respondido em:{" "}
                                             {data.respondidoEm
@@ -308,7 +308,7 @@ export default function ConsultaProtocoloPage() {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowRecursoForm(!showRecursoForm)}
-                                                className="text-[#0284c7] hover:text-[#0c4a6e] underline font-bold px-2 py-1 transition-colors"
+                                                className="text-[#01b0ef] hover:text-[#01b0ef] underline font-bold px-2 py-1 transition-colors"
                                             >
                                                 {isSegundaInstanciaDisponivel
                                                     ? "Interpor Recurso em 2ª Instância"

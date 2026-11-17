@@ -67,7 +67,7 @@ const normas = [
 
 export default function AcessibilidadePage() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Acessibilidade Digital"
                 subtitle="Declaração de conformidade e recursos de acessibilidade do Portal da Prefeitura Municipal de São Tomé."
@@ -207,10 +207,10 @@ export default function AcessibilidadePage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="bg-amber-50 border border-amber-200 rounded-[3rem] p-10">
                             <div className="flex items-center gap-4 mb-6">
-                                <div className="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shadow-sm">
                                     <FaExclamationTriangle size={20} />
                                 </div>
-                                <h3 className="font-black text-amber-900 text-base uppercase tracking-tighter">Reporte uma Barreira</h3>
+                                <h3 className="font-black text-slate-900 text-base uppercase tracking-tighter">Reporte uma Barreira</h3>
                             </div>
                             <p className="text-amber-700 text-sm font-medium leading-relaxed mb-6">
                                 Se você encontrou alguma barreira de acessibilidade ao utilizar este portal, ou se algum 

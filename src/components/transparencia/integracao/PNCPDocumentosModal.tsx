@@ -115,26 +115,26 @@ export default function PNCPDocumentosModal({ anoCompra, sequencialCompra, numer
                             className="fixed right-0 top-0 h-full w-full max-w-2xl bg-white shadow-2xl z-50 flex flex-col"
                         >
                             {/* Cabeçalho */}
-                            <div className="flex items-start justify-between gap-4 p-6 border-b border-slate-100 bg-slate-950 text-white shrink-0">
+                            <div className="flex items-start justify-between gap-4 p-6 border-b-4 border-[#fdb913] bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] text-white shrink-0">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                                        <div className="w-9 h-9 bg-[#fdb913] text-slate-900 rounded-xl flex items-center justify-center shrink-0">
                                             <FileText size={18} />
                                         </div>
                                         <div>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-white/40">
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-white/90">
                                                 Processo Nº {numeroCompra}/{anoCompra}
                                             </p>
                                             <h2 className="text-sm font-black">Documentos do Processo</h2>
                                         </div>
                                     </div>
-                                    <p className="text-[10px] text-white/50 italic line-clamp-2 ml-12">
+                                    <p className="text-[10px] text-white/90 italic line-clamp-2 ml-12">
                                         {objetoCompra}
                                     </p>
                                 </div>
                                 <button
                                     onClick={fecharPainel}
-                                    className="p-2 bg-white/10 rounded-xl hover:bg-white/20 transition-colors shrink-0"
+                                    className="p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-colors shrink-0"
                                 >
                                     <X size={18} />
                                 </button>
@@ -166,7 +166,7 @@ export default function PNCPDocumentosModal({ anoCompra, sequencialCompra, numer
                                                         download={pdfAberto.titulo}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white rounded-xl text-[8px] font-black uppercase tracking-widest hover:bg-blue-600 transition-colors"
+                                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-[#01b0ef] text-white rounded-xl text-[8px] font-black uppercase tracking-widest hover:bg-[#0098d4] transition-colors"
                                                     >
                                                         <Download size={10} /> Baixar
                                                     </a>

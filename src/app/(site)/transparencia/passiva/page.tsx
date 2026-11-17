@@ -154,7 +154,7 @@ export default function TransparenciaPassivaPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Transparência Passiva (e-SIC)"
                 subtitle="Serviço de Informação ao Cidadão – Solicite informações públicas sem necessidade de justificativa e acompanhe estatísticas reais."
@@ -262,29 +262,29 @@ export default function TransparenciaPassivaPage() {
 
                 {/* Call to Action - Abrir Solicitação */}
                 <div className="mt-24">
-                    <div className="relative rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-800 p-1 md:p-1.5 shadow-2xl shadow-blue-900/20 overflow-hidden">
-                        <div className="relative bg-white/5 backdrop-blur-3xl rounded-[2.8rem] p-10 md:p-16 text-center text-white overflow-hidden">
-                            <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-3xl shadow-xl mb-8">
-                                <FaClipboardList size={36} className="text-blue-600" />
+                    <div className="relative rounded-[3rem] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] p-1 md:p-1.5 shadow-2xl shadow-[#01b0ef]/20 overflow-hidden">
+                        <div className="relative bg-white/10 backdrop-blur-md rounded-[2.8rem] p-10 md:p-16 text-center text-white overflow-hidden">
+                            <div className="inline-flex items-center justify-center w-20 h-20 bg-[#fdb913] text-slate-900 rounded-3xl shadow-xl mb-8">
+                                <FaClipboardList size={36} />
                             </div>
 
                             <h2 className="text-2xl md:text-4xl font-black mb-4 tracking-tighter uppercase">
                                 Quer solicitar uma informação pública?
                             </h2>
-                            <p className="max-w-2xl mx-auto text-blue-100 text-base font-medium leading-relaxed mb-10">
+                            <p className="max-w-2xl mx-auto text-white/95 text-base font-medium leading-relaxed mb-10">
                                 Você pode registrar seu pedido eletronicamente pelo e-SIC sem necessidade de apresentar justificativa (Art. 10, § 3º da Lei Federal nº 12.527/2011).
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                                 <Link
                                     href="/servicos/esic"
-                                    className="w-full sm:w-auto bg-white text-blue-700 px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl hover:bg-blue-50 transition-all"
+                                    className="w-full sm:w-auto bg-[#fdb913] text-slate-900 px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl hover:bg-[#e5a60d] transition-all"
                                 >
                                     Abrir Nova Solicitação (e-SIC)
                                 </Link>
                                 <Link
                                     href="/servicos/consulta-protocolo"
-                                    className="w-full sm:w-auto bg-transparent border-2 border-white/40 text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                                    className="w-full sm:w-auto bg-white text-[#01b0ef] px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#f4fbff] transition-all flex items-center justify-center gap-2 shadow-lg"
                                 >
                                     <Search size={16} />
                                     Consultar Protocolo

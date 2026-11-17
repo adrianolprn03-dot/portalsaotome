@@ -114,7 +114,7 @@ export default function AdminConfiguracoesPage() {
                 <button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 shadow-xl shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all disabled:opacity-50"
+                    className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 shadow-xl shadow-blue-200 hover:bg-[#0098d4] hover:-translate-y-1 transition-all disabled:opacity-50"
                 >
                     {saving ? <FaSpinner className="animate-spin" /> : <FaSave />}
                     Salvar Alterações

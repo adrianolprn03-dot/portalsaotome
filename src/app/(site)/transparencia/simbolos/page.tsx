@@ -44,13 +44,13 @@ export default function TransparenciaSimbolosPage() {
 
     if (loading)
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[#F4F7FB]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0072CE]"></div>
+            <div className="min-h-screen flex items-center justify-center bg-[#f4fbff]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#01b0ef]"></div>
             </div>
         );
 
     return (
-        <div className="min-h-screen bg-[#F4F7FB]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Símbolos Oficiais"
                 subtitle={`Identidade heráldica, Brasão de Armas, Bandeira e Hino Oficial de ${MUNICIPIO.nome}/${MUNICIPIO.uf}.`}
@@ -66,28 +66,28 @@ export default function TransparenciaSimbolosPage() {
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-14">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Brasão Oficial */}
-                    <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-gov border border-[#DCE4EE] border-b-4 border-b-[#0072CE] flex flex-col items-center text-center">
-                        <div className="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#F8FAFC] border border-[#DCE4EE] p-6 flex items-center justify-center mb-6 shadow-inner">
+                    <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-gov border border-[#e2e8f0] border-b-4 border-b-[#01b0ef] flex flex-col items-center text-center">
+                        <div className="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#F8FAFC] border border-[#e2e8f0] p-6 flex items-center justify-center mb-6 shadow-inner">
                             <img
                                 src={configs.simbolo_brasao}
                                 alt={`Brasão Oficial de ${MUNICIPIO.nome}/${MUNICIPIO.uf}`}
                                 className="w-full h-full object-contain"
                             />
                         </div>
-                        <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0072CE] bg-sky-50 px-3 py-1 rounded-full mb-2">
+                        <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#01b0ef] bg-sky-50 px-3 py-1 rounded-full mb-2">
                             Armas do Município • 31/12/1958
                         </span>
-                        <h2 className="text-2xl font-black text-[#0F2942] font-heading">
+                        <h2 className="text-2xl font-black text-slate-900 font-heading">
                             Brasão Municipal de {MUNICIPIO.nome}
                         </h2>
-                        <p className="text-xs sm:text-sm text-[#526B84] mt-2 max-w-md leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-md leading-relaxed">
                             Representa as riquezas minerais, o riacho, as históricas lajes com inscrições rupestres, a fé cristã e a força agrícola do agave e do algodão.
                         </p>
                     </div>
 
                     {/* Bandeira Oficial */}
-                    <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-gov border border-[#DCE4EE] border-b-4 border-b-[#15803D] flex flex-col items-center text-center">
-                        <div className="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#F8FAFC] border border-[#DCE4EE] p-6 flex items-center justify-center mb-6 shadow-inner">
+                    <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-gov border border-[#e2e8f0] border-b-4 border-b-[#15803D] flex flex-col items-center text-center">
+                        <div className="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#F8FAFC] border border-[#e2e8f0] p-6 flex items-center justify-center mb-6 shadow-inner">
                             <img
                                 src={configs.simbolo_bandeira}
                                 alt={`Bandeira Oficial de ${MUNICIPIO.nome}/${MUNICIPIO.uf}`}
@@ -97,24 +97,24 @@ export default function TransparenciaSimbolosPage() {
                         <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#15803D] bg-emerald-50 px-3 py-1 rounded-full mb-2">
                             Pavilhão Tricolor Oficial
                         </span>
-                        <h2 className="text-2xl font-black text-[#0F2942] font-heading">
+                        <h2 className="text-2xl font-black text-slate-900 font-heading">
                             Bandeira Municipal de {MUNICIPIO.nome}
                         </h2>
-                        <p className="text-xs sm:text-sm text-[#526B84] mt-2 max-w-md leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-md leading-relaxed">
                             Composta por três faixas verticais nas cores Verde Agave, Amarelo Ouro e Azul Safira, trazendo ao centro o Brasão de Armas do Município.
                         </p>
                     </div>
                 </div>
 
                 {/* Seção do Hino Municipal */}
-                <div className="bg-white rounded-[28px] p-8 sm:p-12 shadow-gov border border-[#DCE4EE] flex flex-col items-center relative overflow-hidden">
+                <div className="bg-white rounded-[28px] p-8 sm:p-12 shadow-gov border border-[#e2e8f0] flex flex-col items-center relative overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
 
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#0072CE] to-[#003B73] text-white rounded-2xl flex items-center justify-center mb-6 shadow-md ring-2 ring-[#FACC15]">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#01b0ef] to-[#0098d4] text-white rounded-2xl flex items-center justify-center mb-6 shadow-md ring-2 ring-[#fdb913]">
                         <FaMusic size={26} />
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-black text-[#0F2942] font-heading text-center mb-2">
+                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading text-center mb-2">
                         Hino Oficial de {MUNICIPIO.nome}
                     </h2>
                     <p className="text-xs font-extrabold text-[#15803D] uppercase tracking-widest mb-8">
@@ -122,9 +122,9 @@ export default function TransparenciaSimbolosPage() {
                     </p>
 
                     <div className="max-w-2xl w-full">
-                        <div className="bg-[#F8FAFC] p-8 sm:p-12 rounded-3xl border border-[#DCE4EE] relative">
-                            <FaQuoteRight size={32} className="absolute top-6 left-6 text-[#0072CE]/15" />
-                            <div className="whitespace-pre-line text-center text-base sm:text-lg font-medium leading-loose text-[#0F2942]">
+                        <div className="bg-[#F8FAFC] p-8 sm:p-12 rounded-3xl border border-[#e2e8f0] relative">
+                            <FaQuoteRight size={32} className="absolute top-6 left-6 text-[#01b0ef]/15" />
+                            <div className="whitespace-pre-line text-center text-base sm:text-lg font-medium leading-loose text-slate-900">
                                 {configs.simbolo_hino ||
                                     "A letra oficial do Hino Municipal de São Tomé integra o acervo histórico e cultural do município."}
                             </div>
@@ -132,7 +132,7 @@ export default function TransparenciaSimbolosPage() {
 
                         {configs.simbolo_hino_audio && (
                             <div className="mt-6 flex justify-center">
-                                <div className="bg-white border border-[#DCE4EE] p-4 rounded-2xl shadow-sm w-full max-w-md">
+                                <div className="bg-white border border-[#e2e8f0] p-4 rounded-2xl shadow-sm w-full max-w-md">
                                     <audio controls src={configs.simbolo_hino_audio} className="w-full h-10 outline-none" />
                                 </div>
                             </div>

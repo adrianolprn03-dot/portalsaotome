@@ -52,7 +52,7 @@ const cardsInstitucionais = [
 
 export default function APrefeituraPage() {
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="A Prefeitura Municipal"
                 subtitle="Identificação institucional, estrutura de governança e história do Município de São Tomé – RN."
@@ -70,14 +70,14 @@ export default function APrefeituraPage() {
                     <div className="h-1.5 w-full heraldic-stripe" />
                     <div className="p-8 md:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                         <div className="flex items-start sm:items-center gap-5">
-                            <div className="w-16 h-16 rounded-2xl bg-[#071E3D] text-secondary-400 flex items-center justify-center shrink-0 shadow-sm">
+                            <div className="w-16 h-16 rounded-2xl bg-[#01b0ef] text-white flex items-center justify-center shrink-0 shadow-sm">
                                 <Landmark size={30} />
                             </div>
                             <div>
-                                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-primary-50 text-primary-700 text-xs font-mono font-bold mb-1.5">
+                                <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#fdb913] text-slate-900 text-xs font-mono font-bold mb-1.5">
                                     CNPJ: {MUNICIPIO.cnpj} • IBGE: {MUNICIPIO.ibge}
                                 </div>
-                                <h2 className="font-heading text-2xl font-extrabold text-[#071E3D]">
+                                <h2 className="font-heading text-2xl font-extrabold text-slate-900">
                                     {MUNICIPIO.nomeCompleto}
                                 </h2>
                                 <p className="text-slate-500 text-sm mt-0.5">
@@ -88,28 +88,28 @@ export default function APrefeituraPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:border-l lg:border-slate-200 lg:pl-8 text-xs">
                             <div className="flex items-start gap-2.5 text-slate-600">
-                                <MapPin size={16} className="text-primary-600 shrink-0 mt-0.5" />
+                                <MapPin size={16} className="text-[#01b0ef] shrink-0 mt-0.5" />
                                 <div>
                                     <span className="block font-bold text-slate-800">Endereço da Sede</span>
                                     <span>{MUNICIPIO.endereco} – CEP {MUNICIPIO.cep}</span>
                                 </div>
                             </div>
                             <div className="flex items-start gap-2.5 text-slate-600">
-                                <Clock size={16} className="text-primary-600 shrink-0 mt-0.5" />
+                                <Clock size={16} className="text-[#01b0ef] shrink-0 mt-0.5" />
                                 <div>
                                     <span className="block font-bold text-slate-800">Horário de Expediente</span>
                                     <span>Segunda a Sexta, {MUNICIPIO.horario}</span>
                                 </div>
                             </div>
                             <div className="flex items-start gap-2.5 text-slate-600">
-                                <Phone size={16} className="text-primary-600 shrink-0 mt-0.5" />
+                                <Phone size={16} className="text-[#01b0ef] shrink-0 mt-0.5" />
                                 <div>
                                     <span className="block font-bold text-slate-800">Telefone Oficial</span>
                                     <span className="font-mono">{MUNICIPIO.telefone}</span>
                                 </div>
                             </div>
                             <div className="flex items-start gap-2.5 text-slate-600">
-                                <Mail size={16} className="text-primary-600 shrink-0 mt-0.5" />
+                                <Mail size={16} className="text-[#01b0ef] shrink-0 mt-0.5" />
                                 <div>
                                     <span className="block font-bold text-slate-800">E-mail Institucional</span>
                                     <span>{MUNICIPIO.email}</span>
@@ -127,18 +127,18 @@ export default function APrefeituraPage() {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className="group bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-primary-400 shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+                                className="group bg-white rounded-3xl p-7 border border-slate-200/80 hover:border-[#01b0ef] shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
                             >
                                 <div>
                                     <div className="flex items-center justify-between mb-5">
-                                        <div className="w-12 h-12 rounded-2xl bg-primary-50 border border-primary-100 text-primary-600 group-hover:bg-primary-600 group-hover:text-white flex items-center justify-center transition-colors">
+                                        <div className="w-12 h-12 rounded-2xl bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white flex items-center justify-center transition-colors">
                                             <Icon size={24} />
                                         </div>
-                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600">
+                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#fdb913]/25 text-slate-900">
                                             {item.badge}
                                         </span>
                                     </div>
-                                    <h3 className="font-heading text-xl font-bold text-[#071E3D] group-hover:text-primary-600 transition-colors mb-2">
+                                    <h3 className="font-heading text-xl font-bold text-slate-900 group-hover:text-[#01b0ef] transition-colors mb-2">
                                         {item.titulo}
                                     </h3>
                                     <p className="text-slate-600 text-sm leading-relaxed mb-6">
@@ -146,7 +146,7 @@ export default function APrefeituraPage() {
                                     </p>
                                 </div>
 
-                                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-primary-600">
+                                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#01b0ef]">
                                     <span>Acessar seção institucional</span>
                                     <ArrowRight
                                         size={15}

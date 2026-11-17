@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function AcordosFirmadosPage() {
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
+        <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
                 title="Acordos Firmados"
                 subtitle="Consulte os termos de cooperação e acordos técnicos firmados sem repasse de recursos."
@@ -62,13 +62,13 @@ export default function AcordosFirmadosPage() {
                         <div className="flex flex-col sm:flex-row gap-6">
                             <Link 
                                 href="/contato" 
-                                className="flex-1 bg-slate-900 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95"
+                                className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95"
                             >
                                 Solicitar via E-SIC
                             </Link>
                             <a 
                                 href="#" 
-                                className="flex-1 bg-indigo-600 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-3"
+                                className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <ExternalLink size={16} /> Acessar Sistema de Parcerias
                             </a>

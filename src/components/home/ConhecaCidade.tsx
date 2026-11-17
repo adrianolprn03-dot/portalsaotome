@@ -28,7 +28,7 @@ const infoCards = [
 
 export default function ConhecaCidade() {
     return (
-        <section className="py-24 bg-[#0055A4] relative text-white" aria-labelledby="conheca-titulo">
+        <section className="py-24 bg-[#01b0ef] relative text-white" aria-labelledby="conheca-titulo">
             {/* Pattern/Textura de Fundo estilo Cocal (Simples) */}
             <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')] bg-repeat" />
 

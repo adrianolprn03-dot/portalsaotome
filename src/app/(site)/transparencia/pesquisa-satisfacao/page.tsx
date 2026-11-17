@@ -114,9 +114,9 @@ export default function PesquisaSatisfacaoPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-12"
                 >
-                    <div className="bg-slate-900 text-white p-8 md:p-12">
+                    <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] text-white p-8 md:p-12">
                         <h2 className="text-3xl font-black mb-4">Avaliação dos Serviços Públicos</h2>
-                        <p className="text-slate-400 leading-relaxed text-lg max-w-3xl">
+                        <p className="text-white/95 leading-relaxed text-lg max-w-3xl">
                             A transparência se faz com a participação do cidadão. Responda à nossa pesquisa anual e ajude a prefeitura a identificar onde precisamos melhorar.
                         </p>
                     </div>
@@ -227,7 +227,7 @@ export default function PesquisaSatisfacaoPage() {
                         <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-slate-200">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                                    <FaChartBar className="text-[#1254A3]" /> Avaliação Média por Área Temática (Escala de 1 a 5)
+                                    <FaChartBar className="text-[#01b0ef]" /> Avaliação Média por Área Temática (Escala de 1 a 5)
                                 </h3>
                                 <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                                     Atualizado em Tempo Real
@@ -238,11 +238,11 @@ export default function PesquisaSatisfacaoPage() {
                                     <BarChart
                                         data={[
                                             { setor: "Educação", nota: 4.8, fill: "#10B981" },
-                                            { setor: "Transparência", nota: 4.7, fill: "#1254A3" },
-                                            { setor: "Saúde", nota: 4.5, fill: "#3B82F6" },
-                                            { setor: "Gestão Geral", nota: 4.3, fill: "#F39A32" },
+                                            { setor: "Transparência", nota: 4.7, fill: "#01b0ef" },
+                                            { setor: "Saúde", nota: 4.5, fill: "#01b0ef" },
+                                            { setor: "Gestão Geral", nota: 4.3, fill: "#fdb913" },
                                             { setor: "Limpeza Urbana", nota: 4.2, fill: "#8B5CF6" },
-                                            { setor: "Iluminação", nota: 3.9, fill: "#F59E0B" },
+                                            { setor: "Iluminação", nota: 3.9, fill: "#fdb913" },
                                         ]}
                                         layout="vertical"
                                         margin={{ top: 10, right: 30, left: 20, bottom: 0 }}
@@ -262,7 +262,7 @@ export default function PesquisaSatisfacaoPage() {
                                         />
                                         <Bar dataKey="nota" radius={[0, 8, 8, 0]}>
                                             {[
-                                                "#10B981", "#1254A3", "#3B82F6", "#F39A32", "#8B5CF6", "#F59E0B"
+                                                "#10B981", "#01b0ef", "#01b0ef", "#fdb913", "#8B5CF6", "#fdb913"
                                             ].map((cor, idx) => (
                                                 <Cell key={`cell-${idx}`} fill={cor} />
                                             ))}

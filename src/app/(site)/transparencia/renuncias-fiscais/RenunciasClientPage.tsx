@@ -62,7 +62,7 @@ export default function RenunciasClientPage({ initialData }: { initialData: Renu
     }, [filteredItems]);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Renúncias de Receitas"
                 subtitle="Demonstrativo de isenções, reduções de alíquotas, anistias e subsídios fiscais."

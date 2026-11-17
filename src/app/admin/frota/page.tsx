@@ -116,7 +116,7 @@ export default function AdminFrotaPage() {
                 </div>
                 <button 
                     onClick={() => handleOpenModal()}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-lg shadow-blue-200 hover:bg-[#0098d4] hover:-translate-y-1 transition-all"
                 >
                     <FaPlus /> Novo Veículo
                 </button>
@@ -209,7 +209,7 @@ export default function AdminFrotaPage() {
                 footer={
                     <>
                         <button type="button" onClick={() => setShowModal(false)} className="px-5 py-2.5 bg-white border border-gray-200 rounded-xl font-black uppercase tracking-widest text-[10px] text-gray-600 hover:bg-gray-100">Cancelar</button>
-                        <button type="submit" form="form-frota-veiculo" className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black uppercase tracking-widest text-[10px] shadow-md hover:bg-blue-700">Salvar Veículo</button>
+                        <button type="submit" form="form-frota-veiculo" className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black uppercase tracking-widest text-[10px] shadow-md hover:bg-[#0098d4]">Salvar Veículo</button>
                     </>
                 }
             >

@@ -162,7 +162,7 @@ export default function DadosAbertosPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#fcfdfe] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Dados Abertos"
                 subtitle="Acesso livre, automatizado e estruturado às bases públicas municipais em formatos legíveis por máquina (JSON, CSV e XLSX)."
@@ -175,15 +175,15 @@ export default function DadosAbertosPage() {
                 ]}
             />
 
-            <div className="bg-slate-900 border-b border-slate-800">
+            <div className="bg-[#e6f8ff] border-b border-[#01b0ef]/25">
                 <div className="max-w-[1240px] mx-auto flex flex-wrap items-center justify-center gap-10 py-5 px-6">
                     {[
-                        { label: "Open Data Charter", icon: <FaBolt className="text-blue-400" /> },
-                        { label: "Metadados e Dicionário", icon: <FaDatabase className="text-emerald-400" /> },
-                        { label: "API REST / JSON / CSV / XLSX", icon: <FaFileCode className="text-orange-400" /> },
-                        { label: "LAI Art. 8º § 3º", icon: <FaLock className="text-rose-400" /> }
+                        { label: "Open Data Charter", icon: <FaBolt className="text-[#01b0ef]" /> },
+                        { label: "Metadados e Dicionário", icon: <FaDatabase className="text-emerald-600" /> },
+                        { label: "API REST / JSON / CSV / XLSX", icon: <FaFileCode className="text-slate-900" /> },
+                        { label: "LAI Art. 8º § 3º", icon: <FaLock className="text-rose-600" /> }
                     ].map((item) => (
-                        <span key={item.label} className="flex items-center gap-3 text-slate-400 text-[10px] font-black uppercase tracking-[0.25em]">
+                        <span key={item.label} className="flex items-center gap-3 text-slate-800 text-[10px] font-black uppercase tracking-[0.25em]">
                             {item.icon} {item.label}
                         </span>
                     ))}
@@ -291,18 +291,18 @@ export default function DadosAbertosPage() {
                     ))}
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="bg-slate-900 rounded-[3rem] p-12 lg:p-16 text-white text-center relative overflow-hidden shadow-2xl shadow-slate-950/20">
-                    <div className="absolute inset-0 bg-blue-600/10 mix-blend-overlay" />
+                <motion.div variants={itemVariants} className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-12 lg:p-16 text-white text-center relative overflow-hidden shadow-2xl shadow-[#01b0ef]/20">
+                    <div className="absolute inset-0 bg-white/10 mix-blend-overlay" />
                     <div className="relative z-10 flex flex-col items-center">
-                        <div className="w-16 h-16 bg-blue-600 rounded-[1.5rem] flex items-center justify-center mb-8 shadow-xl shadow-blue-500/30">
+                        <div className="w-16 h-16 bg-[#fdb913] text-slate-900 rounded-[1.5rem] flex items-center justify-center mb-8 shadow-xl">
                             <FaCircleInfo size={32} />
                         </div>
                         <h4 className="text-2xl font-black uppercase tracking-tighter mb-4">Licenciamento de Uso Livre</h4>
-                        <p className="text-slate-300 font-medium text-sm max-w-2xl leading-relaxed mb-8">
+                        <p className="text-white/95 font-medium text-sm max-w-2xl leading-relaxed mb-8">
                             Os conjuntos de dados são disponibilizados sob a Licença <strong className="text-white">Creative Commons Attribution 4.0 (CC BY 4.0)</strong>, permitindo livre reutilização, cruzamento e auditoria social com atribuição da fonte oficial: Prefeitura Municipal de São Tomé/RN.
                         </p>
                         <div className="flex gap-4">
-                            <Link href="/servicos/esic" className="h-14 flex items-center px-10 bg-white text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-100 transition-all">
+                            <Link href="/servicos/esic" className="h-14 flex items-center px-10 bg-[#fdb913] text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#e5a60d] transition-all shadow-md">
                                 Solicitar Base Específica (e-SIC)
                             </Link>
                         </div>

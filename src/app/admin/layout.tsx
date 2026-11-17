@@ -24,7 +24,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         .toUpperCase();
 
     return (
-        <div className="flex min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif] text-slate-800 antialiased selection:bg-primary-500 selection:text-white">
+        <div className="flex min-h-screen bg-[#f8fafc] text-slate-800 antialiased selection:bg-primary-500 selection:text-white">
             <AdminSidebar userRole={userRole} />
             
             <main className="flex-1 flex flex-col min-w-0 relative">

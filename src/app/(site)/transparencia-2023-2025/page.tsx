@@ -209,7 +209,7 @@ export default function TransparenciaPage() {
     }
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
+        <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
                 title="Portal da Transparência"
                 subtitle="Acesso integral aos dados públicos, fiscalização social e prestação de contas de São Tomé/RN."
@@ -257,10 +257,10 @@ export default function TransparenciaPage() {
                             </div>
                         </div>
 
-                        <div className="lg:w-[400px] bg-slate-900 p-12 text-white relative flex flex-col justify-between overflow-hidden">
-                             <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] -mr-40 -mt-40" />
+                        <div className="lg:w-[400px] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-l-4 border-[#fdb913] p-12 text-white relative flex flex-col justify-between overflow-hidden">
+                             <div className="absolute top-0 right-0 w-80 h-80 bg-white/15 rounded-full blur-[100px] -mr-40 -mt-40" />
                              <div className="relative z-10">
-                                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-10 border-l-2 border-blue-600 pl-4">Conformidade Legal</div>
+                                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit mb-10">Conformidade Legal</div>
                                  <div className="space-y-6">
                                      {[
                                          { label: "LAI - LEI 12.527/2011", status: "Auditado" },
@@ -268,19 +268,19 @@ export default function TransparenciaPage() {
                                          { label: "RADAR TRANSPARÊNCIA", status: "GOLD" },
                                          { label: "PNTP 2026 COMPLIANCE", status: "V2" },
                                      ].map((item) => (
-                                         <div key={item.label} className="flex items-center justify-between border-b border-white/5 pb-4 group/item cursor-default hover:border-blue-600/30 transition-colors">
-                                             <span className="text-[10px] font-black tracking-widest text-white/50 group-hover/item:text-white transition-colors">{item.label}</span>
-                                             <Check className="text-emerald-400" size={12} />
+                                         <div key={item.label} className="flex items-center justify-between border-b border-white/25 pb-4 group/item cursor-default">
+                                             <span className="text-[10px] font-black tracking-widest text-white/95">{item.label}</span>
+                                             <Check className="text-[#fdb913]" size={14} />
                                          </div>
                                      ))}
                                  </div>
                              </div>
                              <div className="relative z-10 mt-12">
-                                 <div className="flex items-center gap-4 px-6 py-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
-                                     <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white shrink-0">
+                                 <div className="flex items-center gap-4 px-6 py-4 bg-white/15 rounded-2xl border border-white/30 backdrop-blur-md">
+                                     <div className="w-10 h-10 bg-[#fdb913] rounded-full flex items-center justify-center text-slate-900 shrink-0">
                                          <ShieldAlert size={20} />
                                      </div>
-                                     <p className="text-[9px] font-bold text-white/60 leading-tight uppercase tracking-widest">Dados atualizados conforme periodicidade legal.</p>
+                                     <p className="text-[9px] font-bold text-white leading-tight uppercase tracking-widest">Dados atualizados conforme periodicidade legal.</p>
                                  </div>
                              </div>
                         </div>
@@ -300,8 +300,8 @@ export default function TransparenciaPage() {
                             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 border-b border-slate-100 pb-12">
                                 <div className="max-w-2xl">
                                     <motion.div variants={itemVariants} className="flex items-center gap-4 mb-5">
-                                        <span className="px-5 py-2 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-xl shadow-slate-900/20">0{catIdx + 1}</span>
-                                        <div className="h-0.5 w-12 bg-blue-600 rounded-full" />
+                                        <span className="px-5 py-2 bg-[#01b0ef] text-white rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-md shadow-[#01b0ef]/20">0{catIdx + 1}</span>
+                                        <div className="h-0.5 w-12 bg-[#fdb913] rounded-full" />
                                     </motion.div>
                                     <motion.h2 variants={itemVariants} className="text-5xl font-black text-slate-900 tracking-tighter uppercase mb-4 leading-none italic">
                                         {categoria.tituloCategoria}
@@ -358,11 +358,11 @@ export default function TransparenciaPage() {
                                                     </p>
 
                                                     <div className="pt-6 border-t border-slate-50 mt-auto flex items-center justify-between">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-600 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#01b0ef] opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500">
                                                             ACESSAR BASE
                                                         </span>
-                                                        <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-900 transition-all duration-500 group-hover:rotate-[360deg] shadow-inner group-hover:shadow-xl group-hover:shadow-slate-900/30">
-                                                            <ArrowRight size={18} className="text-slate-400 group-hover:text-white transition-colors" />
+                                                        <div className="w-10 h-10 rounded-2xl bg-[#f4fbff] flex items-center justify-center group-hover:bg-[#01b0ef] transition-all duration-500 group-hover:rotate-[360deg] shadow-inner">
+                                                            <ArrowRight size={18} className="text-[#01b0ef] group-hover:text-white transition-colors" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,36 +384,37 @@ export default function TransparenciaPage() {
                 </div>
             </div>
 
-            {/* Hub Footer - Ultra Premium */}
-            <div className="relative py-32 overflow-hidden bg-slate-950 border-t border-slate-900">
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-600/10 rounded-full blur-[150px]" />
+            {/* Hub Footer - Bright Brand */}
+            <div className="relative py-32 overflow-hidden bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-t-4 border-[#fdb913] text-white">
+                <div className="absolute inset-0 opacity-20 pointer-events-none">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-white/30 rounded-full blur-[150px]" />
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         <div>
                              <div className="flex items-center gap-4 mb-10">
-                                <Landmark className="text-white" size={48} />
-                                <div className="h-10 w-px bg-white/10" />
+                                <div className="w-12 h-12 rounded-2xl bg-[#fdb913] text-slate-900 flex items-center justify-center shadow-lg">
+                                    <Landmark size={26} />
+                                </div>
+                                <div className="h-10 w-px bg-white/30" />
                                 <div className="text-left">
                                     <div className="text-white font-black text-lg uppercase tracking-[0.3em] leading-none mb-1">Portal da Transparência</div>
-                                    <div className="text-white/30 text-[10px] uppercase font-bold tracking-[0.2em]">São Tomé - RN</div>
+                                    <div className="text-white/85 text-[10px] uppercase font-bold tracking-[0.2em]">São Tomé - RN</div>
                                 </div>
                             </div>
-                            <h4 className="text-3xl font-black text-white tracking-tighter uppercase mb-6 italic">
-                                Compromisso com o <br/> <span className="text-blue-600">Controle Social Ativo.</span>
+                            <h4 className="text-3xl font-black text-white tracking-tighter uppercase mb-6">
+                                Compromisso com o <br/> <span className="inline-block mt-1 px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900">Controle Social Ativo.</span>
                             </h4>
-                            <p className="text-white/40 text-[11px] font-bold uppercase tracking-[0.2em] leading-loose max-w-lg mb-12 italic border-l border-white/10 pl-8">
-                                Em conformidade integral com as exigências do <span className="text-white/60">Programa Nacional de Transparência Pública (PNTP)</span>, asseguramos o livre acesso às informações institucionais e financeiras para todo cidadão.
+                            <p className="text-white/95 text-[11px] font-bold uppercase tracking-[0.18em] leading-loose max-w-lg mb-12 border-l-2 border-[#fdb913] pl-8">
+                                Em conformidade integral com as exigências do <span className="underline decoration-[#fdb913]">Programa Nacional de Transparência Pública (PNTP)</span>, asseguramos o livre acesso às informações institucionais e financeiras para todo cidadão.
                             </p>
                             <div className="flex gap-4">
-                                <Link href="/contato" className="px-8 py-4 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-white hover:bg-white hover:text-slate-950 transition-all active:scale-95 shadow-2xl">Suporte à Decisão</Link>
+                                <Link href="/contato" className="px-8 py-4 bg-[#fdb913] rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-900 hover:bg-[#e5a60d] transition-all active:scale-95 shadow-xl">Suporte à Decisão</Link>
                             </div>
                         </div>
 
-                        <div className="bg-white/5 rounded-[3rem] p-12 border border-white/5 backdrop-blur-md relative overflow-hidden group">
+                        <div className="bg-white/15 rounded-[3rem] p-12 border border-white/30 backdrop-blur-md relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                                 <ShieldCheck size={160} className="text-white" />
                             </div>

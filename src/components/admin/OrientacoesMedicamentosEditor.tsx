@@ -122,7 +122,7 @@ function BlocoOrientacaoForm({
     return (
         <div className="space-y-6">
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
-                <div className="text-[11px] font-black uppercase tracking-wider text-[#003366]">
+                <div className="text-[11px] font-black uppercase tracking-wider text-[#01b0ef]">
                     Identificação & Atendimento — {accentLabel}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -271,7 +271,7 @@ function BlocoOrientacaoForm({
                     <button
                         type="button"
                         onClick={addLocal}
-                        className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#003366] font-bold rounded-lg text-[11px] flex items-center gap-1.5"
+                        className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#01b0ef] font-bold rounded-lg text-[11px] flex items-center gap-1.5"
                     >
                         <FaPlus size={10} /> Adicionar Local
                     </button>
@@ -309,7 +309,7 @@ function BlocoOrientacaoForm({
                     <button
                         type="button"
                         onClick={addEtapa}
-                        className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#003366] font-bold rounded-lg text-[11px] flex items-center gap-1.5"
+                        className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#01b0ef] font-bold rounded-lg text-[11px] flex items-center gap-1.5"
                     >
                         <FaPlus size={10} /> Adicionar Etapa
                     </button>
@@ -321,7 +321,7 @@ function BlocoOrientacaoForm({
                             className="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2"
                         >
                             <div className="flex items-center justify-between gap-2">
-                                <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded bg-[#003366] text-white">
+                                <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded bg-[#01b0ef] text-white">
                                     Etapa {String(idx + 1).padStart(2, "0")}
                                 </span>
                                 <button
@@ -519,7 +519,7 @@ export default function OrientacoesMedicamentosEditor() {
     if (loading) {
         return (
             <div className="bg-white rounded-2xl p-12 border border-gray-100 shadow-sm text-center text-gray-400 space-y-2">
-                <FaSpinner className="animate-spin text-2xl text-[#003366] mx-auto" />
+                <FaSpinner className="animate-spin text-2xl text-[#01b0ef] mx-auto" />
                 <p className="text-xs font-bold uppercase tracking-wider">
                     Carregando guia de acesso e alto custo...
                 </p>
@@ -570,7 +570,7 @@ export default function OrientacoesMedicamentosEditor() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="px-5 py-2.5 bg-[#003366] hover:bg-[#002244] text-white font-black rounded-xl text-xs uppercase flex items-center gap-2 shadow-sm disabled:opacity-50"
+                        className="px-5 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-black rounded-xl text-xs uppercase flex items-center gap-2 shadow-sm disabled:opacity-50"
                     >
                         {saving ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         {saving ? "Salvando..." : "Salvar Orientações"}
@@ -585,7 +585,7 @@ export default function OrientacoesMedicamentosEditor() {
                     onClick={() => setSubTab("cbaf")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
                         subTab === "cbaf"
-                            ? "bg-[#003366] text-white shadow-sm"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >

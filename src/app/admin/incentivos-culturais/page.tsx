@@ -384,9 +384,9 @@ export default function AdminIncentivosCulturaisPage() {
                 </div>
 
                 {/* 4. Atalho para Editais e PNAB */}
-                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-[2rem] p-8 border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="bg-[#fff4d4]/60 rounded-[2rem] p-8 border border-[#fdb913]/40 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
+                        <div className="w-14 h-14 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
                             <FaBullhorn size={24} />
                         </div>
                         <div>
@@ -399,7 +399,7 @@ export default function AdminIncentivosCulturaisPage() {
 
                     <Link
                         href="/admin/editais"
-                        className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md shrink-0 flex items-center gap-2"
+                        className="px-6 py-3 bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 font-black text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md shrink-0 flex items-center gap-2"
                     >
                         Gerenciar Editais no ADM &rarr;
                     </Link>

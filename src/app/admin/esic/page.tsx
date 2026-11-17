@@ -255,7 +255,7 @@ export default function AdminEsicPage() {
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                        <FaFile className="text-[#1254A3]" /> Gestão do e-SIC e Acesso à Informação
+                        <FaFile className="text-[#01b0ef]" /> Gestão do e-SIC e Acesso à Informação
                     </h1>
                     <p className="text-gray-500 text-sm">
                         Tramitação de pedidos, rol de informações classificadas (12.8), desclassificadas (12.9) e estatísticas anuais (12.7).
@@ -265,13 +265,13 @@ export default function AdminEsicPage() {
                 <div className="flex flex-wrap gap-3">
                     <button
                         onClick={() => setModalNovoDoc(true)}
-                        className="flex items-center gap-2 bg-[#1254A3] text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-800 transition-colors shadow-sm"
+                        className="flex items-center gap-2 bg-[#01b0ef] text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-[#0098d4] transition-colors shadow-sm"
                     >
                         <FaPlus /> Registrar Documento Classificado
                     </button>
                     <button
                         onClick={() => setModalDeclaracao(true)}
-                        className="flex items-center gap-2 bg-amber-500 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-amber-600 transition-colors shadow-sm"
+                        className="flex items-center gap-2 bg-[#fdb913] text-slate-900 px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-[#e5a60d] transition-colors shadow-sm"
                     >
                         <FaShieldAlt /> Publicar Declaração Oficial
                     </button>
@@ -283,7 +283,7 @@ export default function AdminEsicPage() {
                 <button
                     onClick={() => setAba("pedidos")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "pedidos" ? "bg-[#1254A3] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        aba === "pedidos" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
                     }`}
                 >
                     Pedidos de Acesso ({items.length})
@@ -291,7 +291,7 @@ export default function AdminEsicPage() {
                 <button
                     onClick={() => setAba("estatisticas")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "estatisticas" ? "bg-[#1254A3] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        aba === "estatisticas" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
                     }`}
                 >
                     <FaChartBar className="inline mr-1.5" /> Relatório Estatístico Anual (12.7)
@@ -299,7 +299,7 @@ export default function AdminEsicPage() {
                 <button
                     onClick={() => setAba("classificados")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "classificados" ? "bg-[#1254A3] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        aba === "classificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
                     }`}
                 >
                     <FaLock className="inline mr-1.5" /> Rol de Classificados ({classificados.length})
@@ -307,7 +307,7 @@ export default function AdminEsicPage() {
                 <button
                     onClick={() => setAba("desclassificados")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "desclassificados" ? "bg-[#1254A3] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        aba === "desclassificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
                     }`}
                 >
                     <FaLockOpen className="inline mr-1.5" /> Rol de Desclassificados ({desclassificados.length})
@@ -315,7 +315,7 @@ export default function AdminEsicPage() {
                 <button
                     onClick={() => setAba("declaracoes")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "declaracoes" ? "bg-[#1254A3] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        aba === "declaracoes" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
                     }`}
                 >
                     <FaShieldAlt className="inline mr-1.5" /> Declarações Oficiais ({declaracoes.length})
@@ -331,7 +331,7 @@ export default function AdminEsicPage() {
                             <input
                                 type="text"
                                 placeholder="Buscar por protocolo ou pedido..."
-                                className="bg-white text-gray-700 w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-[#1254A3]/20 focus:border-[#1254A3] transition-all text-sm shadow-sm"
+                                className="bg-white text-gray-700 w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all text-sm shadow-sm"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
@@ -354,7 +354,7 @@ export default function AdminEsicPage() {
                                 {loading ? (
                                     <tr>
                                         <td colSpan={6} className="px-6 py-12 text-center">
-                                            <FaSpinner className="animate-spin inline-block text-[#1254A3] text-2xl" />
+                                            <FaSpinner className="animate-spin inline-block text-[#01b0ef] text-2xl" />
                                         </td>
                                     </tr>
                                 ) : filtered.length === 0 ? (
@@ -375,7 +375,7 @@ export default function AdminEsicPage() {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    <div className="text-[10px] font-black uppercase text-[#1254A3] tracking-tighter mb-1">
+                                                    <div className="text-[10px] font-black uppercase text-[#01b0ef] tracking-tighter mb-1">
                                                         {i.orgao}
                                                     </div>
                                                     <div className="text-sm font-medium text-gray-700 line-clamp-1">{i.pedido}</div>
@@ -414,7 +414,7 @@ export default function AdminEsicPage() {
                                                     </button>
                                                     <Link
                                                         href={`/admin/esic/${i.id}`}
-                                                        className="inline-flex items-center justify-center h-8 px-3 rounded-lg font-bold border border-gray-200 text-gray-600 bg-white hover:bg-[#1254A3] hover:text-white transition-all text-xs"
+                                                        className="inline-flex items-center justify-center h-8 px-3 rounded-lg font-bold border border-gray-200 text-gray-600 bg-white hover:bg-[#01b0ef] hover:text-white transition-all text-xs"
                                                     >
                                                         Responder
                                                     </Link>
@@ -456,7 +456,7 @@ export default function AdminEsicPage() {
                             <tbody className="divide-y divide-gray-100">
                                 {stats.map((s) => (
                                     <tr key={s.exercicio} className="hover:bg-gray-50">
-                                        <td className="p-4 font-bold text-[#1254A3]">{s.exercicio}</td>
+                                        <td className="p-4 font-bold text-[#01b0ef]">{s.exercicio}</td>
                                         <td className="p-4 text-center font-bold">{s.totalRecebidos}</td>
                                         <td className="p-4 text-center text-emerald-700 font-bold">{s.atendidos}</td>
                                         <td className="p-4 text-center text-rose-700 font-bold">{s.indeferidos}</td>
@@ -484,7 +484,7 @@ export default function AdminEsicPage() {
                         </div>
                         <button
                             onClick={() => setModalNovoDoc(true)}
-                            className="bg-[#1254A3] text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-blue-800 flex items-center gap-1.5"
+                            className="bg-[#01b0ef] text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-[#0098d4] flex items-center gap-1.5"
                         >
                             <FaPlus /> Registrar Documento Classificado
                         </button>
@@ -512,7 +512,7 @@ export default function AdminEsicPage() {
                                 ) : (
                                     classificados.map((i) => (
                                         <tr key={i.id} className="hover:bg-gray-50">
-                                            <td className="p-4 font-mono font-bold text-xs text-[#1254A3] whitespace-nowrap">{i.protocolo}</td>
+                                            <td className="p-4 font-mono font-bold text-xs text-[#01b0ef] whitespace-nowrap">{i.protocolo}</td>
                                             <td className="p-4 font-semibold text-xs text-gray-700">{i.orgao}</td>
                                             <td className="p-4 text-xs text-gray-700 max-w-xs">{i.pedido}</td>
                                             <td className="p-4 whitespace-nowrap">
@@ -558,7 +558,7 @@ export default function AdminEsicPage() {
                                 setDecCriterio("12.9");
                                 setModalDeclaracao(true);
                             }}
-                            className="bg-amber-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-amber-600"
+                            className="bg-[#fdb913] text-slate-900 px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-[#e5a60d]"
                         >
                             Atualizar Declaração Oficial
                         </button>
@@ -627,7 +627,7 @@ export default function AdminEsicPage() {
                         <h2 className="text-lg font-bold text-gray-800">Declarações Oficiais de Acesso à Informação</h2>
                         <button
                             onClick={() => setModalDeclaracao(true)}
-                            className="bg-amber-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-600"
+                            className="bg-[#fdb913] text-slate-900 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#e5a60d]"
                         >
                             Nova Declaração
                         </button>
@@ -666,7 +666,7 @@ export default function AdminEsicPage() {
                         <button
                             type="submit"
                             form="form-esic-declaracao"
-                            className="px-5 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold hover:bg-amber-600 transition-colors"
+                            className="px-5 py-2 bg-[#fdb913] text-slate-900 rounded-xl text-sm font-bold hover:bg-[#e5a60d] transition-colors"
                         >
                             Publicar
                         </button>
@@ -748,7 +748,7 @@ export default function AdminEsicPage() {
                         <button
                             type="submit"
                             form="form-esic-classificar"
-                            className="px-5 py-2 bg-[#1254A3] text-white rounded-xl text-sm font-bold hover:bg-blue-800 transition-colors"
+                            className="px-5 py-2 bg-[#01b0ef] text-white rounded-xl text-sm font-bold hover:bg-[#0098d4] transition-colors"
                         >
                             Confirmar Classificação
                         </button>
@@ -812,7 +812,7 @@ export default function AdminEsicPage() {
                         <button
                             type="submit"
                             form="form-esic-novo-doc"
-                            className="px-5 py-2 bg-[#1254A3] text-white rounded-xl text-sm font-bold hover:bg-blue-800 transition-colors"
+                            className="px-5 py-2 bg-[#01b0ef] text-white rounded-xl text-sm font-bold hover:bg-[#0098d4] transition-colors"
                         >
                             Publicar no Rol Classificado
                         </button>

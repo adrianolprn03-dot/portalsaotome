@@ -54,7 +54,7 @@ export default async function TransparenciaEducacaoHubPage() {
     const criterios = parseCriteriosCreche(criteriosConfig?.valor);
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Transparência da Educação e Assistência Social"
                 subtitle="Plano Municipal de Educação (PME) e Relatório de Resultados, Lista de Espera e Critérios em Creches, Rede Escolar Municipal, Conselho do FUNDEB e Assistência Social (Cartilha PNTP 2026 - Dimensão 19)."
@@ -72,14 +72,14 @@ export default async function TransparenciaEducacaoHubPage() {
                     {/* 19.1 */}
                     <Link
                         href="/transparencia/plano-educacao"
-                        className="bg-white rounded-3xl border border-slate-200 p-7 shadow-sm hover:shadow-md hover:border-[#1254A3]/40 transition flex flex-col justify-between gap-5 group"
+                        className="bg-white rounded-3xl border border-slate-200 p-7 shadow-sm hover:shadow-md hover:border-[#01b0ef]/40 transition flex flex-col justify-between gap-5 group"
                     >
                         <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#1254A3] flex items-center justify-center group-hover:bg-[#1254A3] group-hover:text-white transition">
+                                <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#01b0ef] flex items-center justify-center group-hover:bg-[#01b0ef] group-hover:text-white transition">
                                     <FaBookOpen size={20} />
                                 </div>
-                                <span className="px-3 py-1 rounded-full bg-blue-50 text-[#1254A3] text-xs font-black">
+                                <span className="px-3 py-1 rounded-full bg-blue-50 text-[#01b0ef] text-xs font-black">
                                     PNTP Item 19.1 • Recomendado
                                 </span>
                             </div>
@@ -98,7 +98,7 @@ export default async function TransparenciaEducacaoHubPage() {
                                 </span>
                             </div>
                         </div>
-                        <span className="text-xs font-bold text-[#1254A3] uppercase tracking-wider flex items-center gap-2">
+                        <span className="text-xs font-bold text-[#01b0ef] uppercase tracking-wider flex items-center gap-2">
                             Consultar PME e Relatórios <FaArrowRight size={11} />
                         </span>
                     </Link>
@@ -174,10 +174,10 @@ export default async function TransparenciaEducacaoHubPage() {
                     >
                         <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition">
+                                <div className="w-12 h-12 rounded-2xl bg-[#fff4d4] text-slate-900 flex items-center justify-center group-hover:bg-[#fdb913] group-hover:text-slate-900 transition">
                                     <FaSchool size={20} />
                                 </div>
-                                <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-black">
+                                <span className="px-3 py-1 rounded-full bg-[#fff4d4] text-slate-900 text-xs font-black border border-[#fdb913]/40">
                                     Rede Municipal de Ensino
                                 </span>
                             </div>

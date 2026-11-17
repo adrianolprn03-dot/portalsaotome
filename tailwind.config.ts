@@ -1,5 +1,35 @@
 import type { Config } from "tailwindcss";
 
+const brandBlueScale = {
+    DEFAULT: "#01b0ef",
+    50: "#eefaff",
+    100: "#d6f3ff",
+    200: "#b5e9ff",
+    300: "#82daff",
+    400: "#47c6ff",
+    500: "#01b0ef",
+    600: "#0098d4",
+    700: "#007bb0",
+    800: "#005c85",
+    900: "#004666",
+    950: "#002d42",
+};
+
+const brandYellowScale = {
+    DEFAULT: "#fdb913",
+    50: "#fff9e7",
+    100: "#fef1c4",
+    200: "#fde28a",
+    300: "#fdcf4d",
+    400: "#fdc228",
+    500: "#fdb913",
+    600: "#e09b05",
+    700: "#b87904",
+    800: "#915d08",
+    900: "#754b0b",
+    950: "#452902",
+};
+
 const config: Config = {
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,50 +40,17 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                primary: {
-                    DEFAULT: "#0088C2",
-                    50: "#F0F9FF",
-                    100: "#E0F2FE",
-                    200: "#BAE6FD",
-                    300: "#7DD3FC",
-                    400: "#38BDF8",
-                    500: "#01B0EF",
-                    600: "#0088C2",
-                    700: "#00689E",
-                    800: "#0B4A78",
-                    900: "#093158",
-                    950: "#071E3D",
-                },
-                secondary: {
-                    DEFAULT: "#FDB913",
-                    50: "#FFFBEB",
-                    100: "#FEF3C7",
-                    200: "#FDE68A",
-                    300: "#FCD34D",
-                    400: "#FBBF24",
-                    500: "#FDB913",
-                    600: "#D97706",
-                    700: "#B45309",
-                    800: "#92400E",
-                    900: "#78350F",
-                },
-                civic: {
-                    50: "#F6F9FC",
-                    100: "#EDF2F7",
-                    200: "#E2E8F0",
-                    300: "#CBD5E1",
-                    400: "#94A3B8",
-                    500: "#64748B",
-                    600: "#475569",
-                    700: "#334155",
-                    800: "#1E293B",
-                    900: "#0F172A",
-                    950: "#071E3D",
-                },
+                primary: brandBlueScale,
+                secondary: brandYellowScale,
+                blue: brandBlueScale,
+                sky: brandBlueScale,
+                indigo: brandBlueScale,
+                amber: brandYellowScale,
+                yellow: brandYellowScale,
                 gold: {
-                    400: "#FBBF24",
-                    500: "#FDB913",
-                    600: "#D97706",
+                    400: "#fdc228",
+                    500: "#fdb913",
+                    600: "#e09b05",
                 },
             },
             fontFamily: {
@@ -62,15 +59,15 @@ const config: Config = {
                 mono: ["'JetBrains Mono'", "monospace"],
             },
             boxShadow: {
-                "civic-sm": "0 1px 3px 0 rgba(7, 30, 61, 0.04), 0 1px 2px -1px rgba(7, 30, 61, 0.04)",
-                "civic": "0 4px 20px -2px rgba(7, 30, 61, 0.06), 0 2px 6px -1px rgba(7, 30, 61, 0.04)",
-                "civic-lg": "0 12px 32px -4px rgba(7, 30, 61, 0.08), 0 4px 12px -2px rgba(7, 30, 61, 0.04)",
-                "civic-xl": "0 20px 48px -8px rgba(7, 30, 61, 0.12), 0 8px 16px -4px rgba(7, 30, 61, 0.06)",
-                "gov": "0 2px 12px -2px rgba(7, 30, 61, 0.06)",
+                "civic-sm": "0 1px 3px 0 rgba(1, 176, 239, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04)",
+                "civic": "0 6px 22px -4px rgba(1, 176, 239, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04)",
+                "civic-lg": "0 14px 36px -6px rgba(1, 176, 239, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.05)",
+                "civic-xl": "0 22px 50px -10px rgba(1, 176, 239, 0.22), 0 8px 18px -4px rgba(15, 23, 42, 0.06)",
+                "gov": "0 4px 16px -2px rgba(1, 176, 239, 0.10)",
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "civic-gradient": "linear-gradient(135deg, #071E3D 0%, #093158 50%, #00689E 100%)",
+                "civic-gradient": "linear-gradient(135deg, #01b0ef 0%, #27c0f6 50%, #0098d4 100%)",
             },
         },
     },

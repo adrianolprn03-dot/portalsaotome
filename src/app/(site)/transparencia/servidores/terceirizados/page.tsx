@@ -96,7 +96,7 @@ export default function TerceirizadosPage() {
     const totalLiquido = filtrados.reduce((acc: number, curr: Servidor) => acc + curr.totalLiquido, 0);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Terceirizados"
                 subtitle="Relação de postos de trabalho e prestadores de serviço terceirizados."

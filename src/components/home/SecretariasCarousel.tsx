@@ -43,10 +43,12 @@ export default function SecretariasCarousel({
                 <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
                     <div className="space-y-3">
                         <div className="section-eyebrow">
-                            <Building2 size={14} className="text-primary-600" />
+                            <Building2 size={14} className="text-[#01b0ef]" />
                             <span>Estrutura Organizacional</span>
                         </div>
-                        <h2 className="section-title">Secretarias e Órgãos Municipais</h2>
+                        <h2 className="section-title">
+                            Secretarias e <span className="text-[#01b0ef]">Órgãos Municipais</span>
+                        </h2>
                         <p className="text-slate-600 text-sm">
                             Navegue pelas pastas da administração municipal e consulte suas atribuições e gestores.
                         </p>
@@ -55,21 +57,21 @@ export default function SecretariasCarousel({
                     <div className="flex items-center gap-2.5">
                         <button
                             onClick={() => scroll("left")}
-                            className="w-10 h-10 rounded-xl bg-white text-slate-700 border border-slate-200 flex items-center justify-center hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-all shadow-civic-sm"
+                            className="w-10 h-10 rounded-xl bg-white text-slate-700 border border-slate-200 flex items-center justify-center hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all shadow-civic-sm"
                             aria-label="Anterior"
                         >
                             <ChevronLeft size={18} />
                         </button>
                         <button
                             onClick={() => scroll("right")}
-                            className="w-10 h-10 rounded-xl bg-white text-slate-700 border border-slate-200 flex items-center justify-center hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-all shadow-civic-sm"
+                            className="w-10 h-10 rounded-xl bg-white text-slate-700 border border-slate-200 flex items-center justify-center hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all shadow-civic-sm"
                             aria-label="Próximo"
                         >
                             <ChevronRight size={18} />
                         </button>
                         <Link
                             href="/secretarias"
-                            className="ml-2 hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 hover:text-primary-700 px-3.5 py-2.5 rounded-xl bg-primary-50 hover:bg-primary-100/70 transition-colors"
+                            className="ml-2 hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 bg-[#fdb913] hover:brightness-105 px-4 py-2.5 rounded-xl transition-all shadow-xs"
                         >
                             <span>Ver todas</span>
                             <ArrowRight size={14} />
@@ -95,28 +97,28 @@ export default function SecretariasCarousel({
                                 href={`/secretarias/${sec.slug}`}
                                 className="snap-start shrink-0 w-[280px] group block"
                             >
-                                <div className="h-full bg-[#F6F9FC] hover:bg-white rounded-2xl p-6 shadow-civic-sm border border-slate-200/80 hover:border-primary-400 hover:shadow-civic-lg flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
-                                    <div className="absolute top-0 left-0 right-0 h-1 bg-primary-600/20 group-hover:bg-primary-600 transition-colors" />
+                                <div className="h-full bg-[#f4fbff] hover:bg-white rounded-2xl p-6 shadow-civic-sm border border-[#01b0ef]/20 hover:border-[#01b0ef] hover:shadow-civic-lg flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#01b0ef]/25 group-hover:heraldic-stripe transition-all" />
 
                                     <div>
                                         <div className="flex items-start gap-3.5 mb-4">
-                                            <div className="w-11 h-11 bg-white border border-slate-200/80 text-primary-600 rounded-xl flex items-center justify-center group-hover:bg-primary-600 group-hover:text-white group-hover:border-primary-600 transition-colors shrink-0 shadow-xs">
+                                            <div className="w-11 h-11 bg-white border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center group-hover:bg-[#01b0ef] group-hover:text-white group-hover:border-[#01b0ef] transition-colors shrink-0 shadow-xs">
                                                 <Icone size={20} />
                                             </div>
-                                            <h3 className="font-heading text-base font-bold text-[#071E3D] group-hover:text-primary-600 leading-snug line-clamp-2 transition-colors">
+                                            <h3 className="font-heading text-base font-bold text-slate-900 group-hover:text-[#01b0ef] leading-snug line-clamp-2 transition-colors">
                                                 {nomeCurto}
                                             </h3>
                                         </div>
-                                        <p className="text-slate-500 text-xs leading-relaxed line-clamp-3 mb-5">
+                                        <p className="text-slate-600 text-xs leading-relaxed line-clamp-3 mb-5">
                                             {sec.descricao ||
                                                 "Acesse para consultar competências, endereço, telefone e serviços desta secretaria."}
                                         </p>
                                     </div>
 
-                                    <div className="pt-3.5 border-t border-slate-200/70 flex items-center justify-between gap-2">
+                                    <div className="pt-3.5 border-t border-[#01b0ef]/15 flex items-center justify-between gap-2">
                                         <div className="flex items-center gap-2 min-w-0">
                                             <UserCheck
-                                                className="text-primary-600 shrink-0"
+                                                className="text-[#01b0ef] shrink-0"
                                                 size={14}
                                             />
                                             <div className="min-w-0">
@@ -130,7 +132,7 @@ export default function SecretariasCarousel({
                                         </div>
                                         <ArrowRight
                                             size={14}
-                                            className="text-slate-400 group-hover:text-primary-600 group-hover:translate-x-0.5 transition-all shrink-0"
+                                            className="text-[#01b0ef] group-hover:translate-x-0.5 transition-all shrink-0"
                                         />
                                     </div>
                                 </div>

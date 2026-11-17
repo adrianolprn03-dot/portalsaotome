@@ -19,7 +19,7 @@ export default function GlossarioClientPage({ initialData }: { initialData: Term
     );
 
     return (
-        <div className="min-h-screen bg-white font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-white">
             <PageHeader
                 title="Glossário de Termos"
                 subtitle="Dicionário técnico para auxiliar na compreensão dos documentos e relatórios da administração pública."
@@ -58,7 +58,7 @@ export default function GlossarioClientPage({ initialData }: { initialData: Term
                                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#01b0ef] shadow-sm mb-4 group-hover:bg-[#01b0ef] group-hover:text-white transition-all">
                                     <FaBook size={14} />
                                 </div>
-                                <h3 className="font-black text-[#0088b9] uppercase tracking-widest text-[11px] mb-3 group-hover:text-[#01b0ef] transition-colors">{t.termo}</h3>
+                                <h3 className="font-black text-[#01b0ef] uppercase tracking-widest text-[11px] mb-3 group-hover:text-[#01b0ef] transition-colors">{t.termo}</h3>
                                 <div className="h-px w-8 bg-gray-200 mb-4 group-hover:w-16 transition-all" />
                                 <p className="text-gray-500 text-sm leading-relaxed font-medium">
                                     {t.definicao}

@@ -259,7 +259,7 @@ export default function UnidadeFormPage() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-24 text-gray-400">
-                <FaSpinner className="animate-spin text-4xl mb-4 text-[#0188B9]" />
+                <FaSpinner className="animate-spin text-4xl mb-4 text-[#01b0ef]" />
                 <p>Carregando dados da unidade e escala profissional...</p>
             </div>
         );
@@ -288,7 +288,7 @@ export default function UnidadeFormPage() {
                         {ehEducacao ? (
                             <FaSchool className="text-blue-600" />
                         ) : (
-                            <FaClinicMedical className="text-[#0188B9]" />
+                            <FaClinicMedical className="text-[#01b0ef]" />
                         )}
                         {isEditing ? "Editar Unidade, Serviços e Equipe" : "Nova Unidade de Atendimento"}
                     </h1>
@@ -303,14 +303,14 @@ export default function UnidadeFormPage() {
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 space-y-6">
                     <div className="border-b border-gray-100 pb-3 flex items-center justify-between">
                         <h2 className="text-sm font-black uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                            <FaHospital className="text-[#0188B9]" /> 1. Identificação, Local e Funcionamento
+                            <FaHospital className="text-[#01b0ef]" /> 1. Identificação, Local e Funcionamento
                         </h2>
                         <label className="inline-flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
                             <input
                                 type="checkbox"
                                 checked={ativa}
                                 onChange={(e) => setAtiva(e.target.checked)}
-                                className="w-4 h-4 accent-[#0188B9] rounded cursor-pointer"
+                                className="w-4 h-4 accent-[#01b0ef] rounded cursor-pointer"
                             />
                             Unidade Ativa no Portal Público
                         </label>
@@ -327,7 +327,7 @@ export default function UnidadeFormPage() {
                                 placeholder="Ex: UBS João Olinto de Oliveira / Escola Municipal..."
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -339,7 +339,7 @@ export default function UnidadeFormPage() {
                                 required
                                 value={tipo}
                                 onChange={(e) => setTipo(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             >
                                 <option value="Saúde">Saúde (UBS / UMS / Hospital / Farmácia)</option>
                                 <option value="Educação">Educação (Creche / Escola Municipal)</option>
@@ -358,7 +358,7 @@ export default function UnidadeFormPage() {
                                 placeholder={ehSaude ? "Ex: Unidade Básica de Saúde (ESF)" : "Ex: Creche / Educação Infantil"}
                                 value={subtipo}
                                 onChange={(e) => setSubtipo(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                             <datalist id="subtipo-sugestoes">
                                 {sugestoesSubtipo.map((s) => (
@@ -380,7 +380,7 @@ export default function UnidadeFormPage() {
                                 placeholder={ehSaude ? "Ex: 2409876" : ehEducacao ? "Ex: 24045678" : "Código opcional"}
                                 value={cnes}
                                 onChange={(e) => setCnes(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -394,7 +394,7 @@ export default function UnidadeFormPage() {
                                 placeholder="Ex: Segunda a Sexta, das 07h00 às 17h00 (ou 24 horas)"
                                 value={horario}
                                 onChange={(e) => setHorario(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -408,7 +408,7 @@ export default function UnidadeFormPage() {
                                 placeholder="Ex: Rua Miriam Cavalcante Lima, Centro, São Tomé/RN"
                                 value={endereco}
                                 onChange={(e) => setEndereco(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -421,7 +421,7 @@ export default function UnidadeFormPage() {
                                 placeholder="Ex: (84) 98796-9881 ou e-mail institucional"
                                 value={telefone}
                                 onChange={(e) => setTelefone(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -435,7 +435,7 @@ export default function UnidadeFormPage() {
                                 placeholder="Descreva a finalidade e cobertura desta unidade..."
                                 value={descricao}
                                 onChange={(e) => setDescricao(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
 
@@ -448,7 +448,7 @@ export default function UnidadeFormPage() {
                                 placeholder="https://maps.google.com/..."
                                 value={mapa}
                                 onChange={(e) => setMapa(e.target.value)}
-                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                         </div>
                     </div>
@@ -510,7 +510,7 @@ export default function UnidadeFormPage() {
                                         handleAddEspecialidade();
                                     }
                                 }}
-                                className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#0188B9]/20 focus:border-[#0188B9] outline-none"
+                                className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] outline-none"
                             />
                             <button
                                 type="button"
@@ -554,7 +554,7 @@ export default function UnidadeFormPage() {
                                 especialidades.map((esp, idx) => (
                                     <span
                                         key={`${esp}-${idx}`}
-                                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 text-[#1254A3] border border-blue-200 text-xs font-bold"
+                                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 text-[#01b0ef] border border-blue-200 text-xs font-bold"
                                     >
                                         {esp}
                                         <button
@@ -577,7 +577,7 @@ export default function UnidadeFormPage() {
                     <div className="border-b border-gray-100 pb-3 flex flex-wrap items-center justify-between gap-2">
                         <div>
                             <h2 className="text-sm font-black uppercase tracking-wider text-slate-700 flex items-center gap-2">
-                                <FaUserMd className="text-[#0188B9]" /> 3.{" "}
+                                <FaUserMd className="text-[#01b0ef]" /> 3.{" "}
                                 {ehEducacao
                                     ? "Direção, Coordenação e Equipe Escolar"
                                     : "Profissionais Prestadores de Serviços (Médicos, Enfermeiros, Dentistas e Técnicos)"}
@@ -586,7 +586,7 @@ export default function UnidadeFormPage() {
                                 Exigência obrigatória do item 18.2 da Cartilha PNTP 2026: indicar profissionais, especialidades, registros de conselho e dias/horários de atendimento.
                             </p>
                         </div>
-                        <span className="text-xs font-bold bg-blue-50 text-[#1254A3] px-3 py-1 rounded-full border border-blue-100">
+                        <span className="text-xs font-bold bg-blue-50 text-[#01b0ef] px-3 py-1 rounded-full border border-blue-100">
                             {equipe.length} {equipe.length === 1 ? "profissional" : "profissionais"}
                         </span>
                     </div>
@@ -611,7 +611,7 @@ export default function UnidadeFormPage() {
                                             type="text"
                                             value={prof.nome}
                                             onChange={(e) => handleUpdateProfissional(idx, "nome", e.target.value)}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-semibold outline-none focus:border-[#0188B9]"
+                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-semibold outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                     <div className="md:col-span-2">
@@ -622,7 +622,7 @@ export default function UnidadeFormPage() {
                                             type="text"
                                             value={prof.cargo}
                                             onChange={(e) => handleUpdateProfissional(idx, "cargo", e.target.value)}
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#0188B9]"
+                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                     <div className="md:col-span-2">
@@ -635,7 +635,7 @@ export default function UnidadeFormPage() {
                                             onChange={(e) =>
                                                 handleUpdateProfissional(idx, "especialidade", e.target.value)
                                             }
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#0188B9]"
+                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                     <div className="md:col-span-2">
@@ -648,7 +648,7 @@ export default function UnidadeFormPage() {
                                             onChange={(e) =>
                                                 handleUpdateProfissional(idx, "registroProfissional", e.target.value)
                                             }
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-mono outline-none focus:border-[#0188B9]"
+                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-mono outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                     <div className="md:col-span-2">
@@ -661,7 +661,7 @@ export default function UnidadeFormPage() {
                                             onChange={(e) =>
                                                 handleUpdateProfissional(idx, "diasHorarios", e.target.value)
                                             }
-                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#0188B9]"
+                                            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                     <div className="md:col-span-1 flex justify-end">
@@ -681,7 +681,7 @@ export default function UnidadeFormPage() {
 
                     {/* Card para adicionar novo profissional */}
                     <div className="bg-blue-50/60 border border-blue-200 rounded-2xl p-5 space-y-4">
-                        <h3 className="text-xs font-black uppercase tracking-wider text-[#1254A3] flex items-center gap-2">
+                        <h3 className="text-xs font-black uppercase tracking-wider text-[#01b0ef] flex items-center gap-2">
                             <FaPlus /> Incluir Novo Profissional na Unidade
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
@@ -694,7 +694,7 @@ export default function UnidadeFormPage() {
                                     placeholder={ehEducacao ? "Ex: Profª. Maria das Graças" : "Ex: Dr. André Filipe Santos"}
                                     value={novoProfNome}
                                     onChange={(e) => setNovoProfNome(e.target.value)}
-                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#1254A3]"
+                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                             <div className="md:col-span-3">
@@ -707,7 +707,7 @@ export default function UnidadeFormPage() {
                                     placeholder={ehEducacao ? "Ex: Diretor(a) Escolar" : "Ex: Médico / Enfermeira"}
                                     value={novoProfCargo}
                                     onChange={(e) => setNovoProfCargo(e.target.value)}
-                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#1254A3]"
+                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                 />
                                 <datalist id="cargos-prof-list">
                                     <option value="Médico(a) Clínico Geral" />
@@ -735,7 +735,7 @@ export default function UnidadeFormPage() {
                                     placeholder={ehEducacao ? "Ex: Gestão Escolar" : "Ex: Clínica Geral / Pré-Natal"}
                                     value={novoProfEsp}
                                     onChange={(e) => setNovoProfEsp(e.target.value)}
-                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#1254A3]"
+                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                             <div className="md:col-span-2">
@@ -747,7 +747,7 @@ export default function UnidadeFormPage() {
                                     placeholder="Ex: CRM/RN 10.155"
                                     value={novoProfRegistro}
                                     onChange={(e) => setNovoProfRegistro(e.target.value)}
-                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#1254A3]"
+                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                             <div className="md:col-span-9">
@@ -759,14 +759,14 @@ export default function UnidadeFormPage() {
                                     placeholder="Ex: Segunda a Quinta: 07h30 às 16h30 (ou Escala de Plantão 24h)"
                                     value={novoProfHorario}
                                     onChange={(e) => setNovoProfHorario(e.target.value)}
-                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#1254A3]"
+                                    className="w-full px-3 py-2 rounded-xl border border-blue-200 bg-white text-xs outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                             <div className="md:col-span-3 flex items-end">
                                 <button
                                     type="button"
                                     onClick={handleAddProfissional}
-                                    className="w-full py-2.5 px-4 bg-[#1254A3] hover:bg-blue-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
+                                    className="w-full py-2.5 px-4 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
                                 >
                                     <FaPlus /> Adicionar Profissional
                                 </button>
@@ -786,7 +786,7 @@ export default function UnidadeFormPage() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="px-8 py-3 bg-[#0188B9] hover:bg-[#026A91] text-white font-bold text-sm rounded-xl flex items-center gap-2 transition shadow-lg shadow-blue-900/10 disabled:opacity-50 cursor-pointer"
+                        className="px-8 py-3 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-bold text-sm rounded-xl flex items-center gap-2 transition shadow-lg shadow-blue-900/10 disabled:opacity-50 cursor-pointer"
                     >
                         {saving ? (
                             <>

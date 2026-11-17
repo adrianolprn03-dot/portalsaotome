@@ -64,7 +64,7 @@ const DECRETOS = [
 
 export default function Covid19Page() {
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Ações de Enfrentamento à Covid-19"
                 subtitle="Transparência total sobre os recursos públicos aplicados e as medidas adotadas durante a pandemia no município de São Tomé."

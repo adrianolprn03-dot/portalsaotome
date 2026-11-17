@@ -393,7 +393,7 @@ export default function MedicamentosAdminManager() {
                     onClick={() => setAbaAdmin("catalogo")}
                     className={`px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
                         abaAdmin === "catalogo"
-                            ? "bg-[#003366] text-white shadow-sm"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >
@@ -404,7 +404,7 @@ export default function MedicamentosAdminManager() {
                     onClick={() => setAbaAdmin("orientacoes")}
                     className={`px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
                         abaAdmin === "orientacoes"
-                            ? "bg-[#003366] text-white shadow-sm"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 >
@@ -427,7 +427,7 @@ export default function MedicamentosAdminManager() {
                                 <Link
                                     href="/transparencia/saude"
                                     target="_blank"
-                                    className="text-[#003366] font-bold underline"
+                                    className="text-[#01b0ef] font-bold underline"
                                 >
                                     /transparencia/saude
                                 </Link>{" "}
@@ -435,7 +435,7 @@ export default function MedicamentosAdminManager() {
                                 <Link
                                     href="/transparencia/medicamentos-sus"
                                     target="_blank"
-                                    className="text-[#003366] font-bold underline"
+                                    className="text-[#01b0ef] font-bold underline"
                                 >
                                     /transparencia/medicamentos-sus
                                 </Link>
@@ -517,7 +517,7 @@ export default function MedicamentosAdminManager() {
                                         onClick={() => setFiltroStatus(tab.id)}
                                         className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                                             filtroStatus === tab.id
-                                                ? "bg-[#003366] text-white shadow-sm"
+                                                ? "bg-[#01b0ef] text-white shadow-sm"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                         }`}
                                     >
@@ -533,7 +533,7 @@ export default function MedicamentosAdminManager() {
                                     placeholder="Buscar medicamento, princípio ativo, unidade..."
                                     value={busca}
                                     onChange={(e) => setBusca(e.target.value)}
-                                    className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#003366]"
+                                    className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
                         </div>
@@ -563,7 +563,7 @@ export default function MedicamentosAdminManager() {
                     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                         {loading ? (
                             <div className="p-12 text-center text-gray-400 space-y-2">
-                                <FaSpinner className="animate-spin text-2xl text-[#003366] mx-auto" />
+                                <FaSpinner className="animate-spin text-2xl text-[#01b0ef] mx-auto" />
                                 <p className="text-xs font-bold uppercase tracking-wider">
                                     Carregando catálogo REMUME...
                                 </p>
@@ -737,7 +737,7 @@ export default function MedicamentosAdminManager() {
                             type="submit"
                             form="form-medicamento-admin"
                             disabled={saving}
-                            className="px-6 py-2.5 bg-[#003366] hover:bg-[#002244] text-white font-black rounded-xl text-xs uppercase disabled:opacity-50"
+                            className="px-6 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-black rounded-xl text-xs uppercase disabled:opacity-50"
                         >
                             {saving ? "Salvando..." : editingItem ? "Salvar Alterações" : "Cadastrar"}
                         </button>
@@ -956,7 +956,7 @@ export default function MedicamentosAdminManager() {
                                     id="medAtivoCheck"
                                     checked={formData.ativo}
                                     onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
-                                    className="w-4 h-4 text-[#003366] rounded"
+                                    className="w-4 h-4 text-[#01b0ef] rounded"
                                 />
                                 <label
                                     htmlFor="medAtivoCheck"

@@ -41,7 +41,7 @@ export default async function MedicamentosSUSPage({
     const abaInicial = parseAbaInicial(searchParams?.aba);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif] pb-24">
+        <div className="min-h-screen bg-[#f8fafc] pb-24">
             <PageHeader
                 title="Medicamentos SUS e Estoque (REMUME)"
                 subtitle="Relação Municipal de Medicamentos Essenciais, disponibilidade na rede e guia oficial para obtenção de medicamentos básicos e de alto custo (CEAF)."

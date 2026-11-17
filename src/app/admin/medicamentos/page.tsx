@@ -6,12 +6,12 @@ import MedicamentosAdminManager from "@/components/admin/MedicamentosAdminManage
 
 export default function AdminMedicamentosPage() {
     return (
-        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6 font-['Montserrat',sans-serif]">
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
             <div className="flex items-center justify-between gap-4">
                 <div>
                     <Link
                         href="/admin/saude"
-                        className="inline-flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-[#003366] mb-2"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-[#01b0ef] mb-2"
                     >
                         <FaArrowLeft /> Voltar para Gestão da Saúde
                     </Link>

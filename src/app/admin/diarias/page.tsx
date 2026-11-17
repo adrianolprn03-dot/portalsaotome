@@ -73,17 +73,17 @@ export default function AdminDiariasPage() {
             {/* Top Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-[#12304A] flex items-center gap-2">
-                        <FaPlane className="text-[#1254A3]" /> Gestão de Diárias e Indenizações de Viagem
+                    <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <FaPlane className="text-[#01b0ef]" /> Gestão de Diárias e Indenizações de Viagem
                     </h1>
-                    <p className="text-[#5B738B] text-sm">
+                    <p className="text-slate-600 text-sm">
                         Concessões individuais, tabelas de valores fixados (2021 a 2026) e declarações oficiais de não regulamentação.
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
                     <Link 
                         href="/admin/diarias/novo" 
-                        className="btn-primary flex items-center gap-2 bg-[#1254A3] hover:bg-[#0d4282] border-none text-xs font-bold"
+                        className="btn-primary flex items-center gap-2 bg-[#01b0ef] hover:bg-[#0098d4] border-none text-xs font-bold"
                     >
                         <FaPlus /> Nova Diária Concedida
                     </Link>
@@ -91,13 +91,13 @@ export default function AdminDiariasPage() {
             </div>
 
             {/* Abas Superiores */}
-            <div className="bg-white rounded-2xl border border-[#DDE3EA] p-2 shadow-sm flex flex-wrap gap-2">
+            <div className="bg-white rounded-2xl border border-[#e2e8f0] p-2 shadow-sm flex flex-wrap gap-2">
                 <button
                     onClick={() => setAba("concessoes")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                         aba === "concessoes"
-                            ? "bg-[#1254A3] text-white shadow-sm"
-                            : "text-[#5B738B] hover:bg-[#F5F7FA]"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
+                            : "text-slate-600 hover:bg-[#f4fbff]"
                     }`}
                 >
                     <FaPlane size={13} />
@@ -108,8 +108,8 @@ export default function AdminDiariasPage() {
                     onClick={() => setAba("tabela")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                         aba === "tabela"
-                            ? "bg-[#1254A3] text-white shadow-sm"
-                            : "text-[#5B738B] hover:bg-[#F5F7FA]"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
+                            : "text-slate-600 hover:bg-[#f4fbff]"
                     }`}
                 >
                     <FaBuildingColumns size={13} />
@@ -120,8 +120,8 @@ export default function AdminDiariasPage() {
                     onClick={() => setAba("declaracoes")}
                     className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                         aba === "declaracoes"
-                            ? "bg-[#1254A3] text-white shadow-sm"
-                            : "text-[#5B738B] hover:bg-[#F5F7FA]"
+                            ? "bg-[#01b0ef] text-white shadow-sm"
+                            : "text-slate-600 hover:bg-[#f4fbff]"
                     }`}
                 >
                     <FaStamp size={13} />
@@ -131,14 +131,14 @@ export default function AdminDiariasPage() {
 
             {/* CONTEÚDO DA ABA 1: CONCESSÕES */}
             {aba === "concessoes" && (
-                <div className="bg-white rounded-2xl shadow-sm border border-[#DDE3EA] overflow-hidden">
-                    <div className="p-4 border-b border-[#DDE3EA] bg-[#F8FAFC]">
+                <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden">
+                    <div className="p-4 border-b border-[#e2e8f0] bg-[#F8FAFC]">
                         <div className="relative max-w-md">
                             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input
                                 type="text"
                                 placeholder="Buscar por servidor ou destino..."
-                                className="w-full pl-10 pr-4 py-2 bg-white border border-[#DDE3EA] rounded-xl text-xs font-medium text-[#12304A] outline-none focus:border-[#1254A3]"
+                                className="w-full pl-10 pr-4 py-2 bg-white border border-[#e2e8f0] rounded-xl text-xs font-medium text-slate-900 outline-none focus:border-[#01b0ef]"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
@@ -148,7 +148,7 @@ export default function AdminDiariasPage() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs">
                             <thead>
-                                <tr className="bg-[#F8FAFC] text-[#5B738B] text-[10px] font-black uppercase tracking-widest border-b border-[#DDE3EA]">
+                                <tr className="bg-[#F8FAFC] text-slate-600 text-[10px] font-black uppercase tracking-widest border-b border-[#e2e8f0]">
                                     <th className="px-6 py-4">Servidor / Cargo</th>
                                     <th className="px-6 py-4">Destino</th>
                                     <th className="px-6 py-4">Ref.</th>
@@ -156,31 +156,31 @@ export default function AdminDiariasPage() {
                                     <th className="px-6 py-4 text-right">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#DDE3EA]">
+                            <tbody className="divide-y divide-[#e2e8f0]">
                                 {loading ? (
                                     <tr>
-                                        <td colSpan={5} className="px-6 py-12 text-center text-[#5B738B]">
-                                            <FaSpinner className="animate-spin inline-block text-[#1254A3] text-2xl" />
+                                        <td colSpan={5} className="px-6 py-12 text-center text-slate-600">
+                                            <FaSpinner className="animate-spin inline-block text-[#01b0ef] text-2xl" />
                                         </td>
                                     </tr>
                                 ) : filtered.length === 0 ? (
                                     <tr>
-                                        <td colSpan={5} className="px-6 py-8 text-center text-[#5B738B]">
+                                        <td colSpan={5} className="px-6 py-8 text-center text-slate-600">
                                             Nenhuma concessão de diária localizada.
                                         </td>
                                     </tr>
                                 ) : (
                                     filtered.map((item) => (
                                         <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                                            <td className="px-6 py-4 font-bold text-[#12304A]">
+                                            <td className="px-6 py-4 font-bold text-slate-900">
                                                 {item.servidor}
-                                                <div className="text-[10px] font-normal text-[#5B738B]">{item.cargo}</div>
+                                                <div className="text-[10px] font-normal text-slate-600">{item.cargo}</div>
                                             </td>
-                                            <td className="px-6 py-4 text-[#12304A] font-medium">{item.destino}</td>
-                                            <td className="px-6 py-4 text-[#5B738B]">
+                                            <td className="px-6 py-4 text-slate-900 font-medium">{item.destino}</td>
+                                            <td className="px-6 py-4 text-slate-600">
                                                 {item.mes}/{item.ano}
                                             </td>
-                                            <td className="px-6 py-4 text-right font-black text-[#1254A3]">
+                                            <td className="px-6 py-4 text-right font-black text-[#01b0ef]">
                                                 {formatCurrency(item.valor)}
                                             </td>
                                             <td className="px-6 py-4 text-right">
@@ -205,12 +205,12 @@ export default function AdminDiariasPage() {
             {aba === "tabela" && (
                 <div className="space-y-6">
                     {/* Seletor de Anos */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <div className="text-xs font-black uppercase tracking-wider text-[#1254A3]">
+                            <div className="text-xs font-black uppercase tracking-wider text-[#01b0ef]">
                                 Exercício Selecionado
                             </div>
-                            <div className="text-base font-bold text-[#12304A]">
+                            <div className="text-base font-bold text-slate-900">
                                 Tabela e Legislação do Ano {tabelaAtual.ano}
                             </div>
                         </div>
@@ -222,8 +222,8 @@ export default function AdminDiariasPage() {
                                     onClick={() => setAnoTabelaSelecionado(h.ano)}
                                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                         h.ano === anoTabelaSelecionado
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "bg-[#F5F7FA] text-[#12304A] hover:bg-slate-200 border border-[#DDE3EA]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "bg-[#f4fbff] text-slate-900 hover:bg-slate-200 border border-[#e2e8f0]"
                                     }`}
                                 >
                                     {h.ano} {h.vigente && "(Vigente)"}
@@ -233,18 +233,18 @@ export default function AdminDiariasPage() {
                     </div>
 
                     {/* Resumo da Norma */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <span className="text-[10px] font-black uppercase text-[#1254A3] block mb-1">
+                            <span className="text-[10px] font-black uppercase text-[#01b0ef] block mb-1">
                                 Base Legal Aplicável
                             </span>
-                            <h3 className="text-base font-black text-[#12304A]">{tabelaAtual.normaLegal}</h3>
-                            <p className="text-xs text-[#5B738B] mt-0.5">{tabelaAtual.ementaNorma}</p>
+                            <h3 className="text-base font-black text-slate-900">{tabelaAtual.normaLegal}</h3>
+                            <p className="text-xs text-slate-600 mt-0.5">{tabelaAtual.ementaNorma}</p>
                         </div>
                         <Link
                             href={tabelaAtual.linkNorma}
                             target="_blank"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-[#1254A3] hover:bg-blue-100 rounded-xl text-xs font-bold transition-colors"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-[#01b0ef] hover:bg-blue-100 rounded-xl text-xs font-bold transition-colors"
                         >
                             <span>Ver Ato Normativo</span>
                             <FaExternalLinkAlt size={10} />
@@ -252,26 +252,26 @@ export default function AdminDiariasPage() {
                     </div>
 
                     {/* Tabela de Valores */}
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-xs border-collapse">
                                 <thead>
-                                    <tr className="bg-[#1254A3] text-white font-extrabold uppercase text-[10px] tracking-wider">
+                                    <tr className="bg-[#01b0ef] text-white font-extrabold uppercase text-[10px] tracking-wider">
                                         <th className="py-3 px-6">Cargo / Função</th>
                                         <th className="py-3 px-4 text-center">Natal / Caicó / Mossoró</th>
                                         <th className="py-3 px-4 text-center">Demais Cidades (RN)</th>
                                         <th className="py-3 px-4 text-center">Outros Estados</th>
                                         <th className="py-3 px-4 text-center">Brasília / DF</th>
-                                        <th className="py-3 px-4 text-center bg-[#0d4282]">Internacional</th>
+                                        <th className="py-3 px-4 text-center bg-[#01b0ef]">Internacional</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-[#DDE3EA]">
+                                <tbody className="divide-y divide-[#e2e8f0]">
                                     {tabelaAtual.valores.map((v, i) => (
                                         <tr key={v.cargo} className={i % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"}>
-                                            <td className="py-3 px-6 font-bold text-[#12304A]">{v.cargo}</td>
-                                            <td className="py-3 px-4 text-center font-bold text-[#1254A3]">{formatCurrency(v.estadual)}</td>
-                                            <td className="py-3 px-4 text-center font-medium text-[#12304A]">{formatCurrency(v.interior)}</td>
-                                            <td className="py-3 px-4 text-center font-medium text-[#12304A]">{formatCurrency(v.outrosEstados)}</td>
+                                            <td className="py-3 px-6 font-bold text-slate-900">{v.cargo}</td>
+                                            <td className="py-3 px-4 text-center font-bold text-[#01b0ef]">{formatCurrency(v.estadual)}</td>
+                                            <td className="py-3 px-4 text-center font-medium text-slate-900">{formatCurrency(v.interior)}</td>
+                                            <td className="py-3 px-4 text-center font-medium text-slate-900">{formatCurrency(v.outrosEstados)}</td>
                                             <td className="py-3 px-4 text-center font-black text-emerald-700 bg-emerald-50/30">{formatCurrency(v.brasilia)}</td>
                                             <td className="py-3 px-4 text-center text-[10px] text-amber-800 font-bold bg-amber-50/40">{v.internacional}</td>
                                         </tr>
@@ -286,16 +286,16 @@ export default function AdminDiariasPage() {
             {/* CONTEÚDO DA ABA 3: DECLARAÇÕES FORMAIS */}
             {aba === "declaracoes" && (
                 <div className="space-y-6">
-                    <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                         <div className="flex items-center gap-3 mb-2">
                             <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
                                 <FaStamp size={16} />
                             </div>
-                            <h2 className="text-lg font-black text-[#12304A]">
+                            <h2 className="text-lg font-black text-slate-900">
                                 Registro de Declarações Oficiais de Não Ocorrência & Inexistência de Norma
                             </h2>
                         </div>
-                        <p className="text-xs text-[#5B738B] leading-relaxed">
+                        <p className="text-xs text-slate-600 leading-relaxed">
                             Conforme preceitua a Cartilha PNTP 2026 (Critério 7.2), o município deve declarar formalmente a inexistência de regulamentação para viagens ao exterior e a não ocorrência de pagamentos de diárias internacionais em cada exercício fiscal.
                         </p>
                     </div>
@@ -304,13 +304,13 @@ export default function AdminDiariasPage() {
                         {HISTORICO_DIARIAS.map((h) => {
                             const d = h.declaracaoNaoRegulamentacao;
                             return (
-                                <div key={h.ano} className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm space-y-4 hover:shadow-md transition-shadow">
-                                    <div className="flex items-center justify-between border-b border-[#DDE3EA] pb-3">
+                                <div key={h.ano} className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm space-y-4 hover:shadow-md transition-shadow">
+                                    <div className="flex items-center justify-between border-b border-[#e2e8f0] pb-3">
                                         <div className="flex items-center gap-2">
-                                            <span className="px-2.5 py-1 rounded-md bg-[#1254A3] text-white font-black text-xs">
+                                            <span className="px-2.5 py-1 rounded-md bg-[#01b0ef] text-white font-black text-xs">
                                                 Ano {h.ano}
                                             </span>
-                                            <span className="text-[11px] font-bold text-[#5B738B]">
+                                            <span className="text-[11px] font-bold text-slate-600">
                                                 {d.protocolo}
                                             </span>
                                         </div>
@@ -320,15 +320,15 @@ export default function AdminDiariasPage() {
                                     </div>
 
                                     <div>
-                                        <h4 className="text-sm font-black text-[#12304A] mb-1">{d.titulo}</h4>
-                                        <p className="text-xs text-[#5B738B] leading-relaxed">{d.texto}</p>
+                                        <h4 className="text-sm font-black text-slate-900 mb-1">{d.titulo}</h4>
+                                        <p className="text-xs text-slate-600 leading-relaxed">{d.texto}</p>
                                     </div>
 
                                     <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-200/60 text-[11px] text-amber-950 font-bold">
                                         {d.declaracaoNaoOcorrencia}
                                     </div>
 
-                                    <div className="pt-2 text-[10px] text-[#5B738B] flex flex-col gap-0.5 border-t border-slate-100">
+                                    <div className="pt-2 text-[10px] text-slate-600 flex flex-col gap-0.5 border-t border-slate-100">
                                         <span><strong>Emissor:</strong> {d.orgaoEmissor}</span>
                                         <span><strong>Responsável:</strong> {d.responsavel} ({d.cargoResponsavel})</span>
                                         <span><strong>Data:</strong> {d.dataEmissao} · Fundamento: {d.fundamentoLegal}</span>

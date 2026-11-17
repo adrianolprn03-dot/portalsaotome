@@ -25,11 +25,11 @@ export default async function ObrasDestaque() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                     <div>
                         <span className="text-[#01b0ef] font-black text-[10px] uppercase tracking-[0.3em] mb-4 block">Investimento e Progresso</span>
-                        <h2 className="text-3xl md:text-4xl font-black text-[#0088b9] uppercase tracking-tighter leading-tight">
+                        <h2 className="text-3xl md:text-4xl font-black text-[#01b0ef] uppercase tracking-tighter leading-tight">
                             Obras em <br /> <span className="text-[#50B749]">São Tomé</span>
                         </h2>
                     </div>
-                    <Link href="/transparencia/obras" className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-[#01b0ef] hover:text-[#0088b9] transition-all">
+                    <Link href="/transparencia/obras" className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-[#01b0ef] hover:text-[#01b0ef] transition-all">
                         Ver todas as obras <div className="w-10 h-10 rounded-full border border-blue-100 flex items-center justify-center group-hover:bg-blue-50 transition-colors"><FaArrowRight /></div>
                     </Link>
                 </div>
@@ -51,7 +51,7 @@ export default async function ObrasDestaque() {
                                     </div>
                                 </div>
                                 <div className="p-8 flex-1 flex flex-col">
-                                    <h3 className="font-black text-[#0088b9] text-base mb-3 leading-tight group-hover:text-[#01b0ef] transition-colors line-clamp-2">{o.titulo}</h3>
+                                    <h3 className="font-black text-[#01b0ef] text-base mb-3 leading-tight group-hover:text-[#01b0ef] transition-colors line-clamp-2">{o.titulo}</h3>
                                     <p className="text-gray-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2">{o.descricao}</p>
                                     
                                     <div className="mt-auto pt-6 border-t border-gray-200/50 flex items-center justify-between">

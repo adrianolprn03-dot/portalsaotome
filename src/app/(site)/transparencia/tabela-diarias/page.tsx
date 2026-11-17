@@ -48,7 +48,7 @@ export default function TabelaDiariasPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Tabela de Valores de Diárias"
                 subtitle="Valores fixados por cargo e destino, legislação regulamentadora e histórico de exercícios anteriores (2021 a 2026)."
@@ -61,24 +61,24 @@ export default function TabelaDiariasPage() {
             />
 
             {/* Sub-header de Destaque PNTP */}
-            <div className="bg-white border-b border-[#DDE3EA] py-3.5 px-4 sm:px-6 shadow-xs">
+            <div className="bg-white border-b border-[#e2e8f0] py-3.5 px-4 sm:px-6 shadow-xs">
                 <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-                    <div className="flex items-center gap-2 font-bold text-[#12304A]">
+                    <div className="flex items-center gap-2 font-bold text-slate-900">
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span>Critério PNTP 2026 (ATRICON)</span>
-                        <span className="hidden sm:inline text-[#5B738B]">· Histórico Integral de 2021 a 2026</span>
+                        <span className="hidden sm:inline text-slate-600">· Histórico Integral de 2021 a 2026</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <Link
                             href="/transparencia/diarias"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F5F7FA] hover:bg-slate-200 text-[#1254A3] rounded-lg font-bold transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f4fbff] hover:bg-slate-200 text-[#01b0ef] rounded-lg font-bold transition-colors"
                         >
                             <span>Consultar Diárias Pagas</span>
                             <FaExternalLinkAlt size={10} />
                         </Link>
                         <Link
                             href="/transparencia/regulamentacao-diarias"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1254A3] rounded-lg font-bold transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#01b0ef] rounded-lg font-bold transition-colors"
                         >
                             <FaBalanceScale size={12} />
                             <span>Regulamentação</span>
@@ -90,13 +90,13 @@ export default function TabelaDiariasPage() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
                 
                 {/* 1. SELETOR DE ANOS (2021 a 2026) */}
-                <div className="bg-white rounded-2xl border border-[#DDE3EA] p-4 sm:p-5 shadow-sm">
+                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-4 sm:p-5 shadow-sm">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <div className="text-[11px] font-extrabold uppercase tracking-wider text-[#5B738B]">
+                            <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600">
                                 Histórico de Vigência por Exercício
                             </div>
-                            <div className="text-base sm:text-lg font-black text-[#12304A]">
+                            <div className="text-base sm:text-lg font-black text-slate-900">
                                 Selecione o ano para consultar a tabela e declarações
                             </div>
                         </div>
@@ -111,14 +111,14 @@ export default function TabelaDiariasPage() {
                                         onClick={() => setAnoSelecionado(h.ano)}
                                         className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
                                             isSelected
-                                                ? "bg-[#1254A3] text-white shadow-sm ring-2 ring-[#1254A3]/20"
-                                                : "bg-[#F5F7FA] text-[#12304A] hover:bg-slate-200 border border-[#DDE3EA]"
+                                                ? "bg-[#01b0ef] text-white shadow-sm ring-2 ring-[#01b0ef]/20"
+                                                : "bg-[#f4fbff] text-slate-900 hover:bg-slate-200 border border-[#e2e8f0]"
                                         }`}
                                     >
-                                        <FaCalendarAlt size={11} className={isSelected ? "text-[#F39A32]" : "text-slate-400"} />
+                                        <FaCalendarAlt size={11} className={isSelected ? "text-[#fdb913]" : "text-slate-400"} />
                                         <span>{h.ano}</span>
                                         {h.vigente && (
-                                            <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#F39A32] text-[#12304A]">
+                                            <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#fdb913] text-slate-900">
                                                 VIGENTE
                                             </span>
                                         )}
@@ -130,18 +130,18 @@ export default function TabelaDiariasPage() {
                 </div>
 
                 {/* 2. CARD DE NORMA REGULAMENTADORA DO ANO */}
-                <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-50 text-[#1254A3] border border-blue-100">
+                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-50 text-[#01b0ef] border border-blue-100">
                                 Legislação do Exercício {registroAtual.ano}
                             </span>
-                            <span className="text-xs text-[#5B738B]">Publicado em: {registroAtual.dataPublicacaoNorma}</span>
+                            <span className="text-xs text-slate-600">Publicado em: {registroAtual.dataPublicacaoNorma}</span>
                         </div>
-                        <h3 className="text-base sm:text-lg font-black text-[#12304A]">
+                        <h3 className="text-base sm:text-lg font-black text-slate-900">
                             {registroAtual.normaLegal}
                         </h3>
-                        <p className="text-xs text-[#5B738B] max-w-2xl">
+                        <p className="text-xs text-slate-600 max-w-2xl">
                             {registroAtual.ementaNorma}
                         </p>
                     </div>
@@ -149,7 +149,7 @@ export default function TabelaDiariasPage() {
                     <div className="flex items-center gap-2 shrink-0">
                         <Link
                             href={registroAtual.linkNorma}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1254A3] hover:bg-[#0d4282] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
                         >
                             <FaBalanceScale size={13} />
                             <span>Ver Ato na Legislação</span>
@@ -161,7 +161,7 @@ export default function TabelaDiariasPage() {
                 <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-6 shadow-sm">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                         <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                            <div className="w-12 h-12 rounded-xl bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 shadow-sm mt-0.5">
                                 <FaStamp size={22} />
                             </div>
                             <div className="space-y-1.5">
@@ -173,7 +173,7 @@ export default function TabelaDiariasPage() {
                                         Protocolo: {registroAtual.declaracaoNaoRegulamentacao.protocolo}
                                     </span>
                                 </div>
-                                <h4 className="text-base font-black text-[#12304A]">
+                                <h4 className="text-base font-black text-slate-900">
                                     {registroAtual.declaracaoNaoRegulamentacao.titulo}
                                 </h4>
                                 <p className="text-xs text-amber-900 leading-relaxed font-medium">
@@ -182,7 +182,7 @@ export default function TabelaDiariasPage() {
                                 <p className="text-xs text-amber-950 font-bold leading-relaxed pt-1">
                                     {registroAtual.declaracaoNaoRegulamentacao.declaracaoNaoOcorrencia}
                                 </p>
-                                <div className="text-[11px] text-[#5B738B] pt-2 flex flex-wrap items-center gap-3">
+                                <div className="text-[11px] text-slate-600 pt-2 flex flex-wrap items-center gap-3">
                                     <span><strong>Órgão Emissor:</strong> {registroAtual.declaracaoNaoRegulamentacao.orgaoEmissor}</span>
                                     <span>·</span>
                                     <span><strong>Responsável:</strong> {registroAtual.declaracaoNaoRegulamentacao.responsavel} ({registroAtual.declaracaoNaoRegulamentacao.cargoResponsavel})</span>
@@ -204,16 +204,16 @@ export default function TabelaDiariasPage() {
                 {/* 4. BARRA DE FERRAMENTAS E EXPORTAÇÃO */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-[#5B738B]">
+                        <span className="text-xs font-bold text-slate-600">
                             Exibindo valores para o exercício de <strong>{registroAtual.ano}</strong> ({registroAtual.valores.length} categorias de cargos)
                         </span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-[#5B738B] mr-1 hidden sm:inline">Exportar Tabela:</span>
+                        <span className="text-xs font-bold text-slate-600 mr-1 hidden sm:inline">Exportar Tabela:</span>
                         <button
                             onClick={() => handleExport("pdf")}
-                            className="p-2.5 bg-white hover:bg-red-50 text-red-600 border border-[#DDE3EA] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                            className="p-2.5 bg-white hover:bg-red-50 text-red-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                             title="Exportar PDF Oficial"
                         >
                             <FaFilePdf size={13} />
@@ -221,7 +221,7 @@ export default function TabelaDiariasPage() {
                         </button>
                         <button
                             onClick={() => handleExport("xlsx")}
-                            className="p-2.5 bg-white hover:bg-emerald-50 text-emerald-600 border border-[#DDE3EA] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                            className="p-2.5 bg-white hover:bg-emerald-50 text-emerald-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                             title="Exportar Planilha Excel"
                         >
                             <FaFileExcel size={13} />
@@ -229,7 +229,7 @@ export default function TabelaDiariasPage() {
                         </button>
                         <button
                             onClick={() => handleExport("csv")}
-                            className="p-2.5 bg-white hover:bg-blue-50 text-blue-600 border border-[#DDE3EA] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                            className="p-2.5 bg-white hover:bg-blue-50 text-blue-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                             title="Exportar Dados CSV"
                         >
                             <FaFileCsv size={13} />
@@ -239,35 +239,35 @@ export default function TabelaDiariasPage() {
                 </div>
 
                 {/* 5. TABELA ESTRUTURADA DE VALORES FIXADOS */}
-                <div className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm overflow-hidden">
+                <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-xs border-collapse">
                             <thead>
-                                <tr className="bg-[#1254A3] text-white font-extrabold uppercase tracking-wider text-[11px]">
+                                <tr className="bg-[#01b0ef] text-white font-extrabold uppercase tracking-wider text-[11px]">
                                     <th className="py-4 px-4 sm:px-6">Cargo ou Função</th>
                                     <th className="py-4 px-3 sm:px-4 text-center">Natal, Caicó ou Mossoró</th>
                                     <th className="py-4 px-3 sm:px-4 text-center">Demais Cidades (RN)</th>
                                     <th className="py-4 px-3 sm:px-4 text-center">Outros Estados</th>
                                     <th className="py-4 px-3 sm:px-4 text-center">Brasília / DF</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center bg-[#0d4282]">Exterior / Internacional</th>
+                                    <th className="py-4 px-3 sm:px-4 text-center bg-[#01b0ef]">Exterior / Internacional</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#DDE3EA]">
+                            <tbody className="divide-y divide-[#e2e8f0]">
                                 {registroAtual.valores.map((v, idx) => (
                                     <tr 
                                         key={v.cargo} 
                                         className={`hover:bg-blue-50/50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"}`}
                                     >
-                                        <td className="py-3.5 px-4 sm:px-6 font-bold text-[#12304A]">
+                                        <td className="py-3.5 px-4 sm:px-6 font-bold text-slate-900">
                                             {v.cargo}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-bold text-[#1254A3]">
+                                        <td className="py-3.5 px-3 sm:px-4 text-center font-bold text-[#01b0ef]">
                                             {formatCurrency(v.estadual)}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-[#12304A]">
+                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-slate-900">
                                             {formatCurrency(v.interior)}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-[#12304A]">
+                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-slate-900">
                                             {formatCurrency(v.outrosEstados)}
                                         </td>
                                         <td className="py-3.5 px-3 sm:px-4 text-center font-black text-emerald-700 bg-emerald-50/40">
@@ -286,11 +286,11 @@ export default function TabelaDiariasPage() {
                 </div>
 
                 {/* 6. NOTAS DE AUDITORIA E CONTROLE INTERNO */}
-                <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm space-y-4">
-                    <h4 className="text-sm font-black text-[#12304A] uppercase tracking-wider flex items-center gap-2">
-                        <FaBuildingColumns className="text-[#1254A3]" /> Notas Explicativas e Regras de Concessão
+                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm space-y-4">
+                    <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <FaBuildingColumns className="text-[#01b0ef]" /> Notas Explicativas e Regras de Concessão
                     </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[#5B738B] leading-relaxed">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 leading-relaxed">
                         <div className="space-y-2">
                             <p>
                                 • <strong>Finalidade:</strong> A concessão de diárias destina-se a indenizar o servidor pelas despesas extraordinárias com alimentação, pousada e locomoção urbana fora da comarca de lotação.

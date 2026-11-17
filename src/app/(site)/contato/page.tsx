@@ -46,7 +46,7 @@ export default function ContatoPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Fale Conosco"
                 subtitle="Canais oficiais de atendimento presencial, telefônico e eletrônico da Prefeitura Municipal de São Tomé."
@@ -63,13 +63,13 @@ export default function ContatoPage() {
                     {/* Informações de Contato Rápidas (4 cols) */}
                     <div className="lg:col-span-4 space-y-6">
                         <div className="bg-white rounded-3xl p-8 shadow-civic-sm border border-slate-200/80">
-                            <h3 className="font-heading text-lg font-extrabold text-[#071E3D] mb-6">
+                            <h3 className="font-heading text-lg font-extrabold text-slate-900 mb-6">
                                 Sede Administrativa
                             </h3>
 
                             <div className="space-y-5">
                                 <div className="flex items-start gap-3.5">
-                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
                                         <MapPin size={18} />
                                     </div>
                                     <div>
@@ -86,7 +86,7 @@ export default function ContatoPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3.5">
-                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 bg-[#fdb913]/20 border border-[#fdb913]/40 text-slate-900 rounded-xl flex items-center justify-center shrink-0">
                                         <Clock size={18} />
                                     </div>
                                     <div>
@@ -103,7 +103,7 @@ export default function ContatoPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3.5">
-                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
                                         <Phone size={18} />
                                     </div>
                                     <div>
@@ -117,7 +117,7 @@ export default function ContatoPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3.5">
-                                    <div className="w-10 h-10 bg-primary-50 border border-primary-100 text-primary-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
                                         <Mail size={18} />
                                     </div>
                                     <div className="min-w-0">
@@ -132,20 +132,19 @@ export default function ContatoPage() {
                             </div>
                         </div>
 
-                        <div className="bg-[#071E3D] rounded-3xl p-8 text-white shadow-civic-lg relative overflow-hidden">
-                            <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
-                            <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-secondary-400 mb-4">
+                        <div className="bg-gradient-to-br from-[#01b0ef] to-[#0096ce] rounded-3xl p-8 text-white shadow-civic-lg relative overflow-hidden border-b-4 border-[#fdb913]">
+                            <div className="w-11 h-11 rounded-xl bg-[#fdb913] flex items-center justify-center text-slate-900 mb-4 shadow-xs">
                                 <Headset size={20} />
                             </div>
                             <h3 className="font-heading text-lg font-extrabold mb-2">
                                 Precisando da Ouvidoria?
                             </h3>
-                            <p className="text-slate-300 text-xs leading-relaxed mb-6">
+                            <p className="text-white/95 text-xs leading-relaxed mb-6">
                                 Para denúncias, reclamações, elogios ou sugestões formais com geração de protocolo oficial, utilize a Ouvidoria Municipal.
                             </p>
                             <Link
                                 href="/servicos/ouvidoria"
-                                className="inline-flex items-center gap-2 bg-secondary-500 hover:bg-secondary-400 text-[#071E3D] px-5 py-3 rounded-xl text-xs font-bold transition-all"
+                                className="inline-flex items-center gap-2 bg-[#fdb913] hover:brightness-105 text-slate-900 px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-sm"
                             >
                                 <span>Acessar Ouvidoria</span>
                                 <ArrowRight size={14} />
@@ -155,9 +154,10 @@ export default function ContatoPage() {
 
                     {/* Formulário (8 cols) */}
                     <div className="lg:col-span-8">
-                        <div className="bg-white rounded-3xl p-8 md:p-10 shadow-civic-sm border border-slate-200/80">
+                        <div className="bg-white rounded-3xl p-8 md:p-10 shadow-civic-sm border border-slate-200/80 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-1.5 heraldic-stripe" />
                             <div className="mb-8 pb-6 border-b border-slate-100">
-                                <h2 className="font-heading text-2xl font-extrabold text-[#071E3D] mb-1.5">
+                                <h2 className="font-heading text-2xl font-extrabold text-slate-900 mb-1.5">
                                     Envie uma Mensagem
                                 </h2>
                                 <p className="text-slate-600 text-sm">

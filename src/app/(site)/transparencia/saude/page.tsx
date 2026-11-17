@@ -31,7 +31,7 @@ export default async function SaudeTransparencyPage() {
     const medicamentos = JSON.parse(JSON.stringify(medicamentosRaw));
 
     return (
-        <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-gray-50">
             <PageHeader
                 title="Saúde e Medicamentos"
                 subtitle="Consulta à relação e disponibilidade de medicamentos na rede SUS (REMUME) e orientações de obtenção."
@@ -47,7 +47,7 @@ export default async function SaudeTransparencyPage() {
                 <section className="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-5">
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
                         <div>
-                            <span className="text-[11px] font-black uppercase tracking-widest text-[#1254A3] block">
+                            <span className="text-[11px] font-black uppercase tracking-widest text-[#01b0ef] block">
                                 Cartilha PNTP 2026 • Dimensão 18 - Saúde Pública
                             </span>
                             <h2 className="text-xl font-black text-slate-900">
@@ -61,7 +61,7 @@ export default async function SaudeTransparencyPage() {
                             href="/transparencia/plano-saude"
                             className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-300 transition space-y-2"
                         >
-                            <div className="flex items-center justify-between text-[#1254A3]">
+                            <div className="flex items-center justify-between text-[#01b0ef]">
                                 <FaFileMedical size={18} />
                                 <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded-full border border-blue-200">
                                     18.1
@@ -161,11 +161,11 @@ export default async function SaudeTransparencyPage() {
                         className="bg-white hover:bg-blue-50/40 border border-blue-100 rounded-3xl p-7 shadow-sm flex items-center justify-between gap-4 transition-all group"
                     >
                         <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#003366] flex items-center justify-center shrink-0">
+                            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                                 <FaCapsules size={20} />
                             </div>
                             <div>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-[#003366]">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[#01b0ef]">
                                     Atenção Básica (CBAF / REMUME)
                                 </span>
                                 <h3 className="text-base font-black text-gray-900 uppercase tracking-tight mt-0.5">
@@ -176,7 +176,7 @@ export default async function SaudeTransparencyPage() {
                                 </p>
                             </div>
                         </div>
-                        <FaArrowRight className="text-[#003366] shrink-0 group-hover:translate-x-1 transition-transform" />
+                        <FaArrowRight className="text-[#01b0ef] shrink-0 group-hover:translate-x-1 transition-transform" />
                     </Link>
 
                     <Link

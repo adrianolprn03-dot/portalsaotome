@@ -328,31 +328,31 @@ export default async function AdminDashboard() {
 
     const quickActions = [
         { label: "Painel PNTP 2026", href: "/admin/pntp", icon: FaShieldAlt, bg: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20" },
-        { label: "Importar CSV", href: "/admin/importacao", icon: FaUpload, bg: "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/20" },
-        { label: "Nova Licitação", href: "/admin/licitacoes/nova", icon: FaGavel, bg: "bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/20" },
-        { label: "Novo Contrato", href: "/admin/contratos/novo", icon: FaFileContract, bg: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/20" },
+        { label: "Importar CSV", href: "/admin/importacao", icon: FaUpload, bg: "bg-white hover:bg-[#f4fbff] text-[#01b0ef] shadow-md" },
+        { label: "Nova Licitação", href: "/admin/licitacoes/nova", icon: FaGavel, bg: "bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 shadow-[#fdb913]/25" },
+        { label: "Novo Contrato", href: "/admin/contratos/novo", icon: FaFileContract, bg: "bg-[#01b0ef] hover:bg-[#0098d4] text-white shadow-[#01b0ef]/20" },
         { label: "Atender e-SIC", href: "/admin/esic", icon: FaBullhorn, bg: "bg-rose-600 hover:bg-rose-700 text-white shadow-rose-600/20" },
     ];
 
     return (
         <div className="max-w-[1440px] mx-auto space-y-8 pb-12">
             {/* HERO WELCOME BANNER */}
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 p-8 sm:p-10 text-white shadow-2xl shadow-slate-950/20 border border-slate-700/50">
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] p-8 sm:p-10 text-white shadow-2xl shadow-[#01b0ef]/20 border-b-4 border-[#fdb913]">
                 <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-blue-200 text-xs font-bold mb-4 border border-white/10 uppercase tracking-widest">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#fdb913] text-slate-900 text-xs font-extrabold mb-4 shadow-sm uppercase tracking-widest">
+                            <span className="w-2 h-2 rounded-full bg-slate-900 animate-pulse"></span>
                             {dataFormatada} · Perfil: {role.toUpperCase()}
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 text-white">
                             {saudacao},{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-primary-300 to-teal-200">
+                            <span className="inline-block px-2.5 py-0.5 rounded-xl bg-white text-[#01b0ef] shadow-sm">
                                 {userName}!
                             </span>
                         </h1>
 
-                        <p className="text-slate-300 text-sm sm:text-base max-w-2xl font-medium leading-relaxed">
+                        <p className="text-white/95 text-sm sm:text-base max-w-2xl font-medium leading-relaxed">
                             Visão geral de governança e transparência pública de São Tomé/RN (Cartilha PNTP 2026). Clique em qualquer indicador abaixo para abrir a lista correspondente já filtrada.
                         </p>
                     </div>

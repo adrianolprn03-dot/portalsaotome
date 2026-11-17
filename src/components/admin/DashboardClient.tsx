@@ -86,10 +86,10 @@ export default function DashboardClient({
 
     // Dados reais de distribuição baseados nos contadores
     const distributionData = [
-        { name: "Notícias", valor: counts.noticia, color: "#3b82f6" },
-        { name: "Licitações", valor: counts.licitacao, color: "#f59e0b" },
+        { name: "Notícias", valor: counts.noticia, color: "#01b0ef" },
+        { name: "Licitações", valor: counts.licitacao, color: "#fdb913" },
         { name: "Contratos", valor: counts.contrato, color: "#ec4899" },
-        { name: "Obras", valor: counts.obra, color: "#f97316" },
+        { name: "Obras", valor: counts.obra, color: "#fdb913" },
         { name: "Servidores", valor: counts.servidor, color: "#06b6d4" },
         { name: "Documentos", valor: counts.documentos || counts.contrato + counts.convenio, color: "#10b981" },
     ];
@@ -449,18 +449,18 @@ export default function DashboardClient({
                 {/* Coluna Direta (Atalhos e FAQ) */}
                 <div className="space-y-6">
                     {/* Acesso Rápido */}
-                    <div className="bg-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden isolate">
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-primary-500/10 blur-3xl opacity-60 rounded-full" />
+                    <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-2xl p-6 text-white shadow-xl shadow-[#01b0ef]/20 relative overflow-hidden isolate">
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 blur-3xl opacity-80 rounded-full" />
                         
-                        <div className="mb-5">
+                        <div className="mb-5 relative z-10">
                             <h3 className="text-sm font-black tracking-tight text-white flex items-center gap-1.5">
-                                <Compass size={16} className="text-primary-400" />
+                                <Compass size={16} className="text-[#fdb913]" />
                                 Acesso Rápido
                             </h3>
-                            <p className="text-[10px] text-slate-400 font-medium">Cadastros e mensagens rápidas</p>
+                            <p className="text-[10px] text-white/90 font-medium">Cadastros e mensagens rápidas</p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2.5">
+                        <div className="grid grid-cols-2 gap-2.5 relative z-10">
                             {[
                                 { label: "Nova Obra", href: "/admin/obras/nova", icon: "🏗️", roles: ["admin", "editor"] },
                                 { label: "Nova Pergunta", href: "/admin/faq/novo", icon: "💡", roles: ["admin", "editor"] },
@@ -470,10 +470,10 @@ export default function DashboardClient({
                                 <Link 
                                     key={a.href} 
                                     href={a.href} 
-                                    className="bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl p-3 flex flex-col items-center justify-center text-center gap-1.5 transition-all hover:scale-[1.02]"
+                                    className="bg-white/95 hover:bg-[#fdb913] border border-white rounded-xl p-3 flex flex-col items-center justify-center text-center gap-1.5 transition-all hover:scale-[1.02] text-slate-900 shadow-xs"
                                 >
                                     <span className="text-lg">{a.icon}</span>
-                                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-300">{a.label}</span>
+                                    <span className="text-[9px] font-black uppercase tracking-wider text-slate-900">{a.label}</span>
                                 </Link>
                             ))}
                         </div>

@@ -142,7 +142,7 @@ export default function AdminObrasPage() {
     };
 
     return (
-        <div className="space-y-6 max-w-7xl mx-auto pb-16 font-['Montserrat',sans-serif]">
+        <div className="space-y-6 max-w-7xl mx-auto pb-16">
             
             {/* Header da Página */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
@@ -171,7 +171,7 @@ export default function AdminObrasPage() {
                     </Link>
                     <Link 
                         href="/admin/obras/nova" 
-                        className="px-5 py-2.5 bg-[#1254A3] hover:bg-[#0e4382] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-sm transition-all"
+                        className="px-5 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-sm transition-all"
                     >
                         <FaPlus /> Cadastrar Nova Obra
                     </Link>

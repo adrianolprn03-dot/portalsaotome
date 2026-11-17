@@ -113,20 +113,20 @@ export default function LinksExternosPage() {
             {/* CABEÇALHO */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1254A3] text-[10px] font-bold uppercase tracking-wider mb-1">
+                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50 text-[#01b0ef] text-[10px] font-bold uppercase tracking-wider mb-1">
                         Portal Institucional • Gestão de Links & Atalhos
                     </div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-[#12304A] font-heading tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading tracking-tight">
                         Links Externos & Módulos
                     </h1>
-                    <p className="text-xs text-[#5B738B] mt-0.5">
+                    <p className="text-xs text-slate-600 mt-0.5">
                         Gerencie links para sistemas externos (PNCP, TCE, Betha, etc.) e vincule redirecionamentos aos cards da página inicial e do Portal da Transparência.
                     </p>
                 </div>
 
                 <Link
                     href="/admin/links-externos/novo"
-                    className="flex items-center gap-2 bg-[#1254A3] hover:bg-[#0d4282] text-white font-bold text-xs px-5 py-3 rounded-xl shadow-sm transition-all shrink-0 self-start sm:self-auto"
+                    className="flex items-center gap-2 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-bold text-xs px-5 py-3 rounded-xl shadow-sm transition-all shrink-0 self-start sm:self-auto"
                 >
                     <FaPlus />
                     <span>Adicionar Novo Link</span>
@@ -134,7 +134,7 @@ export default function LinksExternosPage() {
             </div>
 
             {/* FILTROS E BUSCA */}
-            <div className="bg-white rounded-2xl border border-[#DDE3EA] p-4 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
+            <div className="bg-white rounded-2xl border border-[#e2e8f0] p-4 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
                 <div className="relative w-full md:w-96">
                     <FaMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
                     <input
@@ -142,7 +142,7 @@ export default function LinksExternosPage() {
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
                         placeholder="Buscar por título, URL ou card vinculado..."
-                        className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-xs text-[#12304A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1254A3] focus:border-transparent transition-all"
+                        className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-xs text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#01b0ef] focus:border-transparent transition-all"
                     />
                 </div>
 
@@ -151,8 +151,8 @@ export default function LinksExternosPage() {
                         onClick={() => setFiltroCategoria("TODAS")}
                         className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all whitespace-nowrap ${
                             filtroCategoria === "TODAS"
-                                ? "bg-[#1254A3] text-white shadow-sm"
-                                : "bg-gray-100 text-[#5B738B] hover:bg-gray-200"
+                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                : "bg-gray-100 text-slate-600 hover:bg-gray-200"
                         }`}
                     >
                         Todas as Categorias ({links.length})
@@ -165,8 +165,8 @@ export default function LinksExternosPage() {
                                 onClick={() => setFiltroCategoria(c.value)}
                                 className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all whitespace-nowrap ${
                                     filtroCategoria === c.value
-                                        ? "bg-[#1254A3] text-white shadow-sm"
-                                        : "bg-gray-100 text-[#5B738B] hover:bg-gray-200"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "bg-gray-100 text-slate-600 hover:bg-gray-200"
                                 }`}
                             >
                                 {c.label.split(" ")[0]} ({count})
@@ -178,19 +178,19 @@ export default function LinksExternosPage() {
 
             {/* LISTAGEM */}
             {loading ? (
-                <div className="text-center py-20 text-xs font-bold text-[#5B738B] bg-white rounded-2xl border border-[#DDE3EA]">
+                <div className="text-center py-20 text-xs font-bold text-slate-600 bg-white rounded-2xl border border-[#e2e8f0]">
                     Carregando links externos cadastrados...
                 </div>
             ) : linksFiltrados.length === 0 ? (
-                <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-[#DDE3EA] p-6 space-y-3">
+                <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-[#e2e8f0] p-6 space-y-3">
                     <FaGlobe className="mx-auto text-4xl text-gray-300" />
-                    <h3 className="text-sm font-bold text-[#12304A]">Nenhum link externo encontrado</h3>
-                    <p className="text-xs text-[#5B738B] max-w-md mx-auto">
+                    <h3 className="text-sm font-bold text-slate-900">Nenhum link externo encontrado</h3>
+                    <p className="text-xs text-slate-600 max-w-md mx-auto">
                         Não encontramos links para o filtro aplicado. Você pode cadastrar novos links externos e vinculá-los a qualquer card do portal.
                     </p>
                     <Link
                         href="/admin/links-externos/novo"
-                        className="inline-flex items-center gap-2 text-xs font-bold text-[#1254A3] hover:underline pt-2"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-[#01b0ef] hover:underline pt-2"
                     >
                         <FaPlus size={11} />
                         <span>Cadastrar o primeiro link externo agora</span>
@@ -207,22 +207,22 @@ export default function LinksExternosPage() {
                                 key={link.id}
                                 className={`bg-white rounded-2xl border p-4 sm:p-5 shadow-sm transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                                     link.ativo
-                                        ? "border-[#DDE3EA] hover:border-[#1254A3]"
+                                        ? "border-[#e2e8f0] hover:border-[#01b0ef]"
                                         : "border-gray-200 bg-gray-50/60 opacity-60"
                                 }`}
                             >
                                 <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
-                                    <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#1254A3] border border-blue-200/70 flex items-center justify-center text-lg shrink-0">
+                                    <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#01b0ef] border border-blue-200/70 flex items-center justify-center text-lg shrink-0">
                                         <IconComponent />
                                     </div>
 
                                     <div className="min-w-0 flex-1 space-y-1">
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            <h3 className="font-extrabold text-[#12304A] text-sm">
+                                            <h3 className="font-extrabold text-slate-900 text-sm">
                                                 {link.titulo}
                                             </h3>
 
-                                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100 text-[#1254A3]">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100 text-[#01b0ef]">
                                                 {categoriaLabelMap[link.categoria] || link.categoria}
                                             </span>
 
@@ -245,7 +245,7 @@ export default function LinksExternosPage() {
                                         </div>
 
                                         {link.descricao && (
-                                            <p className="text-xs text-[#5B738B] line-clamp-1">
+                                            <p className="text-xs text-slate-600 line-clamp-1">
                                                 {link.descricao}
                                             </p>
                                         )}
@@ -254,7 +254,7 @@ export default function LinksExternosPage() {
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-xs text-[#1254A3] hover:underline inline-flex items-center gap-1.5 font-medium truncate max-w-full"
+                                            className="text-xs text-[#01b0ef] hover:underline inline-flex items-center gap-1.5 font-medium truncate max-w-full"
                                         >
                                             <FaArrowUpRightFromSquare size={10} />
                                             <span className="truncate">{link.url}</span>
@@ -276,7 +276,7 @@ export default function LinksExternosPage() {
 
                                     <Link
                                         href={`/admin/links-externos/editar/${link.id}`}
-                                        className="p-2 text-gray-400 hover:text-[#1254A3] hover:bg-blue-50 rounded-xl transition-colors border border-transparent hover:border-blue-200"
+                                        className="p-2 text-gray-400 hover:text-[#01b0ef] hover:bg-blue-50 rounded-xl transition-colors border border-transparent hover:border-blue-200"
                                         title="Editar Link"
                                     >
                                         <FaPenToSquare size={14} />

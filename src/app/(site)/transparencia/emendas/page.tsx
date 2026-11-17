@@ -32,7 +32,7 @@ export default async function EmendasTransparencyPage() {
         : null;
 
     return (
-        <div className="min-h-screen bg-[#fcfdfe] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Emendas Parlamentares"
                 subtitle="Transparência total sobre os recursos destinados ao desenvolvimento de São Tomé por emendas federais e estaduais."
@@ -120,9 +120,9 @@ export default async function EmendasTransparencyPage() {
                     </div>
 
                     {/* Contagem */}
-                    <div className="bg-slate-900 rounded-3xl p-8 text-white flex flex-col justify-between border border-slate-800">
-                        <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total de Emendas</div>
-                        <div className="text-4xl font-black tracking-tighter">{emendas.length}</div>
+                    <div className="bg-gradient-to-br from-[#01b0ef] to-[#0098d4] border-b-4 border-[#fdb913] rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg shadow-[#01b0ef]/20">
+                        <div className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-0.5 rounded-full w-fit uppercase tracking-widest">Total de Emendas</div>
+                        <div className="text-4xl font-black tracking-tighter mt-4">{emendas.length}</div>
                     </div>
                 </div>
 

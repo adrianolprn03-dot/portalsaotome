@@ -208,7 +208,7 @@ export default function AdminConcursosPage() {
                 footer={
                     <>
                         <button type="button" onClick={() => setShowModal(false)} className="px-5 py-2.5 bg-white border border-gray-200 text-gray-600 font-black uppercase text-[10px] rounded-xl hover:bg-gray-100">Cancelar</button>
-                        <button type="submit" form="form-concurso" className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black uppercase text-[10px] hover:bg-blue-700 shadow-md">Salvar</button>
+                        <button type="submit" form="form-concurso" className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black uppercase text-[10px] hover:bg-[#0098d4] shadow-md">Salvar</button>
                     </>
                 }
             >

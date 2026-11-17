@@ -357,7 +357,7 @@ export default function EditarConvenioPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer"
+                        className="bg-blue-600 hover:bg-[#0098d4] disabled:opacity-50 text-white px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all cursor-pointer"
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         Salvar Alterações

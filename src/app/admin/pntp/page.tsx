@@ -288,35 +288,35 @@ export default function AdminPNTPPage() {
 
             {/* Estimativa Interna com Origem Demonstrada */}
             {resumo && (
-                <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 space-y-5 shadow-lg">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] text-white rounded-2xl p-6 sm:p-8 space-y-5 shadow-lg shadow-[#01b0ef]/20">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/25 pb-4">
                         <div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 block mb-1">
+                            <span className="inline-block px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 text-[10px] font-black uppercase tracking-widest mb-2">
                                 Indicador Interno de Governança (Não substitui certificação externa ATRICON)
                             </span>
-                            <h2 className="text-lg font-black">
+                            <h2 className="text-lg font-black text-white">
                                 Demonstração da Origem dos Indicadores PNTP ({resumo.totalCriterios} Critérios Mapeados · Peso Total: {resumo.pesoTotal})
                             </h2>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                        <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-                            <div className="text-2xl font-black text-emerald-400">
+                        <div className="bg-white/95 rounded-xl p-4 border border-white shadow-sm text-slate-900">
+                            <div className="text-2xl font-black text-emerald-600">
                                 {resumo.percentualFuncionalidadeTecnica}%
                             </div>
-                            <div className="text-xs font-bold text-slate-200 mt-1">1. Funcionalidade Técnica</div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">
+                            <div className="text-xs font-bold text-slate-900 mt-1">1. Funcionalidade Técnica</div>
+                            <div className="text-[10px] text-slate-500 mt-0.5">
                                 Soma dos pesos de módulos implementados / {resumo.pesoTotal}
                             </div>
                         </div>
 
-                        <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700">
-                            <div className="text-2xl font-black text-blue-400">
+                        <div className="bg-white/95 rounded-xl p-4 border border-white shadow-sm text-slate-900">
+                            <div className="text-2xl font-black text-[#01b0ef]">
                                 {resumo.percentualConteudoValidadoInterno}%
                             </div>
-                            <div className="text-xs font-bold text-slate-200 mt-1">2. Conteúdo Validado (Interno)</div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">
+                            <div className="text-xs font-bold text-slate-900 mt-1">2. Conteúdo Validado (Interno)</div>
+                            <div className="text-[10px] text-slate-500 mt-0.5">
                                 Critérios com conteúdo atualizado e homologado pela Controladoria
                             </div>
                         </div>
@@ -324,13 +324,13 @@ export default function AdminPNTPPage() {
                         <button
                             type="button"
                             onClick={() => setFiltro(filtro === "essenciais_pendentes" ? "todos" : "essenciais_pendentes")}
-                            className="bg-slate-800/80 hover:bg-slate-700 text-left rounded-xl p-4 border border-rose-500/40 transition-colors"
+                            className="bg-white/95 hover:bg-white text-left rounded-xl p-4 border-2 border-rose-200 transition-colors shadow-sm text-slate-900"
                         >
-                            <div className="text-2xl font-black text-rose-400">
+                            <div className="text-2xl font-black text-rose-600">
                                 {resumo.essenciaisValidados} / {resumo.totalEssenciais}
                             </div>
-                            <div className="text-xs font-bold text-slate-200 mt-1">3. Critérios Essenciais</div>
-                            <div className="text-[10px] text-rose-300 mt-0.5">
+                            <div className="text-xs font-bold text-slate-900 mt-1">3. Critérios Essenciais</div>
+                            <div className="text-[10px] text-rose-600 font-semibold mt-0.5">
                                 {resumo.essenciaisPendentes} essenciais aguardando validação (clique p/ filtrar)
                             </div>
                         </button>
@@ -338,13 +338,13 @@ export default function AdminPNTPPage() {
                         <button
                             type="button"
                             onClick={() => setFiltro(filtro === "vencidos" ? "todos" : "vencidos")}
-                            className="bg-slate-800/80 hover:bg-slate-700 text-left rounded-xl p-4 border border-amber-500/40 transition-colors"
+                            className="bg-[#fff4d4] hover:bg-[#fdb913] text-left rounded-xl p-4 border-2 border-[#fdb913] transition-colors shadow-sm text-slate-900"
                         >
-                            <div className="text-2xl font-black text-amber-400">
+                            <div className="text-2xl font-black text-slate-900">
                                 {resumo.criteriosPrazoVencido}
                             </div>
-                            <div className="text-xs font-bold text-slate-200 mt-1">4. Prazo de Conferência Vencido</div>
-                            <div className="text-[10px] text-amber-300 mt-0.5">
+                            <div className="text-xs font-bold text-slate-900 mt-1">4. Prazo de Conferência Vencido</div>
+                            <div className="text-[10px] text-slate-700 font-semibold mt-0.5">
                                 Excederam a periodicidade máxima PNTP (clique p/ filtrar)
                             </div>
                         </button>
@@ -352,29 +352,29 @@ export default function AdminPNTPPage() {
                         <button
                             type="button"
                             onClick={() => setFiltro(filtro === "aguardando_revisao" ? "todos" : "aguardando_revisao")}
-                            className="bg-slate-800/80 hover:bg-slate-700 text-left rounded-xl p-4 border border-indigo-500/40 transition-colors"
+                            className="bg-[#e6f8ff] hover:bg-white text-left rounded-xl p-4 border-2 border-white transition-colors shadow-sm text-slate-900"
                         >
-                            <div className="text-2xl font-black text-indigo-400">
+                            <div className="text-2xl font-black text-[#01b0ef]">
                                 {resumo.aguardandoRevisao}
                             </div>
-                            <div className="text-xs font-bold text-slate-200 mt-1">5. Aguardando Revisão</div>
-                            <div className="text-[10px] text-indigo-300 mt-0.5">
+                            <div className="text-xs font-bold text-slate-900 mt-1">5. Aguardando Revisão</div>
+                            <div className="text-[10px] text-slate-600 font-semibold mt-0.5">
                                 Pendentes de aprovação pela Controladoria (clique p/ filtrar)
                             </div>
                         </button>
                     </div>
 
-                    <p className="text-[11px] text-slate-400 leading-relaxed">
+                    <p className="text-[11px] text-white/95 leading-relaxed">
                         <strong>Metodologia:</strong> {resumo.notaMetodologica}
                     </p>
                 </div>
             )}
 
             {/* Filtros */}
-            <div className="bg-white rounded-2xl p-5 border border-[#DDE3EA] shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-5 border border-[#e2e8f0] shadow-sm space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                     <div className="lg:col-span-2">
-                        <label htmlFor="f-busca" className="block text-[10px] font-black text-[#5B738B] uppercase mb-1">
+                        <label htmlFor="f-busca" className="block text-[10px] font-black text-slate-600 uppercase mb-1">
                             Buscar Critério ou Termo
                         </label>
                         <div className="relative">
@@ -385,20 +385,20 @@ export default function AdminPNTPPage() {
                                 value={buscaAdmin}
                                 onChange={(e) => setBuscaAdmin(e.target.value)}
                                 placeholder="Filtrar por código (1.1, 7.2), título..."
-                                className="w-full pl-9 pr-3 py-2 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-medium text-[#12304A] outline-none focus:border-[#1254A3]"
+                                className="w-full pl-9 pr-3 py-2 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-medium text-slate-900 outline-none focus:border-[#01b0ef]"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label htmlFor="f-dimensao" className="block text-[10px] font-black text-[#5B738B] uppercase mb-1">
+                        <label htmlFor="f-dimensao" className="block text-[10px] font-black text-slate-600 uppercase mb-1">
                             Dimensão PNTP
                         </label>
                         <select
                             id="f-dimensao"
                             value={dimensao}
                             onChange={(e) => setDimensao(e.target.value)}
-                            className="w-full px-3 py-2 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3] cursor-pointer"
+                            className="w-full px-3 py-2 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef] cursor-pointer"
                         >
                             {DIMENSOES_PNTP.map((d) => (
                                 <option key={d} value={d}>{d}</option>
@@ -407,14 +407,14 @@ export default function AdminPNTPPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="f-classificacao" className="block text-[10px] font-black text-[#5B738B] uppercase mb-1">
+                        <label htmlFor="f-classificacao" className="block text-[10px] font-black text-slate-600 uppercase mb-1">
                             Classificação PNTP
                         </label>
                         <select
                             id="f-classificacao"
                             value={classificacao}
                             onChange={(e) => setClassificacao(e.target.value)}
-                            className="w-full px-3 py-2 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3] cursor-pointer"
+                            className="w-full px-3 py-2 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef] cursor-pointer"
                         >
                             <option value="Todas">Todas</option>
                             <option value="ESSENCIAL">Essenciais</option>
@@ -424,14 +424,14 @@ export default function AdminPNTPPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="f-filtro" className="block text-[10px] font-black text-[#5B738B] uppercase mb-1">
+                        <label htmlFor="f-filtro" className="block text-[10px] font-black text-slate-600 uppercase mb-1">
                             Filtro Operacional
                         </label>
                         <select
                             id="f-filtro"
                             value={filtro}
                             onChange={(e) => setFiltro(e.target.value)}
-                            className="w-full px-3 py-2 bg-[#F5F7FA] border border-[#DDE3EA] rounded-xl text-xs font-bold text-[#12304A] outline-none focus:border-[#1254A3] cursor-pointer"
+                            className="w-full px-3 py-2 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef] cursor-pointer"
                         >
                             <option value="todos">Todos</option>
                             <option value="essenciais_pendentes">Essenciais Pendentes</option>
@@ -442,7 +442,7 @@ export default function AdminPNTPPage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 text-xs">
-                    <span className="text-[#5B738B] font-medium">
+                    <span className="text-slate-600 font-medium">
                         Exibindo <strong>{items.filter(c => !buscaAdmin || c.codigo.includes(buscaAdmin) || c.titulo.toLowerCase().includes(buscaAdmin.toLowerCase()) || c.dimensao.toLowerCase().includes(buscaAdmin.toLowerCase())).length}</strong> critérios
                     </span>
                     <button
@@ -454,7 +454,7 @@ export default function AdminPNTPPage() {
                             setSecretaria("Todas");
                             setFiltro("todos");
                         }}
-                        className="text-[#1254A3] font-bold hover:underline cursor-pointer"
+                        className="text-[#01b0ef] font-bold hover:underline cursor-pointer"
                     >
                         Limpar todos os filtros
                     </button>
@@ -462,10 +462,10 @@ export default function AdminPNTPPage() {
             </div>
 
             {/* Tabela de Critérios */}
-            <div className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm overflow-hidden">
+            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                        <thead className="bg-[#F8FAFC] text-[#5B738B] uppercase font-bold border-b border-[#DDE3EA]">
+                        <thead className="bg-[#F8FAFC] text-slate-600 uppercase font-bold border-b border-[#e2e8f0]">
                             <tr>
                                 <th className="px-4 py-3.5">Critério</th>
                                 <th className="px-4 py-3.5">Classificação / Peso</th>
@@ -478,16 +478,16 @@ export default function AdminPNTPPage() {
                                 <th className="px-4 py-3.5 text-right">Ações</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#DDE3EA]">
+                        <tbody className="divide-y divide-[#e2e8f0]">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={9} className="px-6 py-12 text-center text-[#5B738B]">
+                                    <td colSpan={9} className="px-6 py-12 text-center text-slate-600">
                                         Carregando matriz PNTP 2026...
                                     </td>
                                 </tr>
                             ) : items.length === 0 ? (
                                 <tr>
-                                    <td colSpan={9} className="px-6 py-12 text-center text-[#5B738B]">
+                                    <td colSpan={9} className="px-6 py-12 text-center text-slate-600">
                                         Nenhum critério encontrado para o filtro selecionado.
                                     </td>
                                 </tr>

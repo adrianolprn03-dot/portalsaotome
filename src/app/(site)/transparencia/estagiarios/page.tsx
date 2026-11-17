@@ -79,7 +79,7 @@ export default function EstagiariosPage() {
     const temDadosOriginalmente = estagiarios.length > 0 || busca !== "" || mes !== "";
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
+        <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
                 title="Estagiários"
                 subtitle="Consulte a relação de estagiários e os termos de compromisso de estágio."
@@ -94,7 +94,7 @@ export default function EstagiariosPage() {
 
             {/* Banner PNTP */}
             <div className="bg-[#01b0ef]/10 py-5 px-6 border-b border-blue-100">
-                <div className="max-w-[1200px] mx-auto flex flex-wrap items-center justify-center gap-6 text-[#0088b9] text-[10px] font-black uppercase tracking-widest">
+                <div className="max-w-[1200px] mx-auto flex flex-wrap items-center justify-center gap-6 text-[#01b0ef] text-[10px] font-black uppercase tracking-widest">
                     {["Lei de Diretrizes e Bases", "Lei do Estágio", "PNTP 2026"].map((item) => (
                         <span key={item} className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-blue-100">
                             <span className="text-[#50B749]">✓</span> {item}
@@ -213,10 +213,10 @@ export default function EstagiariosPage() {
 
                     <div className="relative z-10">
                         <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 bg-amber-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <div className="w-12 h-12 bg-[#fdb913] rounded-2xl flex items-center justify-center text-slate-900 shadow-lg">
                                 <Info size={24} />
                             </div>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase italic">Ocupação e Transparência</h2>
+                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Ocupação e Transparência</h2>
                         </div>
 
                         <div className="space-y-6 text-slate-600 font-medium leading-relaxed mb-12">
@@ -231,13 +231,13 @@ export default function EstagiariosPage() {
                         <div className="flex flex-col sm:flex-row gap-6">
                             <Link 
                                 href="/contato" 
-                                className="flex-1 bg-slate-900 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95 flex items-center justify-center gap-2"
+                                className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95 flex items-center justify-center gap-2"
                             >
                                 Solicitar via E-SIC
                             </Link>
                             <a 
                                 href="/transparencia" 
-                                className="flex-1 bg-amber-600 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-amber-700 transition-all shadow-xl shadow-amber-600/20 active:scale-95 flex items-center justify-center gap-3"
+                                className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 Voltar ao Portal
                             </a>

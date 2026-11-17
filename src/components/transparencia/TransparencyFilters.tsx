@@ -91,20 +91,20 @@ export default function TransparencyFilters({
     }, [currentYear, currentMonth, searchValue, hideYearFilter, hideMonthFilter]);
 
     return (
-        <div className="bg-white rounded-2xl shadow-civic-sm border border-slate-200/80 p-5 sm:p-6 mb-8 relative z-40">
+        <div className="bg-white rounded-2xl shadow-civic-sm border border-[#01b0ef]/20 p-5 sm:p-6 mb-8 relative z-40">
             <div className="flex flex-wrap items-end gap-4">
                 {/* Busca Textual */}
                 <div className="flex-1 min-w-[260px]">
                     <label
                         htmlFor="transparencia-busca-textual"
-                        className="block text-xs font-bold text-slate-600 mb-1.5"
+                        className="block text-xs font-bold text-slate-700 mb-1.5"
                     >
                         Busca Textual
                     </label>
                     <div className="relative group">
                         <Search
                             size={16}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#01b0ef] transition-colors"
                         />
                         <input
                             id="transparencia-busca-textual"
@@ -122,7 +122,7 @@ export default function TransparencyFilters({
                         <div className="w-full sm:w-28">
                             <label
                                 htmlFor="transparencia-filtro-ano"
-                                className="block text-xs font-bold text-slate-600 mb-1.5"
+                                className="block text-xs font-bold text-slate-700 mb-1.5"
                             >
                                 Exercício
                             </label>
@@ -145,7 +145,7 @@ export default function TransparencyFilters({
                         <div className="w-full sm:w-40">
                             <label
                                 htmlFor="transparencia-filtro-mes"
-                                className="block text-xs font-bold text-slate-600 mb-1.5"
+                                className="block text-xs font-bold text-slate-700 mb-1.5"
                             >
                                 Período
                             </label>
@@ -200,7 +200,7 @@ export default function TransparencyFilters({
                             <button
                                 type="button"
                                 onClick={() => onExport("xlsx")}
-                                className="bg-primary-50 hover:bg-primary-600 text-primary-700 hover:text-white px-3 py-2.5 rounded-xl transition-all border border-primary-200 hover:border-primary-600 flex items-center gap-1.5 font-mono font-bold text-[11px]"
+                                className="bg-[#01b0ef]/10 hover:bg-[#01b0ef] text-[#01b0ef] hover:text-white px-3 py-2.5 rounded-xl transition-all border border-[#01b0ef]/30 hover:border-[#01b0ef] flex items-center gap-1.5 font-mono font-bold text-[11px]"
                                 title="Exportar resultados filtrados em Planilha Excel (XLSX)"
                             >
                                 <FileSpreadsheet size={14} />
@@ -209,7 +209,7 @@ export default function TransparencyFilters({
                             <button
                                 type="button"
                                 onClick={() => onExport("json")}
-                                className="bg-slate-100 hover:bg-[#071E3D] text-slate-700 hover:text-white px-3 py-2.5 rounded-xl transition-all border border-slate-200 hover:border-[#071E3D] flex items-center gap-1.5 font-mono font-bold text-[11px]"
+                                className="bg-[#fdb913]/20 hover:bg-[#fdb913] text-slate-900 px-3 py-2.5 rounded-xl transition-all border border-[#fdb913]/50 flex items-center gap-1.5 font-mono font-bold text-[11px]"
                                 title="Exportar resultados filtrados em JSON"
                             >
                                 <FileCode size={14} />

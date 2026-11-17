@@ -124,7 +124,7 @@ export default function DetalhesEsicPage() {
                         Protocolo: {item.protocolo}
                     </span>
                     {dataPrazo && (
-                        <span className={`text-sm font-bold px-4 py-1.5 rounded-full border flex items-center gap-2 ${isVencido ? 'bg-red-50 text-red-600 border-red-200 shadow-sm shadow-red-100' : 'bg-blue-50 text-[#0088b9] border-blue-200'}`}>
+                        <span className={`text-sm font-bold px-4 py-1.5 rounded-full border flex items-center gap-2 ${isVencido ? 'bg-red-50 text-red-600 border-red-200 shadow-sm shadow-red-100' : 'bg-blue-50 text-[#01b0ef] border-blue-200'}`}>
                             <FaClock /> Prazo (LAI): {dataPrazo.toLocaleDateString("pt-BR")}
                         </span>
                     )}
@@ -310,7 +310,7 @@ export default function DetalhesEsicPage() {
                     </div>
 
                     <div className="bg-blue-50/50 rounded-2xl p-6 border border-blue-100">
-                        <h3 className="text-sm font-bold text-[#0088b9] mb-3 uppercase tracking-tighter">Sobre a LAI</h3>
+                        <h3 className="text-sm font-bold text-[#01b0ef] mb-3 uppercase tracking-tighter">Sobre a LAI</h3>
                         <p className="text-xs text-gray-500 font-medium leading-relaxed">
                             O prazo padrão de resposta é de <strong className="text-[#01b0ef]">20 dias úteis</strong>, prorrogáveis por mais 10 sob expressa justificativa (Art. 11, § 1º e 2º).
                         </p>

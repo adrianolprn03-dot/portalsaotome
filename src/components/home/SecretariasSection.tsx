@@ -64,7 +64,7 @@ export default function SecretariasSection() {
     if (secretarias.length === 0) return null;
 
     return (
-        <section className="py-24 bg-[#f8fafc] border-b border-gray-100 font-['Montserrat',sans-serif]" aria-labelledby="secretarias-titulo">
+        <section className="py-24 bg-[#f8fafc] border-b border-gray-100" aria-labelledby="secretarias-titulo">
             <div className="max-w-[1300px] mx-auto px-6">
 
                 {/* Header */}
@@ -73,7 +73,7 @@ export default function SecretariasSection() {
                         <p className="text-[10px] font-black text-[#01b0ef] uppercase tracking-[0.4em] mb-4">
                             Estrutura de Governo
                         </p>
-                        <h2 id="secretarias-titulo" className="text-4xl md:text-5xl font-black text-[#0088b9] uppercase tracking-tighter leading-none">
+                        <h2 id="secretarias-titulo" className="text-4xl md:text-5xl font-black text-[#01b0ef] uppercase tracking-tighter leading-none">
                             Secretarias e<br className="hidden md:block" />{" "}
                             Órgãos Municipais
                         </h2>
@@ -81,7 +81,7 @@ export default function SecretariasSection() {
                     </div>
                     <Link
                         href="/secretarias"
-                        className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-[#01b0ef] hover:text-[#0088b9] transition-all"
+                        className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-[#01b0ef] hover:text-[#01b0ef] transition-all"
                     >
                         Ver todas
                         <HiOutlineArrowLongRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -137,7 +137,7 @@ export default function SecretariasSection() {
                 <div className="mt-12 text-center">
                     <Link
                         href="/secretarias"
-                        className="inline-flex items-center gap-3 bg-[#0088b9] text-white px-10 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#006d99] transition-all shadow-xl shadow-[#0088b9]/20 hover:shadow-[#0088b9]/30"
+                        className="inline-flex items-center gap-3 bg-[#01b0ef] text-white px-10 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 hover:shadow-[#01b0ef]/30"
                     >
                         Conhecer Todas as Secretarias
                         <HiOutlineArrowLongRight size={16} />

@@ -55,7 +55,7 @@ export default function AdminConselhosPage() {
                     </h1>
                     <p className="text-gray-500 text-sm">Gerencie os conselhos e suas atas de reunião.</p>
                 </div>
-                <Link href="/admin/conselhos/novo" className="btn-primary flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
+                <Link href="/admin/conselhos/novo" className="btn-primary flex items-center gap-2 bg-blue-600 hover:bg-[#0098d4]">
                     <FaPlus /> Novo Conselho
                 </Link>
             </div>

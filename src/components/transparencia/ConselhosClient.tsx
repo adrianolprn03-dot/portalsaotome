@@ -43,7 +43,7 @@ export interface ConselhoPublico {
 function getBadgePNTP(tipo: string) {
     const t = normalizeText(tipo);
     if (t.includes("saude")) return { code: "PNTP 18.6", label: "Saúde", color: "bg-emerald-50 text-emerald-800 border-emerald-200" };
-    if (t.includes("fundeb")) return { code: "PNTP 19.3", label: "FUNDEB", color: "bg-blue-50 text-[#1254A3] border-blue-200" };
+    if (t.includes("fundeb")) return { code: "PNTP 19.3", label: "FUNDEB", color: "bg-blue-50 text-[#01b0ef] border-blue-200" };
     if (t.includes("social")) return { code: "PNTP 19.4", label: "Assistência Social", color: "bg-purple-50 text-purple-800 border-purple-200" };
     if (t.includes("educa")) return { code: "Educação", label: "Educação", color: "bg-indigo-50 text-indigo-800 border-indigo-200" };
     return { code: "Controle Social", label: tipo, color: "bg-slate-100 text-slate-700 border-slate-200" };
@@ -147,7 +147,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                             onClick={() => setTipoFiltro(tab.id)}
                             className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition ${
                                 tipoFiltro === tab.id
-                                    ? "bg-[#1254A3] text-white"
+                                    ? "bg-[#01b0ef] text-white"
                                     : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                             }`}
                         >
@@ -203,7 +203,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                                             href={c.regimentoInternoUrl!}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-4 py-2.5 rounded-xl bg-[#1254A3] hover:bg-blue-800 text-white text-xs font-bold flex items-center gap-2 shrink-0 transition shadow-sm"
+                                            className="px-4 py-2.5 rounded-xl bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold flex items-center gap-2 shrink-0 transition shadow-sm"
                                         >
                                             <FaDownload /> Baixar Regimento Interno
                                         </a>
@@ -221,7 +221,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                                             {c.presidente && (
                                                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
                                                     <span className="font-bold text-slate-400 uppercase block mb-0.5 flex items-center gap-1">
-                                                        <FaUserTie className="text-[#1254A3]" /> Presidência
+                                                        <FaUserTie className="text-[#01b0ef]" /> Presidência
                                                     </span>
                                                     <span className="font-bold text-slate-800">{c.presidente}</span>
                                                 </div>
@@ -229,7 +229,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                                             {c.email && (
                                                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
                                                     <span className="font-bold text-slate-400 uppercase block mb-0.5 flex items-center gap-1">
-                                                        <FaEnvelope className="text-[#1254A3]" /> E-mail Oficial
+                                                        <FaEnvelope className="text-[#01b0ef]" /> E-mail Oficial
                                                     </span>
                                                     <span className="font-semibold text-slate-800 break-all">{c.email}</span>
                                                 </div>
@@ -245,14 +245,14 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                                             {c.atoNomeacao && (
                                                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
                                                     <span className="font-bold text-slate-400 uppercase block mb-0.5 flex items-center gap-1">
-                                                        <FaGavel className="text-[#1254A3]" /> Ato de Nomeação
+                                                        <FaGavel className="text-[#01b0ef]" /> Ato de Nomeação
                                                     </span>
                                                     <span className="font-semibold text-slate-800">{c.atoNomeacao}</span>
                                                 </div>
                                             )}
                                             {c.calendarioReunioes && (
                                                 <div className="sm:col-span-2 p-3.5 rounded-xl bg-blue-50/50 border border-blue-100">
-                                                    <span className="font-bold text-[#1254A3] uppercase block mb-0.5 flex items-center gap-1">
+                                                    <span className="font-bold text-[#01b0ef] uppercase block mb-0.5 flex items-center gap-1">
                                                         <FaCalendarAlt /> Funcionamento / Calendário de Reuniões
                                                     </span>
                                                     <span className="font-semibold text-slate-800">{c.calendarioReunioes}</span>
@@ -262,7 +262,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
 
                                         <div className="space-y-2">
                                             <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                                                <FaUsers className="text-[#1254A3]" /> Composição Atualizada dos Membros (Titulares e Suplentes)
+                                                <FaUsers className="text-[#01b0ef]" /> Composição Atualizada dos Membros (Titulares e Suplentes)
                                             </h3>
                                             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs md:text-sm text-slate-700 whitespace-pre-line leading-relaxed">
                                                 {c.composicao}
@@ -313,7 +313,7 @@ export default function ConselhosClient({ conselhos }: { conselhos: ConselhoPubl
                                                                         href={ata.arquivo!}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="px-3 py-1.5 rounded-lg bg-[#1254A3] hover:bg-blue-800 text-white text-[11px] font-bold flex items-center gap-1.5 shrink-0 transition"
+                                                                        className="px-3 py-1.5 rounded-lg bg-[#01b0ef] hover:bg-[#0098d4] text-white text-[11px] font-bold flex items-center gap-1.5 shrink-0 transition"
                                                                     >
                                                                         <FaFileAlt size={10} /> Ver Ata
                                                                     </a>

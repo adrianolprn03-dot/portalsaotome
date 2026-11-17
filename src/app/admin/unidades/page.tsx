@@ -125,7 +125,7 @@ export default function AdminUnidadesPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-[#1E293B] flex items-center gap-2">
-                        <FaClinicMedical className="text-[#0188B9]" />
+                        <FaClinicMedical className="text-[#01b0ef]" />
                         Unidades de Atendimento, Serviços e Equipes
                     </h1>
                     <p className="text-gray-500 text-sm">
@@ -145,7 +145,7 @@ export default function AdminUnidadesPage() {
                     </button>
                     <Link
                         href="/admin/unidades/new"
-                        className="px-5 py-2.5 bg-[#0188B9] hover:bg-[#026A91] text-white rounded-xl text-sm font-bold flex items-center gap-2 transition shadow-sm"
+                        className="px-5 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl text-sm font-bold flex items-center gap-2 transition shadow-sm"
                     >
                         <FaPlus /> Nova Unidade
                     </Link>
@@ -167,7 +167,7 @@ export default function AdminUnidadesPage() {
                             onClick={() => setFiltroTipo(tab.id as any)}
                             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                                 filtroTipo === tab.id
-                                    ? "bg-[#1254A3] text-white shadow-sm"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
                                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                             }`}
                         >
@@ -183,14 +183,14 @@ export default function AdminUnidadesPage() {
                         placeholder="Buscar unidade, médico, serviço..."
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#0188B9]"
+                        className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#01b0ef]"
                     />
                 </div>
             </div>
 
             {loading ? (
                 <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-                    <FaSpinner className="animate-spin text-4xl mb-4 text-[#0188B9]" />
+                    <FaSpinner className="animate-spin text-4xl mb-4 text-[#01b0ef]" />
                     <p>Carregando unidades...</p>
                 </div>
             ) : filtradas.length === 0 ? (
@@ -232,7 +232,7 @@ export default function AdminUnidadesPage() {
                                 <div className="mb-4 p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
                                     <div className="flex items-center justify-between text-[11px]">
                                         <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                                            <FaUserMd className="text-[#0188B9]" /> Profissionais/Escala:
+                                            <FaUserMd className="text-[#01b0ef]" /> Profissionais/Escala:
                                         </span>
                                         <span
                                             className={`font-black px-2 py-0.5 rounded-full ${
@@ -257,17 +257,17 @@ export default function AdminUnidadesPage() {
 
                                 <div className="space-y-1.5 text-xs text-gray-600">
                                     <div className="flex items-start gap-2">
-                                        <FaMapMarkerAlt className="text-[#0188B9] shrink-0 mt-0.5" />
+                                        <FaMapMarkerAlt className="text-[#01b0ef] shrink-0 mt-0.5" />
                                         <span className="line-clamp-2">{unidade.endereco}</span>
                                     </div>
                                     {unidade.telefone && (
                                         <div className="flex items-center gap-2">
-                                            <FaPhone className="text-[#0188B9] shrink-0" />
+                                            <FaPhone className="text-[#01b0ef] shrink-0" />
                                             <span className="truncate">{unidade.telefone}</span>
                                         </div>
                                     )}
                                     <div className="flex items-start gap-2">
-                                        <FaClock className="text-[#0188B9] shrink-0 mt-0.5" />
+                                        <FaClock className="text-[#01b0ef] shrink-0 mt-0.5" />
                                         <span>{unidade.horario}</span>
                                     </div>
                                 </div>

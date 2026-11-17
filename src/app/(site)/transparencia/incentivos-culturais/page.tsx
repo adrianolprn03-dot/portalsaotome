@@ -145,7 +145,7 @@ export default async function IncentivosCulturaisPage() {
         : EDITAIS_DEFAULT;
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title={title}
                 subtitle={subtitle}

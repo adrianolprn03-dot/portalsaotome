@@ -26,7 +26,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 import PDFViewer from "@/components/transparencia/PDFViewer";
 
-const CHART_COLORS = ["#1254A3", "#F39A32", "#10B981", "#0284C7", "#8B5CF6", "#F59E0B"];
+const CHART_COLORS = ["#01b0ef", "#fdb913", "#10B981", "#01b0ef", "#8B5CF6", "#fdb913"];
 
 type RelatorioFiscal = {
     id: string;
@@ -317,7 +317,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
     }, [filtered]);
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title={title}
                 subtitle={subtitle}
@@ -344,11 +344,11 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                         {/* Status / Header */}
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-amber-100/80">
                             <div className="flex items-center gap-3">
-                                <div className="p-3 bg-amber-500 text-white rounded-2xl shadow-md shadow-amber-500/20">
+                                <div className="p-3 bg-[#fdb913] text-slate-900 rounded-2xl shadow-md shadow-[#fdb913]/25">
                                     <FaShieldHalved size={22} />
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest block mb-0.5">
+                                    <span className="text-[10px] font-black text-slate-900 bg-[#fff4d4] px-2.5 py-0.5 rounded-full uppercase tracking-widest inline-block mb-1">
                                         Declaração de Transparência Pública (PNTP)
                                     </span>
                                     <h3 className="text-xl font-black text-slate-800 tracking-tight">
@@ -388,39 +388,39 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                 
                 {/* Stats Cards - Padrão Novo */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Total de Documentos</p>
-                            <p className="text-3xl font-black text-[#12304A] tracking-tight">{filtered.length}</p>
-                            <p className="text-xs text-[#5B738B] mt-1">Registros catalogados</p>
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Total de Documentos</p>
+                            <p className="text-3xl font-black text-slate-900 tracking-tight">{filtered.length}</p>
+                            <p className="text-xs text-slate-600 mt-1">Registros catalogados</p>
                         </div>
-                        <div className="w-12 h-12 bg-blue-50 text-[#1254A3] rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center">
                             <FaChartLine size={20} />
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Exercício {new Date().getFullYear()}</p>
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Exercício {new Date().getFullYear()}</p>
                             <p className="text-3xl font-black text-emerald-600 tracking-tight">
                                 {relatorios.filter(r => r.ano === new Date().getFullYear()).length}
                             </p>
-                            <p className="text-xs text-[#5B738B] mt-1">Publicações no ano vigente</p>
+                            <p className="text-xs text-slate-600 mt-1">Publicações no ano vigente</p>
                         </div>
                         <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
                             <FaCalendarDays size={20} />
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#DDE3EA] flex items-center justify-between">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] border-t-4 border-t-[#fdb913] flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-1">Arquivos em PDF</p>
-                            <p className="text-3xl font-black text-[#F39A32] tracking-tight">
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Arquivos em PDF</p>
+                            <p className="text-3xl font-black text-slate-900 tracking-tight">
                                 {relatorios.filter(r => r.arquivo.toLowerCase().endsWith('.pdf')).length}
                             </p>
-                            <p className="text-xs text-[#5B738B] mt-1">Inteiro teor disponível</p>
+                            <p className="text-xs text-slate-600 mt-1">Inteiro teor disponível</p>
                         </div>
-                        <div className="w-12 h-12 bg-amber-50 text-[#F39A32] rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 bg-[#fdb913] text-slate-900 rounded-xl flex items-center justify-center shadow-xs">
                             <FaFilePdf size={20} />
                         </div>
                     </div>
@@ -428,13 +428,13 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
 
                 {/* Visual Switcher */}
                 <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#DDE3EA] shadow-sm">
+                    <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm">
                         <button
                             onClick={() => setAbaVisual("lista")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                                 abaVisual === "lista"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             <FaTable size={13} /> Documentos Oficiais
@@ -443,8 +443,8 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                             onClick={() => setAbaVisual("graficos")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                                 abaVisual === "graficos"
-                                    ? "bg-[#1254A3] text-white shadow-sm"
-                                    : "text-[#5B738B] hover:text-[#12304A]"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
                             }`}
                         >
                             <FaChartPie size={13} /> Gráficos nos Resultados
@@ -452,7 +452,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                     </div>
 
                     <div className="hidden sm:flex items-center gap-2">
-                        <span className="text-xs text-[#5B738B] font-semibold">Exibindo {filtered.length} de {relatorios.length} itens</span>
+                        <span className="text-xs text-slate-600 font-semibold">Exibindo {filtered.length} de {relatorios.length} itens</span>
                     </div>
                 </div>
 
@@ -464,13 +464,13 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                         className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"
                     >
                         {/* Gráfico 1: Publicações por Exercício */}
-                        <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                        <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                             <div className="flex items-center justify-between mb-6">
                                 <div>
-                                    <h3 className="text-base font-bold text-[#12304A]">Publicações por Exercício Fiscal</h3>
-                                    <p className="text-xs text-[#5B738B]">Volume de demonstrativos e relatórios ao longo dos anos</p>
+                                    <h3 className="text-base font-bold text-slate-900">Publicações por Exercício Fiscal</h3>
+                                    <p className="text-xs text-slate-600">Volume de demonstrativos e relatórios ao longo dos anos</p>
                                 </div>
-                                <span className="p-2 bg-blue-50 text-[#1254A3] rounded-xl text-xs font-bold">
+                                <span className="p-2 bg-blue-50 text-[#01b0ef] rounded-xl text-xs font-bold">
                                     {dadosPorAno.length} Exercícios
                                 </span>
                             </div>
@@ -479,8 +479,8 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={dadosPorAno} margin={{ top: 10, right: 20, left: 10, bottom: 10 }}>
                                             <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
-                                            <XAxis dataKey="ano" tick={{ fontSize: 11, fill: '#12304A', fontWeight: 600 }} />
-                                            <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#5B738B' }} />
+                                            <XAxis dataKey="ano" tick={{ fontSize: 11, fill: '#0f172a', fontWeight: 600 }} />
+                                            <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#475569' }} />
                                             <Tooltip formatter={(value: number) => [`${value} publicações`, "Total"]} />
                                             <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                                                 {dadosPorAno.map((_, index) => (
@@ -490,7 +490,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                         </BarChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <div className="h-full flex items-center justify-center text-sm text-[#5B738B]">
+                                    <div className="h-full flex items-center justify-center text-sm text-slate-600">
                                         Nenhum dado disponível
                                     </div>
                                 )}
@@ -498,13 +498,13 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                         </div>
 
                         {/* Gráfico 2: Distribuição por Categoria Fiscal */}
-                        <div className="bg-white rounded-2xl border border-[#DDE3EA] p-6 shadow-sm">
+                        <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
                             <div className="flex items-center justify-between mb-6">
                                 <div>
-                                    <h3 className="text-base font-bold text-[#12304A]">Composição por Tipo de Relatório</h3>
-                                    <p className="text-xs text-[#5B738B]">Proporção dos instrumentos fiscais catalogados</p>
+                                    <h3 className="text-base font-bold text-slate-900">Composição por Tipo de Relatório</h3>
+                                    <p className="text-xs text-slate-600">Proporção dos instrumentos fiscais catalogados</p>
                                 </div>
-                                <span className="p-2 bg-amber-50 text-[#F39A32] rounded-xl text-xs font-bold">
+                                <span className="px-2.5 py-1 bg-[#fdb913] text-slate-900 rounded-xl text-xs font-bold">
                                     {dadosPorTipo.length} Categorias
                                 </span>
                             </div>
@@ -532,7 +532,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                         </PieChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <div className="h-full flex items-center justify-center text-sm text-[#5B738B]">
+                                    <div className="h-full flex items-center justify-center text-sm text-slate-600">
                                         Nenhum dado disponível
                                     </div>
                                 )}
@@ -542,12 +542,12 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                 )}
 
                 {/* ═══════ FILTROS E CONTROLES ═══════ */}
-                <div className="bg-white rounded-2xl border border-[#DDE3EA] shadow-sm mb-8">
+                <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm mb-8">
                     
                     {/* Categoria / Abas (se houver) */}
                     {showTabs && (
                         <div className="px-5 pt-5 pb-0">
-                            <label className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2.5 block">Tipo de Relatório</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5 block">Tipo de Relatório</label>
                             <div className="flex flex-wrap gap-2">
                                 {["TODOS", ...showTabs].map(tab => (
                                     <button
@@ -555,8 +555,8 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                         onClick={() => setTabAtiva(tab)}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                                             tabAtiva === tab
-                                            ? "bg-[#1254A3] text-white shadow-sm"
-                                            : "bg-[#F5F7FA] text-[#5B738B] hover:bg-slate-200 hover:text-[#12304A]"
+                                            ? "bg-[#01b0ef] text-white shadow-sm"
+                                            : "bg-[#f4fbff] text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                                         }`}
                                     >
                                         {tab === "TODOS" ? "Todos" : tab}
@@ -719,21 +719,21 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                         initial={{ opacity: 0, y: 12 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -12 }}
-                                        className="bg-white rounded-2xl p-6 border border-[#DDE3EA] shadow-sm"
+                                        className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm"
                                     >
                                         {/* Cabeçalho Principal do Ano Fiscal */}
-                                        <div className="flex items-center gap-4 mb-6 pb-4 border-b border-[#DDE3EA]">
+                                        <div className="flex items-center gap-4 mb-6 pb-4 border-b border-[#e2e8f0]">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-[#1254A3] text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
+                                                <div className="w-10 h-10 bg-[#01b0ef] text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
                                                     <FaCalendarDays size={16} />
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-2xl font-black text-[#12304A] tracking-tight">Exercício {ano}</h3>
-                                                    <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Demonstrativos da LRF</p>
+                                                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">Exercício {ano}</h3>
+                                                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Demonstrativos da LRF</p>
                                                 </div>
                                             </div>
-                                            <div className="flex-1 h-px bg-[#DDE3EA]" />
-                                            <span className="text-xs font-bold text-[#5B738B] bg-[#F5F7FA] border border-[#DDE3EA] px-3 py-1 rounded-lg">
+                                            <div className="flex-1 h-px bg-[#e2e8f0]" />
+                                            <span className="text-xs font-bold text-slate-600 bg-[#f4fbff] border border-[#e2e8f0] px-3 py-1 rounded-lg">
                                                 {relatoriosDoAno.length} {relatoriosDoAno.length === 1 ? "documento" : "documentos"}
                                             </span>
                                         </div>
@@ -755,16 +755,16 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                     });
 
                                                 return (
-                                                    <div key={tipoKey} className="bg-[#F5F7FA] rounded-xl p-5 border border-[#DDE3EA]">
+                                                    <div key={tipoKey} className="bg-[#f4fbff] rounded-xl p-5 border border-[#e2e8f0]">
                                                         {/* Cabeçalho da Categoria */}
-                                                        <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#DDE3EA]">
+                                                        <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#e2e8f0]">
                                                             <div className="flex items-center gap-3">
-                                                                <div className="p-2 rounded-lg bg-white shadow-sm border border-[#DDE3EA]">
+                                                                <div className="p-2 rounded-lg bg-white shadow-sm border border-[#e2e8f0]">
                                                                     {meta.icon}
                                                                 </div>
                                                                 <div>
-                                                                    <h4 className="text-sm font-black text-[#12304A] tracking-tight">{meta.title}</h4>
-                                                                    <p className="text-[11px] font-semibold text-[#5B738B]">{meta.subtitle}</p>
+                                                                    <h4 className="text-sm font-black text-slate-900 tracking-tight">{meta.title}</h4>
+                                                                    <p className="text-[11px] font-semibold text-slate-600">{meta.subtitle}</p>
                                                                 </div>
                                                             </div>
                                                             <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border shadow-sm ${meta.badgeStyle}`}>
@@ -780,7 +780,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                                     initial={{ opacity: 0, y: 14 }}
                                                                     animate={{ opacity: 1, y: 0 }}
                                                                     transition={{ delay: idx * 0.03 }}
-                                                                    className="group bg-white rounded-xl border border-[#DDE3EA] hover:border-[#1254A3]/50 shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden"
+                                                                    className="group bg-white rounded-xl border border-[#e2e8f0] hover:border-[#01b0ef]/50 shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden"
                                                                 >
                                                                     {/* Card Content */}
                                                                     <div className="p-4">
@@ -789,7 +789,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                                                 <FaFilePdf size={16} />
                                                                             </div>
                                                                             <div className="min-w-0 flex-1">
-                                                                                <h5 className="font-bold text-[#12304A] text-xs leading-snug mb-1.5 line-clamp-2">
+                                                                                <h5 className="font-bold text-slate-900 text-xs leading-snug mb-1.5 line-clamp-2">
                                                                                     {r.titulo.replace(/\.pdf$/i, "")}
                                                                                 </h5>
                                                                                 <div className="flex items-center gap-1.5 flex-wrap">
@@ -797,7 +797,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                                                         {r.tipo}
                                                                                     </span>
                                                                                     {r.periodo && (
-                                                                                        <span className="text-[10px] font-medium text-[#5B738B] bg-[#F5F7FA] px-2 py-0.5 rounded border border-[#DDE3EA]">
+                                                                                        <span className="text-[10px] font-medium text-slate-600 bg-[#f4fbff] px-2 py-0.5 rounded border border-[#e2e8f0]">
                                                                                             {r.periodo}
                                                                                         </span>
                                                                                     )}
@@ -807,10 +807,10 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                                     </div>
 
                                                                     {/* Card Footer */}
-                                                                    <div className="px-4 py-2.5 bg-[#F5F7FA] border-t border-[#DDE3EA] flex items-center gap-2">
+                                                                    <div className="px-4 py-2.5 bg-[#f4fbff] border-t border-[#e2e8f0] flex items-center gap-2">
                                                                         <button
                                                                             onClick={() => setPdfViewer({ url: r.arquivo, titulo: r.titulo.replace(/\.pdf$/i, "") })}
-                                                                            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-white text-[#1254A3] border border-[#DDE3EA] rounded-lg text-xs font-bold hover:bg-[#1254A3] hover:text-white hover:border-[#1254A3] transition-all duration-150 shadow-sm cursor-pointer"
+                                                                            className="flex-1 flex items-center justify-center gap-1.5 py-1.5 bg-white text-[#01b0ef] border border-[#e2e8f0] rounded-lg text-xs font-bold hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all duration-150 shadow-sm cursor-pointer"
                                                                         >
                                                                             <FaEye size={12} />
                                                                             Visualizar
@@ -819,7 +819,7 @@ export default function RelatoriosFiscaisTemplate({ title, subtitle, tipo, icon,
                                                                             href={r.arquivo}
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
-                                                                            className="flex items-center justify-center gap-1.5 py-1.5 px-3 bg-white text-[#12304A] border border-[#DDE3EA] rounded-lg text-xs font-bold hover:bg-[#12304A] hover:text-white transition-all duration-150 cursor-pointer"
+                                                                            className="flex items-center justify-center gap-1.5 py-1.5 px-3 bg-white text-slate-900 border border-[#e2e8f0] rounded-lg text-xs font-bold hover:bg-[#0f172a] hover:text-white transition-all duration-150 cursor-pointer"
                                                                         >
                                                                             <FaDownload size={11} />
                                                                             Baixar

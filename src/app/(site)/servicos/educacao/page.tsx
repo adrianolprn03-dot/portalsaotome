@@ -38,7 +38,7 @@ export default async function ServicosEducacaoPage() {
     ];
 
     return (
-        <div className="bg-[#FAFBFD] min-h-screen pb-16">
+        <div className="bg-[#f4fbff] min-h-screen pb-16">
             <PageHeader
                 title="Serviços Municipais de Educação"
                 subtitle="Rede municipal de creches e escolas, programas educacionais, Plano Municipal de Educação, critérios de vagas e controle social em São Tomé/RN."
@@ -58,9 +58,9 @@ export default async function ServicosEducacaoPage() {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-[#1254A3]/40 transition space-y-2"
+                                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-[#01b0ef]/40 transition space-y-2"
                             >
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1254A3] flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center">
                                     <Icon size={18} />
                                 </div>
                                 <h3 className="font-bold text-slate-900 text-sm">{item.titulo}</h3>

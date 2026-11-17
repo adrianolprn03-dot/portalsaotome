@@ -36,7 +36,7 @@ export default async function PrivacidadePage() {
                 <div className="bg-blue-50 border border-blue-100 rounded-2xl px-8 py-6 flex items-center gap-4">
                     <span className="text-3xl">📋</span>
                     <div>
-                        <p className="font-black text-[#0088b9] text-sm uppercase tracking-widest mb-1">Última Atualização: Janeiro de 2025</p>
+                        <p className="font-black text-[#01b0ef] text-sm uppercase tracking-widest mb-1">Última Atualização: Janeiro de 2025</p>
                         <p className="text-gray-500 text-sm font-medium">Em conformidade com a Lei Geral de Proteção de Dados Pessoais — LGPD (Lei Federal nº 13.709/2018)</p>
                     </div>
                 </div>
@@ -135,7 +135,7 @@ Você também pode registrar reclamações junto à Autoridade Nacional de Prote
                     }
                 ].map((secao) => (
                     <div key={secao.id} className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8">
-                        <h2 className="font-black text-[#0088b9] text-lg uppercase tracking-tight mb-5 pb-4 border-b border-gray-100">
+                        <h2 className="font-black text-[#01b0ef] text-lg uppercase tracking-tight mb-5 pb-4 border-b border-gray-100">
                             {secao.titulo}
                         </h2>
                         <p className="text-gray-600 text-sm leading-loose font-medium whitespace-pre-line">

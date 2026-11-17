@@ -100,14 +100,14 @@ export default function ListaPNCP({ onSwitchToMunicipal }: ListaPNCPProps) {
                 <div className="flex flex-wrap gap-4 justify-center pt-2">
                     <button 
                         onClick={() => fetchItens()}
-                        className="bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-amber-700 transition-all flex items-center gap-2"
+                        className="bg-[#fdb913] text-slate-900 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#e5a60d] transition-all flex items-center gap-2 shadow-sm"
                     >
                         <RefreshCw size={14} /> Tentar Novamente
                     </button>
                     {onSwitchToMunicipal && (
                         <button 
                             onClick={onSwitchToMunicipal}
-                            className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-600 transition-all flex items-center gap-2 shadow-lg"
+                            className="bg-[#01b0ef] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#0098d4] transition-all flex items-center gap-2 shadow-lg shadow-[#01b0ef]/20"
                         >
                             <FileText size={14} /> Ver Licitações na Base Municipal
                         </button>

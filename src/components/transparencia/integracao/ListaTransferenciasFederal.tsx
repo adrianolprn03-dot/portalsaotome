@@ -60,7 +60,7 @@ export default function ListaTransferenciasFederal() {
     };
 
     return (
-        <div className="space-y-8 font-['Montserrat',sans-serif]">
+        <div className="space-y-8">
             {/* Header de Controle do Componente */}
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between bg-white/40 backdrop-blur-2xl p-8 rounded-[3rem] border border-white/60 shadow-2xl shadow-slate-200/20">
                 <div className="flex items-center gap-6">
@@ -105,35 +105,35 @@ export default function ListaTransferenciasFederal() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Card Bento Lateral - Resumo Financeiro */}
-                <div className="lg:col-span-1 bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl shadow-emerald-900/10 flex flex-col justify-between relative overflow-hidden group">
-                    <div className="absolute -inset-24 bg-emerald-500/20 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+                <div className="lg:col-span-1 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-10 text-white shadow-2xl shadow-[#01b0ef]/20 flex flex-col justify-between relative overflow-hidden group">
+                    <div className="absolute -inset-24 bg-white/15 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
                     
                     <div className="relative z-10">
                         <div className="flex items-center justify-between mb-8">
-                            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.3em]">Volume Mensal</span>
-                            <div className="w-8 h-8 bg-emerald-500/20 text-emerald-400 rounded-lg flex items-center justify-center">
+                            <span className="text-[10px] font-black text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full uppercase tracking-[0.2em]">Volume Mensal</span>
+                            <div className="w-8 h-8 bg-white/20 text-white rounded-lg flex items-center justify-center">
                                 <FaChartLine size={14} />
                             </div>
                         </div>
                         <div className="text-3xl font-black text-white tracking-tighter leading-none mb-2">
                             {totalPeriodo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                         </div>
-                        <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest mb-10 leading-relaxed italic">
+                        <p className="text-[9px] font-bold text-white/90 uppercase tracking-widest mb-10 leading-relaxed italic">
                             Somatória integral dos repasses constitucionais e fundo-a-fundo.
                         </p>
                     </div>
 
-                    <div className="relative z-10 pt-8 border-t border-white/5 mt-auto">
-                        <div className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_white]" />
+                    <div className="relative z-10 pt-8 border-t border-white/25 mt-auto">
+                        <div className="text-[9px] font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#fdb913] shadow-[0_0_8px_white]" />
                              Status da Transmissão
                         </div>
-                        <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-white/25 rounded-full overflow-hidden">
                             <motion.div 
                                 initial={{ width: 0 }}
                                 animate={{ width: "100%" }}
                                 transition={{ duration: 1.5 }}
-                                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400" 
+                                className="h-full bg-[#fdb913]" 
                             />
                         </div>
                     </div>

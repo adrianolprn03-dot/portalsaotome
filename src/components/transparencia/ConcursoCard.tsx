@@ -80,7 +80,7 @@ export default function ConcursoCard({ item }: ConcursoCardProps) {
                             href={item.linkEdital} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all flex items-center gap-2 group"
+                            className="bg-blue-600 text-white px-8 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-[#0098d4] hover:-translate-y-1 transition-all flex items-center gap-2 group"
                         >
                             Ver Edital
                             <FaArrowRight className="group-hover:translate-x-1 transition-transform" />

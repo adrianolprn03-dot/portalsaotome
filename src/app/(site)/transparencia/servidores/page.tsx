@@ -93,7 +93,7 @@ export default function ServidoresHub() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Gestão de Pessoas"
                 subtitle="Transparência total sobre o quadro funcional, remunerações e movimentações dos servidores públicos."
@@ -116,42 +116,42 @@ export default function ServidoresHub() {
                 <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-stretch">
                     
                     {/* Primary Bento Box - Portal Info */}
-                    <div className="lg:col-span-2 bg-slate-900 rounded-[3rem] p-10 shadow-2xl shadow-slate-900/20 text-white relative overflow-hidden group border border-slate-800">
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-blue-600/20 transition-all duration-700" />
+                    <div className="lg:col-span-2 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-10 shadow-2xl shadow-[#01b0ef]/20 text-white relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/15 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-white/25 transition-all duration-700" />
                         <div className="relative z-10 flex flex-col justify-between h-full">
                             <div>
                                 <div className="flex items-center gap-4 mb-10">
-                                    <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+                                    <div className="px-4 py-2 bg-[#fdb913] rounded-2xl shadow-sm">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Base de Dados Integrada</span>
+                                            <div className="w-2 h-2 rounded-full bg-slate-900 animate-pulse" />
+                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900">Base de Dados Integrada</span>
                                         </div>
                                     </div>
-                                    <div className="px-4 py-2 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+                                    <div className="px-4 py-2 bg-white/20 rounded-2xl border border-white/30 backdrop-blur-md">
                                         <div className="flex items-center gap-2">
-                                            <FaCircleCheck className="text-emerald-400" size={12} />
-                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Certificado LAI</span>
+                                            <FaCircleCheck className="text-white" size={12} />
+                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Certificado LAI</span>
                                         </div>
                                     </div>
                                 </div>
-                                <h1 className="text-5xl font-black tracking-tighter leading-[0.9] mb-6 uppercase">
-                                    Ativos e <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 italic">Vencimentos</span>
+                                <h1 className="text-5xl font-black tracking-tighter leading-[0.95] mb-6 uppercase text-white">
+                                    Ativos e <br/> <span className="inline-block mt-1 px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900">Vencimentos</span>
                                 </h1>
-                                <p className="text-white/40 font-medium text-lg leading-relaxed max-w-xl">
+                                <p className="text-white/95 font-medium text-lg leading-relaxed max-w-xl">
                                     Em conformidade com a Lei 12.527/11, disponibilizamos o acesso público aos dados funcionais, 
                                     financeiros e administrativos de todos os colaboradores municipais.
                                 </p>
                             </div>
                             
-                            <div className="mt-16 flex flex-wrap gap-12 items-center border-t border-white/5 pt-10">
+                            <div className="mt-16 flex flex-wrap gap-12 items-center border-t border-white/25 pt-10">
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Atualização</span>
-                                    <span className="text-2xl font-black tracking-tight uppercase italic text-blue-400">Tempo Real</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80 mb-2">Atualização</span>
+                                    <span className="text-2xl font-black tracking-tight uppercase text-[#fdb913]">Tempo Real</span>
                                 </div>
-                                <div className="w-px h-12 bg-white/5 hidden md:block" />
+                                <div className="w-px h-12 bg-white/25 hidden md:block" />
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-2">Padrão</span>
-                                    <span className="text-2xl font-black tracking-tight uppercase italic">Federal <span className="text-white/40 font-bold uppercase italic tracking-tighter">PNTP</span></span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80 mb-2">Padrão</span>
+                                    <span className="text-2xl font-black tracking-tight uppercase text-white">Federal <span className="text-[#fdb913] font-bold">PNTP</span></span>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@ export default function ServidoresHub() {
                                         link.color === 'emerald' ? 'bg-emerald-500 text-white shadow-emerald-500/20' :
                                         link.color === 'blue' ? 'bg-blue-500 text-white shadow-blue-500/20' :
                                         link.color === 'indigo' ? 'bg-indigo-500 text-white shadow-indigo-500/20' :
-                                        link.color === 'amber' ? 'bg-amber-500 text-white shadow-amber-500/20' :
+                                        link.color === 'amber' ? 'bg-[#fdb913] text-slate-900 shadow-[#fdb913]/25' :
                                         'bg-slate-700 text-white shadow-slate-700/20'
                                     }`}>
                                         {link.icon}

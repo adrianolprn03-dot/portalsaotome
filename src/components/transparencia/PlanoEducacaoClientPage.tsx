@@ -131,7 +131,7 @@ export default function PlanoEducacaoClientPage({
             {/* Status PNTP 19.1: Plano + Relatório de Resultados */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#1254A3] flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#01b0ef] flex items-center justify-center shrink-0">
                         <FaBookOpen size={20} />
                     </div>
                     <div className="space-y-1">
@@ -205,7 +205,7 @@ export default function PlanoEducacaoClientPage({
                             onClick={() => setTipoFiltro(tab.id as any)}
                             className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition ${
                                 tipoFiltro === tab.id
-                                    ? "bg-[#1254A3] text-white shadow-sm"
+                                    ? "bg-[#01b0ef] text-white shadow-sm"
                                     : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                             }`}
                         >
@@ -248,7 +248,7 @@ export default function PlanoEducacaoClientPage({
                                         className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${
                                             isRelatorio
                                                 ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                                : "bg-blue-50 text-[#1254A3] border border-blue-200"
+                                                : "bg-blue-50 text-[#01b0ef] border border-blue-200"
                                         }`}
                                     >
                                         <FaFilePdf size={22} />
@@ -259,7 +259,7 @@ export default function PlanoEducacaoClientPage({
                                                 className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
                                                     isRelatorio
                                                         ? "bg-emerald-100 text-emerald-800"
-                                                        : "bg-blue-100 text-[#1254A3]"
+                                                        : "bg-blue-100 text-[#01b0ef]"
                                                 }`}
                                             >
                                                 {isRelatorio
@@ -310,7 +310,7 @@ export default function PlanoEducacaoClientPage({
                                             href={url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-5 py-3 rounded-2xl bg-[#1254A3] hover:bg-blue-800 text-white text-xs font-bold flex items-center gap-2 transition shadow-sm"
+                                            className="px-5 py-3 rounded-2xl bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold flex items-center gap-2 transition shadow-sm"
                                         >
                                             <FaDownload /> Baixar Documento (PDF)
                                         </a>

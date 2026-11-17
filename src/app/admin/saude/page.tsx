@@ -245,9 +245,9 @@ export default function AdminSaudePage() {
     );
 
     return (
-        <div className="p-6 md:p-10 max-w-[1400px] mx-auto space-y-8 font-['Montserrat',sans-serif]">
+        <div className="p-6 md:p-10 max-w-[1400px] mx-auto space-y-8">
             {/* Header com Ações PNTP */}
-            <div className="bg-gradient-to-r from-[#003366] via-[#004080] to-[#01b0ef] rounded-[2rem] p-8 md:p-10 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] rounded-[2rem] p-8 md:p-10 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
                 <div className="absolute right-0 top-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
                 <div className="space-y-2 relative z-10">
                     <div className="flex items-center gap-3">
@@ -353,7 +353,7 @@ export default function AdminSaudePage() {
                             onClick={() => setCategoriaFiltro(tab.id)}
                             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                                 categoriaFiltro === tab.id 
-                                    ? "bg-[#003366] text-white shadow-md" 
+                                    ? "bg-[#01b0ef] text-white shadow-md" 
                                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                             }`}
                         >
@@ -369,7 +369,7 @@ export default function AdminSaudePage() {
                         placeholder="Buscar por título ou resolução..."
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
-                        className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#003366]"
+                        className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#01b0ef]"
                     />
                 </div>
             </div>
@@ -491,7 +491,7 @@ export default function AdminSaudePage() {
                             type="submit"
                             form="form-saude-documento"
                             disabled={saving}
-                            className="px-6 py-2.5 bg-[#003366] hover:bg-[#002244] text-white font-black rounded-xl text-xs uppercase tracking-wider shadow-md active:scale-95 disabled:opacity-50"
+                            className="px-6 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-black rounded-xl text-xs uppercase tracking-wider shadow-md active:scale-95 disabled:opacity-50"
                         >
                             {saving ? "Salvando..." : editingDoc ? "Salvar Alterações" : "Cadastrar Documento"}
                         </button>
@@ -509,7 +509,7 @@ export default function AdminSaudePage() {
                                     placeholder="Ex: Plano Municipal de Saúde (PMS 2026-2029)"
                                     value={formData.titulo}
                                     onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
 
@@ -521,7 +521,7 @@ export default function AdminSaudePage() {
                                     <select
                                         value={formData.categoria}
                                         onChange={(e) => setFormData({ ...formData, categoria: e.target.value })}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                     >
                                         <option value="pms">PMS - Plano Municipal de Saúde</option>
                                         <option value="pas">PAS - Programação Anual de Saúde</option>
@@ -539,7 +539,7 @@ export default function AdminSaudePage() {
                                         required
                                         value={formData.anoExercicio}
                                         onChange={(e) => setFormData({ ...formData, anoExercicio: parseInt(e.target.value) || new Date().getFullYear() })}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                     />
                                 </div>
                             </div>
@@ -554,7 +554,7 @@ export default function AdminSaudePage() {
                                         placeholder="Ex: 2026 - 2029 ou 1º Quadrimestre 2026"
                                         value={formData.periodoVigencia}
                                         onChange={(e) => setFormData({ ...formData, periodoVigencia: e.target.value })}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                     />
                                 </div>
 
@@ -567,7 +567,7 @@ export default function AdminSaudePage() {
                                         placeholder="Ex: Resolução CMS nº 001/2026"
                                         value={formData.numeroResolucao}
                                         onChange={(e) => setFormData({ ...formData, numeroResolucao: e.target.value })}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                     />
                                 </div>
                             </div>
@@ -581,7 +581,7 @@ export default function AdminSaudePage() {
                                     placeholder="Ex: Aprovado pelo Conselho Municipal de Saúde (CMS)"
                                     value={formData.statusConselho}
                                     onChange={(e) => setFormData({ ...formData, statusConselho: e.target.value })}
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
 
@@ -594,7 +594,7 @@ export default function AdminSaudePage() {
                                     placeholder="Resumo dos objetivos estratégicos, indicadores de saúde ou parecer de aprovação..."
                                     value={formData.descricao}
                                     onChange={(e) => setFormData({ ...formData, descricao: e.target.value })}
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                 />
                             </div>
 
@@ -610,7 +610,7 @@ export default function AdminSaudePage() {
                                         onClick={() => setUploadModo("upload")}
                                         className={`py-2 px-4 rounded-xl text-xs font-black uppercase transition-all flex items-center justify-center gap-2 ${
                                             uploadModo === "upload" 
-                                                ? "bg-[#003366] text-white shadow-md" 
+                                                ? "bg-[#01b0ef] text-white shadow-md" 
                                                 : "text-gray-600 hover:text-gray-900"
                                         }`}
                                     >
@@ -621,7 +621,7 @@ export default function AdminSaudePage() {
                                         onClick={() => setUploadModo("url")}
                                         className={`py-2 px-4 rounded-xl text-xs font-black uppercase transition-all flex items-center justify-center gap-2 ${
                                             uploadModo === "url" 
-                                                ? "bg-[#003366] text-white shadow-md" 
+                                                ? "bg-[#01b0ef] text-white shadow-md" 
                                                 : "text-gray-600 hover:text-gray-900"
                                         }`}
                                     >
@@ -641,7 +641,7 @@ export default function AdminSaudePage() {
                                                 disabled={uploading}
                                             />
                                             <label htmlFor="fileInputSaude" className="cursor-pointer space-y-2 block">
-                                                <div className="w-12 h-12 bg-blue-50 text-[#003366] rounded-2xl flex items-center justify-center mx-auto text-xl">
+                                                <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-2xl flex items-center justify-center mx-auto text-xl">
                                                     {uploading ? <FaSpinner className="animate-spin text-blue-600" /> : <FaUpload className="text-blue-600" />}
                                                 </div>
                                                 <div className="text-xs font-bold text-gray-800 uppercase tracking-wider">
@@ -664,7 +664,7 @@ export default function AdminSaudePage() {
                                             placeholder="Cole a URL ou caminho: Ex: https://... ou /files/pms_2026.pdf"
                                             value={formData.linkDocumento}
                                             onChange={(e) => setFormData({ ...formData, linkDocumento: e.target.value })}
-                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#003366]"
+                                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#01b0ef]"
                                         />
                                     </div>
                                 )}
@@ -694,7 +694,7 @@ export default function AdminSaudePage() {
                                     id="ativoCheck"
                                     checked={formData.ativo}
                                     onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
-                                    className="w-5 h-5 text-[#003366] rounded focus:ring-[#003366]"
+                                    className="w-5 h-5 text-[#01b0ef] rounded focus:ring-[#01b0ef]"
                                 />
                                 <label htmlFor="ativoCheck" className="text-xs font-bold text-gray-700 uppercase cursor-pointer">
                                     Documento Ativo e Visível no Portal da Transparência

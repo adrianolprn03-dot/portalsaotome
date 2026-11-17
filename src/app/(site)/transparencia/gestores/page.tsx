@@ -52,7 +52,7 @@ export default async function GestoresTransparencyPage() {
     );
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Gestores Municipais"
                 subtitle="Conheça o Perfil, Trajetória e Atribuições dos Chefes do Poder Executivo de São Tomé."
@@ -66,15 +66,15 @@ export default async function GestoresTransparencyPage() {
 
             <div className="max-w-[1240px] mx-auto px-6 py-16">
                 {/* Banner de Transparência */}
-                <div className="mb-16 bg-blue-950 rounded-[3rem] p-10 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden shadow-2xl">
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
-                    <div className="w-16 h-16 bg-blue-500 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-2xl shadow-blue-500/20">
+                <div className="mb-16 bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[3rem] p-10 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden shadow-2xl shadow-[#01b0ef]/20">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-white/15 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
+                    <div className="w-16 h-16 bg-[#fdb913] text-slate-900 rounded-2xl flex items-center justify-center shrink-0 shadow-lg">
                         <FaBalanceScale size={28} />
                     </div>
                     <div>
-                        <h4 className="text-blue-400 font-black uppercase text-xs tracking-widest mb-3">Programa Nacional de Transparência Pública</h4>
+                        <h4 className="inline-block px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 font-black uppercase text-[10px] tracking-widest mb-3">Programa Nacional de Transparência Pública</h4>
                         <p className="text-white font-bold text-base leading-relaxed tracking-tight">
-                            Em cumprimento à <span className="text-blue-400">Lei nº 12.527/2011 (LAI)</span>, o município disponibiliza os dados biográficos, 
+                            Em cumprimento à <span className="underline decoration-[#fdb913] decoration-2 underline-offset-4">Lei nº 12.527/2011 (LAI)</span>, o município disponibiliza os dados biográficos, 
                             funcionais e de contato dos gestores públicos para assegurar o controle social e a integridade da gestão.
                         </p>
                     </div>

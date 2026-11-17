@@ -23,7 +23,7 @@ export default async function PortariasPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Portarias Municipais"
                 subtitle="Consulta aos atos administrativos e portarias oficiais do Poder Executivo."

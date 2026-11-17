@@ -100,7 +100,7 @@ export default function ConcursosClient({
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-gray-50">
             <PageHeader
                 title={title}
                 subtitle={subtitle}
@@ -293,7 +293,7 @@ export default function ConcursosClient({
                                                     href={item.linkEdital} 
                                                     target="_blank" 
                                                     rel="noopener noreferrer"
-                                                    className="bg-blue-600 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-3 group/btn"
+                                                    className="bg-blue-600 text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-[#0098d4] hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-3 group/btn"
                                                 >
                                                     Acessar Documentos
                                                     <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />

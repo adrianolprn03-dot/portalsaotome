@@ -244,14 +244,14 @@ export default function NovaObraPage() {
 
                     <div>
                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                            Percentual de Execução: <strong className="text-[#1254A3]">{form.percentual}%</strong>
+                            Percentual de Execução: <strong className="text-[#01b0ef]">{form.percentual}%</strong>
                         </label>
                         <div className="flex items-center gap-3 pt-2">
                             <input
                                 type="range"
                                 min="0"
                                 max="100"
-                                className="flex-1 accent-[#1254A3]"
+                                className="flex-1 accent-[#01b0ef]"
                                 value={form.percentual}
                                 onChange={(e) => setForm({ ...form, percentual: parseInt(e.target.value, 10) })}
                             />
@@ -367,7 +367,7 @@ export default function NovaObraPage() {
                 <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div>
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-                            <FaListOl className="text-[#1254A3]" /> Quantitativos, Preços Unitários e Totais Contratados (PNTP 10.2)
+                            <FaListOl className="text-[#01b0ef]" /> Quantitativos, Preços Unitários e Totais Contratados (PNTP 10.2)
                         </h3>
                         <p className="text-xs text-gray-500">
                             Exponha a planilha orçamentária contratada com itens, unidades de medida e valores.
@@ -428,7 +428,7 @@ export default function NovaObraPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddItemPlanilha}
-                                    className="px-3 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-blue-800 shrink-0"
+                                    className="px-3 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] shrink-0"
                                 >
                                     <FaPlus />
                                 </button>
@@ -456,7 +456,7 @@ export default function NovaObraPage() {
                                             <td className="p-3 font-mono">{it.unidade}</td>
                                             <td className="p-3 font-mono">{it.quantidade}</td>
                                             <td className="p-3 font-mono">R$ {parseFloat(it.precoUnitario).toFixed(2)}</td>
-                                            <td className="p-3 font-mono font-bold text-[#1254A3]">R$ {parseFloat(it.precoTotal).toFixed(2)}</td>
+                                            <td className="p-3 font-mono font-bold text-[#01b0ef]">R$ {parseFloat(it.precoTotal).toFixed(2)}</td>
                                             <td className="p-3 text-right">
                                                 <button
                                                     type="button"
@@ -478,7 +478,7 @@ export default function NovaObraPage() {
                 <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div>
                         <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-                            <FaMoneyCheckAlt className="text-[#1254A3]" /> Quantitativos Executados e Valores Pagos (PNTP 10.3)
+                            <FaMoneyCheckAlt className="text-[#01b0ef]" /> Quantitativos Executados e Valores Pagos (PNTP 10.3)
                         </h3>
                         <p className="text-xs text-gray-500">
                             Vincule os boletins de medição com quantitativo físico executado e pagamentos efetuados.
@@ -544,7 +544,7 @@ export default function NovaObraPage() {
                                 <button
                                     type="button"
                                     onClick={handleAddMedicao}
-                                    className="px-3 py-2 bg-[#1254A3] text-white rounded-xl text-xs font-bold hover:bg-blue-800 shrink-0"
+                                    className="px-3 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] shrink-0"
                                 >
                                     <FaPlus />
                                 </button>
@@ -570,7 +570,7 @@ export default function NovaObraPage() {
                                         <tr key={idx} className="hover:bg-gray-50">
                                             <td className="p-3 font-bold text-gray-800">{m.numero}</td>
                                             <td className="p-3">{new Date(m.data).toLocaleDateString("pt-BR")}</td>
-                                            <td className="p-3 font-mono font-bold text-[#1254A3]">{m.percentual}%</td>
+                                            <td className="p-3 font-mono font-bold text-[#01b0ef]">{m.percentual}%</td>
                                             <td className="p-3 font-mono">R$ {parseFloat(m.valorMedido || "0").toFixed(2)}</td>
                                             <td className="p-3 font-mono font-bold text-emerald-700">R$ {parseFloat(m.valorPago || "0").toFixed(2)}</td>
                                             <td className="p-3 text-right">
@@ -600,7 +600,7 @@ export default function NovaObraPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-2 bg-[#1254A3] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50"
+                        className="flex items-center gap-2 bg-[#01b0ef] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#0098d4] transition-all shadow-sm disabled:opacity-50"
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         <span>Cadastrar Obra</span>

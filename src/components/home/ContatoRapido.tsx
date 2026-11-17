@@ -38,8 +38,8 @@ export default function ContatoRapido() {
                     {/* Contato Info */}
                     <div className="lg:col-span-4">
                         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-                            <span className="text-[#0055A4] font-bold text-xs uppercase tracking-[0.2em] mb-3">Fale Conosco</span>
-                            <h2 id="contato-titulo" className="text-3xl md:text-5xl font-black text-[#002241] uppercase tracking-tighter leading-tight" style={{ fontFamily: "Fustat, sans-serif" }}>
+                            <span className="text-[#01b0ef] font-bold text-xs uppercase tracking-[0.2em] mb-3">Fale Conosco</span>
+                            <h2 id="contato-titulo" className="text-3xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter leading-tight" style={{ fontFamily: "Fustat, sans-serif" }}>
                                 Entre em <br className="hidden lg:block" />Contato
                             </h2>
                             <p className="mt-4 text-gray-500 font-medium leading-relaxed">
@@ -54,11 +54,11 @@ export default function ContatoRapido() {
                                     { icon: HiOutlineEnvelope, titulo: "E-mail", texto: "contato@saotome.rn.gov.br" },
                                 ].map((c, i) => (
                                     <div key={i} className="flex items-start gap-4 justify-center lg:justify-start">
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#0055A4] shrink-0">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#01b0ef] shrink-0">
                                             <c.icon size={20} />
                                         </div>
                                         <div>
-                                            <div className="font-black text-[#002241] text-xs uppercase tracking-widest mb-1">{c.titulo}</div>
+                                            <div className="font-black text-slate-900 text-xs uppercase tracking-widest mb-1">{c.titulo}</div>
                                             <div className="text-gray-500 text-sm font-medium leading-snug">{c.texto}</div>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@ export default function ContatoRapido() {
                                             value={form.nome}
                                             onChange={(e) => setForm({ ...form, nome: e.target.value })}
                                             placeholder="Ex: João da Silva"
-                                            className="w-full bg-gray-50 border-transparent focus:border-[#0055A4] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
+                                            className="w-full bg-gray-50 border-transparent focus:border-[#01b0ef] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -93,7 +93,7 @@ export default function ContatoRapido() {
                                             value={form.email}
                                             onChange={(e) => setForm({ ...form, email: e.target.value })}
                                             placeholder="seu@email.com"
-                                            className="w-full bg-gray-50 border-transparent focus:border-[#0055A4] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
+                                            className="w-full bg-gray-50 border-transparent focus:border-[#01b0ef] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
                                         />
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@ export default function ContatoRapido() {
                                         value={form.assunto}
                                         onChange={(e) => setForm({ ...form, assunto: e.target.value })}
                                         placeholder="Sobre o que deseja falar?"
-                                        className="w-full bg-gray-50 border-transparent focus:border-[#0055A4] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
+                                        className="w-full bg-gray-50 border-transparent focus:border-[#01b0ef] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -118,13 +118,13 @@ export default function ContatoRapido() {
                                         value={form.mensagem}
                                         onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
                                         placeholder="Digite aqui detalhadamente..."
-                                        className="w-full bg-gray-50 border-transparent focus:border-[#0055A4] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none resize-none"
+                                        className="w-full bg-gray-50 border-transparent focus:border-[#01b0ef] focus:bg-white rounded-2xl px-6 py-4 text-sm font-medium transition-all outline-none resize-none"
                                     />
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={enviando}
-                                    className="w-full bg-[#0055A4] text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl hover:bg-[#002241] shadow-xl shadow-blue-900/10 transition-all disabled:opacity-50"
+                                    className="w-full bg-[#01b0ef] text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl hover:bg-[#0098d4] shadow-xl shadow-blue-900/10 transition-all disabled:opacity-50"
                                 >
                                     {enviando ? "Processando..." : "Enviar Mensagem"}
                                 </button>

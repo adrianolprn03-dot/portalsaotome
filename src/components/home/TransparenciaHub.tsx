@@ -51,7 +51,7 @@ export default async function TransparenciaHub() {
                             </div>
                             <span className="text-[#01b0ef] font-black text-[10px] uppercase tracking-[0.3em]">Transparência Pública</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-[#0088b9] uppercase tracking-tighter leading-tight">
+                        <h2 className="text-3xl md:text-5xl font-black text-[#01b0ef] uppercase tracking-tighter leading-tight">
                             Licitações e Editais
                         </h2>
                         <div className="h-1.5 w-20 bg-[#FDB913] mt-6 rounded-full mx-auto lg:mx-0" />
@@ -60,7 +60,7 @@ export default async function TransparenciaHub() {
                         href={finalHref} 
                         target={isExternal ? "_blank" : undefined}
                         rel={isExternal ? "noopener noreferrer" : undefined}
-                        className="group flex items-center gap-3 text-[#01b0ef] font-black text-[11px] uppercase tracking-widest hover:text-[#0088b9] transition-all"
+                        className="group flex items-center gap-3 text-[#01b0ef] font-black text-[11px] uppercase tracking-widest hover:text-[#01b0ef] transition-all"
                     >
                         Portal da Transparência 
                         {isExternal && <FaExternalLinkAlt size={10} className="ml-1" />}
@@ -90,7 +90,7 @@ export default async function TransparenciaHub() {
                             return (
                                 <div key={licitacao.id} className="grid grid-cols-1 lg:grid-cols-12 gap-y-6 lg:gap-6 px-8 lg:px-10 py-9 items-center hover:bg-gray-50/50 transition-all group">
 
-                                    <div className="col-span-2 font-black text-[#0088b9] text-sm lg:text-lg">
+                                    <div className="col-span-2 font-black text-[#01b0ef] text-sm lg:text-lg">
                                         <span className="lg:hidden block text-[10px] uppercase tracking-widest text-gray-400 mb-2">Edital</span>
                                         {editalLabel}
                                     </div>
@@ -107,7 +107,7 @@ export default async function TransparenciaHub() {
                                         </span>
                                     </div>
 
-                                    <div className="col-span-5 text-[#0088b9] font-bold text-[13px] leading-relaxed pr-6">
+                                    <div className="col-span-5 text-[#01b0ef] font-bold text-[13px] leading-relaxed pr-6">
                                         {licitacao.objeto}
                                     </div>
 

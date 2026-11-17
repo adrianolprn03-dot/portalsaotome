@@ -45,19 +45,19 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
     }, [type]);
 
     const COLORS = [
-        "#0088C2",
-        "#071E3D",
-        "#FDB913",
+        "#01b0ef",
+        "#fdb913",
         "#10B981",
+        "#0098d4",
         "#EF4444",
-        "#0284C7",
+        "#47c6ff",
         "#64748B",
     ];
 
     if (loading) {
         return (
             <div className="flex items-center justify-center p-12 bg-white rounded-3xl border border-slate-200/80 shadow-civic-sm">
-                <div className="w-8 h-8 border-3 border-primary-600 border-t-transparent rounded-full animate-spin" />
+                <div className="w-8 h-8 border-3 border-[#01b0ef] border-t-transparent rounded-full animate-spin" />
             </div>
         );
     }
@@ -69,11 +69,11 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
     return (
         <section className="mt-12 space-y-8">
             <div className="flex items-center gap-3.5">
-                <div className="w-11 h-11 bg-primary-50 border border-primary-100 rounded-xl flex items-center justify-center text-primary-600">
+                <div className="w-11 h-11 bg-[#01b0ef]/10 border border-[#01b0ef]/25 rounded-xl flex items-center justify-center text-[#01b0ef]">
                     <BarChart3 size={22} />
                 </div>
                 <div>
-                    <h2 className="font-heading text-2xl font-extrabold text-[#071E3D]">
+                    <h2 className="font-heading text-2xl font-extrabold text-slate-900">
                         Indicadores e Estatísticas
                     </h2>
                     <p className="text-xs text-slate-500 font-medium">
@@ -85,8 +85,8 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Gráfico Principal (Órgão / Tipo) */}
                 <div className="bg-white p-8 rounded-3xl shadow-civic-sm border border-slate-200/80">
-                    <h3 className="font-heading text-sm font-bold text-[#071E3D] mb-6 flex items-center gap-2">
-                        <BarChart3 size={16} className="text-primary-600" />
+                    <h3 className="font-heading text-sm font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <BarChart3 size={16} className="text-[#01b0ef]" />
                         <span>
                             {type === "ouvidoria"
                                 ? "Manifestações por Natureza"
@@ -120,10 +120,10 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                                         width={120}
                                     />
                                     <Tooltip
-                                        cursor={{ fill: "#F1F5F9" }}
+                                        cursor={{ fill: "#eefaff" }}
                                         contentStyle={{
                                             borderRadius: "12px",
-                                            border: "1px solid #E2E8F0",
+                                            border: "1px solid #b5e9ff",
                                             boxShadow:
                                                 "0 10px 25px -5px rgb(0 0 0 / 0.08)",
                                         }}
@@ -152,8 +152,8 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
 
                 {/* Gráfico de Status */}
                 <div className="bg-white p-8 rounded-3xl shadow-civic-sm border border-slate-200/80">
-                    <h3 className="font-heading text-sm font-bold text-[#071E3D] mb-6 flex items-center gap-2">
-                        <PieChartIcon size={16} className="text-emerald-600" />
+                    <h3 className="font-heading text-sm font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <PieChartIcon size={16} className="text-[#fdb913]" />
                         <span>Situação Atual das Demandas</span>
                     </h3>
                     <div className="h-[320px] w-full flex flex-col md:flex-row items-center gap-8">
@@ -173,8 +173,7 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                                                     key={`cell-${index}`}
                                                     fill={
                                                         COLORS[
-                                                            (index + 2) %
-                                                                COLORS.length
+                                                            index % COLORS.length
                                                         ]
                                                     }
                                                 />
@@ -199,16 +198,14 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                                         className="w-3.5 h-3.5 rounded-md shrink-0"
                                         style={{
                                             backgroundColor:
-                                                COLORS[
-                                                    (index + 2) % COLORS.length
-                                                ],
+                                                COLORS[index % COLORS.length],
                                         }}
                                     />
                                     <div>
                                         <p className="text-[11px] font-semibold text-slate-500">
                                             {item.name}
                                         </p>
-                                        <p className="text-xl font-mono font-bold text-[#071E3D] leading-none">
+                                        <p className="text-xl font-mono font-bold text-slate-900 leading-none">
                                             {item.value}
                                         </p>
                                     </div>
@@ -221,8 +218,8 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                 {/* Terceiro Gráfico (e-SIC: Grau de Sigilo) */}
                 {type === "esic" && (
                     <div className="bg-white p-8 rounded-3xl shadow-civic-sm border border-slate-200/80 lg:col-span-2">
-                        <h3 className="font-heading text-sm font-bold text-[#071E3D] mb-6 flex items-center gap-2">
-                            <ShieldCheck size={16} className="text-primary-600" />
+                        <h3 className="font-heading text-sm font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <ShieldCheck size={16} className="text-[#01b0ef]" />
                             <span>Distribuição por Grau de Sigilo (LAI)</span>
                         </h3>
                         <div className="h-[280px] w-full">
@@ -249,7 +246,7 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                                             cursor={{ fill: "transparent" }}
                                             contentStyle={{
                                                 borderRadius: "12px",
-                                                border: "1px solid #E2E8F0",
+                                                border: "1px solid #b5e9ff",
                                                 boxShadow:
                                                     "0 10px 25px -5px rgb(0 0 0 / 0.08)",
                                             }}
@@ -264,11 +261,8 @@ export default function StatisticsDashboard({ type }: StatisticsDashboardProps) 
                                                     key={`cell-${index}`}
                                                     fill={
                                                         index === 0
-                                                            ? "#10B981"
-                                                            : COLORS[
-                                                                  (index + 3) %
-                                                                      COLORS.length
-                                                              ]
+                                                            ? "#01b0ef"
+                                                            : "#fdb913"
                                                     }
                                                 />
                                             ))}

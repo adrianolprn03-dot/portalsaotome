@@ -25,7 +25,7 @@ export default async function SecretariasPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Secretarias Municipais"
                 subtitle="Estrutura organizacional, gestores, contatos e serviços dedicados à população de São Tomé."
@@ -39,7 +39,7 @@ export default async function SecretariasPage() {
 
             <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24 relative z-10 w-full">
                 {secretarias.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
+                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-[#01b0ef]/30">
                         <p className="text-slate-500 font-medium">
                             Nenhuma secretaria cadastrada no momento.
                         </p>
@@ -53,16 +53,16 @@ export default async function SecretariasPage() {
                                 <Link
                                     key={s.id}
                                     href={`/secretarias/${s.slug}`}
-                                    className="group bg-white rounded-3xl overflow-hidden shadow-civic-sm hover:shadow-civic-xl transition-all duration-300 border border-slate-200/80 hover:border-primary-400 flex flex-col h-full hover:-translate-y-0.5"
+                                    className="group bg-white rounded-3xl overflow-hidden shadow-civic-sm hover:shadow-civic-xl transition-all duration-300 border border-slate-200/80 hover:border-[#01b0ef] flex flex-col h-full hover:-translate-y-0.5"
                                 >
                                     {/* Header Institucional do Card */}
-                                    <div className="bg-gradient-to-r from-[#071E3D] via-[#093158] to-primary-800 p-7 text-white relative overflow-hidden border-b-2 border-secondary-500">
-                                        <div className="absolute -right-6 -bottom-6 opacity-10 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
+                                    <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] p-7 text-white relative overflow-hidden border-b-4 border-[#fdb913]">
+                                        <div className="absolute -right-6 -bottom-6 opacity-15 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
                                             <IconCard size={110} />
                                         </div>
 
                                         <div className="flex items-start gap-5 relative z-10">
-                                            <div className="w-14 h-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center shrink-0 text-secondary-400">
+                                            <div className="w-14 h-14 bg-[#fdb913] rounded-2xl flex items-center justify-center shrink-0 text-slate-900 shadow-sm">
                                                 <IconCard size={26} />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -70,10 +70,10 @@ export default async function SecretariasPage() {
                                                     {s.nome}
                                                 </h2>
                                                 {s.secretario && (
-                                                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-lg border border-white/15 text-slate-100 text-xs font-semibold mt-2.5">
+                                                    <div className="inline-flex items-center gap-2 bg-white text-slate-900 px-3 py-1 rounded-lg text-xs font-bold mt-2.5 shadow-xs">
                                                         <UserCheck
                                                             size={14}
-                                                            className="text-secondary-400 shrink-0"
+                                                            className="text-[#01b0ef] shrink-0"
                                                         />
                                                         <span className="truncate">
                                                             Titular: {s.secretario}
@@ -94,7 +94,7 @@ export default async function SecretariasPage() {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
                                             {s.telefone && (
                                                 <div className="flex items-start gap-3">
-                                                    <div className="w-9 h-9 rounded-xl bg-slate-50 text-primary-600 flex items-center justify-center shrink-0 border border-slate-200/70">
+                                                    <div className="w-9 h-9 rounded-xl bg-[#01b0ef]/10 text-[#01b0ef] flex items-center justify-center shrink-0 border border-[#01b0ef]/20">
                                                         <Phone size={15} />
                                                     </div>
                                                     <div className="min-w-0">
@@ -110,7 +110,7 @@ export default async function SecretariasPage() {
 
                                             {s.email && (
                                                 <div className="flex items-start gap-3">
-                                                    <div className="w-9 h-9 rounded-xl bg-slate-50 text-primary-600 flex items-center justify-center shrink-0 border border-slate-200/70">
+                                                    <div className="w-9 h-9 rounded-xl bg-[#01b0ef]/10 text-[#01b0ef] flex items-center justify-center shrink-0 border border-[#01b0ef]/20">
                                                         <Mail size={15} />
                                                     </div>
                                                     <div className="min-w-0">
@@ -126,7 +126,7 @@ export default async function SecretariasPage() {
 
                                             {s.horarioFuncionamento && (
                                                 <div className="flex items-start gap-3">
-                                                    <div className="w-9 h-9 rounded-xl bg-slate-50 text-primary-600 flex items-center justify-center shrink-0 border border-slate-200/70">
+                                                    <div className="w-9 h-9 rounded-xl bg-[#fdb913]/20 text-slate-900 flex items-center justify-center shrink-0 border border-[#fdb913]/40">
                                                         <Clock size={15} />
                                                     </div>
                                                     <div className="min-w-0">
@@ -142,7 +142,7 @@ export default async function SecretariasPage() {
 
                                             {s.endereco && (
                                                 <div className="flex items-start gap-3">
-                                                    <div className="w-9 h-9 rounded-xl bg-slate-50 text-primary-600 flex items-center justify-center shrink-0 border border-slate-200/70">
+                                                    <div className="w-9 h-9 rounded-xl bg-[#01b0ef]/10 text-[#01b0ef] flex items-center justify-center shrink-0 border border-[#01b0ef]/20">
                                                         <MapPin size={15} />
                                                     </div>
                                                     <div className="min-w-0">
@@ -159,11 +159,11 @@ export default async function SecretariasPage() {
                                     </div>
 
                                     {/* Footer do Card */}
-                                    <div className="px-7 py-4 bg-[#F6F9FC] border-t border-slate-200/70 flex items-center justify-between">
-                                        <span className="text-xs font-bold text-primary-700 group-hover:text-primary-600">
+                                    <div className="px-7 py-4 bg-[#f4fbff] border-t border-slate-200/70 flex items-center justify-between">
+                                        <span className="text-xs font-bold text-[#01b0ef]">
                                             Ver atribuições, equipe e serviços
                                         </span>
-                                        <div className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 group-hover:bg-primary-600 group-hover:border-primary-600 group-hover:text-white transition-all group-hover:translate-x-0.5">
+                                        <div className="w-8 h-8 rounded-full bg-white border border-[#01b0ef]/25 flex items-center justify-center text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:border-[#01b0ef] group-hover:text-white transition-all group-hover:translate-x-0.5">
                                             <ArrowRight size={14} />
                                         </div>
                                     </div>

@@ -125,7 +125,7 @@ export default function PublicacoesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F5F7FA]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Publicações e Atos Oficiais"
                 subtitle="Acesso centralizado a editais, avisos, decretos, portarias, extratos e demais atos da administração municipal."
@@ -152,7 +152,7 @@ export default function PublicacoesPage() {
                     <select
                         value={tipoFiltro}
                         onChange={e => setTipoFiltro(e.target.value)}
-                        className="bg-[#F5F7FA] border border-[#DDE3EA] px-4 py-2.5 rounded-xl text-xs font-bold text-[#12304A] outline-none shadow-sm cursor-pointer"
+                        className="bg-[#f4fbff] border border-[#e2e8f0] px-4 py-2.5 rounded-xl text-xs font-bold text-slate-900 outline-none shadow-sm cursor-pointer"
                     >
                         <option value="">Todos os Tipos de Atos</option>
                         {TIPOS.map(t => <option key={t} value={t}>{t}</option>)}
@@ -161,16 +161,16 @@ export default function PublicacoesPage() {
 
                 {/* Resumo */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#DDE3EA]">
-                        <div className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">Total de Atos e Publicações</div>
-                        <div className="text-2xl font-black text-[#12304A]">{filtradas.length}</div>
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e2e8f0]">
+                        <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Total de Atos e Publicações</div>
+                        <div className="text-2xl font-black text-slate-900">{filtradas.length}</div>
                     </div>
-                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#DDE3EA]">
-                        <div className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">Categorias Ativas</div>
-                        <div className="text-2xl font-black text-[#1254A3]">{new Set(filtradas.map(p => p.tipo)).size}</div>
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e2e8f0]">
+                        <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Categorias Ativas</div>
+                        <div className="text-2xl font-black text-[#01b0ef]">{new Set(filtradas.map(p => p.tipo)).size}</div>
                     </div>
-                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#DDE3EA]">
-                        <div className="text-xs font-bold text-[#5B738B] uppercase tracking-wider mb-2">Exercício / Período</div>
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e2e8f0]">
+                        <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Exercício / Período</div>
                         <div className="text-2xl font-black text-emerald-600">{ano || "Todos"}{mes ? ` (Mês ${mes})` : ""}</div>
                     </div>
                 </div>
@@ -178,22 +178,22 @@ export default function PublicacoesPage() {
                 {/* Lista */}
                 <div className="space-y-4">
                     {loading ? (
-                        <div className="bg-white rounded-2xl p-16 text-center border border-[#DDE3EA] shadow-sm">
-                            <FaSpinner className="animate-spin text-[#1254A3] text-3xl mb-3 mx-auto" />
-                            <p className="text-xs font-bold text-[#5B738B] uppercase tracking-wider">Carregando atos oficiais...</p>
+                        <div className="bg-white rounded-2xl p-16 text-center border border-[#e2e8f0] shadow-sm">
+                            <FaSpinner className="animate-spin text-[#01b0ef] text-3xl mb-3 mx-auto" />
+                            <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Carregando atos oficiais...</p>
                         </div>
                     ) : filtradas.length === 0 ? (
-                        <div className="bg-white rounded-2xl p-16 text-center border border-[#DDE3EA] shadow-sm">
+                        <div className="bg-white rounded-2xl p-16 text-center border border-[#e2e8f0] shadow-sm">
                             <FaNewspaper className="text-slate-300 text-4xl mx-auto mb-4" />
-                            <h4 className="text-lg font-bold text-[#12304A] mb-2">Nenhum ato localizado</h4>
-                            <p className="text-xs text-[#5B738B]">Ajuste os filtros de ano, mês ou texto para encontrar a publicação desejada.</p>
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Nenhum ato localizado</h4>
+                            <p className="text-xs text-slate-600">Ajuste os filtros de ano, mês ou texto para encontrar a publicação desejada.</p>
                         </div>
                     ) : (
                         filtradas.map(pub => (
-                            <div key={pub.id} className="group bg-white rounded-2xl border border-[#DDE3EA] shadow-sm hover:border-[#1254A3]/50 transition-all duration-200 p-5">
+                            <div key={pub.id} className="group bg-white rounded-2xl border border-[#e2e8f0] shadow-sm hover:border-[#01b0ef]/50 transition-all duration-200 p-5">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-10 h-10 bg-blue-50 text-[#1254A3] rounded-xl flex items-center justify-center shrink-0 border border-blue-100">
+                                        <div className="w-10 h-10 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0 border border-blue-100">
                                             <FaNewspaper size={16} />
                                         </div>
                                     <div className="flex-1">
@@ -201,24 +201,24 @@ export default function PublicacoesPage() {
                                             <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[9px] font-bold uppercase tracking-wider border ${TIPO_COR[pub.tipo] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
                                                 <FaTag size={7} /> {pub.tipo}
                                             </span>
-                                            <span className="flex items-center gap-1 text-xs text-[#5B738B]">
+                                            <span className="flex items-center gap-1 text-xs text-slate-600">
                                                 <FaCalendar size={9} className="text-slate-400" />
                                                 {new Date(pub.dataPublicacao).toLocaleDateString("pt-BR")}
                                             </span>
                                         </div>
-                                        <h3 className="font-bold text-[#12304A] text-sm leading-snug mb-1 group-hover:text-[#1254A3] transition-colors">{pub.titulo}</h3>
-                                        <p className="text-xs text-[#5B738B] leading-relaxed line-clamp-2">"{pub.descricao}"</p>
+                                        <h3 className="font-bold text-slate-900 text-sm leading-snug mb-1 group-hover:text-[#01b0ef] transition-colors">{pub.titulo}</h3>
+                                        <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">"{pub.descricao}"</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 shrink-0">
-                                    <span className="text-[10px] font-bold text-[#5B738B] bg-[#F5F7FA] px-2.5 py-1 rounded-lg border border-[#DDE3EA]">
+                                    <span className="text-[10px] font-bold text-slate-600 bg-[#f4fbff] px-2.5 py-1 rounded-lg border border-[#e2e8f0]">
                                         {pub.secretaria}
                                     </span>
                                     <a 
                                         href={pub.arquivo || pub.documentUrl || "#"} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1.5 bg-[#1254A3] text-white hover:bg-[#0d3f7c] px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+                                        className="inline-flex items-center gap-1.5 bg-[#01b0ef] text-white hover:bg-[#0098d4] px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
                                     >
                                         <FaDownload size={10} />
                                         {pub.arquivo ? "Baixar PDF" : "Ver Ato"}

@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function DividaAtivaPage() {
     return (
-        <div className="bg-[#f8fafc] min-h-screen font-['Montserrat',sans-serif]">
+        <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
                 title="Dívida Ativa"
                 subtitle="Consulte as informações sobre créditos tributários e não tributários inscritos em dívida ativa."
@@ -24,51 +24,51 @@ export default function DividaAtivaPage() {
 
             <div className="max-w-5xl mx-auto px-6 py-16">
                 {/* Declaração Oficial de Inexistência de Inscritos em Dívida Ativa - PNTP 2026 */}
-                <div className="bg-gradient-to-br from-emerald-900 via-slate-900 to-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl text-white relative overflow-hidden mb-12 border border-emerald-500/20">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                        <ShieldCheck size={280} className="text-emerald-400" />
+                <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-[#01b0ef]/20 text-white relative overflow-hidden mb-12">
+                    <div className="absolute top-0 right-0 p-8 opacity-15 pointer-events-none">
+                        <ShieldCheck size={280} className="text-white" />
                     </div>
                     
                     <div className="relative z-10">
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-widest">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#fdb913] text-slate-900 text-xs font-black uppercase tracking-widest shadow-sm">
                                 <ShieldCheck size={16} />
                                 Declaração Oficial • PNTP 2026
                             </div>
-                            <span className="text-xs font-bold text-slate-300 flex items-center gap-2 bg-slate-800/80 px-3.5 py-1.5 rounded-full border border-slate-700">
-                                <Calendar size={14} className="text-emerald-400" />
+                            <span className="text-xs font-bold text-slate-900 flex items-center gap-2 bg-white/95 px-3.5 py-1.5 rounded-full shadow-xs">
+                                <Calendar size={14} className="text-[#01b0ef]" />
                                 Última atualização: 14 de agosto de 2026.
                             </span>
                         </div>
 
-                        <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase italic mb-6">
+                        <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase mb-6">
                             Inexistência de inscritos em dívida ativa
                         </h2>
 
-                        <div className="bg-slate-800/70 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-slate-700/60 shadow-inner">
-                            <p className="text-slate-200 font-medium text-base md:text-lg leading-relaxed">
+                        <div className="bg-white/95 rounded-2xl p-6 md:p-8 border border-white shadow-inner">
+                            <p className="text-slate-800 font-medium text-base md:text-lg leading-relaxed">
                                 O Município de São Tomé/RN informa que, após consulta aos registros tributários, contábeis e administrativos, não foram identificadas pessoas físicas ou jurídicas com débitos inscritos em dívida ativa municipal, tributária ou não tributária, nos exercícios de 2024, 2025 e 2026, até a presente data. Caso ocorram futuras inscrições, as informações serão publicadas nesta página conforme as diretrizes do PNTP 2026.
                             </p>
                         </div>
 
-                        <div className="mt-6 flex items-center justify-between text-xs text-emerald-300/80 font-semibold tracking-wide">
+                        <div className="mt-6 flex items-center justify-between text-xs text-white/95 font-semibold tracking-wide">
                             <span>Prefeitura Municipal de São Tomé / RN</span>
                             <span>Matriz PNTP 2026</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2rem] p-12 shadow-xl border border-slate-100 relative overflow-hidden">
+                <div className="bg-white rounded-[2rem] p-12 shadow-xl border border-sky-100 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                         <Scale size={200} />
                     </div>
 
                     <div className="relative z-10">
                         <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <div className="w-12 h-12 bg-[#01b0ef] rounded-2xl flex items-center justify-center text-white shadow-lg">
                                 <Info size={24} />
                             </div>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase italic">O que é a Dívida Ativa?</h2>
+                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">O que é a Dívida Ativa?</h2>
                         </div>
 
                         <div className="space-y-6 text-slate-600 font-medium leading-relaxed mb-12">
@@ -80,14 +80,14 @@ export default function DividaAtivaPage() {
                             </p>
                         </div>
 
-                        <div className="bg-slate-50 rounded-3xl p-8 border border-slate-200 mb-12">
+                        <div className="bg-[#fff4d4]/60 rounded-3xl p-8 border border-[#fdb913]/40 mb-12">
                             <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white shrink-0 shadow-md">
+                                <div className="w-10 h-10 bg-[#fdb913] rounded-xl flex items-center justify-center text-slate-900 shrink-0 shadow-md">
                                     <AlertCircle size={20} />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tighter mb-2 italic">Aviso de Redirecionamento</h3>
-                                    <p className="text-sm text-slate-500 font-bold uppercase tracking-widest leading-relaxed">
+                                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-tighter mb-2">Aviso de Redirecionamento</h3>
+                                    <p className="text-sm text-slate-700 font-bold uppercase tracking-widest leading-relaxed">
                                         As consultas detalhadas e emissão de guias para pagamento da dívida ativa geralmente são realizadas através do Portal do Contribuinte ou sistema fazendário específico.
                                     </p>
                                 </div>
@@ -97,13 +97,13 @@ export default function DividaAtivaPage() {
                         <div className="flex flex-col sm:flex-row gap-6">
                             <Link 
                                 href="/contato" 
-                                className="flex-1 bg-slate-900 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95"
+                                className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95"
                             >
                                 Solicitar Informações via E-SIC
                             </Link>
                             <a 
                                 href="#" 
-                                className="flex-1 bg-orange-600 text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 active:scale-95 flex items-center justify-center gap-3"
+                                className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <ExternalLink size={16} /> Acessar Portal do Contribuinte
                             </a>

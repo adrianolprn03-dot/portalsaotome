@@ -8,19 +8,19 @@ export default function IncentivosCulturaisExportPanel({ exercicioAno }: { exerc
     };
 
     return (
-        <div className="bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 text-white rounded-[2.5rem] p-8 md:p-10 mb-14 shadow-2xl shadow-purple-950/20 border border-purple-800/30 relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] text-white rounded-[2.5rem] p-8 md:p-10 mb-14 shadow-2xl shadow-[#01b0ef]/20 border-b-4 border-[#fdb913] relative overflow-hidden group">
             {/* Background Accent glow */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-600/20 transition-all duration-700" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/15 rounded-full blur-3xl pointer-events-none group-hover:bg-white/25 transition-all duration-700" />
             
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
                 <div className="space-y-3 max-w-2xl">
-                    <div className="inline-flex items-center gap-2 bg-purple-500/20 border border-purple-400/30 text-purple-300 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                        <FaLockOpen size={10} className="text-purple-400" /> Formatos Abertos e Editáveis – PNTP 2026
+                    <div className="inline-flex items-center gap-2 bg-[#fdb913] text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
+                        <FaLockOpen size={10} /> Formatos Abertos e Editáveis – PNTP 2026
                     </div>
                     <h3 className="text-2xl font-black tracking-tight uppercase">
                         Gravação de Dados em Formatos Editáveis
                     </h3>
-                    <p className="text-purple-200/80 text-xs font-medium leading-relaxed">
+                    <p className="text-white/95 text-xs font-medium leading-relaxed">
                         Em integral conformidade com os critérios da <strong className="text-white font-bold">Cartilha de Transparência Pública PNTP 2026</strong>, 
                         disponibilizamos o download integral das informações de incentivos e editais culturais em arquivos de dados abertos, processáveis e editáveis por software de planilha ou análise automatizada.
                     </p>
@@ -31,7 +31,7 @@ export default function IncentivosCulturaisExportPanel({ exercicioAno }: { exerc
                     {/* CSV Editável */}
                     <button
                         onClick={() => handleDownload("csv")}
-                        className="flex items-center gap-2 px-5 py-3.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-lg shadow-emerald-950/30 hover:scale-105"
+                        className="flex items-center gap-2 px-5 py-3.5 bg-white hover:bg-[#fdb913] text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-lg hover:scale-105"
                         title="Baixar em formato CSV editável (Excel, LibreOffice, Google Sheets)"
                     >
                         <FaFileCsv size={16} />
@@ -41,7 +41,7 @@ export default function IncentivosCulturaisExportPanel({ exercicioAno }: { exerc
                     {/* XLSX Planilha */}
                     <button
                         onClick={() => handleDownload("xlsx")}
-                        className="flex items-center gap-2 px-5 py-3.5 bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 hover:text-green-300 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-lg shadow-green-950/30 hover:scale-105"
+                        className="flex items-center gap-2 px-5 py-3.5 bg-[#fdb913] hover:bg-white text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-lg hover:scale-105"
                         title="Baixar em formato de Planilha XLSX"
                     >
                         <FaFileExcel size={16} />

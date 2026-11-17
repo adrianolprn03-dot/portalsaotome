@@ -84,7 +84,7 @@ export default function QuadroServidoresClient({
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-gray-50">
             <PageHeader
                 title="Quadro Geral de Pessoal"
                 subtitle="Consulte a relação completa de cargos, vagas ocupadas e disponíveis."

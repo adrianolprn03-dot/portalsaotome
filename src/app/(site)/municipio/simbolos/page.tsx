@@ -43,7 +43,7 @@ export default function SimbolosPage() {
     );
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] font-['Montserrat',sans-serif]">
+        <div className="min-h-screen bg-[#f8fafc]">
             <PageHeader
                 title="Símbolos Municipais"
                 subtitle="Conheça a identidade oficial, as cores e o hino que representam a história e a cultura de São Tomé."

@@ -48,14 +48,14 @@ export default function RelatoriosGraficosClient({ esic, ouvidoria }: Relatorios
         <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-gray-200/50 border border-slate-100 mb-12 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 className="text-base font-black text-[#12304A] uppercase tracking-tight flex items-center gap-2">
-                        <FaChartLine className="text-[#1254A3]" /> Gráficos nos Resultados • Comparativo e-SIC vs Ouvidoria
+                    <h3 className="text-base font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
+                        <FaChartLine className="text-[#01b0ef]" /> Gráficos nos Resultados • Comparativo e-SIC vs Ouvidoria
                     </h3>
                     <p className="text-xs text-slate-500 font-medium mt-0.5">
                         Eficiência dos canais oficiais de transparência passiva e escuta ao cidadão
                     </p>
                 </div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#1254A3] bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 w-fit">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#01b0ef] bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 w-fit">
                     Transparência Passiva
                 </span>
             </div>
@@ -76,9 +76,9 @@ export default function RelatoriosGraficosClient({ esic, ouvidoria }: Relatorios
                             }}
                         />
                         <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }} />
-                        <Bar dataKey="Total de Solicitações" fill="#1254A3" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="Total de Solicitações" fill="#01b0ef" radius={[6, 6, 0, 0]} />
                         <Bar dataKey="Atendidos no Prazo (%)" fill="#10B981" radius={[6, 6, 0, 0]} />
-                        <Bar dataKey="Tempo Médio (Dias)" fill="#F39A32" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="Tempo Médio (Dias)" fill="#fdb913" radius={[6, 6, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

@@ -46,7 +46,7 @@ export default function NoticiasPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#F6F9FC]">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Notícias e Comunicados"
                 subtitle="Acompanhe as ações, obras, editais e investimentos realizados pela Prefeitura Municipal de São Tomé."
@@ -61,17 +61,17 @@ export default function NoticiasPage() {
             <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24">
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-24">
-                        <div className="w-10 h-10 border-3 border-primary-600 border-t-transparent rounded-full animate-spin mb-4" />
+                        <div className="w-10 h-10 border-3 border-[#01b0ef] border-t-transparent rounded-full animate-spin mb-4" />
                         <p className="text-slate-600 font-semibold text-sm">
                             Carregando publicações...
                         </p>
                     </div>
                 ) : noticias.length === 0 ? (
                     <div className="text-center py-20 bg-white rounded-3xl shadow-civic-sm border border-slate-200/80">
-                        <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+                        <div className="w-14 h-14 rounded-2xl bg-[#01b0ef]/10 text-[#01b0ef] flex items-center justify-center mx-auto mb-4">
                             <Newspaper size={26} />
                         </div>
-                        <h2 className="font-heading text-xl font-bold text-[#071E3D] mb-1">
+                        <h2 className="font-heading text-xl font-bold text-slate-900 mb-1">
                             Nenhuma notícia publicada no momento
                         </h2>
                         <p className="text-slate-500 text-sm">
@@ -83,11 +83,11 @@ export default function NoticiasPage() {
                         {noticias.map((n) => (
                             <article
                                 key={n.id}
-                                className="bg-white rounded-2xl shadow-civic-sm hover:shadow-civic-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200/80 hover:border-primary-300 overflow-hidden flex flex-col group"
+                                className="bg-white rounded-2xl shadow-civic-sm hover:shadow-civic-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200/80 hover:border-[#01b0ef] overflow-hidden flex flex-col group"
                             >
                                 <Link
                                     href={`/noticias/${n.slug}`}
-                                    className="block overflow-hidden h-52 relative bg-slate-100"
+                                    className="block overflow-hidden h-52 relative bg-[#eefaff]"
                                 >
                                     {n.imagem ? (
                                         <img
@@ -96,12 +96,12 @@ export default function NoticiasPage() {
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     ) : (
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#071E3D] via-primary-900 to-primary-700 flex items-center justify-center">
-                                            <Newspaper className="text-white/20" size={48} />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#01b0ef] to-[#0098d4] flex items-center justify-center">
+                                            <Newspaper className="text-white/40" size={48} />
                                         </div>
                                     )}
                                     <div className="absolute top-4 left-4">
-                                        <span className="bg-secondary-500 text-[#071E3D] text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">
+                                        <span className="bg-[#fdb913] text-slate-900 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-sm">
                                             {n.secretaria?.nome || "Comunicado Oficial"}
                                         </span>
                                     </div>
@@ -109,13 +109,13 @@ export default function NoticiasPage() {
 
                                 <div className="p-6 flex flex-col flex-1">
                                     <div className="flex items-center gap-2 text-slate-500 text-xs font-mono mb-3">
-                                        <Calendar size={13} className="text-primary-600" />
+                                        <Calendar size={13} className="text-[#01b0ef]" />
                                         <time dateTime={n.publicadoEm}>
                                             {formatarData(n.publicadoEm)}
                                         </time>
                                     </div>
 
-                                    <h2 className="font-heading font-bold text-[#071E3D] text-lg leading-snug mb-2.5 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                                    <h2 className="font-heading font-bold text-slate-900 text-lg leading-snug mb-2.5 line-clamp-2 group-hover:text-[#01b0ef] transition-colors">
                                         <Link href={`/noticias/${n.slug}`}>{n.titulo}</Link>
                                     </h2>
 
@@ -126,7 +126,7 @@ export default function NoticiasPage() {
                                     <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                                         <Link
                                             href={`/noticias/${n.slug}`}
-                                            className="inline-flex items-center gap-1.5 text-primary-600 font-bold text-xs group-hover:gap-2.5 transition-all"
+                                            className="inline-flex items-center gap-1.5 text-[#01b0ef] font-bold text-xs group-hover:gap-2.5 transition-all"
                                         >
                                             <span>Ler matéria completa</span>
                                             <ArrowRight size={14} />
