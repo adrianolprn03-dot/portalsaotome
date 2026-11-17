@@ -61,6 +61,8 @@ import {
     FileCheck,
     X,
     ArrowUpRight,
+    ChevronLeft,
+    ChevronRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef, useMemo } from "react";
@@ -70,6 +72,7 @@ import { MUNICIPIO } from "@/config/municipio";
 const categoriasDeModulos = [
     {
         tituloCategoria: "Execução Orçamentária e Financeira",
+        shortLabel: "Finanças & Orçamento",
         fundamentacaoLegal:
             "Lei Federal nº 12.527/2011 • Lei Complementar nº 131/2009 (Transparência da Gestão Fiscal)",
         icon: Coins,
@@ -89,6 +92,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Licitações, Contratos e Obras",
+        shortLabel: "Licitações & Obras",
         fundamentacaoLegal:
             "Lei Federal nº 14.133/2021 (Nova Lei de Licitações) • Lei Federal nº 8.666/1993",
         icon: Gavel,
@@ -108,6 +112,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Atendimento ao Cidadão & Ouvidoria",
+        shortLabel: "Cidadão & Ouvidoria",
         fundamentacaoLegal:
             "Lei Federal nº 12.527/2011 (LAI) • Lei Federal nº 13.460/2017 (Carta de Serviços)",
         icon: Headset,
@@ -128,6 +133,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Gestão de Pessoal e Diárias",
+        shortLabel: "Servidores & Diárias",
         fundamentacaoLegal:
             "Lei Federal nº 12.527/2011 • Quadro Funcional, Remunerações e Concessão de Diárias",
         icon: Users,
@@ -145,6 +151,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Transparência Fiscal e Contas Públicas",
+        shortLabel: "Contas & LRF",
         fundamentacaoLegal:
             "Lei Complementar nº 101/2000 (Lei de Responsabilidade Fiscal - LRF)",
         icon: Landmark,
@@ -163,6 +170,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Saúde Pública e Educação",
+        shortLabel: "Saúde & Educação",
         fundamentacaoLegal:
             "Transparência Finalística da Saúde Municipal (SUS) e da Educação Básica",
         icon: HeartPulse,
@@ -183,6 +191,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Informações Institucionais e Governança",
+        shortLabel: "Institucional",
         fundamentacaoLegal:
             "Lei Federal nº 12.527/2011 • Estrutura Administrativa, Gestores e Governo Digital",
         icon: Building2,
@@ -201,6 +210,7 @@ const categoriasDeModulos = [
     },
     {
         tituloCategoria: "Legislação, Atos Oficiais e Privacidade",
+        shortLabel: "Leis & LGPD",
         fundamentacaoLegal:
             "Atos Normativos Municipais, Legislação Vigente, LGPD (Lei 13.709/2018) e Integridade Pública",
         icon: Scale,
@@ -223,8 +233,60 @@ export default function TransparenciaPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string>("TODAS");
     const [selectedCriterio, setSelectedCriterio] = useState<string>("TODOS");
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
     const modulesGridRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const tabsRailRef = useRef<HTMLDivElement>(null);
+
+    const updateScrollButtons = () => {
+        const el = tabsRailRef.current;
+        if (!el) return;
+        const { scrollLeft, scrollWidth, clientWidth } = el;
+        setCanScrollLeft(scrollLeft > 4);
+        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+    };
+
+    useEffect(() => {
+        updateScrollButtons();
+        const timer = setTimeout(updateScrollButtons, 150);
+        const el = tabsRailRef.current;
+        window.addEventListener("resize", updateScrollButtons);
+        if (!el) {
+            return () => {
+                clearTimeout(timer);
+                window.removeEventListener("resize", updateScrollButtons);
+            };
+        }
+        const ro = new ResizeObserver(() => updateScrollButtons());
+        ro.observe(el);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener("resize", updateScrollButtons);
+            ro.disconnect();
+        };
+    }, []);
+
+    const scrollTabs = (direction: "left" | "right") => {
+        const el = tabsRailRef.current;
+        if (!el) return;
+        const offset = Math.max(220, el.clientWidth * 0.55);
+        el.scrollBy({
+            left: direction === "left" ? -offset : offset,
+            behavior: "smooth",
+        });
+    };
+
+    const handleSelectCategory = (catValue: string, buttonEl?: HTMLButtonElement | null) => {
+        setSelectedCategory(catValue);
+        if (buttonEl) {
+            buttonEl.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest",
+            });
+        }
+    };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -322,7 +384,7 @@ export default function TransparenciaPage() {
                     part.toLowerCase() === cleanSearch.toLowerCase() ? (
                         <mark
                             key={i}
-                            className="bg-amber-100 text-amber-900 font-bold px-1 py-0.5 rounded transition-all"
+                            className="bg-[#fff4d4] text-slate-900 font-bold px-1 py-0.5 rounded transition-all"
                         >
                             {part}
                         </mark>
@@ -461,11 +523,12 @@ export default function TransparenciaPage() {
                             ].map((crit) => (
                                 <button
                                     key={crit.id}
+                                    type="button"
                                     onClick={() => setSelectedCriterio(crit.id)}
-                                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
                                         selectedCriterio === crit.id
                                             ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "bg-[#f4fbff] hover:bg-slate-200/70 text-slate-600"
+                                            : "bg-[#f4fbff] hover:bg-slate-200/70 text-slate-700"
                                     }`}
                                 >
                                     {crit.label}
@@ -491,55 +554,115 @@ export default function TransparenciaPage() {
                         </div>
                     </div>
 
-                    {/* Navegação Rápida por Categorias */}
-                    <div className="pt-3 border-t border-[#e2e8f0] flex flex-wrap items-center gap-2 py-0.5">
+                    {/* Navegação Rápida por Áreas em Linha Única Rolável */}
+                    <div className="pt-3 border-t border-[#e2e8f0] flex items-center gap-2">
                         <button
-                            onClick={() => setSelectedCategory("TODAS")}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
-                                selectedCategory === "TODAS"
-                                    ? "bg-[#01b0ef] text-white shadow-sm"
-                                    : "bg-[#f4fbff] hover:bg-slate-100 text-slate-900 border border-[#e2e8f0]"
+                            type="button"
+                            onClick={() => scrollTabs("left")}
+                            disabled={!canScrollLeft}
+                            aria-label="Rolar áreas temáticas para a esquerda"
+                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
+                                canScrollLeft
+                                    ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
+                                    : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
                             }`}
                         >
-                            <span>Todas as Áreas</span>
-                            <span
-                                className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                                    selectedCategory === "TODAS"
-                                        ? "bg-[#fdb913] text-slate-900"
-                                        : "bg-slate-200 text-slate-700"
-                                }`}
-                            >
-                                {countTotalModulos}
-                            </span>
+                            <ChevronLeft size={16} />
                         </button>
 
-                        {categoriasDeModulos.map((cat) => {
-                            const isSelected = selectedCategory === cat.tituloCategoria;
-                            const CatIcon = cat.icon;
-                            return (
+                        <div className="relative flex-1 min-w-0">
+                            {canScrollLeft && (
+                                <div
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10"
+                                />
+                            )}
+                            {canScrollRight && (
+                                <div
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10"
+                                />
+                            )}
+
+                            <div
+                                ref={tabsRailRef}
+                                onScroll={updateScrollButtons}
+                                role="tablist"
+                                aria-label="Áreas temáticas da transparência"
+                                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-0.5 px-0.5"
+                            >
                                 <button
-                                    key={cat.tituloCategoria}
-                                    onClick={() => setSelectedCategory(cat.tituloCategoria)}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
-                                        isSelected
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={selectedCategory === "TODAS"}
+                                    onClick={(e) => handleSelectCategory("TODAS", e.currentTarget)}
+                                    className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
+                                        selectedCategory === "TODAS"
                                             ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "bg-[#f4fbff] hover:bg-slate-100 text-slate-900 border border-[#e2e8f0]"
+                                            : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
                                     }`}
                                 >
-                                    <CatIcon size={14} className="shrink-0" />
-                                    <span>{cat.tituloCategoria}</span>
+                                    <span>Todas</span>
                                     <span
-                                        className={`text-[10px] px-2 py-0.5 rounded-full ${
-                                            isSelected
+                                        className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
+                                            selectedCategory === "TODAS"
                                                 ? "bg-[#fdb913] text-slate-900"
-                                                : "bg-slate-200 text-slate-700"
+                                                : "bg-white text-slate-700 border border-sky-100"
                                         }`}
                                     >
-                                        {cat.modulos.length}
+                                        {countTotalModulos}
                                     </span>
                                 </button>
-                            );
-                        })}
+
+                                {categoriasDeModulos.map((cat) => {
+                                    const isSelected = selectedCategory === cat.tituloCategoria;
+                                    const CatIcon = cat.icon;
+                                    return (
+                                        <button
+                                            key={cat.tituloCategoria}
+                                            type="button"
+                                            role="tab"
+                                            aria-selected={isSelected}
+                                            title={cat.tituloCategoria}
+                                            onClick={(e) =>
+                                                handleSelectCategory(cat.tituloCategoria, e.currentTarget)
+                                            }
+                                            className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
+                                                isSelected
+                                                    ? "bg-[#01b0ef] text-white shadow-sm"
+                                                    : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
+                                            }`}
+                                        >
+                                            <CatIcon size={14} className="shrink-0" />
+                                            <span>{cat.shortLabel}</span>
+                                            <span
+                                                className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
+                                                    isSelected
+                                                        ? "bg-[#fdb913] text-slate-900"
+                                                        : "bg-white text-slate-700 border border-sky-100"
+                                                }`}
+                                            >
+                                                {cat.modulos.length}
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => scrollTabs("right")}
+                            disabled={!canScrollRight}
+                            aria-label="Rolar áreas temáticas para a direita"
+                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
+                                canScrollRight
+                                    ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
+                                    : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
+                            }`}
+                        >
+                            <ChevronRight size={16} />
+                        </button>
                     </div>
 
                     {/* Feedback quando algum filtro estiver ativo */}
@@ -558,7 +681,7 @@ export default function TransparenciaPage() {
                                     </span>
                                 )}
                                 {searchTerm && (
-                                    <span className="bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1 rounded-full font-bold">
+                                    <span className="bg-[#fff4d4] border border-[#fdb913]/40 text-slate-900 px-3 py-1 rounded-full font-bold">
                                         Busca: &quot;{searchTerm}&quot;
                                     </span>
                                 )}

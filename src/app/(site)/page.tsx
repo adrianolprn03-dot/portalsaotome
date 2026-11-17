@@ -4,7 +4,6 @@ import HeroSection from "@/components/home/HeroSection";
 import ServicosRapidos from "@/components/home/ServicosRapidos";
 import AcessoRapido from "@/components/home/AcessoRapido";
 import UltimasNoticias from "@/components/home/UltimasNoticias";
-import AgendaSection from "@/components/home/AgendaSection";
 import SecretariasSlider from "@/components/home/SecretariasSlider";
 import UnidadesAtendimento from "@/components/home/UnidadesAtendimento";
 import RadarTransparencia from "@/components/home/RadarTransparencia";
@@ -28,7 +27,6 @@ export default function Home() {
             <HeroSection />
             <ServicosRapidos />
             <UltimasNoticias />
-            <AgendaSection />
             <AcessoRapido />
             <UnidadesAtendimento />
             <VideoHero />
