@@ -117,9 +117,9 @@ export default function HeroSection() {
             <div className="relative z-10 max-w-[1320px] mx-auto px-5 sm:px-8 py-10 sm:py-12 lg:py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                     {/* Left Column: Monumental Typography, Search Command & Dual CTAs (6 cols) */}
-                    <div className="lg:col-span-6 space-y-6 sm:space-y-7 max-w-[540px]">
+                    <div className="lg:col-span-6 min-w-0 w-full space-y-6 sm:space-y-7 max-w-[540px]">
                         {/* Headline (Direct Authority, Clean Line Rhythm, Zero Overlap) */}
-                        <h1 className="font-heading text-[28px] sm:text-[38px] lg:text-[36px] xl:text-[42px] font-extrabold text-slate-900 tracking-[-0.025em] leading-[1.22]">
+                        <h1 className="font-heading text-[26px] sm:text-[38px] lg:text-[36px] xl:text-[42px] font-extrabold text-slate-900 tracking-[-0.025em] leading-[1.22]">
                             <span className="block mb-1">
                                 <span className="relative z-0 inline-block text-[#01b0ef] pb-1.5">
                                     São Tomé
@@ -145,7 +145,7 @@ export default function HeroSection() {
                                 Pesquisar no Portal da Transparência
                             </label>
                             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white rounded-2xl p-1.5 shadow-civic-lg border-2 border-[#01b0ef]/25 focus-within:border-[#01b0ef] transition-colors">
-                                <div className="flex items-center flex-1 pl-3">
+                                <div className="flex items-center flex-1 min-w-0 pl-3">
                                     <Search size={19} className="text-[#01b0ef] shrink-0 mr-2.5" aria-hidden="true" />
                                     <input
                                         id="hero-portal-search"
@@ -153,7 +153,7 @@ export default function HeroSection() {
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         placeholder="Buscar licitações, folha, diárias, leis..."
-                                        className="w-full py-2.5 pr-2 text-sm sm:text-[15px] font-medium text-slate-900 placeholder:text-slate-500 bg-transparent outline-none"
+                                        className="w-full min-w-0 py-2.5 pr-2 text-sm sm:text-[15px] font-medium text-slate-900 placeholder:text-slate-500 bg-transparent outline-none"
                                     />
                                 </div>
                                 <button
@@ -186,7 +186,7 @@ export default function HeroSection() {
                     </div>
 
                     {/* Right Column: Widescreen Architectural Cinema Stage (6 cols — 100% Unobstructed Video) */}
-                    <div className="lg:col-span-6">
+                    <div className="lg:col-span-6 min-w-0 w-full">
                         <div className="relative bg-white rounded-[1.75rem] p-2 sm:p-3 border border-[#01b0ef]/25 shadow-civic-xl">
                             {/* Geometric Brand Registration Corner Accent */}
                             <div
