@@ -5,6 +5,7 @@ import { Info, FileText, GraduationCap, Briefcase, UserCheck, UserPlus, Building
 import { FaInfoCircle, FaSpinner } from "react-icons/fa";
 import Link from "next/link";
 import TransparencyFilters from "@/components/transparencia/TransparencyFilters";
+import DeclaracaoInexistenciaCard from "@/components/transparencia/DeclaracaoInexistenciaCard";
 import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 
 type Terceirizado = {
@@ -29,7 +30,7 @@ export default function TerceirizadosPage() {
     const fetchTerceirizados = async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({ 
+            const query = new URLSearchParams({
                 query: busca,
                 ano,
                 mes,
@@ -133,18 +134,36 @@ export default function TerceirizadosPage() {
                         <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Carregando dados...</p>
                     </div>
                 ) : terceirizados.length === 0 ? (
-                    <div className="bg-red-50 border-l-8 border-red-500 rounded-r-3xl p-8 flex flex-col md:flex-row items-center justify-center md:justify-start gap-6 shadow-xl shadow-red-500/10 transition-all hover:bg-red-100">
-                        <FaInfoCircle className="text-red-500 text-5xl shrink-0 drop-shadow-md" />
-                        <div className="text-center md:text-left">
-                            <h3 className="text-red-900 font-black text-xl uppercase tracking-tight mb-2">Comunicação Oficial</h3>
-                            <p className="text-red-700 font-bold text-lg md:text-xl">
-                                {busca || mes !== "" 
-                                    ? "Nenhum terceirizado encontrado para os filtros aplicados."
-                                    : `A Prefeitura Municipal de São Tomé informa que NÃO POSSUÍMOS PESSOAL TERCEIRIZADO em nosso quadro de colaboradores para o período selecionado (${mes ? mes + '/' : ''}${ano}).`
-                                }
-                            </p>
+                    busca || mes !== "" || status !== "" ? (
+                        <div className="bg-white border border-[#bae6fd] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                            <div className="flex items-center gap-4">
+                                <FaInfoCircle className="text-[#01b0ef] text-3xl shrink-0" />
+                                <div>
+                                    <h3 className="text-slate-900 font-black text-base uppercase tracking-tight">
+                                        Nenhum registro encontrado para os filtros aplicados
+                                    </h3>
+                                    <p className="text-slate-600 text-sm">
+                                        Limpe os filtros para visualizar todos os registros ou a declaração oficial do período.
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handleClearFilters}
+                                className="px-4 py-2 rounded-xl bg-[#01b0ef] hover:bg-[#0098d4] text-white text-xs font-bold shrink-0 cursor-pointer"
+                            >
+                                Limpar Filtros
+                            </button>
                         </div>
-                    </div>
+                    ) : (
+                        <DeclaracaoInexistenciaCard
+                            modulo="terceirizados"
+                            criterioPntp="6.6"
+                            exercicio={ano}
+                            tituloFallback="Inexistência de Pessoal Terceirizado"
+                            textoFallback={`A Prefeitura Municipal de São Tomé/RN (CNPJ 08.080.210/0001-49) declara formalmente, em cumprimento ao Critério 6.6 do PNTP 2026, que não possui pessoal terceirizado com alocação contínua de mão de obra vinculado à Administração Pública Municipal no exercício de ${ano}.`}
+                        />
+                    )
                 ) : (
                     <div className="bg-white rounded-[2rem] shadow-2xl shadow-blue-500/5 border border-slate-100 overflow-hidden">
                         <div className="p-8 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
@@ -188,9 +207,8 @@ export default function TerceirizadosPage() {
                                                 </div>
                                             </td>
                                             <td className="px-8 py-6 text-center">
-                                                <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm ${
-                                                    t.status === 'ativo' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
-                                                }`}>
+                                                <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm ${t.status === 'ativo' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                                                    }`}>
                                                     {t.status}
                                                 </span>
                                             </td>
@@ -227,14 +245,14 @@ export default function TerceirizadosPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-6">
-                            <Link 
-                                href="/transparencia/contratos" 
+                            <Link
+                                href="/transparencia/contratos"
                                 className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <FileText size={16} /> Consultar Contratos
                             </Link>
-                            <a 
-                                href="/transparencia" 
+                            <a
+                                href="/transparencia"
                                 className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 Voltar ao Portal

@@ -1,13 +1,44 @@
 import PageHeader from "@/components/PageHeader";
-import { Scale, Info, AlertCircle, ExternalLink, ShieldCheck, Calendar } from "lucide-react";
+import DeclaracaoInexistenciaCard, {
+    type DeclaracaoPublica,
+} from "@/components/transparencia/DeclaracaoInexistenciaCard";
+import { prisma } from "@/lib/prisma";
+import { resolverFiltroModuloDeclaracao } from "@/lib/declaracoes-catalogo";
+import { Scale, Info, AlertCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
     title: "Dívida Ativa | Portal da Transparência",
     description: "Informações sobre a Dívida Ativa do Município de São Tomé/RN, em conformidade com o PNTP 2026.",
 };
 
-export default function DividaAtivaPage() {
+export default async function DividaAtivaPage() {
+    let declaracaoInicial: DeclaracaoPublica | null = null;
+    try {
+        const { aliases, criterioEfetivo } = resolverFiltroModuloDeclaracao("divida_ativa", "3.2");
+        const found = await prisma.declaracaoTransparencia.findFirst({
+            where: {
+                ativa: true,
+                OR: [
+                    { modulo: { in: aliases } },
+                    ...(criterioEfetivo ? [{ criterioPntp: criterioEfetivo }] : []),
+                ],
+            },
+            orderBy: [{ exercicio: "desc" }, { dataEmissao: "desc" }],
+        });
+        if (found) {
+            declaracaoInicial = {
+                ...found,
+                dataEmissao: found.dataEmissao.toISOString(),
+                dataConferencia: found.dataConferencia.toISOString(),
+            };
+        }
+    } catch {
+        declaracaoInicial = null;
+    }
+
     return (
         <div className="bg-[#f8fafc] min-h-screen">
             <PageHeader
@@ -22,41 +53,15 @@ export default function DividaAtivaPage() {
                 ]}
             />
 
-            <div className="max-w-5xl mx-auto px-6 py-16">
+            <div className="max-w-5xl mx-auto px-6 py-16 space-y-12">
                 {/* Declaração Oficial de Inexistência de Inscritos em Dívida Ativa - PNTP 2026 */}
-                <div className="bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-b-4 border-[#fdb913] rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-[#01b0ef]/20 text-white relative overflow-hidden mb-12">
-                    <div className="absolute top-0 right-0 p-8 opacity-15 pointer-events-none">
-                        <ShieldCheck size={280} className="text-white" />
-                    </div>
-                    
-                    <div className="relative z-10">
-                        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#fdb913] text-slate-900 text-xs font-black uppercase tracking-widest shadow-sm">
-                                <ShieldCheck size={16} />
-                                Declaração Oficial • PNTP 2026
-                            </div>
-                            <span className="text-xs font-bold text-slate-900 flex items-center gap-2 bg-white/95 px-3.5 py-1.5 rounded-full shadow-xs">
-                                <Calendar size={14} className="text-[#01b0ef]" />
-                                Última atualização: 14 de agosto de 2026.
-                            </span>
-                        </div>
-
-                        <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase mb-6">
-                            Inexistência de inscritos em dívida ativa
-                        </h2>
-
-                        <div className="bg-white/95 rounded-2xl p-6 md:p-8 border border-white shadow-inner">
-                            <p className="text-slate-800 font-medium text-base md:text-lg leading-relaxed">
-                                O Município de São Tomé/RN informa que, após consulta aos registros tributários, contábeis e administrativos, não foram identificadas pessoas físicas ou jurídicas com débitos inscritos em dívida ativa municipal, tributária ou não tributária, nos exercícios de 2024, 2025 e 2026, até a presente data. Caso ocorram futuras inscrições, as informações serão publicadas nesta página conforme as diretrizes do PNTP 2026.
-                            </p>
-                        </div>
-
-                        <div className="mt-6 flex items-center justify-between text-xs text-white/95 font-semibold tracking-wide">
-                            <span>Prefeitura Municipal de São Tomé / RN</span>
-                            <span>Matriz PNTP 2026</span>
-                        </div>
-                    </div>
-                </div>
+                <DeclaracaoInexistenciaCard
+                    modulo="divida_ativa"
+                    criterioPntp="3.2"
+                    declaracaoInicial={declaracaoInicial}
+                    tituloFallback="Inexistência de Inscritos em Dívida Ativa"
+                    textoFallback="O Município de São Tomé/RN informa que, após consulta aos registros tributários, contábeis e administrativos, não foram identificadas pessoas físicas ou jurídicas com débitos inscritos em dívida ativa municipal, tributária ou não tributária, nos exercícios de 2024, 2025 e 2026, até a presente data. Caso ocorram futuras inscrições, as informações serão publicadas nesta página conforme as diretrizes do PNTP 2026."
+                />
 
                 <div className="bg-white rounded-[2rem] p-12 shadow-xl border border-sky-100 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">

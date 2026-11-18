@@ -153,6 +153,7 @@ export const ADMIN_ROUTE_RULES: readonly AdminRouteRule[] = [
     { prefix: "/admin/configuracoes", roles: ["admin"] },
 
     // Governança, PNTP e Integrações
+    { prefix: "/admin/declaracoes", roles: ["admin", "controladoria", "financas", "rh", "obras", "saude", "educacao", "esic", "comunicacao", "integracao", "editor"] },
     { prefix: "/admin/pntp", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
     { prefix: "/admin/historico", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
     { prefix: "/admin/importacao", roles: ["admin", "controladoria", "integracao"] },
