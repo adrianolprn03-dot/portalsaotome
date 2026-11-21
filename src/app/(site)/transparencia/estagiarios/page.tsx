@@ -30,7 +30,7 @@ export default function EstagiariosPage() {
     const fetchEstagiarios = async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({ 
+            const query = new URLSearchParams({
                 query: busca,
                 ano,
                 mes,
@@ -68,7 +68,7 @@ export default function EstagiariosPage() {
             "Status": e.status
         }));
 
-        const filename = `estagiarios_lajes_pintadas`;
+        const filename = `estagiarios_saotome`;
         const title = `Relatório de Estagiários – Município de São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -199,7 +199,7 @@ export default function EstagiariosPage() {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="text-sm font-medium text-slate-500">
-                                                    {new Date(e.dataInicio).toLocaleDateString('pt-BR')} 
+                                                    {new Date(e.dataInicio).toLocaleDateString('pt-BR')}
                                                     {e.dataFim ? ` — ${new Date(e.dataFim).toLocaleDateString('pt-BR')}` : " (Vigente)"}
                                                 </div>
                                             </td>
@@ -248,14 +248,14 @@ export default function EstagiariosPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-6">
-                            <Link 
-                                href="/contato" 
+                            <Link
+                                href="/contato"
                                 className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95 flex items-center justify-center gap-2"
                             >
                                 Solicitar via E-SIC
                             </Link>
-                            <a 
-                                href="/transparencia" 
+                            <a
+                                href="/transparencia"
                                 className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 Voltar ao Portal

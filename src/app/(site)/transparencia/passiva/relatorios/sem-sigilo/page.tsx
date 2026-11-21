@@ -129,7 +129,7 @@ export default function SICRelatoriosDesclassificadosPage() {
                       },
                   ];
 
-        const filename = `rol_informacoes_desclassificadas_12meses_lajes_pintadas`;
+        const filename = `rol_informacoes_desclassificadas_12meses_saotome`;
         const title = `Informações Desclassificadas nos Últimos 12 Meses (Art. 30, I da LAI) – São Tomé/RN`;
         const meta = {
             titulo: title,
@@ -165,7 +165,7 @@ export default function SICRelatoriosDesclassificadosPage() {
         ];
         exportToPDF(
             payload,
-            "declaracao_desclassificadas_12meses_lajes_pintadas",
+            "declaracao_desclassificadas_12meses_saotome",
             "Declaração Oficial - Informações Desclassificadas (Últimos 12 Meses)",
             {
                 titulo:

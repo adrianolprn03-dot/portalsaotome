@@ -231,7 +231,7 @@ export default function RelatorioAnualEsicClient({
             "Recursos Respondidos": s.recursos.respondidos ?? s.recursos.deferidos ?? 0,
         }));
 
-        const filename = `relatorio_estatistico_anual_esic_lajes_pintadas`;
+        const filename = `relatorio_estatistico_anual_esic_saotome`;
         const title = `Relatório Estatístico Anual do e-SIC (LAI) – São Tomé/RN`;
         const meta = {
             titulo: title,

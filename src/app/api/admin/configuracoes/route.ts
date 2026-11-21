@@ -36,13 +36,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Formato inválido" }, { status: 400 });
         }
 
-        const updates = configs.map((c: any) => 
-            prisma.configuracao.upsert({
+        const updates = configs.map((c: any) => {
+            const rawVal = typeof c.valor === "string" ? c.valor.trim() : String(c.valor ?? "");
+            // Impede salvar placeholders "#" em canais oficiais ou links
+            const cleanVal = rawVal === "#" || rawVal === "http://#" || rawVal === "https://#" ? "" : rawVal;
+            return prisma.configuracao.upsert({
                 where: { chave: c.chave },
-                update: { valor: c.valor },
-                create: { chave: c.chave, valor: c.valor }
-            })
-        );
+                update: { valor: cleanVal },
+                create: { chave: c.chave, valor: cleanVal },
+            });
+        });
 
         await Promise.all(updates);
 

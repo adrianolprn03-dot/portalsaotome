@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
+import { isValidPublicUrl, sanitizeDiarioOficialUrl } from "@/lib/portal-links";
 
 const db = prisma as any;
 
@@ -14,20 +15,35 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     try {
         const { id } = params;
         const body = await req.json();
+
+        if (body.url !== undefined && !isValidPublicUrl(body.url)) {
+            return jsonNoStore(
+                { error: "Informe uma URL pública válida (links vazios ou '#' não são permitidos)." },
+                { status: 400 }
+            );
+        }
+
+        const sanitizedUrl = body.url !== undefined ? sanitizeDiarioOficialUrl(body.url) : undefined;
+
         const data = await db.linkExterno.update({
             where: { id },
             data: {
                 titulo: body.titulo,
-                url: body.url,
+                url: sanitizedUrl,
                 descricao: body.descricao,
                 categoria: body.categoria,
                 icone: body.icone,
                 ativo: body.ativo,
-                ordem: body.ordem,
+                ordem: body.ordem !== undefined ? Number(body.ordem) || 0 : undefined,
                 moduloAlvo: body.moduloAlvo,
             },
         });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
+        revalidatePaths([
+            ...REVALIDATE_GROUPS.institucional,
+            "/transparencia-2018-2022",
+            "/transparencia-2023-2025",
+            "/admin/links-externos",
+        ]);
         return jsonNoStore(data);
     } catch (err) {
         console.error("Erro ao atualizar link:", err);
@@ -41,7 +57,12 @@ export async function DELETE(_req: NextRequest, { params }: { params: { id: stri
 
     try {
         await db.linkExterno.delete({ where: { id: params.id } });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
+        revalidatePaths([
+            ...REVALIDATE_GROUPS.institucional,
+            "/transparencia-2018-2022",
+            "/transparencia-2023-2025",
+            "/admin/links-externos",
+        ]);
         return jsonNoStore({ ok: true });
     } catch (err) {
         console.error("Erro ao excluir link:", err);

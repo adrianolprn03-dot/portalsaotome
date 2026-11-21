@@ -1,189 +1,147 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import { FaBalanceScale, FaFileAlt, FaCheckCircle, FaExternalLinkAlt, FaCalendarAlt, FaShieldAlt } from "react-icons/fa";
-import { FaPlane, FaBuildingColumns } from "react-icons/fa6";
-import { HISTORICO_DIARIAS } from "@/lib/diarias-historico";
+import BannerPNTP from "@/components/transparencia/BannerPNTP";
+import {
+    FaGavel,
+    FaFilePdf,
+    FaExternalLinkAlt,
+    FaCheckCircle,
+    FaClipboardCheck,
+    FaTable,
+    FaRoute,
+    FaBalanceScale,
+} from "react-icons/fa";
+
+interface DocumentoRegulamentacao {
+    id: number;
+    titulo: string;
+    categoria?: string | null;
+    arquivoUrl?: string | null;
+    createdAt?: string;
+}
 
 export default function RegulamentacaoDiariasPage() {
+    const [docs, setDocs] = useState<DocumentoRegulamentacao[]>([]);
+
+    useEffect(() => {
+        fetch("/api/documentos?tipo=regulamentacao-diarias")
+            .then((r) => (r.ok ? r.json() : []))
+            .then((data) => {
+                const list = Array.isArray(data) ? data : data?.data || [];
+                setDocs(list);
+            })
+            .catch(() => setDocs([]));
+    }, []);
+
+    const docPrincipal = docs.find((d) => d.arquivoUrl) || null;
+
     return (
-        <div className="min-h-screen bg-[#f4fbff]">
+        <div className="min-h-screen bg-[#f8fafc] pb-20">
             <PageHeader
-                title="Regulamentação de Diárias"
-                subtitle="Atos normativos, leis ordinárias, decretos executivos e diretrizes legais para concessão de diárias no Município."
-                icon={<FaBalanceScale />}
+                title="Regulamentação da Concessão de Diárias"
+                subtitle="Normas, critérios legais, prestação de contas e ato normativo municipal que disciplina a concessão de diárias no Município de São Tomé/RN."
                 breadcrumbs={[
-                    { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
-                    { label: "Regulamentação de Diárias" }
+                    { label: "Diárias e Passagens", href: "/transparencia/diarias" },
+                    { label: "Regulamentação de Diárias" },
                 ]}
             />
 
-            {/* Sub-header de Navegação PNTP */}
-            <div className="bg-white border-b border-[#e2e8f0] py-3.5 px-4 sm:px-6 shadow-xs">
-                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-                    <div className="flex items-center gap-2 font-bold text-slate-900">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#fdb913]" />
-                        <span>Critério PNTP 2026 (ATRICON)</span>
-                        <span className="hidden sm:inline text-slate-600">· Legislação Municipal e Declarações Formais</span>
+            <div className="container mx-auto px-4 max-w-6xl -mt-8 relative z-20 space-y-8">
+                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div className="space-y-3 max-w-3xl">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#003da5] text-xs font-black uppercase tracking-wider">
+                            <FaGavel /> Ato Normativo Vigente • Decreto Municipal nº 005/2017
+                        </div>
+                        <h2 className="text-2xl font-black text-slate-900">
+                            {docPrincipal?.titulo ||
+                                "Decreto Municipal nº 005/2017 — Regulamentação e Tabela Oficial de Diárias"}
+                        </h2>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                            Disciplina a solicitação, autorização, pagamento e prestação de contas de diárias concedidas a agentes políticos e servidores públicos municipais em deslocamento a serviço fora da sede do Município de São Tomé/RN.
+                        </p>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    <div className="flex flex-wrap items-center gap-3 shrink-0">
+                        {docPrincipal?.arquivoUrl && (
+                            <a
+                                href={docPrincipal.arquivoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-[#003da5] hover:bg-[#002868] text-white text-xs font-black uppercase tracking-wider transition-all shadow-lg"
+                            >
+                                <FaFilePdf size={15} /> Baixar Decreto Oficial (PDF)
+                            </a>
+                        )}
                         <Link
                             href="/transparencia/tabela-diarias"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#01b0ef] text-white hover:bg-[#0098d4] rounded-lg font-bold transition-colors"
+                            className="inline-flex items-center gap-2 px-5 py-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black uppercase tracking-wider transition-all"
                         >
-                            <FaPlane size={11} />
-                            <span>Ver Tabela de Valores (2021-2026)</span>
+                            <FaTable size={13} /> Ver Tabela de Valores
                         </Link>
                     </div>
                 </div>
-            </div>
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-                
-                {/* 1. CARDS DE DESTAQUE INSTITUCIONAL */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#01b0ef] flex items-center justify-center font-bold mb-3">
-                            <FaBalanceScale size={18} />
+                    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-3">
+                        <div className="w-11 h-11 rounded-xl bg-blue-50 text-[#003da5] flex items-center justify-center">
+                            <FaCheckCircle size={20} />
                         </div>
-                        <h3 className="text-base font-black text-slate-900 mb-1">Norma Base Vigente</h3>
+                        <h3 className="font-black text-slate-900 text-base">
+                            1. Finalidade e Interesse Público
+                        </h3>
                         <p className="text-xs text-slate-600 leading-relaxed">
-                            Lei Municipal nº 315/2021 c/c Decretos Anuais de Atualização Orçamentária e Fixação de Valores.
+                            As diárias destinam-se exclusivamente a indenizar despesas extraordinárias com alimentação, hospedagem e locomoção urbana em viagens oficiais devidamente motivadas e autorizadas pelo ordenador de despesa.
                         </p>
                     </div>
 
-                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold mb-3">
-                            <FaCheckCircle size={18} />
+                    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-3">
+                        <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                            <FaClipboardCheck size={20} />
                         </div>
-                        <h3 className="text-base font-black text-slate-900 mb-1">Controle Social</h3>
+                        <h3 className="font-black text-slate-900 text-base">
+                            2. Prestação de Contas Obrigatória
+                        </h3>
                         <p className="text-xs text-slate-600 leading-relaxed">
-                            Publicação individualizada de cada portaria concessória e prestação de contas com comprovantes.
+                            No prazo regulamentar após o retorno, o beneficiário deve apresentar o Relatório Circunstanciado de Viagem acompanhado dos comprovantes de participação, certificados ou atestados de comparecimento.
                         </p>
                     </div>
 
-                    <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm">
-                        <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold mb-3">
-                            <FaShieldAlt size={18} />
+                    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-3">
+                        <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                            <FaBalanceScale size={20} />
                         </div>
-                        <h3 className="text-base font-black text-slate-900 mb-1">Diárias Internacionais</h3>
+                        <h3 className="font-black text-slate-900 text-base">
+                            3. Transparência e Controle (PNTP)
+                        </h3>
                         <p className="text-xs text-slate-600 leading-relaxed">
-                            Inexistência formal de regulamentação e declaração anual de não ocorrência para viagens ao exterior.
+                            Todas as portarias e concessões de diárias são publicadas nominalmente com cargo, destino, período, motivo, quantidade e valor concedido no Portal da Transparência.
                         </p>
                     </div>
                 </div>
 
-                {/* 2. REGRAS DE CONCESSÃO EM DESTAQUE */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 sm:p-8 shadow-sm space-y-6">
-                    <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-[#01b0ef] block mb-1">
-                            Diretrizes Regimentais
-                        </span>
-                        <h2 className="text-xl font-black text-slate-900">
-                            Regras e Condições para a Concessão de Diárias
-                        </h2>
+                <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+                            <FaRoute className="text-[#003da5]" /> Consulta de Diárias Concedidas
+                        </h3>
+                        <p className="text-xs md:text-sm text-slate-600">
+                            Acesse a relação completa de diárias pagas por exercício (2023 a 2026) com as respectivas portarias em PDF.
+                        </p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-900">
-                        <div className="space-y-4">
-                            <div className="p-4 rounded-xl bg-[#f4fbff] border border-[#e2e8f0]">
-                                <h4 className="font-black text-[#01b0ef] mb-1">1. Finalidade Exclusiva</h4>
-                                <p className="text-slate-600 leading-relaxed">
-                                    O pagamento de diárias destina-se exclusivamente a indenizar o servidor pelas despesas extraordinárias com pousada, alimentação e locomoção urbana decorrentes de viagens a serviço da Administração Pública Municipal.
-                                </p>
-                            </div>
-                            <div className="p-4 rounded-xl bg-[#f4fbff] border border-[#e2e8f0]">
-                                <h4 className="font-black text-[#01b0ef] mb-1">2. Pernoite e Meia-Diária</h4>
-                                <p className="text-slate-600 leading-relaxed">
-                                    A diária é calculada por dia de afastamento. Quando o deslocamento não exigir pernoite fora da comarca, ou nos dias de retorno, a diária é concedida pela metade (50% do valor integral fixado em tabela).
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="p-4 rounded-xl bg-[#f4fbff] border border-[#e2e8f0]">
-                                <h4 className="font-black text-[#01b0ef] mb-1">3. Obrigação de Prestação de Contas</h4>
-                                <p className="text-slate-600 leading-relaxed">
-                                    O servidor beneficiário tem o dever legal de apresentar relatório detalhado de viagem, acompanhado dos comprovantes de participação e despesas correspondentes, perante a Controladoria no prazo de 5 (cinco) dias úteis.
-                                </p>
-                            </div>
-                            <div className="p-4 rounded-xl bg-[#f4fbff] border border-[#e2e8f0]">
-                                <h4 className="font-black text-[#01b0ef] mb-1">4. Publicidade e Transparência Ativa</h4>
-                                <p className="text-slate-600 leading-relaxed">
-                                    Todos os atos de concessão são publicados no portal com o nome do servidor, cargo, destino, motivo, período de afastamento, valor unitário, quantidade de dias e o valor total concedido.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <Link
+                        href="/transparencia/diarias"
+                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#003da5] hover:bg-[#002868] text-white text-xs font-black uppercase tracking-wider transition-all shrink-0"
+                    >
+                        Consultar Diárias Pagas <FaExternalLinkAlt size={11} />
+                    </Link>
                 </div>
 
-                {/* 3. HISTÓRICO DE ATOS NORMATIVOS (2021 A 2026) */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 sm:p-8 shadow-sm space-y-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div>
-                            <span className="text-[10px] font-black uppercase tracking-wider text-[#01b0ef] block mb-1">
-                                Série Histórica de Vigências
-                            </span>
-                            <h2 className="text-xl font-black text-slate-900">
-                                Atos Normativos Regulamentadores por Exercício
-                            </h2>
-                        </div>
-                        <Link
-                            href="/transparencia/legislacao?q=diarias"
-                            className="inline-flex items-center gap-2 text-xs font-bold text-[#01b0ef] hover:underline"
-                        >
-                            <span>Pesquisar na Legislação</span>
-                            <FaExternalLinkAlt size={10} />
-                        </Link>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {HISTORICO_DIARIAS.map((h) => (
-                            <div 
-                                key={h.ano} 
-                                className="p-5 rounded-2xl border border-[#e2e8f0] bg-[#F8FAFC] hover:bg-white transition-all space-y-3"
-                            >
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-black text-[#01b0ef] px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200">
-                                        Exercício {h.ano}
-                                    </span>
-                                    {h.vigente ? (
-                                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#fdb913] text-slate-900">
-                                            VIGENTE
-                                        </span>
-                                    ) : (
-                                        <span className="text-[10px] font-bold text-slate-600">Histórico</span>
-                                    )}
-                                </div>
-
-                                <h4 className="text-sm font-bold text-slate-900 leading-snug">
-                                    {h.normaLegal}
-                                </h4>
-
-                                <p className="text-[11px] text-slate-600 line-clamp-2">
-                                    {h.ementaNorma}
-                                </p>
-
-                                <div className="pt-2 border-t border-[#e2e8f0] flex items-center justify-between">
-                                    <span className="text-[10px] text-slate-600">
-                                        Publ: {h.dataPublicacaoNorma}
-                                    </span>
-                                    <Link
-                                        href={h.linkNorma}
-                                        className="text-xs font-bold text-[#01b0ef] hover:underline flex items-center gap-1"
-                                    >
-                                        <span>Consultar</span>
-                                        <FaExternalLinkAlt size={9} />
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-            </main>
+                <BannerPNTP />
+            </div>
         </div>
     );
 }

@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
         if (fileDMatch && fileDMatch[1]) {
             return NextResponse.redirect(`https://drive.google.com/file/d/${fileDMatch[1]}/preview`);
         }
-        
+
         const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
         if (idMatch && idMatch[1]) {
             return NextResponse.redirect(`https://drive.google.com/file/d/${idMatch[1]}/preview`);
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
 
         if (!isPdfOrImage && !isOctetStream) {
             console.warn(`Proxy interceptou tipo de conteúdo alternativo (${contentType}) para a URL: ${url}. Redirecionando iframe para a URL original.`);
-            
+
             // Em vez de mostrar a mensagem de erro ou uma tela intermediária, 
             // redirecionamos o iframe para a URL original. Se for uma página HTML (ex: Diário Oficial),
             // o navegador tentará renderizá-la dentro do iframe normalmente.

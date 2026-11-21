@@ -12,13 +12,15 @@ export default function EditarSecretariaPage() {
     const [saving, setSaving] = useState(false);
     const [form, setForm] = useState({
         nome: "",
+        resumoAtendimento: "",
         descricao: "",
         secretario: "",
         email: "",
         telefone: "",
+        horarioFuncionamento: "",
         endereco: "",
         imagem: "",
-        ativa: true
+        ativa: true,
     });
 
     useEffect(() => {
@@ -28,13 +30,15 @@ export default function EditarSecretariaPage() {
                 const data = await res.json();
                 setForm({
                     nome: data.nome || "",
+                    resumoAtendimento: data.resumoAtendimento || "",
                     descricao: data.descricao || "",
                     secretario: data.secretario || "",
                     email: data.email || "",
                     telefone: data.telefone || "",
+                    horarioFuncionamento: data.horarioFuncionamento || "",
                     endereco: data.endereco || "",
                     imagem: data.imagem || "",
-                    ativa: data.ativa ?? true
+                    ativa: data.ativa ?? true,
                 });
             } catch {
                 toast.error("Erro ao carregar secretaria");
@@ -57,6 +61,8 @@ export default function EditarSecretariaPage() {
             if (res.ok) {
                 toast.success("Secretaria atualizada!");
                 router.push("/admin/secretarias");
+            } else {
+                toast.error("Erro ao salvar");
             }
         } catch {
             toast.error("Erro ao salvar");
@@ -65,63 +71,160 @@ export default function EditarSecretariaPage() {
         }
     };
 
-    if (loading) return <div className="py-20 text-center"><FaSpinner className="animate-spin inline-block text-4xl text-primary-500" /></div>;
+    if (loading)
+        return (
+            <div className="py-20 text-center">
+                <FaSpinner className="animate-spin inline-block text-4xl text-primary-500" />
+            </div>
+        );
 
     return (
         <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex items-center justify-between">
-                <Link href="/admin/secretarias" className="flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors">
+                <Link
+                    href="/admin/secretarias"
+                    className="flex items-center gap-2 text-gray-500 hover:text-gray-800 transition-colors"
+                >
                     <FaArrowLeft /> Cancelar
                 </Link>
                 <h1 className="text-2xl font-bold text-gray-800">Editar Secretaria</h1>
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6"
+            >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Nome da Secretaria *</label>
-                        <input type="text" required className="input-field" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Nome da Secretaria *
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            className="input-field"
+                            value={form.nome}
+                            onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                        />
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Resumo Curto de Atendimento (Exibido no diretório da Página Inicial)
+                        </label>
+                        <input
+                            type="text"
+                            maxLength={160}
+                            placeholder="Ex: Atendimento da rede municipal do SUS, UBS, vacinação e farmácia básica."
+                            className="input-field"
+                            value={form.resumoAtendimento}
+                            onChange={(e) =>
+                                setForm({ ...form, resumoAtendimento: e.target.value })
+                            }
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                            Uma frase curta sobre o atendimento ao cidadão. Se deixado em branco, um resumo automático da área é utilizado.
+                        </p>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Secretário(a) Responsável</label>
-                        <input type="text" className="input-field" value={form.secretario} onChange={e => setForm({ ...form, secretario: e.target.value })} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Secretário(a) Responsável
+                        </label>
+                        <input
+                            type="text"
+                            className="input-field"
+                            value={form.secretario}
+                            onChange={(e) => setForm({ ...form, secretario: e.target.value })}
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">E-mail de Contato</label>
-                        <input type="email" className="input-field" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            E-mail de Contato
+                        </label>
+                        <input
+                            type="email"
+                            className="input-field"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Telefone</label>
-                        <input type="text" className="input-field" value={form.telefone} onChange={e => setForm({ ...form, telefone: e.target.value })} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Telefone
+                        </label>
+                        <input
+                            type="text"
+                            className="input-field"
+                            value={form.telefone}
+                            onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Status</label>
-                        <select className="input-field" value={form.ativa ? "true" : "false"} onChange={e => setForm({ ...form, ativa: e.target.value === "true" })}>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Horário de Funcionamento
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Ex: Segunda a Sexta, 07h às 13h"
+                            className="input-field"
+                            value={form.horarioFuncionamento}
+                            onChange={(e) =>
+                                setForm({ ...form, horarioFuncionamento: e.target.value })
+                            }
+                        />
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Endereço de Atendimento
+                        </label>
+                        <input
+                            type="text"
+                            className="input-field"
+                            value={form.endereco}
+                            onChange={(e) => setForm({ ...form, endereco: e.target.value })}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Status
+                        </label>
+                        <select
+                            className="input-field"
+                            value={form.ativa ? "true" : "false"}
+                            onChange={(e) =>
+                                setForm({ ...form, ativa: e.target.value === "true" })
+                            }
+                        >
                             <option value="true">Ativa</option>
                             <option value="false">Inativa</option>
                         </select>
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Endereço</label>
-                        <input type="text" className="input-field" value={form.endereco} onChange={e => setForm({ ...form, endereco: e.target.value })} />
-                    </div>
-
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Imagem / Logotipo da Secretaria</label>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Imagem / Logotipo da Secretaria
+                        </label>
                         <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                             {form.imagem && (
                                 <div className="w-20 h-20 rounded-xl overflow-hidden border border-gray-200 bg-white">
-                                    <img src={form.imagem} alt="Preview" className="w-full h-full object-cover" />
+                                    <img
+                                        src={form.imagem}
+                                        alt="Preview"
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
                             )}
                             <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl hover:border-primary-500 hover:text-primary-500 cursor-pointer transition-all bg-white">
                                 <FaFileUpload />
-                                <span className="text-sm font-semibold">{form.imagem ? "Alterar Imagem" : "Enviar Logotipo"}</span>
+                                <span className="text-sm font-semibold">
+                                    {form.imagem ? "Alterar Imagem" : "Enviar Logotipo"}
+                                </span>
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -132,7 +235,10 @@ export default function EditarSecretariaPage() {
                                             const formData = new FormData();
                                             formData.append("file", file);
                                             try {
-                                                const res = await fetch("/api/upload", { method: "POST", body: formData });
+                                                const res = await fetch("/api/upload", {
+                                                    method: "POST",
+                                                    body: formData,
+                                                });
                                                 const data = await res.json();
                                                 if (data.url) {
                                                     setForm({ ...form, imagem: data.url });
@@ -149,13 +255,24 @@ export default function EditarSecretariaPage() {
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Descrição / Competências</label>
-                        <textarea rows={4} className="input-field" value={form.descricao} onChange={e => setForm({ ...form, descricao: e.target.value })} />
+                        <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            Competências Administrativas Completas (Exibidas em seção própria na página interna)
+                        </label>
+                        <textarea
+                            rows={5}
+                            className="input-field"
+                            value={form.descricao}
+                            onChange={(e) => setForm({ ...form, descricao: e.target.value })}
+                        />
                     </div>
                 </div>
 
                 <div className="pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" disabled={saving} className="btn-primary flex items-center gap-2 px-8">
+                    <button
+                        type="submit"
+                        disabled={saving}
+                        className="btn-primary flex items-center gap-2 px-8"
+                    >
                         {saving ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         Salvar Alterações
                     </button>

@@ -67,6 +67,7 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef, useMemo } from "react";
 import SeletorPeriodos from "@/components/transparencia/SeletorPeriodos";
+import RadarTransparencia from "@/components/home/RadarTransparencia";
 import { MUNICIPIO } from "@/config/municipio";
 
 // Divisão das Áreas Temáticas Unificada em Azul (Principal) e Amarelo (Secundária)
@@ -77,10 +78,10 @@ const categoriasDeModulos = [
         fundamentacaoLegal:
             "Lei Federal nº 12.527/2011 • Lei Complementar nº 131/2009 (Transparência da Gestão Fiscal)",
         icon: Coins,
-        desc: "Execução de despesas, arrecadação de tributos em tempo real, fila cronológica de pagamentos e transferências financeiras.",
+        desc: "Execução de despesas, arrecadação de tributos, fila cronológica de pagamentos e transferências financeiras.",
         modulos: [
             { icon: Receipt, titulo: "Despesas Públicas", desc: "Detalhamento de empenhos, liquidações e ordens de pagamento municipais.", href: "/transparencia/despesas", badge: "GASTOS", tipoCriterio: "ESSENCIAL" },
-            { icon: Coins, titulo: "Receitas Públicas", desc: "Arrecadação municipal em tempo real, receitas tributárias e transferências.", href: "/transparencia/receitas", badge: "ARRECADAÇÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: Coins, titulo: "Receitas Públicas", desc: "Arrecadação municipal, receitas tributárias e transferências constitucionais.", href: "/transparencia/receitas", badge: "ARRECADAÇÃO", tipoCriterio: "ESSENCIAL" },
             { icon: ListOrdered, titulo: "Ordem Cronológica", desc: "Fila cronológica e execuções de pagamentos a credores e fornecedores.", href: "/transparencia/ordem-cronologica", badge: "TESOURARIA", tipoCriterio: "OBRIGATÓRIO" },
             { icon: Database, titulo: "Repasses e Transferências", desc: "Transferências voluntárias, repasses constitucionais e recursos federais.", href: "/transparencia/transferencias", badge: "RECURSOS", tipoCriterio: "ESSENCIAL" },
             { icon: Globe2, titulo: "Emendas Parlamentares", desc: "Acompanhamento de emendas destinadas ao município (estaduais e federais).", href: "/transparencia/emendas", badge: "EMENDAS", tipoCriterio: "OBRIGATÓRIO" },
@@ -851,6 +852,11 @@ export default function TransparenciaPage() {
                             </button>
                         </div>
                     )}
+                </div>
+
+                {/* Explicação PNTP, Radar da Transparência e Matriz de Conformidade */}
+                <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
+                    <RadarTransparencia />
                 </div>
             </div>
         </div>

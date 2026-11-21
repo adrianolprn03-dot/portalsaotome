@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
+import { parseEndOfDayFortaleza } from "@/lib/timezone";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
     try {
@@ -23,22 +24,49 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     if (!session) return jsonNoStore({ error: "Não autorizado" }, { status: 401 });
 
     try {
-        const body = await req.json();
+        const existing = await prisma.noticia.findUnique({
+            where: { id: params.id },
+            select: { publicadoEm: true },
+        });
+        if (!existing) {
+            return jsonNoStore({ error: "Publicação não encontrada" }, { status: 404 });
+        }
 
-        // Extrair apenas os campos que existem no schema do Prisma
-        const { titulo, resumo, conteudo, imagem, publicada, secretariaId, destaque, tags } = body;
+        const body = await req.json();
+        const {
+            titulo,
+            resumo,
+            conteudo,
+            imagem,
+            publicada,
+            secretariaId,
+            destaque,
+            tags,
+            tipoPublicacao,
+            validoAte,
+        } = body;
 
         const updateData: any = {};
         if (titulo !== undefined) updateData.titulo = titulo;
         if (resumo !== undefined) updateData.resumo = resumo;
         if (conteudo !== undefined) updateData.conteudo = conteudo;
-        if (imagem !== undefined) updateData.imagem = imagem;
+        if (imagem !== undefined) updateData.imagem = imagem && imagem !== "#" ? imagem : null;
         if (publicada !== undefined) updateData.publicada = Boolean(publicada);
         if (destaque !== undefined) updateData.destaque = Boolean(destaque);
-        if (tags !== undefined) updateData.tags = typeof tags === "string" ? tags : JSON.stringify(tags || []);
-        if (secretariaId !== undefined) updateData.secretariaId = secretariaId === "" ? null : secretariaId;
+        if (tipoPublicacao !== undefined) {
+            updateData.tipoPublicacao = tipoPublicacao === "aviso" ? "aviso" : "noticia";
+        }
+        if (validoAte !== undefined) {
+            updateData.validoAte = validoAte ? parseEndOfDayFortaleza(validoAte) : null;
+        }
+        if (tags !== undefined) {
+            updateData.tags = typeof tags === "string" ? tags : JSON.stringify(tags || []);
+        }
+        if (secretariaId !== undefined) {
+            updateData.secretariaId = secretariaId === "" ? null : secretariaId;
+        }
 
-        if (publicada === true) {
+        if (publicada === true && !existing.publicadoEm) {
             updateData.publicadoEm = new Date();
         }
 
@@ -59,7 +87,6 @@ export async function DELETE(_req: NextRequest, { params }: { params: { id: stri
     if (!session) return jsonNoStore({ error: "Não autorizado" }, { status: 401 });
 
     try {
-        // Busca o registro para obter a URL da imagem antes de deletar
         const noticia = await prisma.noticia.findUnique({ where: { id: params.id } });
         if (noticia?.imagem) {
             const { deleteFileFromR2 } = await import("@/lib/r2");

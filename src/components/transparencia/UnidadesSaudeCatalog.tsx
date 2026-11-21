@@ -35,6 +35,15 @@ export default function UnidadesSaudeCatalog({
     const [categoriaFiltro, setCategoriaFiltro] = useState<"todas" | "ubs" | "urgencia">("todas");
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
+        const params = new URLSearchParams(window.location.search);
+        const qParam = params.get("q") || params.get("busca");
+        if (qParam && qParam.trim()) {
+            setBusca(qParam.trim());
+        }
+    }, []);
+
+    useEffect(() => {
         if (initialUnidades) {
             setUnidades(initialUnidades);
             setLoading(false);

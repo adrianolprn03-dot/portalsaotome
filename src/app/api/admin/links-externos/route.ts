@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
+import { isValidPublicUrl, sanitizeDiarioOficialUrl } from "@/lib/portal-links";
 
 const db = prisma as any;
 
@@ -25,19 +26,33 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
+        if (!isValidPublicUrl(body.url)) {
+            return jsonNoStore(
+                { error: "Informe uma URL pública válida (links vazios ou '#' não são permitidos)." },
+                { status: 400 }
+            );
+        }
+
+        const sanitizedUrl = sanitizeDiarioOficialUrl(body.url);
+
         const link = await db.linkExterno.create({
             data: {
-                titulo: body.titulo,
-                url: body.url,
+                titulo: String(body.titulo || "").trim(),
+                url: sanitizedUrl,
                 descricao: body.descricao || null,
                 categoria: body.categoria,
                 icone: body.icone || "FaLink",
                 ativo: body.ativo ?? true,
-                ordem: body.ordem ?? 0,
+                ordem: Number(body.ordem) || 0,
                 moduloAlvo: body.moduloAlvo || null,
             },
         });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
+        revalidatePaths([
+            ...REVALIDATE_GROUPS.institucional,
+            "/transparencia-2018-2022",
+            "/transparencia-2023-2025",
+            "/admin/links-externos",
+        ]);
         return jsonNoStore(link, { status: 201 });
     } catch (err) {
         console.error("Erro ao criar link:", err);

@@ -135,8 +135,8 @@ export default function RadarTransparencia() {
                                 </div>
 
                                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                                    <span>Auditado pela Controladoria Geral</span>
-                                    <span className="font-mono font-bold text-[#01b0ef]">
+                                    <span>Lei nº 12.527/2011 • LC nº 131/2009</span>
+                                    <span className="font-mono font-bold text-[#006494]">
                                         TCE/RN • ATRICON
                                     </span>
                                 </div>

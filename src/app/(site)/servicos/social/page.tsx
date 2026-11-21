@@ -41,8 +41,8 @@ export default function SocialPage() {
                 subtitle="Equipamentos de Assistência Social, CRAS e Conselho Tutelar"
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Serviços", href: "#" },
-                    { label: "Social" }
+                    { label: "Serviços", href: "/transparencia/carta-servicos" },
+                    { label: "Assistência Social" }
                 ]}
             />
 

@@ -123,7 +123,7 @@ export default function AdminEsicPage() {
             setDeclaracoes(dataRelatorios?.declaracoes || []);
             setClassificados(
                 dataRelatorios?.classificados ||
-                    listaPedidos.filter((p) => p.grauSigilo !== "Sem Sigilo" && !p.dataDesclassificacao)
+                listaPedidos.filter((p) => p.grauSigilo !== "Sem Sigilo" && !p.dataDesclassificacao)
             );
             setDesclassificados(dataRelatorios?.desclassificados || []);
             setStats(dataStats?.stats || dataStats?.statsPorExercicio || []);
@@ -282,41 +282,36 @@ export default function AdminEsicPage() {
             <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-2">
                 <button
                     onClick={() => setAba("pedidos")}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "pedidos" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
-                    }`}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${aba === "pedidos" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        }`}
                 >
                     Pedidos de Acesso ({items.length})
                 </button>
                 <button
                     onClick={() => setAba("estatisticas")}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "estatisticas" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
-                    }`}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${aba === "estatisticas" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        }`}
                 >
                     <FaChartBar className="inline mr-1.5" /> Relatório Estatístico Anual (12.7)
                 </button>
                 <button
                     onClick={() => setAba("classificados")}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "classificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
-                    }`}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${aba === "classificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        }`}
                 >
                     <FaLock className="inline mr-1.5" /> Rol de Classificados ({classificados.length})
                 </button>
                 <button
                     onClick={() => setAba("desclassificados")}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "desclassificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
-                    }`}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${aba === "desclassificados" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        }`}
                 >
                     <FaLockOpen className="inline mr-1.5" /> Rol de Desclassificados ({desclassificados.length})
                 </button>
                 <button
                     onClick={() => setAba("declaracoes")}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        aba === "declaracoes" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
-                    }`}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${aba === "declaracoes" ? "bg-[#01b0ef] text-white shadow-sm" : "bg-white text-gray-600 border border-gray-200"
+                        }`}
                 >
                     <FaShieldAlt className="inline mr-1.5" /> Declarações Oficiais ({declaracoes.length})
                 </button>
@@ -385,11 +380,10 @@ export default function AdminEsicPage() {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span
-                                                        className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${
-                                                            i.grauSigilo === "Sem Sigilo"
-                                                                ? "bg-gray-100 text-gray-600"
-                                                                : "bg-rose-100 text-rose-800"
-                                                        }`}
+                                                        className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${i.grauSigilo === "Sem Sigilo"
+                                                            ? "bg-gray-100 text-gray-600"
+                                                            : "bg-rose-100 text-rose-800"
+                                                            }`}
                                                     >
                                                         {i.grauSigilo}
                                                     </span>
@@ -674,52 +668,52 @@ export default function AdminEsicPage() {
                 }
             >
                 <form id="form-esic-declaracao" onSubmit={handleSalvarDeclaracao} className="space-y-4">
-                            <div className="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Módulo / Critério</label>
-                                    <select
-                                        value={decModulo}
-                                        onChange={(e) => {
-                                            setDecModulo(e.target.value);
-                                            setDecCriterio(e.target.value === "esic_classificadas" ? "12.8" : "12.9");
-                                        }}
-                                        className="w-full border rounded-xl p-2.5 text-sm"
-                                    >
-                                        <option value="esic_desclassificadas">12.9 - Desclassificadas (Inexistência)</option>
-                                        <option value="esic_classificadas">12.8 - Classificadas (Inexistência)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Exercício</label>
-                                    <input
-                                        type="number"
-                                        value={decAno}
-                                        onChange={(e) => setDecAno(e.target.value)}
-                                        className="w-full border rounded-xl p-2.5 text-sm"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Texto da Declaração</label>
-                                <textarea
-                                    value={decTexto}
-                                    onChange={(e) => setDecTexto(e.target.value)}
-                                    rows={4}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Fundamento Legal</label>
-                                <input
-                                    type="text"
-                                    value={decFundamento}
-                                    onChange={(e) => setDecFundamento(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                    required
-                                />
-                            </div>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Módulo / Critério</label>
+                            <select
+                                value={decModulo}
+                                onChange={(e) => {
+                                    setDecModulo(e.target.value);
+                                    setDecCriterio(e.target.value === "esic_classificadas" ? "12.8" : "12.9");
+                                }}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                            >
+                                <option value="esic_desclassificadas">12.9 - Desclassificadas (Inexistência)</option>
+                                <option value="esic_classificadas">12.8 - Classificadas (Inexistência)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Exercício</label>
+                            <input
+                                type="number"
+                                value={decAno}
+                                onChange={(e) => setDecAno(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Texto da Declaração</label>
+                        <textarea
+                            value={decTexto}
+                            onChange={(e) => setDecTexto(e.target.value)}
+                            rows={4}
+                            className="w-full border rounded-xl p-2.5 text-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Fundamento Legal</label>
+                        <input
+                            type="text"
+                            value={decFundamento}
+                            onChange={(e) => setDecFundamento(e.target.value)}
+                            className="w-full border rounded-xl p-2.5 text-sm"
+                            required
+                        />
+                    </div>
                 </form>
             </AdminModal>
 
@@ -757,38 +751,38 @@ export default function AdminEsicPage() {
             >
                 {itemParaClassificar && (
                     <form id="form-esic-classificar" onSubmit={handleSalvarClassificacao} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Grau de Sigilo</label>
-                                <select
-                                    value={grau}
-                                    onChange={(e) => setGrau(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm font-bold"
-                                >
-                                    <option value="Reservado">Reservado (Até 5 anos)</option>
-                                    <option value="Secreto">Secreto (Até 15 anos)</option>
-                                    <option value="Ultrassecreto">Ultrassecreto (Até 25 anos)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Fundamento Legal</label>
-                                <input
-                                    type="text"
-                                    value={fundamento}
-                                    onChange={(e) => setFundamento(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Autoridade Classificadora</label>
-                                <input
-                                    type="text"
-                                    value={autoridade}
-                                    onChange={(e) => setAutoridade(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                    required
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Grau de Sigilo</label>
+                            <select
+                                value={grau}
+                                onChange={(e) => setGrau(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm font-bold"
+                            >
+                                <option value="Reservado">Reservado (Até 5 anos)</option>
+                                <option value="Secreto">Secreto (Até 15 anos)</option>
+                                <option value="Ultrassecreto">Ultrassecreto (Até 25 anos)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Fundamento Legal</label>
+                            <input
+                                type="text"
+                                value={fundamento}
+                                onChange={(e) => setFundamento(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Autoridade Classificadora</label>
+                            <input
+                                type="text"
+                                value={autoridade}
+                                onChange={(e) => setAutoridade(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                                required
+                            />
+                        </div>
                     </form>
                 )}
             </AdminModal>
@@ -820,110 +814,110 @@ export default function AdminEsicPage() {
                 }
             >
                 <form id="form-esic-novo-doc" onSubmit={handleRegistrarDocumentoClassificado} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                                    Assunto sobre o qual versa a informação *
-                                </label>
-                                <textarea
-                                    required
-                                    rows={3}
-                                    value={docAssunto}
-                                    onChange={(e) => setDocAssunto(e.target.value)}
-                                    placeholder="Ex: Relatório de auditoria interna sobre segurança cibernética da rede municipal..."
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                />
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Categoria *</label>
-                                    <select
-                                        value={docCategoria}
-                                        onChange={(e) => setDocCategoria(e.target.value)}
-                                        className="w-full border rounded-xl p-2.5 text-sm font-semibold"
-                                    >
-                                        <option value="Processo Administrativo">Processo Administrativo</option>
-                                        <option value="Segurança Institucional">Segurança Institucional</option>
-                                        <option value="Recursos Humanos e Pessoal">Recursos Humanos e Pessoal</option>
-                                        <option value="Finanças e Tributação">Finanças e Tributação</option>
-                                        <option value="Licitações e Contratos">Licitações e Contratos</option>
-                                        <option value="Saúde Pública">Saúde Pública</option>
-                                        <option value="Projetos e Pesquisas">Projetos e Pesquisas</option>
-                                        <option value="Outras Informações">Outras Informações</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Órgão / Secretaria *</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={docOrgao}
-                                        onChange={(e) => setDocOrgao(e.target.value)}
-                                        className="w-full border rounded-xl p-2.5 text-sm"
-                                    />
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Grau de Sigilo *</label>
-                                    <select
-                                        value={docGrau}
-                                        onChange={(e) => {
-                                            const val = e.target.value;
-                                            setDocGrau(val);
-                                            setDocPrazoAnos(val === "Ultrassecreto" ? "25" : val === "Secreto" ? "15" : "5");
-                                        }}
-                                        className="w-full border rounded-xl p-2.5 text-sm font-bold"
-                                    >
-                                        <option value="Reservado">Reservado (até 5 anos)</option>
-                                        <option value="Secreto">Secreto (até 15 anos)</option>
-                                        <option value="Ultrassecreto">Ultrassecreto (até 25 anos)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Prazo (Anos) *</label>
-                                    <input
-                                        type="number"
-                                        min={1}
-                                        max={docGrau === "Ultrassecreto" ? 25 : docGrau === "Secreto" ? 15 : 5}
-                                        value={docPrazoAnos}
-                                        onChange={(e) => setDocPrazoAnos(e.target.value)}
-                                        className="w-full border rounded-xl p-2.5 text-sm font-bold"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Data Classificação *</label>
-                                    <input
-                                        type="date"
-                                        value={docData}
-                                        onChange={(e) => setDocData(e.target.value)}
-                                        className="w-full border rounded-xl p-2.5 text-sm"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                                    Dispositivo Legal que Fundamenta a Classificação *
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={docFundamento}
-                                    onChange={(e) => setDocFundamento(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Autoridade Classificadora *</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={docAutoridade}
-                                    onChange={(e) => setDocAutoridade(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                />
-                            </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                            Assunto sobre o qual versa a informação *
+                        </label>
+                        <textarea
+                            required
+                            rows={3}
+                            value={docAssunto}
+                            onChange={(e) => setDocAssunto(e.target.value)}
+                            placeholder="Ex: Relatório de auditoria interna sobre segurança cibernética da rede municipal..."
+                            className="w-full border rounded-xl p-2.5 text-sm"
+                        />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Categoria *</label>
+                            <select
+                                value={docCategoria}
+                                onChange={(e) => setDocCategoria(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm font-semibold"
+                            >
+                                <option value="Processo Administrativo">Processo Administrativo</option>
+                                <option value="Segurança Institucional">Segurança Institucional</option>
+                                <option value="Recursos Humanos e Pessoal">Recursos Humanos e Pessoal</option>
+                                <option value="Finanças e Tributação">Finanças e Tributação</option>
+                                <option value="Licitações e Contratos">Licitações e Contratos</option>
+                                <option value="Saúde Pública">Saúde Pública</option>
+                                <option value="Projetos e Pesquisas">Projetos e Pesquisas</option>
+                                <option value="Outras Informações">Outras Informações</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Órgão / Secretaria *</label>
+                            <input
+                                type="text"
+                                required
+                                value={docOrgao}
+                                onChange={(e) => setDocOrgao(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Grau de Sigilo *</label>
+                            <select
+                                value={docGrau}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setDocGrau(val);
+                                    setDocPrazoAnos(val === "Ultrassecreto" ? "25" : val === "Secreto" ? "15" : "5");
+                                }}
+                                className="w-full border rounded-xl p-2.5 text-sm font-bold"
+                            >
+                                <option value="Reservado">Reservado (até 5 anos)</option>
+                                <option value="Secreto">Secreto (até 15 anos)</option>
+                                <option value="Ultrassecreto">Ultrassecreto (até 25 anos)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Prazo (Anos) *</label>
+                            <input
+                                type="number"
+                                min={1}
+                                max={docGrau === "Ultrassecreto" ? 25 : docGrau === "Secreto" ? 15 : 5}
+                                value={docPrazoAnos}
+                                onChange={(e) => setDocPrazoAnos(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm font-bold"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Data Classificação *</label>
+                            <input
+                                type="date"
+                                value={docData}
+                                onChange={(e) => setDocData(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                            Dispositivo Legal que Fundamenta a Classificação *
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            value={docFundamento}
+                            onChange={(e) => setDocFundamento(e.target.value)}
+                            className="w-full border rounded-xl p-2.5 text-sm"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Autoridade Classificadora *</label>
+                        <input
+                            type="text"
+                            required
+                            value={docAutoridade}
+                            onChange={(e) => setDocAutoridade(e.target.value)}
+                            className="w-full border rounded-xl p-2.5 text-sm"
+                        />
+                    </div>
                 </form>
             </AdminModal>
 
@@ -965,29 +959,29 @@ export default function AdminEsicPage() {
             >
                 {itemParaDesclassificar && (
                     <form id="form-esic-desclassificar" onSubmit={handleConfirmarDesclassificacao} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Data da Desclassificação *</label>
-                                <input
-                                    type="date"
-                                    required
-                                    value={dataDesc}
-                                    onChange={(e) => setDataDesc(e.target.value)}
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                                    Ato / Motivo da Desclassificação *
-                                </label>
-                                <textarea
-                                    required
-                                    rows={3}
-                                    value={justificativaDesc}
-                                    onChange={(e) => setJustificativaDesc(e.target.value)}
-                                    placeholder="Ex: Término do prazo legal de sigilo ou Portaria de Reavaliação nº .../2026."
-                                    className="w-full border rounded-xl p-2.5 text-sm"
-                                />
-                            </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Data da Desclassificação *</label>
+                            <input
+                                type="date"
+                                required
+                                value={dataDesc}
+                                onChange={(e) => setDataDesc(e.target.value)}
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                                Ato / Motivo da Desclassificação *
+                            </label>
+                            <textarea
+                                required
+                                rows={3}
+                                value={justificativaDesc}
+                                onChange={(e) => setJustificativaDesc(e.target.value)}
+                                placeholder="Ex: Término do prazo legal de sigilo ou Portaria de Reavaliação nº .../2026."
+                                className="w-full border rounded-xl p-2.5 text-sm"
+                            />
+                        </div>
                     </form>
                 )}
             </AdminModal>

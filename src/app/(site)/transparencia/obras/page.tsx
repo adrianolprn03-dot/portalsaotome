@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { 
-    FaHammer, FaMapMarker, FaCalendar, FaBuilding, 
+import {
+    FaHammer, FaMapMarker, FaCalendar, FaBuilding,
     FaSpinner, FaArrowRight, FaImage,
     FaCheckCircle, FaExclamationTriangle, FaHardHat, FaInfoCircle,
     FaTable, FaDownload, FaExternalLinkAlt, FaSearch,
@@ -106,9 +106,9 @@ export default function ObrasPublicasPage() {
         const fetchObras = async () => {
             setLoading(true);
             try {
-                const query = new URLSearchParams({ 
+                const query = new URLSearchParams({
                     query: busca,
-                    status 
+                    status
                 });
                 const res = await fetch(`/api/obras?${query.toString()}`);
                 const data = await res.json();
@@ -143,7 +143,7 @@ export default function ObrasPublicasPage() {
             "Motivo Paralisação": o.status === "paralisada" ? (o.motivoParalisacao || "Registrado") : "-"
         }));
 
-        const filename = `obras_publicas_lajes_pintadas`;
+        const filename = `obras_publicas_saotome`;
         const title = `Relatório de Acompanhamento de Obras Públicas – São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -210,7 +210,7 @@ export default function ObrasPublicasPage() {
                 ]}
             />
 
-            <motion.div 
+            <motion.div
                 initial="hidden"
                 animate="visible"
                 variants={containerVariants}
@@ -221,21 +221,19 @@ export default function ObrasPublicasPage() {
                     <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-[#e2e8f0] shadow-sm">
                         <button
                             onClick={() => setAbaVisual("lista")}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                                abaVisual === "lista"
-                                    ? "bg-[#01b0ef] text-white shadow-sm"
-                                    : "text-slate-600 hover:text-slate-900"
-                            }`}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${abaVisual === "lista"
+                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                : "text-slate-600 hover:text-slate-900"
+                                }`}
                         >
                             <FaTable size={13} /> Lista de Obras
                         </button>
                         <button
                             onClick={() => setAbaVisual("graficos")}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                                abaVisual === "graficos"
-                                    ? "bg-[#01b0ef] text-white shadow-sm"
-                                    : "text-slate-600 hover:text-slate-900"
-                            }`}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${abaVisual === "graficos"
+                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                : "text-slate-600 hover:text-slate-900"
+                                }`}
                         >
                             <FaChartPie size={13} /> Gráficos nos Resultados
                         </button>
@@ -407,7 +405,7 @@ export default function ObrasPublicasPage() {
                     <motion.div variants={itemVariants}>
                         <AnimatePresence mode="wait">
                             {loading ? (
-                                <motion.div 
+                                <motion.div
                                     key="loading"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -417,7 +415,7 @@ export default function ObrasPublicasPage() {
                                     <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Carregando obras públicas...</p>
                                 </motion.div>
                             ) : obras.length === 0 ? (
-                                <motion.div 
+                                <motion.div
                                     key="empty"
                                     initial={{ opacity: 0, scale: 0.98 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -438,20 +436,19 @@ export default function ObrasPublicasPage() {
                                         const isParalisada = o.status?.toLowerCase() === "paralisada";
 
                                         return (
-                                            <div 
+                                            <div
                                                 key={o.id}
-                                                className={`bg-white rounded-2xl border transition-all p-5 flex flex-col lg:flex-row items-center gap-6 ${
-                                                    isParalisada ? "border-rose-300 bg-rose-50/20" : "border-[#e2e8f0] hover:border-[#01b0ef]/40"
-                                                } shadow-sm`}
+                                                className={`bg-white rounded-2xl border transition-all p-5 flex flex-col lg:flex-row items-center gap-6 ${isParalisada ? "border-rose-300 bg-rose-50/20" : "border-[#e2e8f0] hover:border-[#01b0ef]/40"
+                                                    } shadow-sm`}
                                             >
                                                 {/* Preview / Thumbnail */}
                                                 <div className="w-full lg:w-36 h-28 bg-[#f4fbff] rounded-xl shrink-0 overflow-hidden relative border border-[#e2e8f0]">
                                                     {o.imagem ? (
-                                                        <Image 
-                                                            src={o.imagem} 
-                                                            alt={o.titulo} 
-                                                            fill 
-                                                            className="object-cover" 
+                                                        <Image
+                                                            src={o.imagem}
+                                                            alt={o.titulo}
+                                                            fill
+                                                            className="object-cover"
                                                         />
                                                     ) : (
                                                         <div className="h-full flex items-center justify-center text-slate-300">
@@ -514,11 +511,11 @@ export default function ObrasPublicasPage() {
                                                                 {isConcluida ? "Conclusão" : isParalisada ? "Prev. Reinício" : "Previsão"}
                                                             </span>
                                                             <span className="text-xs font-bold text-[#01b0ef]">
-                                                                {isParalisada && o.previsaoReinicio 
+                                                                {isParalisada && o.previsaoReinicio
                                                                     ? new Date(o.previsaoReinicio).toLocaleDateString("pt-BR")
-                                                                    : o.previsaoTermino 
-                                                                    ? new Date(o.previsaoTermino).toLocaleDateString("pt-BR") 
-                                                                    : "N/I"}
+                                                                    : o.previsaoTermino
+                                                                        ? new Date(o.previsaoTermino).toLocaleDateString("pt-BR")
+                                                                        : "N/I"}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -531,14 +528,13 @@ export default function ObrasPublicasPage() {
                                                         <span className="text-[#01b0ef]">{o.percentual}%</span>
                                                     </div>
                                                     <div className="h-2 w-full bg-[#e2e8f0] rounded-full overflow-hidden">
-                                                        <div 
+                                                        <div
                                                             style={{ width: `${o.percentual}%` }}
-                                                            className={`h-full rounded-full transition-all duration-500 ${
-                                                                isParalisada ? "bg-rose-500" : isConcluida ? "bg-emerald-600" : "bg-[#01b0ef]"
-                                                            }`}
+                                                            className={`h-full rounded-full transition-all duration-500 ${isParalisada ? "bg-rose-500" : isConcluida ? "bg-emerald-600" : "bg-[#01b0ef]"
+                                                                }`}
                                                         />
                                                     </div>
-                                                    <button 
+                                                    <button
                                                         onClick={() => setSelectedObra(o)}
                                                         className="mt-2 h-9 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95 cursor-pointer"
                                                     >
@@ -582,7 +578,7 @@ export default function ObrasPublicasPage() {
 
                     <div className="text-center pt-4">
                         <p className="text-xs text-slate-600">
-                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE SÃO TOMÉ/RN <br />
                             <span className="italic">Processamento de dados em conformidade com a Lei de Acesso à Informação (Lei 12.527/11) e Matriz PNTP 2026.</span>
                         </p>
                     </div>
@@ -600,7 +596,7 @@ export default function ObrasPublicasPage() {
                             onClick={() => setSelectedObra(null)}
                             className="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm"
                         />
-                        
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 15 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -628,7 +624,7 @@ export default function ObrasPublicasPage() {
                                         {selectedObra.titulo}
                                     </h2>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => setSelectedObra(null)}
                                     className="w-9 h-9 bg-white border border-[#e2e8f0] rounded-xl flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all cursor-pointer"
                                 >
@@ -693,7 +689,7 @@ export default function ObrasPublicasPage() {
                                             <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Execução Física</p>
                                             <p className="text-3xl font-black text-[#01b0ef] mb-3">{selectedObra.percentual}% executado</p>
                                             <div className="h-3 w-full bg-[#e2e8f0] rounded-full overflow-hidden">
-                                                <div 
+                                                <div
                                                     style={{ width: `${selectedObra.percentual}%` }}
                                                     className="h-full bg-[#01b0ef] rounded-full"
                                                 />
@@ -709,8 +705,8 @@ export default function ObrasPublicasPage() {
                                             </div>
                                             <div>
                                                 <span className="text-slate-600 block">
-                                                    {selectedObra.status?.toLowerCase() === "concluida" 
-                                                        ? "Data Efetiva de Conclusão:" 
+                                                    {selectedObra.status?.toLowerCase() === "concluida"
+                                                        ? "Data Efetiva de Conclusão:"
                                                         : "Previsão de Término:"}
                                                 </span>
                                                 <span className="font-bold text-[#01b0ef]">
@@ -857,7 +853,7 @@ export default function ObrasPublicasPage() {
 
                             {/* Modal Footer */}
                             <div className="p-4 bg-[#f4fbff] border-t border-[#e2e8f0] flex items-center justify-end">
-                                <button 
+                                <button
                                     onClick={() => setSelectedObra(null)}
                                     className="px-6 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-all shadow-sm cursor-pointer"
                                 >

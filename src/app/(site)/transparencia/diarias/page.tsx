@@ -151,7 +151,7 @@ export default function DiariasPage() {
             "Valor": fmt(d.valor)
         }));
 
-        const filename = `diarias_lajespintadas_${mes}_${ano}`;
+        const filename = `diarias_saotome_${mes}_${ano}`;
         const title = `Relatório de Concessão de Diárias – São Tomé/RN (${mesesLabels[Number(mes) - 1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -274,7 +274,7 @@ export default function DiariasPage() {
                 <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     {/* Regulation Card */}
                     <a
-                        href="/uploads/diarias/regulamentacao.pdf"
+                        href="/transparencia/regulamentacao-diarias"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all flex items-center justify-between group"
@@ -612,7 +612,7 @@ export default function DiariasPage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            GESTÃO DE DIÁRIAS E PASSAGENS • PREFEITURA DE LAJES PINTADAS/RN <br />
+                            GESTÃO DE DIÁRIAS E PASSAGENS • PREFEITURA DE SÃO TOMÉ/RN <br />
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com as recomendações do Ministério Público Estadual.</span>
                         </p>
                     </div>

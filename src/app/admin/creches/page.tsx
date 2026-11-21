@@ -417,11 +417,10 @@ export default function AdminCrechesPage() {
                                             Exercício: {d.exercicio} • {d.orgaoResponsavel}
                                         </span>
                                         <span
-                                            className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${
-                                                d.ativa
-                                                    ? "bg-emerald-100 text-emerald-800"
-                                                    : "bg-slate-200 text-slate-600"
-                                            }`}
+                                            className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${d.ativa
+                                                ? "bg-emerald-100 text-emerald-800"
+                                                : "bg-slate-200 text-slate-600"
+                                                }`}
                                         >
                                             {d.ativa ? "Ativa no Portal" : "Inativa / Arquivada"}
                                         </span>
@@ -644,13 +643,12 @@ export default function AdminCrechesPage() {
                                             <select
                                                 value={item.status}
                                                 onChange={(e) => handleAlterarStatusRapido(item.id, e.target.value)}
-                                                className={`px-2.5 py-1 rounded-full text-xs font-bold border-0 cursor-pointer ${
-                                                    item.status === "matriculado"
-                                                        ? "bg-green-100 text-green-800"
-                                                        : item.status === "convocado"
+                                                className={`px-2.5 py-1 rounded-full text-xs font-bold border-0 cursor-pointer ${item.status === "matriculado"
+                                                    ? "bg-green-100 text-green-800"
+                                                    : item.status === "convocado"
                                                         ? "bg-blue-100 text-blue-800"
                                                         : "bg-amber-100 text-amber-800"
-                                                }`}
+                                                    }`}
                                             >
                                                 <option value="aguardando">aguardando</option>
                                                 <option value="convocado">convocado</option>

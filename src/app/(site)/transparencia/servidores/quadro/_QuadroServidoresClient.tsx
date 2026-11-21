@@ -67,7 +67,7 @@ export default function QuadroServidoresClient({
             "Vagas Livres": i.vagasLivres,
         }));
 
-        const filename = `quadro_pessoal_lajes_pintadas`;
+        const filename = `quadro_pessoal_saotome`;
         const title = `Portal da Transparência - Quadro Geral de Pessoal`;
 
         if (format === "pdf") exportToPDF(dataToExport, filename, title);

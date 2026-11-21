@@ -287,7 +287,7 @@ export default function IntegridadePage() {
                     <BannerPNTP />
                     <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PROGRAMA DE INTEGRIDADE • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PROGRAMA DE INTEGRIDADE • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="opacity-40 font-bold italic">Cultura da transparência em conformidade com o Programa Nacional de Transparência Pública.</span>
                         </p>
                     </div>

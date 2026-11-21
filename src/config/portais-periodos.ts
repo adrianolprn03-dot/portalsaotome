@@ -1,4 +1,4 @@
-export const PORTAL_2018_2022_DEFAULT_URL = "https://www.governotransparente.com.br/";
+export const PORTAL_2018_2022_DEFAULT_URL = "https://www.governotransparente.com.br/68629488?clean=false";
 export const PORTAL_2023_2025_DEFAULT_URL = "https://saotome.rn.gov.br/portal-da-transparencia-copy/";
 export const TOPSOLUTIONS_2023_2025_BASE_URL = "https://pmsaotomern.transparencia.topsolutionsrn.com.br";
 export const CONTRACHEQUE_TOPSOLUTIONS_URL = "https://app.topsolutionsrn.com.br/ContraCheque/pmsaotome/";

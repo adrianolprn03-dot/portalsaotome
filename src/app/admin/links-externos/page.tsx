@@ -226,6 +226,10 @@ export default function LinksExternosPage() {
                                                 {categoriaLabelMap[link.categoria] || link.categoria}
                                             </span>
 
+                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                                Ordem: {link.ordem ?? 0}
+                                            </span>
+
                                             {link.moduloAlvo ? (
                                                 <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
                                                     <span>🎯 Vínculo:</span>

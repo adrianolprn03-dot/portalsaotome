@@ -130,7 +130,7 @@ export default function FolhaPagamentoPage() {
             "T. Líquido": fmt(s.totalLiquido)
         }));
 
-        const filename = `folha_lajespintadas_${mes}_${ano}`;
+        const filename = `folha_saotome_${mes}_${ano}`;
         const title = `Relatório de Servidores e Folha de Pagamento - São Tomé/RN (${mesesLabels[Number(mes)-1]} / ${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -555,7 +555,7 @@ export default function FolhaPagamentoPage() {
                     <BannerPNTP />
                     <div className="mt-8 text-center">
                         <p className="text-xs text-slate-600">
-                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            GESTÃO DE RECURSOS HUMANOS • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="italic">Base de dados sincronizada conforme as diretrizes do Tribunal de Contas do Estado e Lei 12.527/2011.</span>
                         </p>
                     </div>

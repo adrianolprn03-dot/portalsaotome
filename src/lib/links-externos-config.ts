@@ -75,11 +75,13 @@ export const MODULOS_ALVO_OPTIONS: ModuloAlvoOption[] = [
     { value: "obras-2023-2025", label: "2023-2025: Obras Públicas", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
 
     // --- 1. PÁGINA INICIAL (HOME) ---
+    { value: "home-contribuinte", label: "Home: Atalho Emitir Guia ou Certidão (Portal do Contribuinte)", grupo: "Página Inicial (Home)" },
+    { value: "home-saude", label: "Home: Atalho Encontrar Unidade de Saúde (UBS)", grupo: "Página Inicial (Home)" },
+    { value: "home-diario", label: "Home: Atalho Consultar Diário Oficial (FEMURN)", grupo: "Página Inicial (Home)" },
+    { value: "home-esic", label: "Home: Atalho Solicitar Informação Pública (e-SIC)", grupo: "Página Inicial (Home)" },
+    { value: "home-ouvidoria", label: "Home: Atalho Registrar Manifestação (Ouvidoria)", grupo: "Página Inicial (Home)" },
+    { value: "home-protocolo", label: "Home: Atalho Consultar Protocolo", grupo: "Página Inicial (Home)" },
     { value: "home-transparencia", label: "Home: Atalho Portal da Transparência", grupo: "Página Inicial (Home)" },
-    { value: "home-esic", label: "Home: Atalho e-SIC", grupo: "Página Inicial (Home)" },
-    { value: "home-ouvidoria", label: "Home: Atalho Ouvidoria", grupo: "Página Inicial (Home)" },
-    { value: "home-diario", label: "Home: Atalho Diário Oficial", grupo: "Página Inicial (Home)" },
-    { value: "home-contribuinte", label: "Home: Atalho Portal do Contribuinte", grupo: "Página Inicial (Home)" },
     { value: "home-contracheque", label: "Home: Atalho Contracheque do Servidor", grupo: "Página Inicial (Home)" },
     { value: "home-licitacoes", label: "Home: Card Licitações Públicas", grupo: "Página Inicial (Home)" },
     { value: "home-contratos", label: "Home: Card Contratos Administrativos", grupo: "Página Inicial (Home)" },

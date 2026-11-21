@@ -132,23 +132,39 @@ export default function ContatoPage() {
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-[#01b0ef] to-[#0096ce] rounded-3xl p-8 text-white shadow-civic-lg relative overflow-hidden border-b-4 border-[#fdb913]">
-                            <div className="w-11 h-11 rounded-xl bg-[#fdb913] flex items-center justify-center text-slate-900 mb-4 shadow-xs">
-                                <Headset size={20} />
+                        <div className="bg-gradient-to-br from-[#00557d] to-[#0077b0] rounded-3xl p-8 text-white shadow-civic-lg relative overflow-hidden border-b-4 border-[#fdb913]">
+                            <div className="w-11 h-11 rounded-xl bg-[#fdb913] flex items-center justify-center text-slate-950 mb-4 shadow-xs">
+                                <Headset size={20} aria-hidden="true" />
                             </div>
                             <h3 className="font-heading text-lg font-extrabold mb-2">
-                                Precisando da Ouvidoria?
+                                Ouvidoria e e-SIC (Com Protocolo)
                             </h3>
-                            <p className="text-white/95 text-xs leading-relaxed mb-6">
-                                Para denúncias, reclamações, elogios ou sugestões formais com geração de protocolo oficial, utilize a Ouvidoria Municipal.
+                            <p className="text-white/95 text-xs leading-relaxed mb-5">
+                                Para registrar manifestações na Ouvidoria, solicitar informações públicas pela LAI (e-SIC) ou acompanhar um protocolo existente:
                             </p>
-                            <Link
-                                href="/servicos/ouvidoria"
-                                className="inline-flex items-center gap-2 bg-[#fdb913] hover:brightness-105 text-slate-900 px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-sm"
-                            >
-                                <span>Acessar Ouvidoria</span>
-                                <ArrowRight size={14} />
-                            </Link>
+                            <div className="flex flex-col gap-2.5">
+                                <Link
+                                    href="/servicos/ouvidoria"
+                                    className="inline-flex items-center justify-between gap-2 bg-[#fdb913] hover:bg-[#e5a60d] text-slate-950 px-4 py-3 rounded-xl text-xs font-bold transition-all shadow-sm"
+                                >
+                                    <span>Registrar manifestação (Ouvidoria)</span>
+                                    <ArrowRight size={14} aria-hidden="true" />
+                                </Link>
+                                <Link
+                                    href="/servicos/esic"
+                                    className="inline-flex items-center justify-between gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 px-4 py-3 rounded-xl text-xs font-bold transition-all"
+                                >
+                                    <span>Solicitar informação pública (e-SIC)</span>
+                                    <ArrowRight size={14} aria-hidden="true" />
+                                </Link>
+                                <Link
+                                    href="/servicos/consulta-protocolo"
+                                    className="inline-flex items-center justify-between gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 px-4 py-3 rounded-xl text-xs font-bold transition-all"
+                                >
+                                    <span>Consultar protocolo</span>
+                                    <ArrowRight size={14} aria-hidden="true" />
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
@@ -182,10 +198,11 @@ export default function ContatoPage() {
                             <form onSubmit={handleSubmit} className="space-y-5">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 mb-2">
+                                        <label htmlFor="contato-nome" className="block text-xs font-bold text-slate-700 mb-2">
                                             Nome Completo *
                                         </label>
                                         <input
+                                            id="contato-nome"
                                             type="text"
                                             required
                                             value={formData.nome}
@@ -197,10 +214,11 @@ export default function ContatoPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-700 mb-2">
+                                        <label htmlFor="contato-email" className="block text-xs font-bold text-slate-700 mb-2">
                                             E-mail para Retorno *
                                         </label>
                                         <input
+                                            id="contato-email"
                                             type="email"
                                             required
                                             value={formData.email}
@@ -214,10 +232,11 @@ export default function ContatoPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                    <label htmlFor="contato-assunto" className="block text-xs font-bold text-slate-700 mb-2">
                                         Assunto *
                                     </label>
                                     <select
+                                        id="contato-assunto"
                                         required
                                         value={formData.assunto}
                                         onChange={(e) =>
@@ -243,10 +262,11 @@ export default function ContatoPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                    <label htmlFor="contato-mensagem" className="block text-xs font-bold text-slate-700 mb-2">
                                         Mensagem *
                                     </label>
                                     <textarea
+                                        id="contato-mensagem"
                                         required
                                         rows={6}
                                         value={formData.mensagem}

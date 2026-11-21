@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { 
-    FaChartBar, FaSpinner, FaExternalLinkAlt, FaBuilding, 
+import {
+    FaChartBar, FaSpinner, FaExternalLinkAlt, FaBuilding,
     FaGavel, FaRegCalendar, FaBriefcase,
     FaArrowRight, FaCheckCircle, FaClock, FaBan,
     FaFileContract, FaBolt, FaInfoCircle, FaTable
 } from "react-icons/fa";
-import { 
+import {
     FaMagnifyingGlass, FaRotate,
     FaCircleExclamation, FaBuildingColumns,
     FaShieldHalved, FaArrowTrendUp, FaFileLines, FaChartLine, FaChartPie
@@ -131,8 +131,8 @@ export default function LicitacoesClient() {
 
     const filtrados = licitacoes.filter((l) => {
         const b = busca.toLowerCase();
-        return !busca || 
-            l.objeto.toLowerCase().includes(b) || 
+        return !busca ||
+            l.objeto.toLowerCase().includes(b) ||
             l.numero.toLowerCase().includes(b) ||
             l.secretaria.toLowerCase().includes(b);
     });
@@ -189,7 +189,7 @@ export default function LicitacoesClient() {
 
     return (
         <div className="min-h-screen bg-[#f4fbff] text-slate-900">
-            <PageHeader 
+            <PageHeader
                 title="Compras & Licitações"
                 subtitle="Portal de transparência para processos de aquisição, alienação e contratação de serviços."
                 variant="premium"
@@ -201,7 +201,7 @@ export default function LicitacoesClient() {
                 ]}
             />
 
-            <motion.main 
+            <motion.main
                 initial="hidden"
                 animate="visible"
                 variants={containerVariants}
@@ -210,7 +210,7 @@ export default function LicitacoesClient() {
                 {/* Tab Switcher - Premium High Interaction */}
                 <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-12">
                     <div className="flex items-center gap-1.5 p-1.5 bg-white/80 backdrop-blur-xl rounded-[1.75rem] border border-slate-100 shadow-2xl shadow-slate-200/50 w-fit">
-                        <button 
+                        <button
                             onClick={() => setTab("federal")}
                             className={`relative px-12 py-3.5 rounded-[1.25rem] text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 ${tab === "federal" ? "text-white" : "text-slate-400 hover:text-slate-600"}`}
                         >
@@ -221,7 +221,7 @@ export default function LicitacoesClient() {
                                 <FaRotate className={tab === "federal" ? "animate-spin-slow" : ""} /> PNCP Federal
                             </span>
                         </button>
-                        <button 
+                        <button
                             onClick={() => setTab("municipal")}
                             className={`relative px-12 py-3.5 rounded-[1.25rem] text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 ${tab === "municipal" ? "text-white" : "text-slate-400 hover:text-slate-600"}`}
                         >
@@ -246,7 +246,7 @@ export default function LicitacoesClient() {
                         >
                             {/* Highlight Section - Padrão Novo Modelo */}
                             <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
-                                
+
                                 {/* Primary Highlight Card */}
                                 <div className="lg:col-span-2 bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] relative overflow-hidden flex flex-col justify-between">
                                     <div>
@@ -266,7 +266,7 @@ export default function LicitacoesClient() {
                                             {loading ? <FaSpinner className="animate-spin text-3xl text-[#01b0ef]" /> : formatarMoeda(totalEstimado)}
                                         </div>
                                     </div>
-                                    
+
                                     <div className="mt-8 flex flex-wrap gap-8 items-center border-t border-[#e2e8f0] pt-6">
                                         <div className="flex flex-col">
                                             <span className="text-[11px] font-bold uppercase text-slate-600 mb-0.5">Ano Base</span>
@@ -282,7 +282,7 @@ export default function LicitacoesClient() {
 
                                 {/* Secondary Context Card */}
                                 <div className="bg-white rounded-2xl p-7 sm:p-8 shadow-sm border border-[#e2e8f0] flex flex-col justify-between">
-                                     <div>
+                                    <div>
                                         <div className="w-14 h-14 bg-[#e6f8ff] text-[#01b0ef] rounded-xl flex items-center justify-center text-2xl mb-5 border border-[#e2e8f0]">
                                             <FaGavel />
                                         </div>
@@ -292,14 +292,14 @@ export default function LicitacoesClient() {
                                         <p className="text-xs text-slate-600 leading-relaxed">
                                             Controle social das aquisições, editais públicos, compras diretas e dispensas com transparência integral.
                                         </p>
-                                     </div>
-                                     <div className="pt-5 border-t border-[#e2e8f0] flex items-center justify-between text-xs font-bold text-slate-600">
-                                         <div className="flex items-center gap-2">
-                                             <div className="w-2 h-2 rounded-full bg-[#01b0ef] animate-pulse" />
-                                             <span>Lei 14.133/2021</span>
-                                         </div>
-                                         <FaCheckCircle className="text-emerald-500" />
-                                     </div>
+                                    </div>
+                                    <div className="pt-5 border-t border-[#e2e8f0] flex items-center justify-between text-xs font-bold text-slate-600">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 rounded-full bg-[#01b0ef] animate-pulse" />
+                                            <span>Lei 14.133/2021</span>
+                                        </div>
+                                        <FaCheckCircle className="text-emerald-500" />
+                                    </div>
                                 </div>
                             </motion.div>
 
@@ -311,15 +311,15 @@ export default function LicitacoesClient() {
                                     currentYear={anoFiltro}
                                     onYearChange={setAnoFiltro}
                                     currentMonth=""
-                                    onMonthChange={() => {}}
+                                    onMonthChange={() => { }}
                                     onClear={handleClearFilters}
                                     onExport={handleExport}
                                     placeholder="Pesquisar por número do processo, objeto ou secretaria responsável..."
                                 >
                                     <div className="flex flex-wrap gap-3 items-center">
                                         <div className="relative">
-                                            <select 
-                                                value={modalidadeFiltro} 
+                                            <select
+                                                value={modalidadeFiltro}
                                                 onChange={(e) => setModalidadeFiltro(e.target.value)}
                                                 className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                             >
@@ -328,8 +328,8 @@ export default function LicitacoesClient() {
                                             </select>
                                         </div>
                                         <div className="relative">
-                                            <select 
-                                                value={statusFiltro} 
+                                            <select
+                                                value={statusFiltro}
                                                 onChange={(e) => setStatusFiltro(e.target.value)}
                                                 className="px-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 outline-none focus:border-[#01b0ef]"
                                             >
@@ -345,21 +345,19 @@ export default function LicitacoesClient() {
                             <div className="flex bg-white p-1 rounded-xl border border-[#e2e8f0] w-fit mb-8 shadow-sm">
                                 <button
                                     onClick={() => setAbaVisual("processos")}
-                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
-                                        abaVisual === "processos"
-                                            ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "text-slate-600 hover:text-[#01b0ef]"
-                                    }`}
+                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${abaVisual === "processos"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "text-slate-600 hover:text-[#01b0ef]"
+                                        }`}
                                 >
                                     <FaFileLines size={13} /> Lista de Editais ({filtrados.length})
                                 </button>
                                 <button
                                     onClick={() => setAbaVisual("graficos")}
-                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${
-                                        abaVisual === "graficos"
-                                            ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "text-slate-600 hover:text-[#01b0ef]"
-                                    }`}
+                                    className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-bold transition-all ${abaVisual === "graficos"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "text-slate-600 hover:text-[#01b0ef]"
+                                        }`}
                                 >
                                     <FaChartLine size={13} /> Gráficos nos Resultados
                                 </button>
@@ -432,7 +430,7 @@ export default function LicitacoesClient() {
                             <div className="space-y-10">
                                 <AnimatePresence mode="wait">
                                     {loading ? (
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
@@ -446,7 +444,7 @@ export default function LicitacoesClient() {
                                             <p className="text-[12px] font-black text-slate-300 uppercase tracking-[0.5em] animate-pulse">Consultando Editais & Atos</p>
                                         </motion.div>
                                     ) : filtrados.length === 0 ? (
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ opacity: 0, scale: 0.98 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             className="bg-white rounded-[3rem] p-32 text-center border-4 border-dashed border-slate-50 group hover:border-slate-100 transition-colors"
@@ -461,8 +459,8 @@ export default function LicitacoesClient() {
                                     ) : (
                                         <motion.div variants={containerVariants} className="grid grid-cols-1 gap-6">
                                             {filtrados.map((l, i) => (
-                                                <motion.div 
-                                                    key={l.id} 
+                                                <motion.div
+                                                    key={l.id}
                                                     variants={itemVariants}
                                                     className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm hover:shadow-md transition-all overflow-hidden relative p-1"
                                                 >
@@ -620,10 +618,10 @@ export default function LicitacoesClient() {
                 </AnimatePresence>
 
                 <motion.div variants={itemVariants} className="mt-24">
-                     <BannerPNTP />
-                     <div className="mt-20 text-center">
+                    <BannerPNTP />
+                    <div className="mt-20 text-center">
                         <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em] leading-[2] max-w-2xl mx-auto">
-                            PORTAL DE LICITAÇÕES • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PORTAL DE LICITAÇÕES • PREFEITURA DE SÃO TOMÉ/RN <br />
                             <span className="opacity-40 font-bold italic">Processamento eletrônico em conformidade com as diretrizes do PNCP e PNTP.</span>
                         </p>
                     </div>
@@ -720,7 +718,7 @@ export default function LicitacoesClient() {
                                     if (Array.isArray(selectedLicitacao.fasesDocumentos)) {
                                         docs = selectedLicitacao.fasesDocumentos;
                                     } else if (typeof selectedLicitacao.fasesDocumentos === "string") {
-                                        try { docs = JSON.parse(selectedLicitacao.fasesDocumentos); } catch {}
+                                        try { docs = JSON.parse(selectedLicitacao.fasesDocumentos); } catch { }
                                     }
 
                                     if (docs.length === 0) {

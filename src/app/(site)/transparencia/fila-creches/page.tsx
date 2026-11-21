@@ -133,7 +133,7 @@ export default function FilaCrechesPage() {
                 "Mensagem": "Demanda 100% atendida pela rede pública de educação infantil. Inexistência de fila de espera."
             }];
 
-        const filename = `fila_creches_lajes_pintadas_${ano}`;
+        const filename = `fila_creches_saotome_${ano}`;
         const title = `Fila de Espera em Creches e Educação Infantil – São Tomé/RN (${ano})`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -273,7 +273,7 @@ export default function FilaCrechesPage() {
                                                 "Fundamento": declaracao?.fundamentoLegal,
                                                 "Data": new Date().toLocaleDateString("pt-BR")
                                             }];
-                                            exportToPDF(payload, "declaracao_oficial_fila_creches_lajes_pintadas", "Declaração Oficial de Inexistência de Fila de Espera em Creches - São Tomé/RN");
+                                            exportToPDF(payload, "declaracao_oficial_fila_creches_saotome", "Declaração Oficial de Inexistência de Fila de Espera em Creches - São Tomé/RN");
                                         }}
                                         className="inline-flex items-center gap-2 bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl hover:bg-amber-300 transition-colors shadow-lg shadow-amber-400/20 text-sm cursor-pointer"
                                     >

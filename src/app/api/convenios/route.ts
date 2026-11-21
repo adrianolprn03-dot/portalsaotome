@@ -23,26 +23,34 @@ export async function GET(req: NextRequest) {
 
     if (ano) {
         const year = parseInt(ano);
+        const startOfYear = new Date(`${year}-01-01T00:00:00.000Z`);
+        const endOfYear = new Date(`${year}-12-31T23:59:59.999Z`);
         where.OR = [
             { ano: year },
             {
                 dataInicio: {
-                    gte: new Date(`${year}-01-01T00:00:00.000Z`),
-                    lte: new Date(`${year}-12-31T23:59:59.999Z`),
-                }
-            }
+                    gte: startOfYear,
+                    lte: endOfYear,
+                },
+            },
+            {
+                AND: [
+                    { dataInicio: { lte: endOfYear } },
+                    { dataFim: { gte: startOfYear } },
+                ],
+            },
         ];
     }
-    
-    if (status) where.status = { contains: status, mode: 'insensitive' };
-    
+
+    if (status) where.status = { contains: status, mode: "insensitive" };
+
     if (query) {
         where.OR = [
             ...(where.OR || []),
-            { objeto: { contains: query, mode: 'insensitive' } },
-            { concedente: { contains: query, mode: 'insensitive' } },
-            { beneficiario: { contains: query, mode: 'insensitive' } },
-            { numero: { contains: query, mode: 'insensitive' } },
+            { objeto: { contains: query, mode: "insensitive" } },
+            { concedente: { contains: query, mode: "insensitive" } },
+            { beneficiario: { contains: query, mode: "insensitive" } },
+            { numero: { contains: query, mode: "insensitive" } },
         ];
     }
 

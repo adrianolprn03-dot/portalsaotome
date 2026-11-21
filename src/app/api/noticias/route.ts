@@ -4,11 +4,13 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
+import { parseEndOfDayFortaleza } from "@/lib/timezone";
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const publicada = searchParams.get("publicada");
-    const limit = parseInt(searchParams.get("limit") || "10");
+    const tipoPublicacao = searchParams.get("tipoPublicacao");
+    const limit = parseInt(searchParams.get("limit") || "20");
     const page = parseInt(searchParams.get("page") || "1");
     const q = searchParams.get("q");
     const secretariaId = searchParams.get("secretariaId");
@@ -19,6 +21,9 @@ export async function GET(req: NextRequest) {
         const where: any = {};
         if (publicada !== null) {
             where.publicada = publicada === "true";
+        }
+        if (tipoPublicacao) {
+            where.tipoPublicacao = tipoPublicacao;
         }
 
         if (secretariaId) {
@@ -41,7 +46,7 @@ export async function GET(req: NextRequest) {
                 where,
                 orderBy: [
                     { publicadoEm: "desc" },
-                    { criadoEm: "desc" }
+                    { criadoEm: "desc" },
                 ],
                 take: limit,
                 skip,
@@ -49,6 +54,7 @@ export async function GET(req: NextRequest) {
             }),
             prisma.noticia.count({ where }),
         ]);
+
         if (publicada === "true") {
             return NextResponse.json(
                 { items, total, page, limit },
@@ -68,22 +74,38 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const { titulo, resumo, conteudo, imagem, publicada, secretariaId } = body;
+        const {
+            titulo,
+            resumo,
+            conteudo,
+            imagem,
+            publicada,
+            secretariaId,
+            tipoPublicacao,
+            validoAte,
+            destaque,
+        } = body;
 
-        const slug = titulo
+        const slug = String(titulo || "publicacao")
             .toLowerCase()
-            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/(^-|-$)/g, "");
+
+        const tipoNorm = tipoPublicacao === "aviso" ? "aviso" : "noticia";
+        const parsedValidoAte = parseEndOfDayFortaleza(validoAte);
 
         const noticia = await prisma.noticia.create({
             data: {
                 titulo,
                 resumo,
                 conteudo,
-                imagem,
+                imagem: imagem && imagem !== "#" ? imagem : null,
+                tipoPublicacao: tipoNorm,
+                validoAte: parsedValidoAte,
                 publicada: !!publicada,
-                destaque: Boolean(body.destaque),
+                destaque: Boolean(destaque),
                 tags: typeof body.tags === "string" ? body.tags : JSON.stringify(body.tags || []),
                 publicadoEm: publicada ? new Date() : null,
                 secretariaId: secretariaId || null,
@@ -97,4 +119,3 @@ export async function POST(req: NextRequest) {
         return jsonNoStore({ error: "Erro interno no servidor" }, { status: 500 });
     }
 }
-

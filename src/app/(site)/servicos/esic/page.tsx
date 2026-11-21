@@ -287,12 +287,38 @@ export default function ESICPage() {
                 icon={<FileSearch className="w-8 h-8" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Serviços", href: "/servicos/esic" },
-                    { label: "e-SIC (LAI)" },
+                    { label: "Serviços", href: "/transparencia/carta-servicos" },
+                    { label: "Solicitar informação pública (e-SIC)" },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24">
+            <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 md:py-14 pb-24">
+                {/* Barra de distinção clara: e-SIC vs Ouvidoria vs Consultar Protocolo */}
+                <div className="mb-8 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-civic-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span className="text-xs font-extrabold uppercase tracking-wider text-[#00557d]">
+                            Acesso à Informação Pública (Lei nº 12.527/2011)
+                        </span>
+                        <p className="text-sm text-slate-700 mt-0.5">
+                            Você está no <strong>e-SIC</strong> para solicitar informações ou documentos públicos. Para registrar denúncias, reclamações, elogios ou sugestões, acesse a <strong>Ouvidoria Municipal</strong>.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                        <Link
+                            href="/servicos/ouvidoria"
+                            className="inline-flex items-center gap-1.5 min-h-[40px] px-4 py-2 rounded-xl bg-[#f4fbff] hover:bg-[#e8f6fd] text-[#00557d] border border-slate-300 font-bold text-xs transition-colors"
+                        >
+                            <span>Registrar manifestação (Ouvidoria)</span>
+                        </Link>
+                        <Link
+                            href="/servicos/consulta-protocolo"
+                            className="inline-flex items-center gap-1.5 min-h-[40px] px-4 py-2 rounded-xl bg-[#fdb913] hover:bg-[#e5a60d] text-slate-950 font-bold text-xs transition-colors"
+                        >
+                            <span>Consultar protocolo</span>
+                        </Link>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* SIDEBAR (4 cols) */}
                     <div className="lg:col-span-4 space-y-6">
@@ -368,9 +394,9 @@ export default function ESICPage() {
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Phone className="text-[#01b0ef] shrink-0" size={15} />
-                                    <p className="font-mono font-bold text-slate-700">
-                                        (84) 98748-0287
+                                    <Phone className="text-[#006494] shrink-0" size={15} />
+                                    <p className="font-mono font-bold text-slate-800">
+                                        (84) 99211-5922
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -408,13 +434,13 @@ export default function ESICPage() {
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#01b0ef]">
+                                                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#00557d]">
                                                         Canais de Atendimento
                                                     </p>
-                                                    <p className="font-mono font-semibold text-slate-700 text-xs mt-1">
-                                                        Telefone / WhatsApp: (84) 98748-0287
+                                                    <p className="font-mono font-semibold text-slate-800 text-xs mt-1">
+                                                        Telefone Institucional: (84) 99211-5922
                                                     </p>
-                                                    <p className="font-semibold text-slate-700 text-xs mt-0.5 break-all">
+                                                    <p className="font-semibold text-slate-800 text-xs mt-0.5 break-all">
                                                         E-mail: ouvidoria@saotome.rn.gov.br
                                                     </p>
                                                 </div>

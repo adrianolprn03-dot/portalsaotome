@@ -24,6 +24,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         const data: any = {};
         if (body.nome !== undefined) data.nome = String(body.nome).trim();
         if (body.descricao !== undefined) data.descricao = String(body.descricao);
+        if (body.resumoAtendimento !== undefined) data.resumoAtendimento = body.resumoAtendimento ? String(body.resumoAtendimento).trim() : null;
         if (body.servicos !== undefined) data.servicos = typeof body.servicos === "string" ? body.servicos : JSON.stringify(body.servicos || []);
         if (body.contato !== undefined) data.contato = body.contato || null;
         if (body.telefone !== undefined) data.telefone = body.telefone || null;

@@ -137,7 +137,7 @@ export default function SICRelatoriosClassificadosPage() {
                       },
                   ];
 
-        const filename = `rol_informacoes_classificadas_esic_lajes_pintadas`;
+        const filename = `rol_informacoes_classificadas_esic_saotome`;
         const title = `Rol de Documentos e Informações Classificadas por Grau de Sigilo – São Tomé/RN`;
         const meta = {
             titulo: title,

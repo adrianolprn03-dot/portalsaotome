@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-    FaScaleBalanced, FaMagnifyingGlass, 
-    FaCalendarDays, FaCircleInfo, FaCircleCheck, 
+import {
+    FaScaleBalanced, FaMagnifyingGlass,
+    FaCalendarDays, FaCircleInfo, FaCircleCheck,
     FaFileLines
 } from "react-icons/fa6";
-import { 
-    FaDownload, FaSpinner, FaFileContract, 
+import {
+    FaDownload, FaSpinner, FaFileContract,
     FaChevronRight, FaArrowRight, FaFilter, FaChartPie,
     FaFilePdf, FaEye
 } from "react-icons/fa";
@@ -73,7 +73,7 @@ export default function OrcamentoPage() {
                 fetch(`/api/documentos?${docQuery.toString()}`),
                 fetch(`/api/admin/relatorios-fiscais?${rfQuery.toString()}`)
             ]);
-            
+
             const legData = legRes.ok ? await legRes.json() : { items: [] };
             const docData = docRes.ok ? await docRes.json() : [];
             const rfData = rfRes.ok ? await rfRes.json() : [];
@@ -99,8 +99,8 @@ export default function OrcamentoPage() {
             if (Array.isArray(docData)) {
                 const filteredDocs = docData.filter((item: any) => {
                     const matchesBusca = busca
-                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
-                          item.tipo?.toLowerCase().includes(busca.toLowerCase())
+                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) ||
+                        item.tipo?.toLowerCase().includes(busca.toLowerCase())
                         : true;
                     const itemAno = item.ano || new Date(item.criadoEm).getFullYear();
                     const matchesAno = ano ? itemAno === parseInt(ano) : true;
@@ -125,9 +125,9 @@ export default function OrcamentoPage() {
                     const itemTipo = item.tipo?.toUpperCase();
                     const matchesType = allowedTypes.includes(itemTipo);
                     const matchesAno = ano ? item.ano === parseInt(ano) : true;
-                    const matchesBusca = busca 
-                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) || 
-                          item.tipo?.toLowerCase().includes(busca.toLowerCase())
+                    const matchesBusca = busca
+                        ? item.titulo?.toLowerCase().includes(busca.toLowerCase()) ||
+                        item.tipo?.toLowerCase().includes(busca.toLowerCase())
                         : true;
                     return matchesType && matchesAno && matchesBusca;
                 });
@@ -142,10 +142,10 @@ export default function OrcamentoPage() {
                 }));
                 mappedDocs = [...mappedDocs, ...mappedRf];
             }
-            
+
             // Sort combined results by ano desc
             mappedDocs.sort((a, b) => b.ano - a.ano);
-            
+
             setDocs(mappedDocs);
         } catch (error) {
             console.error("Erro ao buscar documentos:", error);
@@ -200,7 +200,7 @@ export default function OrcamentoPage() {
             <main className="max-w-[1240px] mx-auto px-6 py-12 -mt-16 relative z-30">
                 {/* Intro Bento Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="lg:col-span-2 bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-blue-500/5 border border-blue-100/50 relative overflow-hidden group"
@@ -211,7 +211,7 @@ export default function OrcamentoPage() {
                                 Transparência <span className="text-blue-600">Fiscal</span>
                             </h2>
                             <p className="text-gray-500 leading-relaxed font-medium text-lg max-w-2xl mb-8">
-                                Acesse os documentos oficiais que regem a vida financeira do nosso município, 
+                                Acesse os documentos oficiais que regem a vida financeira do nosso município,
                                 garantindo o controle social e a conformidade com a Lei de Responsabilidade Fiscal.
                             </p>
                             <div className="flex flex-wrap gap-4">
@@ -224,8 +224,8 @@ export default function OrcamentoPage() {
                             </div>
                         </div>
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
@@ -242,7 +242,7 @@ export default function OrcamentoPage() {
                                     Acompanhe o planejamento plurianual, as diretrizes e a execução anual do orçamento.
                                 </p>
                             </div>
-                            <Link 
+                            <Link
                                 href="/servicos/esic"
                                 className="mt-8 flex items-center justify-between bg-[#fdb913] text-slate-900 px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg hover:bg-[#e5a60d] transition-all group/btn"
                             >
@@ -253,7 +253,7 @@ export default function OrcamentoPage() {
                 </div>
 
                 {/* Filters Section */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -265,15 +265,15 @@ export default function OrcamentoPage() {
                         currentYear={ano}
                         onYearChange={setAno}
                         currentMonth=""
-                        onMonthChange={() => {}}
+                        onMonthChange={() => { }}
                         onClear={handleClearFilters}
                         onExport={handleExport}
                         placeholder="Pesquisar por lei, ano ou termos da ementa..."
                         hideMonthFilter
                     >
                         <div className="flex flex-wrap gap-3">
-                            <select 
-                                value={tipo} 
+                            <select
+                                value={tipo}
                                 onChange={(e) => setTipo(e.target.value)}
                                 className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-3.5 text-[10px] font-black uppercase tracking-widest text-slate-700 outline-none hover:border-blue-400 transition-all cursor-pointer"
                             >
@@ -290,7 +290,7 @@ export default function OrcamentoPage() {
                 <div className="space-y-6 min-h-[400px]">
                     <AnimatePresence mode="popLayout">
                         {loading ? (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 className="flex flex-col justify-center items-center py-40 gap-6"
@@ -299,7 +299,7 @@ export default function OrcamentoPage() {
                                 <p className="font-black text-slate-300 text-[10px] uppercase tracking-[0.4em]">Sincronizando Base Orçamentária...</p>
                             </motion.div>
                         ) : docs.length === 0 ? (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="bg-white rounded-[3.5rem] border-4 border-dashed border-slate-100 p-24 text-center group"
@@ -309,7 +309,7 @@ export default function OrcamentoPage() {
                                 </div>
                                 <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tighter mb-3">Nenhum registro localizado</h3>
                                 <p className="text-slate-400 font-bold text-sm uppercase tracking-widest opacity-60 italic">Tente ajustar os filtros para uma nova consulta.</p>
-                                <button 
+                                <button
                                     onClick={handleClearFilters}
                                     className="mt-10 px-10 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10 active:scale-95"
                                 >
@@ -321,7 +321,7 @@ export default function OrcamentoPage() {
                                 {docs.map((d, idx) => {
                                     const corEstilo = tipoCores[d.tipo] || "bg-slate-50 text-slate-600 border-slate-100";
                                     return (
-                                        <motion.div 
+                                        <motion.div
                                             key={d.id}
                                             initial={{ opacity: 0, y: 16 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -393,7 +393,7 @@ export default function OrcamentoPage() {
                         <span className="text-blue-600 text-[10px] font-black uppercase tracking-[0.5em] mb-4 block">Guia Informativo</span>
                         <h2 className="text-4xl font-black text-slate-800 tracking-tighter uppercase">Ciclo de <span className="text-blue-600">Planejamento</span></h2>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {Object.entries(TIPO_DESCRICOES).map(([key, desc], idx) => (
                             <div key={key} className="bg-white rounded-[3rem] p-10 border border-slate-50 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all group relative overflow-hidden">
@@ -415,13 +415,13 @@ export default function OrcamentoPage() {
                 {/* Banner PNTP */}
                 <div className="mt-32">
                     <BannerPNTP />
-                    
+
                     <div className="mt-20 space-y-6 text-center max-w-2xl mx-auto">
                         <div className="flex justify-center gap-2 mb-4">
                             {[1, 2, 3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-blue-600/20" />)}
                         </div>
                         <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] leading-relaxed">
-                            LEI DE RESPONSABILIDADE FISCAL • LC 101/2000 <br/>
+                            LEI DE RESPONSABILIDADE FISCAL • LC 101/2000 <br />
                             <span className="opacity-40">São Tomé/RN • Planejamento e Gestão de Resultados</span>
                         </p>
                     </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { 
-    FaFilePdf, FaMagnifyingGlass, FaCalendarDays, FaDownload, 
+import {
+    FaFilePdf, FaMagnifyingGlass, FaCalendarDays, FaDownload,
     FaEye, FaXmark, FaGavel, FaFileSignature, FaScroll, FaFileLines, FaScaleBalanced,
     FaFileExcel, FaFileCsv, FaArrowDownShortWide, FaArrowUpWideShort
 } from "react-icons/fa6";
@@ -204,12 +204,12 @@ const tipoInfo: Record<string, { label: string; icon: any }> = {
     "PPA": { label: "PPA", icon: FaFileLines },
 };
 
-export default function LegislacaoClient({ 
-    initialTipo = "", 
-    hideTipoFilter = false 
-}: { 
-    initialTipo?: string; 
-    hideTipoFilter?: boolean; 
+export default function LegislacaoClient({
+    initialTipo = "",
+    hideTipoFilter = false
+}: {
+    initialTipo?: string;
+    hideTipoFilter?: boolean;
 }) {
     const [leis, setLeis] = useState<Legislacao[]>([]);
     const [loading, setLoading] = useState(true);
@@ -221,14 +221,31 @@ export default function LegislacaoClient({
     const [ordem, setOrdem] = useState<"desc" | "asc">("desc");
     const [pdfViewer, setPdfViewer] = useState<{ url: string; titulo: string } | null>(null);
 
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const params = new URLSearchParams(window.location.search);
+        const qParam = params.get("q") || params.get("busca");
+        const anoParam = params.get("ano");
+        const tipoParam = params.get("tipo");
+        if (qParam && qParam.trim()) {
+            setBuscaFiltro(qParam.trim());
+        }
+        if (anoParam && /^\d{4}$/.test(anoParam)) {
+            setAnoFiltro(Number(anoParam));
+        }
+        if (tipoParam && !hideTipoFilter) {
+            setTipoFiltro(tipoParam);
+        }
+    }, [hideTipoFilter]);
+
     const fetchLeis = useCallback(async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({ 
+            const query = new URLSearchParams({
                 limit: "5000"
             });
             if (tipoFiltro && tipoFiltro !== "TODOS") query.append("tipo", tipoFiltro);
-            
+
             const res = await fetch(`/api/legislacao?${query.toString()}`);
             if (res.ok) {
                 const data = await res.json();
@@ -253,16 +270,39 @@ export default function LegislacaoClient({
         }));
     }, [leis]);
 
-    // Filtragem por busca textual, ano e mês real
+    // Filtragem por busca textual, variações de número/ano sem acento, ano e mês real
     const filtered = useMemo(() => {
-        const buscaLower = buscaFiltro.toLowerCase().trim();
-        return processedLeis.filter(item => {
-            const matchesSearch = !buscaLower ||
-                item.ementa.toLowerCase().includes(buscaLower) || 
-                item.numero.toLowerCase().includes(buscaLower);
+        const norm = (s: string) =>
+            (s || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/(\d)\.(\d{3})\b/g, "$1$2")
+                .trim();
+
+        const buscaNorm = norm(buscaFiltro);
+        const queryTokens = buscaNorm
+            .replace(/[\/.\-,;:()"]/g, " ")
+            .split(/\s+/)
+            .filter((t) => t.length >= 1 && !["de", "da", "do", "n", "no", "nº"].includes(t));
+
+        return processedLeis.filter((item) => {
             const matchesAno = anoFiltro === null || item.meta.year === anoFiltro;
             const matchesMes = mesFiltro === null || item.meta.month === mesFiltro;
-            return matchesSearch && matchesAno && matchesMes;
+            if (!matchesAno || !matchesMes) return false;
+            if (!buscaNorm) return true;
+
+            const numInt = parseNumero(item.numero);
+            const tipoLabel = tipoInfo[item.tipo]?.label || item.tipo;
+            const candidateNorm = norm(
+                `${tipoLabel} ${item.tipo} ${item.numero} ${numInt || ""}/${item.meta.year} ${numInt || ""} ${item.meta.year} ${item.ementa}`
+            );
+
+            if (candidateNorm.includes(buscaNorm)) return true;
+            if (queryTokens.length > 0 && queryTokens.every((tk) => candidateNorm.includes(tk))) {
+                return true;
+            }
+            return false;
         });
     }, [processedLeis, buscaFiltro, anoFiltro, mesFiltro]);
 
@@ -325,7 +365,7 @@ export default function LegislacaoClient({
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20">
-            
+
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
@@ -361,7 +401,7 @@ export default function LegislacaoClient({
 
             {/* ═══════ PAINEL DE FILTROS (MÊS, ANO, BUSCA, ORDENAÇÃO) ═══════ */}
             <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm mb-8">
-                
+
                 {/* Abas de Tipo (se não estiver escondido) */}
                 {!hideTipoFilter && (
                     <div className="px-5 pt-5 pb-0">
@@ -378,11 +418,10 @@ export default function LegislacaoClient({
                                 <button
                                     key={tab.id}
                                     onClick={() => setTipoFiltro(tab.id)}
-                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                        tipoFiltro === tab.id
+                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${tipoFiltro === tab.id
                                         ? "bg-[#01b0ef] text-white shadow-sm"
                                         : "bg-[#f4fbff] text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                                    }`}
+                                        }`}
                                 >
                                     {tab.label}
                                 </button>
@@ -393,7 +432,7 @@ export default function LegislacaoClient({
 
                 {/* Linha com Busca + Filtro de Ano + Filtro de Mês + Alternar Ordem + Exportação */}
                 <div className="p-5 flex flex-col md:flex-row gap-3 items-stretch md:items-center">
-                    
+
                     {/* Campo de Busca */}
                     <div className="relative flex-1">
                         <FaMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={13} />
@@ -571,7 +610,7 @@ export default function LegislacaoClient({
                                     }
 
                                     // 3. Fallback alfabético de string
-                                    return ordem === "desc" 
+                                    return ordem === "desc"
                                         ? b.numero.localeCompare(a.numero, undefined, { numeric: true, sensitivity: 'base' })
                                         : a.numero.localeCompare(b.numero, undefined, { numeric: true, sensitivity: 'base' });
                                 });
@@ -624,7 +663,7 @@ export default function LegislacaoClient({
                                                                 <FaFilePdf size={16} />
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <p className="text-xs font-medium text-slate-600 leading-relaxed mb-4 line-clamp-4 group-hover:text-slate-900 transition-colors" title={l.ementa}>
                                                             {l.ementa}
                                                         </p>
@@ -633,8 +672,8 @@ export default function LegislacaoClient({
                                                         <div className="flex items-center gap-2 mt-auto pt-2">
                                                             <FaCalendarDays size={12} className="text-slate-400 shrink-0" />
                                                             <span className="text-xs font-semibold text-slate-600">
-                                                                {l.meta.displayDate.startsWith("Exercício") 
-                                                                    ? l.meta.displayDate 
+                                                                {l.meta.displayDate.startsWith("Exercício")
+                                                                    ? l.meta.displayDate
                                                                     : `Publicado em ${l.meta.displayDate}`
                                                                 }
                                                             </span>

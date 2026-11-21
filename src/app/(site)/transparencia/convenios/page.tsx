@@ -79,7 +79,7 @@ export default function ConveniosPage() {
     const [convenios, setConvenios] = useState<Convenio[]>([]);
     const [loading, setLoading] = useState(true);
     const [busca, setBusca] = useState("");
-    const [ano, setAno] = useState(new Date().getFullYear().toString());
+    const [ano, setAno] = useState("");
     const [status, setStatus] = useState("");
     const [abaTipo, setAbaTipo] = useState<"todos" | "concedido" | "recebido">("todos");
     const [visualizacao, setVisualizacao] = useState<"tabela" | "grafico">("tabela");
@@ -133,7 +133,7 @@ export default function ConveniosPage() {
             };
         });
 
-        const filename = `convenios_transferencias_lajes_pintadas`;
+        const filename = `convenios_transferencias_saotome`;
         const title = `Relatório de Convênios e Transferências – Prefeitura de São Tomé/RN (Critério PNTP)`;
 
         if (format === "csv") exportToCSV(payload, filename);
@@ -340,6 +340,7 @@ export default function ConveniosPage() {
                                 onChange={(e) => setAno(e.target.value)}
                                 className="w-full bg-[#f4fbff] border border-[#e2e8f0] rounded-xl px-4 py-2.5 text-xs font-bold text-slate-900 focus:border-[#01b0ef] outline-none"
                             >
+                                <option value="">Todos os exercícios</option>
                                 <option value="2026">2026</option>
                                 <option value="2025">2025</option>
                                 <option value="2024">2024</option>
@@ -589,7 +590,7 @@ export default function ConveniosPage() {
                     <BannerPNTP />
                     <div className="text-center pt-2">
                         <p className="text-xs text-slate-600">
-                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE LAJES PINTADAS/RN <br/>
+                            PORTAL DA TRANSPARÊNCIA • PREFEITURA DE SÃO TOMÉ/RN <br/>
                             <span className="italic">
                                 Identificador Municipal Oficial: Código IBGE 2412005 • CNPJ 08.080.210/0001-49 (Distinto de Lajes/RN - IBGE 2406700).
                             </span>

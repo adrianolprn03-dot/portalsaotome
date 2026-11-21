@@ -3,37 +3,82 @@
 @tailwind utilities;
 
 :root {
-  /* Core Brand Tokens — Azul #01b0ef & Amarelo #fdb913 */
+  /* === CORE BRAND & ACCESSIBLE COLOR TOKENS === */
+  /* Ciano de identidade oficial (#01b0ef) e Azul escuro acessível para links/botões (WCAG AA >= 4.5:1) */
   --primary: #01b0ef;
   --primary-light: #47c6ff;
-  --primary-dark: #0098d4;
+  --primary-dark: #006494;
+  --primary-ink: #00557d;
+  --primary-deep: #003e5c;
+
+  /* Amarelo oficial reservado para ação prioritária ou aviso relevante (#fdb913 com texto #0f172a = 10.8:1) */
   --secondary: #fdb913;
-  --secondary-light: #fde28a;
+  --secondary-hover: #e5a50a;
+  --secondary-light: #fff3c4;
   --accent: #fdb913;
 
-  /* Surface & Text Architecture */
+  /* Superfícies e Bordas */
   --surface-bg: #f4fbff;
   --surface-card: #ffffff;
   --surface-elevated: #f8fcff;
-  --border-subtle: #dbeefe;
-  --border-strong: #b5e9ff;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
+  --surface-subtle: #edf8ff;
+  --border-subtle: #d5e9f7;
+  --border-strong: #9fd8f5;
+  --border-focus: #00557d;
 
-  --font-size-base: 15px;
+  /* Tipografia com Contraste Garantido (WCAG 2.2 AA / AAA) */
+  --text-primary: #0f172a;    /* 17.8:1 em fundo branco */
+  --text-secondary: #334155;  /* 11.5:1 em fundo branco */
+  --text-muted: #475569;      /* 7.5:1 em fundo branco */
+  --text-link: #00557d;       /* 7.9:1 em fundo branco */
+  --text-link-hover: #003e5c; /* 10.8:1 em fundo branco */
+
+  /* Escala Tipográfica, Raios, Espaçamentos e Transições */
+  --font-size-base: 16px;
+  --font-size-body-lg: 17px;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.5rem;
+  --space-section-y: 3.5rem;
+  --space-section-y-lg: 4.5rem;
+  --focus-ring: 0 0 0 3px rgba(1, 176, 239, 0.35);
 }
 
 @layer base {
-  h1, h2, h3, h4, .font-heading {
-    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
-    letter-spacing: -0.025em;
+  html {
+    font-size: var(--font-size-base);
+    overflow-x: clip;
   }
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--surface-bg);
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+  }
+
+  /* Foco visível consistente para navegação por teclado */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 2px;
   }
 }
 
@@ -41,7 +86,7 @@
 .high-contrast {
   --bg-main: #000 !important;
   --text-main: #fff !important;
-  filter: contrast(1.45);
+  filter: contrast(1.35);
 }
 
 html.high-contrast body {
@@ -60,14 +105,15 @@ html.high-contrast .bg-\[\#f8fafc\],
 html.high-contrast .bg-slate-50,
 html.high-contrast .bg-gray-50 {
   background: #0d0d0d !important;
-  border-color: #444 !important;
+  border-color: #555 !important;
 }
 
 html.high-contrast .text-gray-600,
 html.high-contrast .text-gray-500,
+html.high-contrast .text-slate-700,
 html.high-contrast .text-slate-600,
 html.high-contrast .text-slate-500 {
-  color: #e2e8f0 !important;
+  color: #f1f5f9 !important;
 }
 
 html.high-contrast header {
@@ -81,11 +127,38 @@ html.high-contrast footer {
 }
 
 html.font-large {
-  font-size: 19px !important;
+  font-size: 18.5px !important;
 }
 
 html.font-xlarge {
-  font-size: 22px !important;
+  font-size: 21px !important;
+}
+
+/* === RESPEITO A MOVIMENTO REDUZIDO === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === VLIBRAS: EVITAR SOBREPOSIÇÃO EM AÇÕES IMPORTANTES NO CELULAR === */
+div[vw].enabled {
+  z-index: 45 !important;
+}
+
+@media (max-width: 640px) {
+  div[vw].enabled {
+    top: auto !important;
+    bottom: 84px !important;
+    right: 8px !important;
+    transform: scale(0.88);
+    transform-origin: bottom right;
+  }
 }
 
 /* === SKIP LINK (Acessibilidade) === */
@@ -100,14 +173,14 @@ html.font-xlarge {
   text-decoration: none;
   z-index: 9999;
   font-weight: 800;
-  font-size: 13px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   transition: top 0.2s ease;
 }
 
 .skip-link:focus {
   top: 0;
-  outline: 3px solid #01b0ef;
+  outline: 3px solid #003e5c;
 }
 
 /* === SCROLLBAR === */
@@ -126,22 +199,20 @@ html.font-xlarge {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #01b0ef;
+  background: #006494;
 }
 
 /* === SIGNATURE BRAND STRIPE & ARCHITECTURAL PATTERNS === */
 .heraldic-stripe {
-  background: linear-gradient(
-    90deg,
-    #01b0ef 0%,
-    #01b0ef 65%,
-    #fdb913 65%,
-    #fdb913 100%
-  );
+  background: linear-gradient(90deg,
+      #01b0ef 0%,
+      #01b0ef 65%,
+      #fdb913 65%,
+      #fdb913 100%);
 }
 
 .civic-grid-pattern {
-  background-image: radial-gradient(rgba(1, 176, 239, 0.16) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(1, 176, 239, 0.14) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -153,56 +224,59 @@ html.font-xlarge {
 
 /* === DESIGN SYSTEM COMPONENT UTILITIES === */
 @layer components {
+  /* Botão institucional azul escuro com contraste AA > 6.2:1 */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-[#01b0ef] focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 bg-[#006494] hover:bg-[#004f75] text-white font-bold text-sm px-5 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00557d] focus-visible:ring-offset-2;
   }
 
+  /* Botão amarelo reservado para a ação prioritária de cada seção (Contraste 10.8:1) */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 font-bold text-sm px-6 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-[#fdb913] focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 bg-[#fdb913] hover:bg-[#e5a50a] text-slate-900 font-bold text-sm px-5 py-3 rounded-xl transition-all duration-200 shadow-civic-sm hover:shadow-civic active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f172a] focus-visible:ring-offset-2;
   }
 
+  /* Botão contornado de leitura limpa */
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-slate-200 bg-white text-slate-800 hover:border-[#01b0ef] hover:text-[#01b0ef] hover:bg-[#01b0ef]/5 font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#01b0ef] focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 border border-slate-300 bg-white text-[#00557d] hover:border-[#006494] hover:text-[#003e5c] hover:bg-[#edf8ff] font-bold text-sm px-5 py-3 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00557d] focus-visible:ring-offset-2;
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 overflow-hidden border border-slate-200/80;
+    @apply bg-white rounded-2xl shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 overflow-hidden border border-slate-200;
   }
 
   .card-bento {
-    @apply relative bg-white rounded-2xl border border-slate-200/80 shadow-civic-sm hover:shadow-civic-lg hover:border-[#01b0ef] transition-all duration-300 overflow-hidden;
+    @apply relative bg-white rounded-2xl border border-slate-200 shadow-civic-sm hover:shadow-civic-lg hover:border-[#006494] transition-all duration-300 overflow-hidden;
   }
 
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#01b0ef]/10 border border-[#01b0ef]/25 text-[#007bb0] text-xs font-bold tracking-wide;
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#edf8ff] border border-[#9fd8f5] text-[#00557d] text-xs font-bold tracking-wide;
   }
 
   .section-title {
-    @apply font-heading text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.15];
+    @apply font-heading text-2xl sm:text-3xl md:text-[2.125rem] font-extrabold text-slate-900 tracking-tight leading-[1.18];
   }
 
   .section-subtitle {
-    @apply text-slate-600 text-base leading-relaxed font-normal;
+    @apply text-slate-700 text-base md:text-[17px] leading-relaxed font-normal;
   }
 
   .badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#01b0ef]/25 focus:border-[#01b0ef] transition-all bg-slate-50/70 focus:bg-white;
+    @apply w-full px-4 py-3 border border-slate-300 rounded-xl text-base font-medium text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#006494]/30 focus:border-[#006494] transition-all bg-white;
   }
 
   .table-header {
-    @apply bg-[#01b0ef] text-white font-bold text-xs px-5 py-3.5 text-left uppercase tracking-wider;
+    @apply bg-[#00557d] text-white font-bold text-xs px-5 py-3.5 text-left uppercase tracking-wider;
   }
 
   .table-cell {
-    @apply px-5 py-4 text-sm text-slate-700 border-b border-slate-100;
+    @apply px-5 py-4 text-sm text-slate-800 border-b border-slate-100;
   }
 
   .service-card {
-    @apply rounded-2xl p-6 bg-white text-slate-800 shadow-civic-sm border border-slate-200/80 hover:shadow-civic-lg hover:border-[#01b0ef] transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-center text-center;
+    @apply rounded-2xl p-6 bg-white text-slate-900 shadow-civic-sm border border-slate-200 hover:shadow-civic-lg hover:border-[#006494] transition-all duration-200 flex flex-col items-center justify-center text-center;
   }
 }
 
@@ -210,8 +284,9 @@ html.font-xlarge {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -222,6 +297,7 @@ html.font-xlarge {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -230,8 +306,9 @@ html.font-xlarge {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -241,8 +318,9 @@ html.font-xlarge {
 @keyframes dropdownFade {
   from {
     opacity: 0;
-    transform: translateY(-6px) scale(0.98);
+    transform: translateY(-4px) scale(0.99);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -250,33 +328,31 @@ html.font-xlarge {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.35s ease forwards;
+  animation: fadeIn 0.25s ease forwards;
 }
 
 .animate-slide-in {
-  animation: slideInLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-dropdown-fade {
-  animation: dropdownFade 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: dropdownFade 0.16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* === BRIGHT SECTION BACKGROUNDS === */
 .hero-gradient {
-  background: linear-gradient(
-    135deg,
-    #e6f8ff 0%,
-    #ffffff 55%,
-    #fff9eb 100%
-  );
+  background: linear-gradient(135deg,
+      #e6f8ff 0%,
+      #ffffff 55%,
+      #fff9eb 100%);
 }
 
 .bg-section-brand {
-  background: linear-gradient(135deg, #01b0ef 0%, #19bdf7 55%, #0098d4 100%);
+  background: linear-gradient(135deg, #00557d 0%, #006494 55%, #004666 100%);
 }
 
 .bg-section-light {
@@ -285,19 +361,19 @@ html.font-xlarge {
 
 /* === GLASSMORPHISM === */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(1, 176, 239, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(0, 100, 148, 0.18);
 }
 
 /* === NOTÍCIAS === */
 .news-card:hover .news-image {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .news-image {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* === HIDDEN SCROLLBAR RAIL === */

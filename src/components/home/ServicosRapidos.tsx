@@ -1,158 +1,309 @@
 import Link from "next/link";
 import {
-    ShieldCheck,
+    Receipt,
+    HeartPulse,
+    BookOpenCheck,
     FileSearch,
     Headset,
-    Building2,
-    ArrowUpRight,
+    Search,
     ArrowRight,
     ExternalLink,
+    Wallet,
+    Mail,
+    UserCheck,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import {
+    FEMURN_SAO_TOME_INSTRUCTION,
+    FEMURN_STABLE_SEARCH_URL,
+    isValidPublicUrl,
+    sanitizeDiarioOficialUrl,
+} from "@/lib/portal-links";
 
-const servicos = [
+interface TaskShortcut {
+    id: string;
+    label: string;
+    desc: string;
+    note?: string;
+    defaultHref: string;
+    icon: any;
+    defaultOrder: number;
+}
+
+const PRIORITY_SHORTCUTS: TaskShortcut[] = [
     {
-        index: "01",
-        label: "Portal da Transparência",
-        desc: "Acompanhe receitas, despesas, licitações, contratos e atos oficiais em tempo real.",
-        href: "/transparencia",
-        icon: ShieldCheck,
-        badge: "PNTP 2026",
-        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
-        badgeClass: "bg-[#fdb913] text-slate-900 border-[#fdb913]",
+        id: "home-contribuinte",
+        label: "Emitir guia ou certidão",
+        desc: "IPTU, DAM, certidão negativa de débitos, alvarás e nota fiscal eletrônica.",
+        defaultHref:
+            "https://www.tinus.com.br/csp/SAOTOME/portal/index.csp?398ePKh0101MOVZE78365xmEw9088og=xbCN41Noq203lgm19139rlZlh569ZevDU2955S1071625bJbX145",
+        icon: Receipt,
+        defaultOrder: 1,
     },
     {
-        index: "02",
-        label: "e-SIC • Acesso à Informação",
-        desc: "Solicite informações públicas eletronicamente com protocolo e acompanhamento pela LAI.",
-        href: "/servicos/esic",
+        id: "home-saude",
+        label: "Encontrar unidade de saúde",
+        desc: "Endereços, horários de atendimento, especialidades e equipes das UBS.",
+        defaultHref: "/unidades-de-saude",
+        icon: HeartPulse,
+        defaultOrder: 2,
+    },
+    {
+        id: "home-diario",
+        label: "Consultar Diário Oficial",
+        desc: "Publicações legais, decretos, portarias e avisos oficiais na FEMURN.",
+        note: FEMURN_SAO_TOME_INSTRUCTION,
+        defaultHref: FEMURN_STABLE_SEARCH_URL,
+        icon: BookOpenCheck,
+        defaultOrder: 3,
+    },
+    {
+        id: "home-esic",
+        label: "Solicitar informação pública",
+        desc: "Registre pedido de acesso à informação (e-SIC / LAI) com protocolo eletrônico.",
+        defaultHref: "/servicos/esic",
         icon: FileSearch,
-        badge: "Lei 12.527/11",
-        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
-        badgeClass: "bg-[#01b0ef]/10 text-[#01b0ef] border-[#01b0ef]/25",
+        defaultOrder: 4,
     },
     {
-        index: "03",
-        label: "Ouvidoria Municipal",
-        desc: "Canal direto para sugestões, elogios, solicitações, reclamações e denúncias.",
-        href: "/servicos/ouvidoria",
+        id: "home-ouvidoria",
+        label: "Registrar manifestação",
+        desc: "Envie reclamações, denúncias, solicitações, sugestões ou elogios à Ouvidoria.",
+        defaultHref: "/servicos/ouvidoria",
         icon: Headset,
-        badge: "Lei 13.460/17",
-        iconBg: "bg-[#fdb913]/20 text-slate-900 group-hover:bg-[#fdb913] group-hover:text-slate-900",
-        badgeClass: "bg-[#fdb913]/25 text-slate-900 border-[#fdb913]/50",
+        defaultOrder: 5,
     },
     {
-        index: "04",
-        label: "Secretarias e Órgãos",
-        desc: "Consulte a estrutura administrativa, atribuições, gestores, endereços e horários.",
-        href: "/secretarias",
-        icon: Building2,
-        badge: "Institucional",
-        iconBg: "bg-[#01b0ef]/10 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white",
-        badgeClass: "bg-slate-100 text-slate-700 border-slate-200",
+        id: "home-protocolo",
+        label: "Consultar protocolo",
+        desc: "Acompanhe o andamento e a resposta de manifestações da Ouvidoria e pedidos do e-SIC.",
+        defaultHref: "/servicos/consulta-protocolo",
+        icon: Search,
+        defaultOrder: 6,
+    },
+];
+
+const SERVER_SHORTCUTS = [
+    {
+        id: "home-contracheque",
+        label: "Contracheque online",
+        desc: "Holerites e comprovantes de rendimentos",
+        defaultHref: "https://app.topsolutionsrn.com.br/ContraCheque/pmsaotome/",
+        icon: Wallet,
+    },
+    {
+        id: "home-webmail",
+        label: "Webmail institucional",
+        desc: "Correio eletrônico oficial dos órgãos municipais",
+        defaultHref: "https://titan.hostgator.com.br/login/",
+        icon: Mail,
     },
 ];
 
 export default async function ServicosRapidos() {
-    let linksExternos: any[] = [];
+    let linksExternos: Array<{
+        id: string;
+        titulo: string;
+        url: string;
+        descricao: string | null;
+        moduloAlvo: string | null;
+        ordem: number;
+        ativo: boolean;
+    }> = [];
+
     try {
-        linksExternos = await (prisma as any).linkExterno.findMany({
+        linksExternos = await prisma.linkExterno.findMany({
             where: { ativo: true, moduloAlvo: { startsWith: "home-" } },
+            orderBy: [{ ordem: "asc" }, { titulo: "asc" }],
         });
     } catch (e) {
-        console.error("Erro ao carregar linksExternos em ServicosRapidos:", e);
+        console.error("Erro ao carregar atalhos da home:", e);
     }
+
+    const resolvedShortcuts = PRIORITY_SHORTCUTS.map((item) => {
+        const override = linksExternos.find(
+            (l) => l.moduloAlvo?.toLowerCase() === item.id.toLowerCase()
+        );
+        let href = item.defaultHref;
+        if (override && isValidPublicUrl(override.url)) {
+            href =
+                item.id === "home-diario"
+                    ? sanitizeDiarioOficialUrl(override.url)
+                    : override.url.trim();
+        }
+        const order =
+            override && typeof override.ordem === "number" && override.ordem > 0
+                ? override.ordem
+                : item.defaultOrder;
+        const isExternal = href.startsWith("http");
+
+        return {
+            ...item,
+            href,
+            order,
+            isExternal,
+        };
+    }).sort((a, b) => a.order - b.order);
+
+    const resolvedServerLinks = SERVER_SHORTCUTS.map((srv) => {
+        const override = linksExternos.find(
+            (l) => l.moduloAlvo?.toLowerCase() === srv.id.toLowerCase()
+        );
+        const href =
+            override && isValidPublicUrl(override.url)
+                ? override.url.trim()
+                : srv.defaultHref;
+        return {
+            ...srv,
+            href,
+            isExternal: href.startsWith("http"),
+        };
+    }).filter((s) => isValidPublicUrl(s.href));
 
     return (
         <section
-            className="py-12 md:py-16 bg-[#f4fbff] border-b border-[#01b0ef]/15 relative z-10"
-            id="servicos"
-            aria-labelledby="servicos-titulo"
+            id="servicos-e-atendimento"
+            aria-labelledby="servicos-atendimento-titulo"
+            className="py-10 sm:py-12 bg-white border-b border-slate-200"
         >
-            <div className="max-w-[1240px] mx-auto px-6">
-                <h2 id="servicos-titulo" className="sr-only">
-                    Principais Canais de Atendimento e Transparência
-                </h2>
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                {/* Cabeçalho da Seção */}
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <h2
+                            id="servicos-atendimento-titulo"
+                            className="section-title"
+                        >
+                            Serviços e atendimento
+                        </h2>
+                        <p className="text-slate-700 text-base mt-1">
+                            Acesso direto às tarefas e canais mais utilizados pelo cidadão em São Tomé.
+                        </p>
+                    </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {servicos.map((s, idx) => {
+                    <Link
+                        href="/transparencia/carta-servicos"
+                        className="btn-secondary self-start sm:self-auto shrink-0"
+                    >
+                        <span>Ver todos os serviços</span>
+                        <ArrowRight size={16} aria-hidden="true" />
+                    </Link>
+                </div>
+
+                {/* Grade Compacta de 6 Atalhos Prioritários */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {resolvedShortcuts.map((s) => {
                         const Icon = s.icon;
-                        const identifier = s.href.includes("esic")
-                            ? "home-esic"
-                            : s.href.includes("ouvidoria")
-                            ? "home-ouvidoria"
-                            : s.href === "/transparencia"
-                            ? "home-transparencia"
-                            : s.href === "/secretarias"
-                            ? "home-secretarias"
-                            : "";
-
-                        const override = linksExternos.find(
-                            (l: any) =>
-                                l.moduloAlvo?.toLowerCase() === identifier.toLowerCase()
-                        );
-                        const finalHref = override && override.url ? override.url : s.href;
-                        const isExternal = !!override;
-
-                        return (
-                            <Link
-                                key={idx}
-                                href={finalHref}
-                                target={isExternal ? "_blank" : undefined}
-                                rel={isExternal ? "noopener noreferrer" : undefined}
-                                className="group relative flex flex-col justify-between p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#01b0ef] shadow-civic-sm hover:shadow-civic-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-                            >
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-[#01b0ef]/20 group-hover:heraldic-stripe transition-all" />
-
-                                <div>
-                                    <div className="flex items-center justify-between mb-5">
-                                        <div
-                                            className={`w-12 h-12 ${s.iconBg} rounded-xl flex items-center justify-center transition-all duration-300 shadow-xs relative`}
-                                        >
-                                            <Icon size={22} strokeWidth={1.8} />
-                                            {isExternal && (
-                                                <div className="absolute -top-1.5 -right-1.5 bg-[#01b0ef] text-white p-1 rounded-md shadow border border-white">
-                                                    <ExternalLink size={9} />
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="flex items-center gap-2">
-                                            <span
-                                                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${s.badgeClass}`}
-                                            >
-                                                {s.badge}
-                                            </span>
-                                            <span className="font-mono text-xs font-bold text-slate-300 group-hover:text-[#01b0ef]">
-                                                {s.index}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <h3 className="font-heading font-bold text-slate-900 text-base group-hover:text-[#01b0ef] transition-colors leading-snug mb-2">
-                                        {s.label}
-                                    </h3>
-                                    <p className="text-slate-600 text-xs leading-relaxed mb-6">
-                                        {s.desc}
-                                    </p>
+                        const cardContent = (
+                            <>
+                                <div className="w-11 h-11 rounded-xl bg-[#edf8ff] text-[#00557d] group-hover:bg-[#006494] group-hover:text-white border border-[#9fd8f5] flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                                    <Icon size={21} strokeWidth={2} aria-hidden="true" />
                                 </div>
-
-                                <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-600 group-hover:text-[#01b0ef] transition-colors">
-                                        {isExternal ? "Acessar sistema" : "Acessar canal"}
-                                    </span>
-                                    <div className="w-7 h-7 rounded-full bg-[#01b0ef]/10 group-hover:bg-[#01b0ef] text-[#01b0ef] group-hover:text-white flex items-center justify-center transition-all group-hover:translate-x-0.5">
-                                        {isExternal ? (
-                                            <ArrowUpRight size={14} />
+                                <div className="min-w-0 flex-1">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <h3 className="font-heading font-bold text-slate-900 group-hover:text-[#00557d] text-base leading-snug transition-colors">
+                                            {s.label}
+                                        </h3>
+                                        {s.isExternal ? (
+                                            <ExternalLink
+                                                size={15}
+                                                className="text-slate-500 group-hover:text-[#00557d] shrink-0"
+                                                aria-hidden="true"
+                                            />
                                         ) : (
-                                            <ArrowRight size={14} />
+                                            <ArrowRight
+                                                size={15}
+                                                className="text-slate-500 group-hover:text-[#00557d] group-hover:translate-x-0.5 transition-transform shrink-0"
+                                                aria-hidden="true"
+                                            />
                                         )}
                                     </div>
+                                    <p className="text-slate-700 text-sm leading-relaxed mt-1">
+                                        {s.desc}
+                                    </p>
+                                    {s.note && (
+                                        <p className="mt-2 text-xs font-bold text-slate-900 bg-[#fff3c4] border border-[#fdb913]/50 px-2.5 py-1 rounded-lg">
+                                            {s.note}
+                                        </p>
+                                    )}
                                 </div>
+                            </>
+                        );
+
+                        return s.isExternal ? (
+                            <a
+                                key={s.id}
+                                href={s.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#f8fcff] hover:bg-white border border-slate-200 hover:border-[#006494] shadow-civic-sm hover:shadow-civic transition-all"
+                            >
+                                {cardContent}
+                            </a>
+                        ) : (
+                            <Link
+                                key={s.id}
+                                href={s.href}
+                                className="group flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#f8fcff] hover:bg-white border border-slate-200 hover:border-[#006494] shadow-civic-sm hover:shadow-civic transition-all"
+                            >
+                                {cardContent}
                             </Link>
                         );
                     })}
                 </div>
+
+                {/* Área Identificada para Servidores (Contracheque e Webmail) */}
+                {resolvedServerLinks.length > 0 && (
+                    <div
+                        aria-labelledby="area-servidor-titulo"
+                        className="rounded-2xl bg-[#f4fbff] border border-slate-200 p-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                    >
+                        <div className="flex items-center gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-[#00557d] text-white flex items-center justify-center shrink-0">
+                                <UserCheck size={18} aria-hidden="true" />
+                            </div>
+                            <div>
+                                <h3
+                                    id="area-servidor-titulo"
+                                    className="font-heading text-sm font-extrabold text-slate-900"
+                                >
+                                    Área do Servidor Municipal
+                                </h3>
+                                <p className="text-xs text-slate-700">
+                                    Sistemas administrativos de uso funcional dos servidores públicos de São Tomé.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2.5">
+                            {resolvedServerLinks.map((srv) => {
+                                const SrvIcon = srv.icon;
+                                return srv.isExternal ? (
+                                    <a
+                                        key={srv.id}
+                                        href={srv.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-[#006494] text-[#00557d] hover:text-white border border-slate-300 hover:border-[#006494] text-xs font-bold transition-colors shadow-xs"
+                                    >
+                                        <SrvIcon size={15} aria-hidden="true" />
+                                        <span>{srv.label}</span>
+                                        <ExternalLink size={12} aria-hidden="true" />
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={srv.id}
+                                        href={srv.href}
+                                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-[#006494] text-[#00557d] hover:text-white border border-slate-300 hover:border-[#006494] text-xs font-bold transition-colors shadow-xs"
+                                    >
+                                        <SrvIcon size={15} aria-hidden="true" />
+                                        <span>{srv.label}</span>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );

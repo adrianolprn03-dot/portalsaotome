@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { 
-    FaSave, FaPlus, FaTrash, FaEdit, FaSpinner, 
-    FaMusic, FaRunning, FaTheaterMasks, FaBook, FaTrophy, 
+import {
+    FaSave, FaPlus, FaTrash, FaEdit, FaSpinner,
+    FaMusic, FaRunning, FaTheaterMasks, FaBook, FaTrophy,
     FaStar, FaBullhorn, FaArrowLeft, FaMoneyBillWave, FaProjectDiagram
 } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -203,8 +203,8 @@ export default function AdminIncentivosCulturaisPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <Link 
-                        href="/admin/editais" 
+                    <Link
+                        href="/admin/editais"
                         className="px-5 py-3 bg-amber-50 text-amber-700 border border-amber-200 font-bold rounded-2xl text-xs flex items-center gap-2 hover:bg-amber-100 transition-all shadow-sm"
                     >
                         <FaBullhorn /> Gerenciar Editais / PNAB
@@ -239,7 +239,7 @@ export default function AdminIncentivosCulturaisPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                             <label className="text-xs font-black uppercase text-gray-400">Título Principal</label>
-                            <input 
+                            <input
                                 required
                                 value={form.title}
                                 onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -249,7 +249,7 @@ export default function AdminIncentivosCulturaisPage() {
 
                         <div className="space-y-2">
                             <label className="text-xs font-black uppercase text-gray-400">Ano de Referência / Exercício</label>
-                            <input 
+                            <input
                                 required
                                 value={form.exercicioAno}
                                 onChange={(e) => setForm({ ...form, exercicioAno: e.target.value })}
@@ -261,7 +261,7 @@ export default function AdminIncentivosCulturaisPage() {
 
                     <div className="space-y-2">
                         <label className="text-xs font-black uppercase text-gray-400">Subtítulo / Descrição da Página</label>
-                        <textarea 
+                        <textarea
                             rows={2}
                             value={form.subtitle}
                             onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
@@ -283,7 +283,7 @@ export default function AdminIncentivosCulturaisPage() {
                             <label className="text-xs font-black uppercase text-purple-700 flex items-center gap-2">
                                 <FaMoneyBillWave /> Recursos Investidos (R$)
                             </label>
-                            <input 
+                            <input
                                 type="number"
                                 step="any"
                                 value={form.recursosInvestidos}
@@ -300,7 +300,7 @@ export default function AdminIncentivosCulturaisPage() {
                             <label className="text-xs font-black uppercase text-blue-700 flex items-center gap-2">
                                 <FaProjectDiagram /> Total de Projetos Apoiados
                             </label>
-                            <input 
+                            <input
                                 type="number"
                                 value={form.projetosApoiados}
                                 onChange={(e) => setForm({ ...form, projetosApoiados: e.target.value })}
@@ -452,97 +452,97 @@ export default function AdminIncentivosCulturaisPage() {
                     </>
                 }
             >
-                        <form id="form-incentivo-programa" onSubmit={handleSavePrograma} className="space-y-4">
-                            <div className="space-y-1">
-                                <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Título do Programa</label>
-                                <input
-                                    required
-                                    placeholder="Ex: Fomento à Cultura / PNAB"
-                                    value={progForm.titulo}
-                                    onChange={(e) => setProgForm({ ...progForm, titulo: e.target.value })}
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-500/20"
-                                />
-                            </div>
+                <form id="form-incentivo-programa" onSubmit={handleSavePrograma} className="space-y-4">
+                    <div className="space-y-1">
+                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Título do Programa</label>
+                        <input
+                            required
+                            placeholder="Ex: Fomento à Cultura / PNAB"
+                            value={progForm.titulo}
+                            onChange={(e) => setProgForm({ ...progForm, titulo: e.target.value })}
+                            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-500/20"
+                        />
+                    </div>
 
-                            <div className="space-y-1">
-                                <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Descrição do Programa</label>
-                                <textarea
-                                    required
-                                    rows={3}
-                                    placeholder="Detalhamento das atividades e escopo do programa..."
-                                    value={progForm.descricao}
-                                    onChange={(e) => setProgForm({ ...progForm, descricao: e.target.value })}
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-500/20 resize-none"
-                                />
-                            </div>
+                    <div className="space-y-1">
+                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Descrição do Programa</label>
+                        <textarea
+                            required
+                            rows={3}
+                            placeholder="Detalhamento das atividades e escopo do programa..."
+                            value={progForm.descricao}
+                            onChange={(e) => setProgForm({ ...progForm, descricao: e.target.value })}
+                            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-500/20 resize-none"
+                        />
+                    </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Ícone do Card</label>
-                                    <select
-                                        value={progForm.icone}
-                                        onChange={(e) => setProgForm({ ...progForm, icone: e.target.value })}
-                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
-                                    >
-                                        {ICON_OPTIONS.map(opt => (
-                                            <option key={opt.value} value={opt.value}>{opt.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Ícone do Card</label>
+                            <select
+                                value={progForm.icone}
+                                onChange={(e) => setProgForm({ ...progForm, icone: e.target.value })}
+                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
+                            >
+                                {ICON_OPTIONS.map(opt => (
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
 
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Estilo de Cor</label>
-                                    <select
-                                        value={progForm.cor}
-                                        onChange={(e) => setProgForm({ ...progForm, cor: e.target.value })}
-                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
-                                    >
-                                        {COLOR_OPTIONS.map(opt => (
-                                            <option key={opt.value} value={opt.value}>{opt.label}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
+                        <div className="space-y-1">
+                            <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Estilo de Cor</label>
+                            <select
+                                value={progForm.cor}
+                                onChange={(e) => setProgForm({ ...progForm, cor: e.target.value })}
+                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
+                            >
+                                {COLOR_OPTIONS.map(opt => (
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Recursos (R$)</label>
-                                    <input
-                                        type="number"
-                                        step="any"
-                                        placeholder="Ex: 45000"
-                                        value={progForm.recursos}
-                                        onChange={(e) => setProgForm({ ...progForm, recursos: Number(e.target.value) })}
-                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
-                                    />
-                                </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Recursos (R$)</label>
+                            <input
+                                type="number"
+                                step="any"
+                                placeholder="Ex: 45000"
+                                value={progForm.recursos}
+                                onChange={(e) => setProgForm({ ...progForm, recursos: Number(e.target.value) })}
+                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
+                            />
+                        </div>
 
-                                <div className="space-y-1">
-                                    <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Projetos Apoiados</label>
-                                    <input
-                                        type="number"
-                                        placeholder="Ex: 10"
-                                        value={progForm.projetos}
-                                        onChange={(e) => setProgForm({ ...progForm, projetos: Number(e.target.value) })}
-                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
-                                    />
-                                </div>
-                            </div>
+                        <div className="space-y-1">
+                            <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Projetos Apoiados</label>
+                            <input
+                                type="number"
+                                placeholder="Ex: 10"
+                                value={progForm.projetos}
+                                onChange={(e) => setProgForm({ ...progForm, projetos: Number(e.target.value) })}
+                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
+                            />
+                        </div>
+                    </div>
 
-                            <div className="space-y-1">
-                                <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Status do Programa</label>
-                                <select
-                                    value={progForm.status}
-                                    onChange={(e) => setProgForm({ ...progForm, status: e.target.value })}
-                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
-                                >
-                                    <option value="Vigente">Vigente</option>
-                                    <option value="Em Andamento">Em Andamento</option>
-                                    <option value="Concluído">Concluído</option>
-                                    <option value="Planejado">Planejado</option>
-                                </select>
-                            </div>
-                        </form>
+                    <div className="space-y-1">
+                        <label className="text-[10px] font-black uppercase text-gray-400 ml-2">Status do Programa</label>
+                        <select
+                            value={progForm.status}
+                            onChange={(e) => setProgForm({ ...progForm, status: e.target.value })}
+                            className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm font-bold outline-none"
+                        >
+                            <option value="Vigente">Vigente</option>
+                            <option value="Em Andamento">Em Andamento</option>
+                            <option value="Concluído">Concluído</option>
+                            <option value="Planejado">Planejado</option>
+                        </select>
+                    </div>
+                </form>
             </AdminModal>
         </div>
     );

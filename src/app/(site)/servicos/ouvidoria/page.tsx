@@ -109,12 +109,40 @@ export default function OuvidoriaPage() {
                 icon={<Headset className="w-8 h-8" />}
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Serviços", href: "/servicos/ouvidoria" },
-                    { label: "Ouvidoria" },
+                    { label: "Serviços", href: "/transparencia/carta-servicos" },
+                    { label: "Ouvidoria (Registrar Manifestação)" },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-14 pb-24">
+            <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-10 md:py-14 pb-24">
+                {/* Barra de distinção clara: Ouvidoria vs e-SIC vs Consultar Protocolo */}
+                <div className="mb-8 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-civic-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span className="text-xs font-extrabold uppercase tracking-wider text-[#00557d]">
+                            Canais de Atendimento ao Cidadão
+                        </span>
+                        <p className="text-sm text-slate-700 mt-0.5">
+                            Você está na <strong>Ouvidoria Municipal</strong> (denúncias, reclamações, elogios e sugestões). Para pedidos de documentos ou dados da LAI, utilize o <strong>e-SIC</strong>.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                        <Link
+                            href="/servicos/esic"
+                            className="inline-flex items-center gap-1.5 min-h-[40px] px-4 py-2 rounded-xl bg-[#f4fbff] hover:bg-[#e8f6fd] text-[#00557d] border border-slate-300 font-bold text-xs transition-colors"
+                        >
+                            <FileText size={14} aria-hidden="true" />
+                            <span>Solicitar informação pública (e-SIC)</span>
+                        </Link>
+                        <Link
+                            href="/servicos/consulta-protocolo"
+                            className="inline-flex items-center gap-1.5 min-h-[40px] px-4 py-2 rounded-xl bg-[#fdb913] hover:bg-[#e5a60d] text-slate-950 font-bold text-xs transition-colors"
+                        >
+                            <Search size={14} aria-hidden="true" />
+                            <span>Consultar protocolo</span>
+                        </Link>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     {/* COLUNA PRINCIPAL: Formulário (8 cols) */}
                     <div className="lg:col-span-8 space-y-6">
@@ -399,15 +427,15 @@ export default function OuvidoriaPage() {
 
                             <div className="space-y-4 text-xs">
                                 <div className="flex items-start gap-3">
-                                    <div className="w-9 h-9 bg-[#01b0ef]/10 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
+                                    <div className="w-9 h-9 bg-[#e8f6fd] text-[#00557d] rounded-xl flex items-center justify-center shrink-0">
                                         <Phone size={15} />
                                     </div>
                                     <div>
-                                        <p className="font-bold text-slate-400 uppercase text-[10px]">
-                                            Telefone / WhatsApp
+                                        <p className="font-bold text-slate-500 uppercase text-[10px]">
+                                            Telefone Institucional
                                         </p>
-                                        <p className="font-mono font-bold text-slate-800 mt-0.5">
-                                            (84) 98748-0287
+                                        <p className="font-mono font-bold text-slate-900 mt-0.5">
+                                            (84) 99211-5922
                                         </p>
                                     </div>
                                 </div>

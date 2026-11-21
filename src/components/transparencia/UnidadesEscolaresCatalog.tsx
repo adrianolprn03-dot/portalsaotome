@@ -81,7 +81,7 @@ export default function UnidadesEscolaresCatalog({
                 u.equipe.map((e) => `${e.nome} (${e.cargo})`).join("; ") || "-",
         }));
 
-        const filename = "unidades_escolares_e_creches_lajes_pintadas";
+        const filename = "unidades_escolares_e_creches_saotome";
         const meta = {
             titulo: "Relação de Unidades Escolares, Creches, Etapas e Horários (PNTP 19.2)",
             fonte: "Secretaria Municipal de Educação",

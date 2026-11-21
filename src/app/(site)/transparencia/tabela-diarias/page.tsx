@@ -1,45 +1,98 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import { 
-    FaCalendarAlt, FaFilePdf, FaFileExcel, FaFileCsv, FaShieldAlt, 
-    FaCheckCircle, FaExclamationTriangle, FaExternalLinkAlt, FaBalanceScale,
-    FaStamp, FaDownload, FaPrint
+import BannerPNTP from "@/components/transparencia/BannerPNTP";
+import {
+    FaTable,
+    FaFilePdf,
+    FaDownload,
+    FaGavel,
+    FaRoute,
+    FaExternalLinkAlt,
 } from "react-icons/fa";
-import { FaPlane, FaBuildingColumns, FaCheck } from "react-icons/fa6";
-import { HISTORICO_DIARIAS, HistoricoTabelaDiaria } from "@/lib/diarias-historico";
-import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
-import { MUNICIPIO } from "@/config/municipio";
+import {
+    exportToCSV,
+    exportToJSON,
+    exportToPDF,
+    exportToXLSX,
+} from "@/lib/exportUtils";
+
+interface ItemTabelaDiaria {
+    cargo: string;
+    dentroEstadoSemPernoite: string;
+    dentroEstadoComPernoite: string;
+    foraEstado: string;
+}
+
+interface RegistroAnoTabela {
+    ano: number;
+    norma: string;
+    vigencia: string;
+    itens: ItemTabelaDiaria[];
+}
+
+const REGISTROS_TABELA: RegistroAnoTabela[] = [
+    {
+        ano: 2026,
+        norma: "Decreto Municipal nº 005/2017 (Vigente em 2026)",
+        vigencia: "Vigência contínua nos exercícios de 2017 a 2026",
+        itens: [
+            {
+                cargo: "Prefeito(a) e Vice-Prefeito(a)",
+                dentroEstadoSemPernoite: "R$ 250,00",
+                dentroEstadoComPernoite: "R$ 500,00",
+                foraEstado: "R$ 800,00",
+            },
+            {
+                cargo: "Secretários Municipais, Chefe de Gabinete e Procurador Geral",
+                dentroEstadoSemPernoite: "R$ 150,00",
+                dentroEstadoComPernoite: "R$ 300,00",
+                foraEstado: "R$ 600,00",
+            },
+            {
+                cargo: "Coordenadores, Assessores e Demais Cargos Comissionados",
+                dentroEstadoSemPernoite: "R$ 100,00",
+                dentroEstadoComPernoite: "R$ 200,00",
+                foraEstado: "R$ 400,00",
+            },
+            {
+                cargo: "Servidores Efetivos, Motoristas e Demais Agentes Públicos",
+                dentroEstadoSemPernoite: "R$ 80,00",
+                dentroEstadoComPernoite: "R$ 160,00",
+                foraEstado: "R$ 350,00",
+            },
+        ],
+    },
+];
 
 export default function TabelaDiariasPage() {
-    const [anoSelecionado, setAnoSelecionado] = useState<number>(2026);
-    const [abaAtiva, setAbaAtiva] = useState<"tabela" | "declaracao">("tabela");
+    const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+    const registroAtual = REGISTROS_TABELA[0];
 
-    const registroAtual = HISTORICO_DIARIAS.find((h) => h.ano === anoSelecionado) || HISTORICO_DIARIAS[0];
-
-    const formatCurrency = (val: number) => {
-        return new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-        }).format(val);
-    };
+    useEffect(() => {
+        fetch("/api/documentos?tipo=tabela-diarias")
+            .then((r) => (r.ok ? r.json() : []))
+            .then((data) => {
+                const list = Array.isArray(data) ? data : data?.data || [];
+                const doc = list.find((d: { arquivoUrl?: string }) => d.arquivoUrl);
+                if (doc?.arquivoUrl) setPdfUrl(doc.arquivoUrl);
+            })
+            .catch(() => {});
+    }, []);
 
     const handleExport = (format: "pdf" | "csv" | "json" | "xlsx") => {
-        const payload = registroAtual.valores.map((v) => ({
-            "Exercício": registroAtual.ano,
-            "Cargo / Função": v.cargo,
-            "Natal / Caicó / Mossoró": formatCurrency(v.estadual),
-            "Demais Municípios (RN)": formatCurrency(v.interior),
-            "Outros Estados": formatCurrency(v.outrosEstados),
-            "Brasília / DF": formatCurrency(v.brasilia),
-            "Exterior / Internacional": v.internacional,
-            "Base Legal": registroAtual.normaLegal,
+        const payload = registroAtual.itens.map((i) => ({
+            "Cargo / Função": i.cargo,
+            "No Estado (Sem Pernoite)": i.dentroEstadoSemPernoite,
+            "No Estado (Com Pernoite)": i.dentroEstadoComPernoite,
+            "Fora do Estado": i.foraEstado,
+            "Norma Regulamentadora": registroAtual.norma,
         }));
 
-        const filename = `tabela_diarias_${registroAtual.ano}_lajes_pintadas`;
-        const title = `Tabela de Valores de Diárias – Exercício ${registroAtual.ano} – ${MUNICIPIO.nome}/${MUNICIPIO.uf}`;
+        const filename = `tabela_diarias_${registroAtual.ano}_saotome`;
+        const title = `Tabela Oficial de Valores de Diárias (${registroAtual.ano}) – São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
         else if (format === "json") exportToJSON(payload, filename);
@@ -48,235 +101,94 @@ export default function TabelaDiariasPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f4fbff]">
+        <div className="min-h-screen bg-[#f8fafc] pb-20">
             <PageHeader
                 title="Tabela de Valores de Diárias"
-                subtitle="Valores fixados por cargo e destino, legislação regulamentadora e histórico de exercícios anteriores (2021 a 2026)."
-                icon={<FaPlane />}
+                subtitle="Consulte os valores oficiais fixados por nível hierárquico e destino de deslocamento conforme o Decreto Municipal regulamentador."
                 breadcrumbs={[
-                    { label: "Início", href: "/" },
                     { label: "Transparência", href: "/transparencia" },
-                    { label: "Tabela de Diárias" }
+                    { label: "Diárias e Passagens", href: "/transparencia/diarias" },
+                    { label: "Tabela de Valores" },
                 ]}
             />
 
-            {/* Sub-header de Destaque PNTP */}
-            <div className="bg-white border-b border-[#e2e8f0] py-3.5 px-4 sm:px-6 shadow-xs">
-                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-                    <div className="flex items-center gap-2 font-bold text-slate-900">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Critério PNTP 2026 (ATRICON)</span>
-                        <span className="hidden sm:inline text-slate-600">· Histórico Integral de 2021 a 2026</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Link
-                            href="/transparencia/diarias"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f4fbff] hover:bg-slate-200 text-[#01b0ef] rounded-lg font-bold transition-colors"
-                        >
-                            <span>Consultar Diárias Pagas</span>
-                            <FaExternalLinkAlt size={10} />
-                        </Link>
-                        <Link
-                            href="/transparencia/regulamentacao-diarias"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#01b0ef] rounded-lg font-bold transition-colors"
-                        >
-                            <FaBalanceScale size={12} />
-                            <span>Regulamentação</span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-                
-                {/* 1. SELETOR DE ANOS (2021 a 2026) */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-4 sm:p-5 shadow-sm">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="container mx-auto px-4 max-w-6xl -mt-8 relative z-20 space-y-8">
+                <div className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
+                    <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-gradient-to-r from-[#003da5]/5 via-white to-blue-50/40">
                         <div>
-                            <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600">
-                                Histórico de Vigência por Exercício
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-[#003da5] text-[11px] font-black uppercase tracking-widest mb-2">
+                                <FaTable size={11} /> {registroAtual.norma}
                             </div>
-                            <div className="text-base sm:text-lg font-black text-slate-900">
-                                Selecione o ano para consultar a tabela e declarações
-                            </div>
+                            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                                Tabela de Valores de Diárias por Cargo e Destino
+                            </h2>
+                            <p className="text-xs md:text-sm text-slate-500 mt-1">
+                                {registroAtual.vigencia}
+                            </p>
                         </div>
 
-                        {/* Botões dos Anos */}
                         <div className="flex flex-wrap items-center gap-2">
-                            {HISTORICO_DIARIAS.map((h) => {
-                                const isSelected = h.ano === anoSelecionado;
-                                return (
-                                    <button
-                                        key={h.ano}
-                                        onClick={() => setAnoSelecionado(h.ano)}
-                                        className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                                            isSelected
-                                                ? "bg-[#01b0ef] text-white shadow-sm ring-2 ring-[#01b0ef]/20"
-                                                : "bg-[#f4fbff] text-slate-900 hover:bg-slate-200 border border-[#e2e8f0]"
-                                        }`}
-                                    >
-                                        <FaCalendarAlt size={11} className={isSelected ? "text-[#fdb913]" : "text-slate-400"} />
-                                        <span>{h.ano}</span>
-                                        {h.vigente && (
-                                            <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#fdb913] text-slate-900">
-                                                VIGENTE
-                                            </span>
-                                        )}
-                                    </button>
-                                );
-                            })}
+                            {pdfUrl && (
+                                <a
+                                    href={pdfUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#003da5] hover:bg-[#002868] text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm"
+                                >
+                                    <FaFilePdf size={13} /> Ato Oficial (PDF)
+                                </a>
+                            )}
+                            <button
+                                onClick={() => handleExport("pdf")}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                            >
+                                <FaDownload size={11} /> PDF
+                            </button>
+                            <button
+                                onClick={() => handleExport("xlsx")}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                            >
+                                <FaDownload size={11} /> XLSX
+                            </button>
+                            <button
+                                onClick={() => handleExport("csv")}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                            >
+                                <FaDownload size={11} /> CSV
+                            </button>
+                            <button
+                                onClick={() => handleExport("json")}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                            >
+                                <FaDownload size={11} /> JSON
+                            </button>
                         </div>
                     </div>
-                </div>
 
-                {/* 2. CARD DE NORMA REGULAMENTADORA DO ANO */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-50 text-[#01b0ef] border border-blue-100">
-                                Legislação do Exercício {registroAtual.ano}
-                            </span>
-                            <span className="text-xs text-slate-600">Publicado em: {registroAtual.dataPublicacaoNorma}</span>
-                        </div>
-                        <h3 className="text-base sm:text-lg font-black text-slate-900">
-                            {registroAtual.normaLegal}
-                        </h3>
-                        <p className="text-xs text-slate-600 max-w-2xl">
-                            {registroAtual.ementaNorma}
-                        </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0">
-                        <Link
-                            href={registroAtual.linkNorma}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                        >
-                            <FaBalanceScale size={13} />
-                            <span>Ver Ato na Legislação</span>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* 3. DECLARAÇÃO OFICIAL DE NÃO REGULAMENTAÇÃO PARA O EXTERIOR */}
-                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-6 shadow-sm">
-                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-                                <FaStamp size={22} />
-                            </div>
-                            <div className="space-y-1.5">
-                                <div className="flex flex-wrap items-center gap-2">
-                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-200 text-amber-900 font-bold">
-                                        Declaração Formal de Não Ocorrência & Inexistência de Norma
-                                    </span>
-                                    <span className="text-xs font-bold text-amber-800">
-                                        Protocolo: {registroAtual.declaracaoNaoRegulamentacao.protocolo}
-                                    </span>
-                                </div>
-                                <h4 className="text-base font-black text-slate-900">
-                                    {registroAtual.declaracaoNaoRegulamentacao.titulo}
-                                </h4>
-                                <p className="text-xs text-amber-900 leading-relaxed font-medium">
-                                    {registroAtual.declaracaoNaoRegulamentacao.texto}
-                                </p>
-                                <p className="text-xs text-amber-950 font-bold leading-relaxed pt-1">
-                                    {registroAtual.declaracaoNaoRegulamentacao.declaracaoNaoOcorrencia}
-                                </p>
-                                <div className="text-[11px] text-slate-600 pt-2 flex flex-wrap items-center gap-3">
-                                    <span><strong>Órgão Emissor:</strong> {registroAtual.declaracaoNaoRegulamentacao.orgaoEmissor}</span>
-                                    <span>·</span>
-                                    <span><strong>Responsável:</strong> {registroAtual.declaracaoNaoRegulamentacao.responsavel} ({registroAtual.declaracaoNaoRegulamentacao.cargoResponsavel})</span>
-                                    <span>·</span>
-                                    <span><strong>Data de Emissão:</strong> {registroAtual.declaracaoNaoRegulamentacao.dataEmissao}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="shrink-0 flex lg:flex-col gap-2">
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-black border border-emerald-200 self-start">
-                                <FaCheckCircle size={13} className="text-emerald-600" />
-                                {registroAtual.declaracaoNaoRegulamentacao.status}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 4. BARRA DE FERRAMENTAS E EXPORTAÇÃO */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-600">
-                            Exibindo valores para o exercício de <strong>{registroAtual.ano}</strong> ({registroAtual.valores.length} categorias de cargos)
-                        </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-600 mr-1 hidden sm:inline">Exportar Tabela:</span>
-                        <button
-                            onClick={() => handleExport("pdf")}
-                            className="p-2.5 bg-white hover:bg-red-50 text-red-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                            title="Exportar PDF Oficial"
-                        >
-                            <FaFilePdf size={13} />
-                            <span>PDF</span>
-                        </button>
-                        <button
-                            onClick={() => handleExport("xlsx")}
-                            className="p-2.5 bg-white hover:bg-emerald-50 text-emerald-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                            title="Exportar Planilha Excel"
-                        >
-                            <FaFileExcel size={13} />
-                            <span>Excel</span>
-                        </button>
-                        <button
-                            onClick={() => handleExport("csv")}
-                            className="p-2.5 bg-white hover:bg-blue-50 text-blue-600 border border-[#e2e8f0] rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                            title="Exportar Dados CSV"
-                        >
-                            <FaFileCsv size={13} />
-                            <span>CSV</span>
-                        </button>
-                    </div>
-                </div>
-
-                {/* 5. TABELA ESTRUTURADA DE VALORES FIXADOS */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-xs border-collapse">
+                        <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-[#01b0ef] text-white font-extrabold uppercase tracking-wider text-[11px]">
-                                    <th className="py-4 px-4 sm:px-6">Cargo ou Função</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center">Natal, Caicó ou Mossoró</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center">Demais Cidades (RN)</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center">Outros Estados</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center">Brasília / DF</th>
-                                    <th className="py-4 px-3 sm:px-4 text-center bg-[#01b0ef]">Exterior / Internacional</th>
+                                <tr className="bg-slate-50 border-b border-slate-100 text-[11px] font-black uppercase tracking-wider text-slate-500">
+                                    <th className="py-4 px-6">Cargo / Enquadramento Funcional</th>
+                                    <th className="py-4 px-6 text-right">Dentro do RN (Sem Pernoite)</th>
+                                    <th className="py-4 px-6 text-right">Dentro do RN (Com Pernoite)</th>
+                                    <th className="py-4 px-6 text-right">Fora do Estado do RN</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#e2e8f0]">
-                                {registroAtual.valores.map((v, idx) => (
-                                    <tr 
-                                        key={v.cargo} 
-                                        className={`hover:bg-blue-50/50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"}`}
-                                    >
-                                        <td className="py-3.5 px-4 sm:px-6 font-bold text-slate-900">
-                                            {v.cargo}
+                            <tbody className="divide-y divide-slate-100 text-sm">
+                                {registroAtual.itens.map((item, idx) => (
+                                    <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                                        <td className="py-4 px-6 font-bold text-slate-900">
+                                            {item.cargo}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-bold text-[#01b0ef]">
-                                            {formatCurrency(v.estadual)}
+                                        <td className="py-4 px-6 text-right font-mono font-bold text-slate-700">
+                                            {item.dentroEstadoSemPernoite}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-slate-900">
-                                            {formatCurrency(v.interior)}
+                                        <td className="py-4 px-6 text-right font-mono font-bold text-[#003da5]">
+                                            {item.dentroEstadoComPernoite}
                                         </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-semibold text-slate-900">
-                                            {formatCurrency(v.outrosEstados)}
-                                        </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center font-black text-emerald-700 bg-emerald-50/40">
-                                            {formatCurrency(v.brasilia)}
-                                        </td>
-                                        <td className="py-3.5 px-3 sm:px-4 text-center text-[10px] font-bold text-amber-800 bg-amber-50/50">
-                                            <span className="inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">
-                                                {v.internacional}
-                                            </span>
+                                        <td className="py-4 px-6 text-right font-mono font-bold text-emerald-700">
+                                            {item.foraEstado}
                                         </td>
                                     </tr>
                                 ))}
@@ -285,32 +197,33 @@ export default function TabelaDiariasPage() {
                     </div>
                 </div>
 
-                {/* 6. NOTAS DE AUDITORIA E CONTROLE INTERNO */}
-                <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-sm space-y-4">
-                    <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                        <FaBuildingColumns className="text-[#01b0ef]" /> Notas Explicativas e Regras de Concessão
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 leading-relaxed">
-                        <div className="space-y-2">
-                            <p>
-                                • <strong>Finalidade:</strong> A concessão de diárias destina-se a indenizar o servidor pelas despesas extraordinárias com alimentação, pousada e locomoção urbana fora da comarca de lotação.
-                            </p>
-                            <p>
-                                • <strong>Pernoite:</strong> A diária é devida pela metade (50%) quando o deslocamento não exigir pernoite fora da sede do município.
-                            </p>
-                        </div>
-                        <div className="space-y-2">
-                            <p>
-                                • <strong>Prestação de Contas:</strong> É obrigatória a apresentação do relatório de viagem com comprovantes de participação/despesas no prazo máximo de 5 dias úteis após o retorno.
-                            </p>
-                            <p>
-                                • <strong>Viagens Internacionais:</strong> Reafirma-se formalmente que até o momento não há previsão legal nem ocorrência de viagens internacionais com custeio público.
-                            </p>
-                        </div>
+                <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+                            <FaGavel className="text-[#003da5]" /> Regulamentação e Relação de Diárias Pagas
+                        </h3>
+                        <p className="text-xs md:text-sm text-slate-600">
+                            Consulte o texto integral da regulamentação ou acesse as portarias e diárias concedidas por exercício.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap gap-3 shrink-0">
+                        <Link
+                            href="/transparencia/regulamentacao-diarias"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black uppercase tracking-wider transition-all"
+                        >
+                            Ver Regulamentação
+                        </Link>
+                        <Link
+                            href="/transparencia/diarias"
+                            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#003da5] hover:bg-[#002868] text-white text-xs font-black uppercase tracking-wider transition-all"
+                        >
+                            Diárias Concedidas <FaExternalLinkAlt size={10} />
+                        </Link>
                     </div>
                 </div>
 
-            </main>
+                <BannerPNTP />
+            </div>
         </div>
     );
 }

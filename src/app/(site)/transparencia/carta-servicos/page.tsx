@@ -3,49 +3,76 @@ import PageHeader from "@/components/PageHeader";
 import { FaBook } from "react-icons/fa";
 import ExportButtons from "@/components/transparencia/ExportButtons";
 import CartaServicosClient from "@/components/transparencia/CartaServicosClient";
+import { isValidPublicUrl } from "@/lib/portal-links";
 import type { Metadata } from "next";
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
-    title: "Carta de Serviços | Portal da Transparência",
-    description: "Guia completo de serviços prestados pela Prefeitura de São Tomé – RN ao cidadão conforme o PNTP 2026.",
+    title: "Carta de Serviços ao Cidadão | Prefeitura de São Tomé",
+    description:
+        "Catálogo oficial de serviços públicos prestados pela Prefeitura Municipal de São Tomé/RN ao cidadão (Lei Federal nº 13.460/2017).",
 };
 
+function sanitizeServiceLink(url?: string | null): string {
+    if (!isValidPublicUrl(url)) return "";
+    const trimmed = String(url).trim();
+    if (trimmed.includes("ouvidoria.saotome.rn.gov.br")) return "/servicos/ouvidoria";
+    if (trimmed.includes("transparencia.saotome.rn.gov.br/esic")) return "/servicos/esic";
+    if (trimmed.includes("transparencia.saotome.rn.gov.br/legislacao")) return "/transparencia/legislacao";
+    if (trimmed.includes("transparencia.saotome.rn.gov.br")) return "/transparencia";
+    if (trimmed.includes("saotome.rn.gov.br/portal-contribuinte")) {
+        return "https://www.tinus.com.br/csp/SAOTOME/portal/index.csp?398ePKh0101MOVZE78365xmEw9088og=xbCN41Noq203lgm19139rlZlh569ZevDU2955S1071625bJbX145";
+    }
+    if (trimmed.includes("saotome.rn.gov.br/portal-servidor")) {
+        return "https://app.topsolutionsrn.com.br/ContraCheque/pmsaotome/";
+    }
+    return trimmed;
+}
+
 export default async function CartaServicosTransparencyPage() {
-    const servicos = await prisma.servicoCarta.findMany({
-        orderBy: { categoria: "asc" }
+    const rawServicos = await prisma.servicoCarta.findMany({
+        where: { ativo: true },
+        orderBy: [{ ordem: "asc" }, { categoria: "asc" }, { nome: "asc" }],
     });
 
+    const servicos = rawServicos.map((s) => ({
+        ...s,
+        status: s.statusServico || (s.ativo ? "ATIVO" : "INATIVO"),
+        prioridadesAtendimento: s.prioridades || "Prioridades legais (Lei Federal nº 10.048/2000)",
+        linkAcesso: sanitizeServiceLink(s.linkAcesso),
+    }));
+
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#f4fbff]">
             <PageHeader
                 title="Carta de Serviços ao Cidadão"
-                subtitle="O seu guia para entender como acessar e utilizar os serviços públicos municipais conforme as diretrizes do PNTP 2026."
+                subtitle="Catálogo oficial para encontrar serviços públicos, documentos exigidos, locais de atendimento, horários e canais digitais."
                 breadcrumbs={[
                     { label: "Início", href: "/" },
-                    { label: "Transparência", href: "/transparencia" },
-                    { label: "Carta de Serviços" }
+                    { label: "Serviços", href: "/transparencia/carta-servicos" },
                 ]}
             />
 
-            <div className="max-w-[1240px] mx-auto px-6 py-16">
-                <div className="flex justify-between items-center mb-10">
-                    <h2 className="text-sm font-black text-gray-400 uppercase tracking-[0.2em]">Serviços Disponíveis</h2>
-                    <ExportButtons data={servicos} filename="carta_servicos_lajes_pintadas" />
+            <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-12">
+                <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
+                    <h2 className="text-sm font-extrabold text-slate-700 uppercase tracking-wider">
+                        Serviços Públicos Disponíveis ({servicos.length})
+                    </h2>
+                    <ExportButtons data={servicos} filename="carta_servicos_sao_tome" />
                 </div>
 
-                {/* Disclaimer PNTP 2026 */}
-                <div className="mb-16 bg-white rounded-[3rem] p-12 shadow-xl shadow-gray-200/40 border border-white flex flex-col md:flex-row items-center gap-10">
-                    <div className="w-24 h-24 bg-blue-50 text-blue-600 rounded-[2rem] flex items-center justify-center shrink-0 shadow-inner">
-                        <FaBook size={36} />
+                {/* Orientação Lei Federal nº 13.460/2017 */}
+                <div className="mb-10 bg-white rounded-3xl p-6 sm:p-8 shadow-civic-sm border border-slate-200 flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <div className="w-16 h-16 bg-[#e8f6fd] text-[#00557d] rounded-2xl flex items-center justify-center shrink-0">
+                        <FaBook size={28} aria-hidden="true" />
                     </div>
                     <div>
-                        <h4 className="text-2xl font-black text-gray-800 uppercase tracking-tighter mb-4">Carta de Serviços ao Usuário</h4>
-                        <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                            Este documento informa sobre os serviços prestados pela prefeitura, as formas de acesso, 
-                            os compromissos e padrões de qualidade de atendimento ao público, conforme exigido pela 
-                            Lei Federal nº 13.460/2017 e os critérios de transparência do PNTP 2026.
+                        <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mb-1.5">
+                            Carta de Serviços ao Usuário do Serviço Público
+                        </h3>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                            Consulte abaixo os serviços prestados pela Prefeitura de São Tomé, os requisitos, etapas, prazos estimados e locais de atendimento presencial ou digital, nos termos da Lei Federal nº 13.460/2017.
                         </p>
                     </div>
                 </div>

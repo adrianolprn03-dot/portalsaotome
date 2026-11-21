@@ -51,7 +51,7 @@ export default function RadarPage() {
             "Classificação": c.classificacao,
             "Critério / Requisito": c.textoIntegral,
             "Secretaria Responsável": c.secretariaResponsavel,
-            "Página Pública no Portal": `https://sitelajespintadas.vercel.app${c.paginaPublica}`,
+            "Página Pública no Portal": `https://saotomern.vercel.app${c.paginaPublica}`,
             "Situação": "Atendido / Conforme"
         }));
 

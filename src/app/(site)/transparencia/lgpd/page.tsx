@@ -148,7 +148,7 @@ export default function LGPDPage() {
             "Descrição": d.desc
         }));
 
-        const filename = `privacidade_lgpd_lajespintadas_${ano}${mes ? `_mes_${mes}` : ""}`;
+        const filename = `privacidade_lgpd_saotome_${ano}${mes ? `_mes_${mes}` : ""}`;
         const title = `Atos de Privacidade e Proteção de Dados (LGPD) – São Tomé/RN (${ano}${mes ? ` - Mês ${mes}` : ""})`;
 
         if (format === "csv") exportToCSV(payload, filename);

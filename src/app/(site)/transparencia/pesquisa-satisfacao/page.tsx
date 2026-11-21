@@ -109,7 +109,7 @@ export default function PesquisaSatisfacaoPage() {
             />
 
             <div className="max-w-5xl mx-auto px-4 py-12">
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden mb-12"
@@ -123,9 +123,8 @@ export default function PesquisaSatisfacaoPage() {
 
                     <form onSubmit={handleSubmit} className="p-8 md:p-12">
                         {mensagem && (
-                            <div className={`mb-10 p-6 rounded-2xl flex items-start gap-4 animate-in zoom-in-95 duration-300 ${
-                                mensagem.tipo === 'sucesso' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
-                            }`}>
+                            <div className={`mb-10 p-6 rounded-2xl flex items-start gap-4 animate-in zoom-in-95 duration-300 ${mensagem.tipo === 'sucesso' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
+                                }`}>
                                 {mensagem.tipo === 'sucesso' ? <FaCheckCircle className="w-6 h-6 mt-1 text-green-500" /> : <FaExclamationCircle className="w-6 h-6 mt-1 text-red-500" />}
                                 <div>
                                     <h4 className="font-black text-lg">{mensagem.tipo === 'sucesso' ? 'Obrigado!' : 'Atenção'}</h4>
@@ -166,11 +165,10 @@ export default function PesquisaSatisfacaoPage() {
                                                     key={opcao.valor}
                                                     type="button"
                                                     onClick={() => handleResposta(pergunta.id, opcao.valor)}
-                                                    className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all border-2 ${
-                                                        isSelected 
-                                                        ? `${opcao.cor} border-transparent text-white shadow-lg scale-105 z-10` 
+                                                    className={`relative flex flex-col items-center justify-center p-4 rounded-2xl transition-all border-2 ${isSelected
+                                                        ? `${opcao.cor} border-transparent text-white shadow-lg scale-105 z-10`
                                                         : "bg-white border-slate-100 text-slate-500 hover:border-slate-200 hover:bg-slate-50"
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <span className={`text-2xl font-black mb-1 ${isSelected ? "text-white" : "text-slate-800"}`}>{opcao.valor}</span>
                                                     <span className={`text-[10px] uppercase font-black tracking-tighter text-center leading-tight ${isSelected ? "text-white/90" : "text-slate-400"}`}>
@@ -188,11 +186,10 @@ export default function PesquisaSatisfacaoPage() {
                             <button
                                 type="submit"
                                 disabled={enviando || !isFormValid()}
-                                className={`w-full md:w-auto px-12 py-5 rounded-2xl font-black text-xl transition-all shadow-xl ${
-                                    (enviando || !isFormValid()) 
-                                    ? "bg-slate-200 text-slate-400 cursor-not-allowed shadow-none" 
+                                className={`w-full md:w-auto px-12 py-5 rounded-2xl font-black text-xl transition-all shadow-xl ${(enviando || !isFormValid())
+                                    ? "bg-slate-200 text-slate-400 cursor-not-allowed shadow-none"
                                     : "bg-primary-600 text-white hover:bg-primary-700 hover:-translate-y-1 active:translate-y-0"
-                                }`}
+                                    }`}
                             >
                                 {enviando ? "Processando..." : "Enviar Minha Avaliação"}
                             </button>
@@ -221,7 +218,7 @@ export default function PesquisaSatisfacaoPage() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="p-8 md:p-12 space-y-10">
                         {/* Gráficos Interativos nos Resultados */}
                         <div className="bg-[#F8FAFC] p-6 rounded-2xl border border-slate-200">
@@ -291,7 +288,7 @@ export default function PesquisaSatisfacaoPage() {
                                         </div>
                                     </div>
                                     <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden p-1 border border-slate-200/50">
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ width: 0 }}
                                             whileInView={{ width: `${(item.val / 5) * 100}%` }}
                                             viewport={{ once: true }}
@@ -305,8 +302,8 @@ export default function PesquisaSatisfacaoPage() {
                         <div className="mt-12 p-6 bg-blue-50 rounded-2xl border border-blue-100 flex items-start gap-4">
                             <FaInfoCircle className="text-blue-500 mt-1 shrink-0" size={20} />
                             <p className="text-sm text-blue-800 leading-relaxed font-medium">
-                                Os gráficos acima representam a média aritmética de todas as avaliações recebidas até o momento. 
-                                A prefeitura utiliza esses dados para priorizar investimentos e melhorias em cada setor. 
+                                Os gráficos acima representam a média aritmética de todas as avaliações recebidas até o momento.
+                                A prefeitura utiliza esses dados para priorizar investimentos e melhorias em cada setor.
                                 <strong> Sua opinião é o que move nossa cidade!</strong>
                             </p>
                         </div>

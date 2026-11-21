@@ -27,6 +27,7 @@ export default function AdminConfiguracoesPage() {
         vice_profissao: "",
         vice_escolaridade: "",
         municipio_nome: "",
+        gestao_slogan: "",
         cnpj: "",
         endereco_sede: "",
         horario_funcionamento: "",
@@ -410,6 +411,18 @@ export default function AdminConfiguracoesPage() {
                                 className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                             />
                         </div>
+                        <div className="space-y-1">
+                            <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1">
+                                Slogan Institucional (Seção Conheça São Tomé)
+                            </label>
+                            <input
+                                name="gestao_slogan"
+                                value={form.gestao_slogan}
+                                onChange={handleChange}
+                                placeholder="Ex: O Trabalho Segue em Frente"
+                                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
+                            />
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:col-span-2 gap-6">
                             <div className="space-y-1">
                                 <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-2">
@@ -481,15 +494,18 @@ export default function AdminConfiguracoesPage() {
                         </div>
                         <div className="space-y-1">
                             <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-1 flex items-center gap-1.5">
-                                <FaWhatsapp className="text-green-600" /> WhatsApp (Apenas Números com DDD)
+                                <FaWhatsapp className="text-green-600" /> WhatsApp Oficial Confirmado (Apenas Números com DDD)
                             </label>
                             <input
                                 name="contato_whatsapp"
                                 value={form.contato_whatsapp}
                                 onChange={handleChange}
-                                placeholder="Ex: 84987480287"
+                                placeholder="Deixe em branco se não houver número oficial confirmado"
                                 className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
                             />
+                            <p className="text-[11px] text-gray-500 ml-1 mt-1">
+                                Quando vazio, o atalho de WhatsApp fica oculto no rodapé (evitando links &quot;#&quot; ou números não confirmados).
+                            </p>
                         </div>
                     </div>
                 </div>

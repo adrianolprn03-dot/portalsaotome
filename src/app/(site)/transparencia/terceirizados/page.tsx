@@ -68,7 +68,7 @@ export default function TerceirizadosPage() {
             "Status": t.status
         }));
 
-        const filename = `terceirizados_lajes_pintadas`;
+        const filename = `terceirizados_saotome`;
         const title = `Relatório de Terceirizados – Município de São Tomé/RN`;
 
         if (format === "csv") exportToCSV(payload, filename);
