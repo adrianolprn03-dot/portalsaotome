@@ -52,6 +52,28 @@ export const CATEGORIAS_LINKS_EXTERNOS = [
 export const MODULOS_ALVO_OPTIONS: ModuloAlvoOption[] = [
     { value: "", label: "Nenhum (Apenas listar nos links gerais)", grupo: "Geral" },
 
+    // --- 0. PORTAIS POR PERÍODO (2018-2022 E 2023-2025) ---
+    { value: "portal-2018-2022", label: "Período 2018-2022: Portal Principal (Governo Transparente)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "portal-2023-2025", label: "Período 2023-2025: Botão Portal Legado (saotome.rn.gov.br)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "receitas-2023-2025", label: "2023-2025: Receitas Públicas (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "despesas-2023-2025", label: "2023-2025: Despesas Públicas (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "ordem-cronologica-2023-2025", label: "2023-2025: Ordem Cronológica (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "emendas-2023-2025", label: "2023-2025: Emendas Parlamentares (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "renuncias-fiscais-2023-2025", label: "2023-2025: Renúncias Fiscais (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "licitacoes-2023-2025", label: "2023-2025: Licitações (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "contratos-2023-2025", label: "2023-2025: Contratos Administrativos (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "atas-registro-2023-2025", label: "2023-2025: Atas de Registro de Preços (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "plano-contratacao-2023-2025", label: "2023-2025: Plano de Contratação Anual (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "servidores-2023-2025", label: "2023-2025: Servidores Públicos (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "transferencias-2023-2025", label: "2023-2025: Transferências Recebidas (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "convenios-2023-2025", label: "2023-2025: Convênios (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "acordos-firmados-2023-2025", label: "2023-2025: Acordos Firmados (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "terceirizados-2023-2025", label: "2023-2025: Terceirizados (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "estagiarios-2023-2025", label: "2023-2025: Estagiários (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "contracheque-2023-2025", label: "2023-2025: Contracheque (TopSolutions)", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "diarias-2023-2025", label: "2023-2025: Diárias e Passagens", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+    { value: "obras-2023-2025", label: "2023-2025: Obras Públicas", grupo: "Portais por Período (2018-2022 e 2023-2025)" },
+
     // --- 1. PÁGINA INICIAL (HOME) ---
     { value: "home-transparencia", label: "Home: Atalho Portal da Transparência", grupo: "Página Inicial (Home)" },
     { value: "home-esic", label: "Home: Atalho e-SIC", grupo: "Página Inicial (Home)" },

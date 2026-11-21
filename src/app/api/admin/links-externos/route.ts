@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
                 moduloAlvo: body.moduloAlvo || null,
             },
         });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/admin/links-externos"]);
+        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
         return jsonNoStore(link, { status: 201 });
     } catch (err) {
         console.error("Erro ao criar link:", err);

@@ -27,7 +27,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
                 moduloAlvo: body.moduloAlvo,
             },
         });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/admin/links-externos"]);
+        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
         return jsonNoStore(data);
     } catch (err) {
         console.error("Erro ao atualizar link:", err);
@@ -41,7 +41,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: { id: stri
 
     try {
         await db.linkExterno.delete({ where: { id: params.id } });
-        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/admin/links-externos"]);
+        revalidatePaths([...REVALIDATE_GROUPS.institucional, "/transparencia-2018-2022", "/transparencia-2023-2025", "/admin/links-externos"]);
         return jsonNoStore({ ok: true });
     } catch (err) {
         console.error("Erro ao excluir link:", err);

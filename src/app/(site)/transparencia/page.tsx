@@ -66,6 +66,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef, useMemo } from "react";
+import SeletorPeriodos from "@/components/transparencia/SeletorPeriodos";
 import { MUNICIPIO } from "@/config/municipio";
 
 // Divisão das Áreas Temáticas Unificada em Azul (Principal) e Amarelo (Secundária)
@@ -409,6 +410,8 @@ export default function TransparenciaPage() {
     return (
         <div className="bg-[#f4fbff] min-h-screen text-slate-900 pt-5 sm:pt-7 pb-24">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 space-y-7">
+                <SeletorPeriodos periodoAtivo="atual" linksExternos={linksExternos} />
+
                 {/* =====================================================================
                     1. BANNER CENTRAL DE TRANSPARÊNCIA ATIVA (SEM O CARD 100% META ATIVA)
                    ===================================================================== */}
@@ -525,11 +528,10 @@ export default function TransparenciaPage() {
                                     key={crit.id}
                                     type="button"
                                     onClick={() => setSelectedCriterio(crit.id)}
-                                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
-                                        selectedCriterio === crit.id
-                                            ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "bg-[#f4fbff] hover:bg-slate-200/70 text-slate-700"
-                                    }`}
+                                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${selectedCriterio === crit.id
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "bg-[#f4fbff] hover:bg-slate-200/70 text-slate-700"
+                                        }`}
                                 >
                                     {crit.label}
                                 </button>
@@ -561,11 +563,10 @@ export default function TransparenciaPage() {
                             onClick={() => scrollTabs("left")}
                             disabled={!canScrollLeft}
                             aria-label="Rolar áreas temáticas para a esquerda"
-                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
-                                canScrollLeft
-                                    ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
-                                    : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
-                            }`}
+                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${canScrollLeft
+                                ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
+                                : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
+                                }`}
                         >
                             <ChevronLeft size={16} />
                         </button>
@@ -596,19 +597,17 @@ export default function TransparenciaPage() {
                                     role="tab"
                                     aria-selected={selectedCategory === "TODAS"}
                                     onClick={(e) => handleSelectCategory("TODAS", e.currentTarget)}
-                                    className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
-                                        selectedCategory === "TODAS"
-                                            ? "bg-[#01b0ef] text-white shadow-sm"
-                                            : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
-                                    }`}
+                                    className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${selectedCategory === "TODAS"
+                                        ? "bg-[#01b0ef] text-white shadow-sm"
+                                        : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
+                                        }`}
                                 >
                                     <span>Todas</span>
                                     <span
-                                        className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-                                            selectedCategory === "TODAS"
-                                                ? "bg-[#fdb913] text-slate-900"
-                                                : "bg-white text-slate-700 border border-sky-100"
-                                        }`}
+                                        className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${selectedCategory === "TODAS"
+                                            ? "bg-[#fdb913] text-slate-900"
+                                            : "bg-white text-slate-700 border border-sky-100"
+                                            }`}
                                     >
                                         {countTotalModulos}
                                     </span>
@@ -627,20 +626,18 @@ export default function TransparenciaPage() {
                                             onClick={(e) =>
                                                 handleSelectCategory(cat.tituloCategoria, e.currentTarget)
                                             }
-                                            className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
-                                                isSelected
-                                                    ? "bg-[#01b0ef] text-white shadow-sm"
-                                                    : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
-                                            }`}
+                                            className={`shrink-0 whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${isSelected
+                                                ? "bg-[#01b0ef] text-white shadow-sm"
+                                                : "bg-[#f4fbff] hover:bg-[#e6f8ff] text-slate-800 border border-sky-100"
+                                                }`}
                                         >
                                             <CatIcon size={14} className="shrink-0" />
                                             <span>{cat.shortLabel}</span>
                                             <span
-                                                className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-                                                    isSelected
-                                                        ? "bg-[#fdb913] text-slate-900"
-                                                        : "bg-white text-slate-700 border border-sky-100"
-                                                }`}
+                                                className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${isSelected
+                                                    ? "bg-[#fdb913] text-slate-900"
+                                                    : "bg-white text-slate-700 border border-sky-100"
+                                                    }`}
                                             >
                                                 {cat.modulos.length}
                                             </span>
@@ -655,11 +652,10 @@ export default function TransparenciaPage() {
                             onClick={() => scrollTabs("right")}
                             disabled={!canScrollRight}
                             aria-label="Rolar áreas temáticas para a direita"
-                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${
-                                canScrollRight
-                                    ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
-                                    : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
-                            }`}
+                            className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#01b0ef] ${canScrollRight
+                                ? "bg-white hover:bg-[#01b0ef] text-slate-700 hover:text-white border-sky-200 hover:border-[#01b0ef] shadow-xs cursor-pointer"
+                                : "bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed"
+                                }`}
                         >
                             <ChevronRight size={16} />
                         </button>

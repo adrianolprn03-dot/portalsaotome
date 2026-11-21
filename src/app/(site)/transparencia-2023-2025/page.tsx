@@ -1,130 +1,333 @@
 "use client";
 
 import Link from "next/link";
-import { 
-    TrendingUp, BarChart3, Gavel, FileSignature, Handshake, 
-    Plane, Users, FileBarChart, Scale, Database, Construction, 
-    Users2, ClipboardList, HelpCircle, BookOpen, Files, 
-    Building2, UserCircle2, MapPinned, Truck, Stethoscope as StethoscopeIcon, 
-    Globe2, IdCard, ExternalLink, Globe, ArrowRight, Check,
-    Headset, Mail, FileText, QrCode, ScrollText, AlertTriangle,
-    Briefcase, Landmark, Info, FileStack, Activity, ListOrdered,
-    CalendarClock, PhoneCall, Link2, MonitorPlay, ShieldCheck, HeartPulse,
-    Search, Sparkles, ShieldAlert, FileSearch, Coins, Receipt,
-    Stethoscope, Building, Heart,
-    Calendar, Phone, LayoutGrid, ClipboardCheck,
-    BarChart, HardHat, GraduationCap,
-    Map, Pill, Shield, Lock, FileClock,
-    UserPlus, UserCheck, FileJson, BadgeCheck,
-    FilePieChart, Presentation, Megaphone
+import { useEffect, useMemo, useState } from "react";
+import {
+    Coins,
+    Receipt,
+    ListOrdered,
+    Database,
+    Globe2,
+    FileSearch,
+    Landmark,
+    BarChart3,
+    Gavel,
+    FileSignature,
+    FileStack,
+    FileText,
+    Handshake,
+    Construction,
+    Megaphone,
+    Users,
+    UserPlus,
+    Briefcase,
+    IdCard,
+    Plane,
+    GraduationCap,
+    UserCheck,
+    Files,
+    ScrollText,
+    FilePieChart,
+    ClipboardList,
+    Headset,
+    ExternalLink,
+    ArrowUpRight,
+    ArrowRight,
+    Search,
+    X,
+    History,
+    Sparkles,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import PageHeader from "@/components/PageHeader";
-import { useEffect, useState } from "react";
 import SeletorPeriodos from "@/components/transparencia/SeletorPeriodos";
+import {
+    PORTAL_2023_2025_DEFAULT_URL,
+    resolveModulo2023_2025,
+    resolvePortalUrl,
+    type LinkExternoResumo,
+} from "@/config/portais-periodos";
+import { MUNICIPIO } from "@/config/municipio";
 
-const categoriasDeModulos = [
+interface ModuloPeriodo {
+    id: string;
+    titulo: string;
+    desc: string;
+    href: string;
+    badge: string;
+    icon: typeof Coins;
+}
+
+interface CategoriaPeriodo {
+    tituloCategoria: string;
+    desc: string;
+    icon: typeof Coins;
+    modulos: ModuloPeriodo[];
+}
+
+const CATEGORIAS_2023_2025: CategoriaPeriodo[] = [
     {
-        tituloCategoria: "Institucional e Estrutura",
-        desc: "Identificação oficial, competências, estrutura organizacional e base legal da prefeitura.",
+        tituloCategoria: "Finanças, Receitas e Despesas (TopSolutions 2023–2025)",
+        desc: "Consultas financeiras e execução orçamentária do exercício 2023 a 2025 no sistema TopSolutions.",
+        icon: Coins,
         modulos: [
-            { icon: Building2, titulo: "Institucional", desc: "Dados Gerais e Identificação.", href: "/transparencia/institucional", cor: "from-blue-700 to-indigo-800", badge: "ENTIDADE" },
-            { icon: FileText, titulo: "Competências", desc: "Atribuições e Funções Legais.", href: "/transparencia/institucional", cor: "from-emerald-600 to-teal-700", badge: "LEGAL" },
-            { icon: Users2, titulo: "Organograma", desc: "Estrutura Administrativa.", href: "/transparencia/institucional", cor: "from-indigo-600 to-blue-700", badge: "ESTRUTURA" },
-            { icon: MapPinned, titulo: "Localização", desc: "Endereços e Contatos Sede.", href: "/transparencia/institucional", cor: "from-slate-700 to-slate-900", badge: "CONTATOS" },
-            { icon: Files, titulo: "Leis", desc: "Legislação Municipal.", href: "/transparencia/leis", cor: "from-indigo-600 to-purple-700", badge: "LEGAL" },
-            { icon: Search, titulo: "Radar", desc: "Índice Transparência.", href: "/transparencia/radar", cor: "from-blue-800 to-slate-900", badge: "PNTP" },
-        ]
+            {
+                id: "receitas",
+                titulo: "Receitas Públicas",
+                desc: "Arrecadação municipal e transferências no portal TopSolutions.",
+                href: "/transparencia/receitas",
+                badge: "RECEITAS",
+                icon: Coins,
+            },
+            {
+                id: "despesas",
+                titulo: "Despesas Públicas",
+                desc: "Empenhos, liquidações e pagamentos realizados no período.",
+                href: "/transparencia/despesas",
+                badge: "DESPESAS",
+                icon: Receipt,
+            },
+            {
+                id: "ordem-cronologica",
+                titulo: "Ordem Cronológica",
+                desc: "Fila cronológica de pagamentos a fornecedores e credores.",
+                href: "/transparencia/ordem-cronologica",
+                badge: "TESOURARIA",
+                icon: ListOrdered,
+            },
+            {
+                id: "transferencias",
+                titulo: "Repasses e Transferências",
+                desc: "Transferências recebidas e convênios estaduais e federais.",
+                href: "/transparencia/transferencias",
+                badge: "RECURSOS",
+                icon: Database,
+            },
+            {
+                id: "emendas",
+                titulo: "Emendas Parlamentares",
+                desc: "Emendas parlamentares destinadas ao município no período.",
+                href: "/transparencia/emendas",
+                badge: "EMENDAS",
+                icon: Globe2,
+            },
+            {
+                id: "renuncias-fiscais",
+                titulo: "Renúncias Fiscais",
+                desc: "Relatórios de isenções e renúncias tributárias registradas.",
+                href: "/transparencia/renuncias-fiscais",
+                badge: "FISCAL",
+                icon: FileSearch,
+            },
+            {
+                id: "orcamento",
+                titulo: "Planejamento Orçamentário",
+                desc: "Leis orçamentárias (LOA, LDO e PPA) migradas para o acervo.",
+                href: "/transparencia/orcamento",
+                badge: "ORÇAMENTO",
+                icon: Landmark,
+            },
+            {
+                id: "lrf",
+                titulo: "Relatórios LRF (RREO e RGF)",
+                desc: "Demonstrativos fiscais RREO e RGF do período 2023–2025.",
+                href: "/transparencia/lrf",
+                badge: "LRF",
+                icon: BarChart3,
+            },
+        ],
     },
     {
-        tituloCategoria: "Controle e Participação",
-        desc: "Canais diretos de comunicação e consulta aos serviços públicos municipais.",
+        tituloCategoria: "Licitações, Contratos e Obras (TopSolutions 2023–2025)",
+        desc: "Certames licitatórios, contratos, atas SRP, convênios e acompanhamento de obras de 2023 a 2025.",
+        icon: Gavel,
         modulos: [
-            { icon: ClipboardList, titulo: "E-SIC", desc: "Acesso à Informação.", href: "/servicos/esic", cor: "from-amber-600 to-orange-700", badge: "LAI" },
-            { icon: Headset, titulo: "Ouvidoria", desc: "Denúncias e sugestões.", href: "/servicos/ouvidoria", cor: "from-blue-600 to-cyan-600", badge: "FALA.BR" },
-            { icon: ShieldCheck, titulo: "Integridade", desc: "Programa de Ética.", href: "/transparencia/integridade", cor: "from-emerald-600 to-teal-700", badge: "GOVERNANÇA" },
-            { icon: MapPinned, titulo: "Serviços", desc: "Carta de Serviços.", href: "/transparencia/carta-servicos", cor: "from-purple-600 to-indigo-700", badge: "CIDADÃO" },
-            { icon: HelpCircle, titulo: "FAQ", desc: "Dúvidas Frequentes.", href: "/transparencia/faq", cor: "from-slate-600 to-slate-800", badge: "AJUDA" },
-            { icon: BookOpen, titulo: "Glossário", desc: "Termos da Gestão.", href: "/transparencia/glossario", cor: "from-indigo-500 to-blue-600", badge: "TERMOS" },
-            { icon: ClipboardCheck, titulo: "Pesquisa Satisfação", desc: "Avalie os serviços municipais.", href: "/transparencia/pesquisa-satisfacao", cor: "from-fuchsia-600 to-pink-700", badge: "PNTP" },
-            { icon: PhoneCall, titulo: "Fale Conosco", desc: "Atendimento ao Cidadão.", href: "/contato", cor: "from-rose-500 to-pink-600", badge: "CONTATO" },
-        ]
+            {
+                id: "licitacoes",
+                titulo: "Licitações",
+                desc: "Certames e avisos de licitações registrados no TopSolutions.",
+                href: "/transparencia/licitacoes",
+                badge: "CERTAMES",
+                icon: Gavel,
+            },
+            {
+                id: "contratos",
+                titulo: "Contratos Administrativos",
+                desc: "Contratos celebrados, aditivos e vigências no período.",
+                href: "/transparencia/contratos",
+                badge: "CONTRATOS",
+                icon: FileSignature,
+            },
+            {
+                id: "atas-registro",
+                titulo: "Atas de Registro de Preços",
+                desc: "Atas SRP vigentes e registradas no portal TopSolutions.",
+                href: "/transparencia/atas-registro",
+                badge: "SRP",
+                icon: FileStack,
+            },
+            {
+                id: "plano-contratacao",
+                titulo: "Plano de Contratação Anual",
+                desc: "Arquivo e detalhamento do PCA municipal no TopSolutions.",
+                href: "/transparencia/plano-contratacao",
+                badge: "PCA",
+                icon: FileText,
+            },
+            {
+                id: "convenios",
+                titulo: "Convênios Celebrados",
+                desc: "Convênios, termos e parcerias no TopSolutions.",
+                href: "/transparencia/convenios",
+                badge: "PARCERIAS",
+                icon: Handshake,
+            },
+            {
+                id: "acordos-firmados",
+                titulo: "Acordos Firmados",
+                desc: "Acordos e ajustes celebrados sem repasse financeiro.",
+                href: "/transparencia/acordos-firmados",
+                badge: "ACORDOS",
+                icon: Handshake,
+            },
+            {
+                id: "obras",
+                titulo: "Obras Públicas",
+                desc: "Acompanhamento de obras públicas e contratos no acervo.",
+                href: "/transparencia/obras",
+                badge: "OBRAS",
+                icon: Construction,
+            },
+            {
+                id: "editais",
+                titulo: "Editais Diversos",
+                desc: "Chamamentos públicos e avisos migrados do portal anterior.",
+                href: "/transparencia/editais",
+                badge: "EDITAIS",
+                icon: Megaphone,
+            },
+        ],
     },
     {
-        tituloCategoria: "Finanças e Planejamento",
-        desc: "Acompanhamento detalhado da execução orçamentária e financeira em tempo real.",
+        tituloCategoria: "Servidores, Pessoal e Diárias (TopSolutions 2023–2025)",
+        desc: "Quadro funcional, folha, terceirizados, estagiários, contracheque e seleções de 2023 a 2025.",
+        icon: Users,
         modulos: [
-            { icon: Coins, titulo: "Receitas", desc: "Arrecadação Municipal.", href: "/transparencia/receitas", cor: "from-emerald-500 to-teal-600", badge: "RECEITA" },
-            { icon: Receipt, titulo: "Despesas", desc: "Gastos e Empenhos.", href: "/transparencia/despesas", cor: "from-blue-600 to-indigo-700", badge: "GASTOS" },
-            { icon: Landmark, titulo: "Orçamento", desc: "LOA, LDO e PPA.", href: "/transparencia/orcamento", cor: "from-slate-800 to-slate-950", badge: "PLANEJAMENTO" },
-            { icon: BarChart3, titulo: "LRF", desc: "RREO e RGF.", href: "/transparencia/lrf", cor: "from-blue-800 to-slate-900", badge: "FISCAL" },
-            { icon: Scale, titulo: "Dívida Ativa", desc: "Cobranças e Créditos Tributários.", href: "/transparencia/divida-ativa", cor: "from-red-600 to-orange-700", badge: "FISCAL" },
-            { icon: Handshake, titulo: "Acordos Firmados", desc: "Acordos sem repasse financeiro.", href: "/transparencia/acordos-firmados", cor: "from-indigo-500 to-blue-600", badge: "ACORDOS" },
-            { icon: ListOrdered, titulo: "Pagamentos", desc: "Ordem Cronológica.", href: "/transparencia/ordem-cronologica", cor: "from-amber-500 to-orange-600", badge: "TESOURARIA" },
-            { icon: Database, titulo: "Repasses", desc: "Transferências Legais.", href: "/transparencia/transferencias", cor: "from-indigo-600 to-violet-700", badge: "RECURSOS" },
-            { icon: Globe2, titulo: "Emendas Parlamentares", desc: "Recursos Externos.", href: "/transparencia/emendas", cor: "from-teal-600 to-emerald-800", badge: "EXTERNO" },
-            { icon: Coins, titulo: "Emendas PIX", desc: "Transferências Diretas.", href: "/transparencia/emendas-pix", cor: "from-pink-600 to-rose-700", badge: "PIX" },
-            { icon: FileSearch, titulo: "Renúncias Fiscais", desc: "Incentivos e Renúncias.", href: "/transparencia/renuncias-fiscais", cor: "from-purple-600 to-indigo-700", badge: "FISCAL" },
-            { icon: TrendingUp, titulo: "Desonerações", desc: "Desonerações Fiscais.", href: "/transparencia/desoneracoes", cor: "from-blue-500 to-cyan-600", badge: "FISCAL" },
-        ]
+            {
+                id: "servidores",
+                titulo: "Servidores Públicos",
+                desc: "Quadro funcional e remunerações no sistema TopSolutions.",
+                href: "/transparencia/servidores",
+                badge: "PESSOAL",
+                icon: Users,
+            },
+            {
+                id: "terceirizados",
+                titulo: "Pessoal Terceirizado",
+                desc: "Relação de trabalhadores terceirizados no TopSolutions.",
+                href: "/transparencia/terceirizados",
+                badge: "TERCEIROS",
+                icon: UserPlus,
+            },
+            {
+                id: "estagiarios",
+                titulo: "Estagiários",
+                desc: "Relação de estagiários ativos no portal TopSolutions.",
+                href: "/transparencia/estagiarios",
+                badge: "ESTÁGIO",
+                icon: Briefcase,
+            },
+            {
+                id: "contracheque",
+                titulo: "Contracheque Online",
+                desc: "Acesso ao portal do servidor e contracheques TopSolutions.",
+                href: "https://app.topsolutionsrn.com.br/ContraCheque/pmsaotome/",
+                badge: "SERVIDOR",
+                icon: IdCard,
+            },
+            {
+                id: "diarias",
+                titulo: "Diárias de Viagem",
+                desc: "Concessões de diárias e passagens migradas para o acervo.",
+                href: "/transparencia/diarias",
+                badge: "DIÁRIAS",
+                icon: Plane,
+            },
+            {
+                id: "concursos",
+                titulo: "Concursos Públicos",
+                desc: "Editais e convocações de concursos públicos no acervo.",
+                href: "/transparencia/concursos",
+                badge: "CONCURSO",
+                icon: GraduationCap,
+            },
+            {
+                id: "processo-seletivo",
+                titulo: "Processos Seletivos",
+                desc: "Processos seletivos simplificados migrados para o portal.",
+                href: "/transparencia/processo-seletivo",
+                badge: "PSS",
+                icon: UserCheck,
+            },
+        ],
     },
     {
-        tituloCategoria: "Contratações e Pessoal",
-        desc: "Transparência sobre processos licitatórios, contratos firmados e quadro de servidores.",
+        tituloCategoria: "Legislação, Atos Oficiais e Cidadão (Acervo Histórico Migrado)",
+        desc: "Atos normativos, prestação de contas e canais ao cidadão sincronizados no novo portal.",
+        icon: Files,
         modulos: [
-            { icon: Gavel, titulo: "Licitações", desc: "Certames e Editais.", href: "/transparencia/licitacoes", cor: "from-orange-600 to-red-700", badge: "COMPRAS" },
-            { icon: Megaphone, titulo: "Editais Diversos", desc: "Chamamentos e Avisos.", href: "/transparencia/editais", cor: "from-amber-500 to-orange-600", badge: "AVISOS" },
-            { icon: FileSignature, titulo: "Contratos", desc: "Ajustes e Aditivos.", href: "/transparencia/contratos", cor: "from-blue-700 to-indigo-800", badge: "ATOS" },
-            { icon: FileStack, titulo: "Atas de Registro", desc: "Preços Registrados.", href: "/transparencia/atas-registro", cor: "from-purple-600 to-violet-800", badge: "SRP" },
-            { icon: Users, titulo: "Servidores", desc: "Folha de Pagamento.", href: "/transparencia/servidores", cor: "from-slate-700 to-slate-900", badge: "PESSOAL" },
-            { icon: Plane, titulo: "Diárias", desc: "Viagens e Passagens.", href: "/transparencia/diarias", cor: "from-sky-500 to-blue-600", badge: "DESPESA" },
-            { icon: GraduationCap, titulo: "Concursos", desc: "Editais e Provas.", href: "/transparencia/concursos", cor: "from-indigo-600 to-blue-700", badge: "SELEÇÃO" },
-            { icon: UserCheck, titulo: "Processo Seletivo", desc: "Vagas Temporárias.", href: "/transparencia/processo-seletivo", cor: "from-teal-600 to-emerald-700", badge: "PSS" },
-            { icon: Briefcase, titulo: "Estagiários", desc: "Termos de Estágio.", href: "/transparencia/estagiarios", cor: "from-amber-600 to-orange-700", badge: "ESTUDANTE" },
-            { icon: UserPlus, titulo: "Terceirizados", desc: "Pessoal Terceirizado.", href: "/transparencia/terceirizados", cor: "from-blue-600 to-indigo-700", badge: "CONTRATADOS" },
-        ]
+            {
+                id: "leis",
+                titulo: "Leis Municipais",
+                desc: "Acervo de leis ordinárias e complementares de 2023–2025.",
+                href: "/transparencia/leis",
+                badge: "LEIS",
+                icon: Files,
+            },
+            {
+                id: "decretos",
+                titulo: "Decretos Municipais",
+                desc: "Decretos executivos municipais sincronizados no acervo.",
+                href: "/transparencia/decretos",
+                badge: "DECRETOS",
+                icon: FileText,
+            },
+            {
+                id: "portarias",
+                titulo: "Portarias Executivas",
+                desc: "Portarias administrativas migradas para consulta rápida.",
+                href: "/transparencia/portarias",
+                badge: "PORTARIAS",
+                icon: ScrollText,
+            },
+            {
+                id: "prestacao-contas",
+                titulo: "Prestação de Contas",
+                desc: "Balanços anuais, PCG, PCS e pareceres de contas.",
+                href: "/transparencia/prestacao-contas",
+                badge: "CONTAS",
+                icon: FilePieChart,
+            },
+            {
+                id: "esic",
+                titulo: "e-SIC (LAI)",
+                desc: "Serviço eletrônico de informação ao cidadão e acompanhamento.",
+                href: "/servicos/esic",
+                badge: "LAI",
+                icon: ClipboardList,
+            },
+            {
+                id: "ouvidoria",
+                titulo: "Ouvidoria Municipal",
+                desc: "Canal oficial de manifestações, elogios e denúncias.",
+                href: "/servicos/ouvidoria",
+                badge: "OUVIDORIA",
+                icon: Headset,
+            },
+        ],
     },
-    {
-        tituloCategoria: "Saúde e Bem-Estar",
-        desc: "Gestão da saúde pública, investimentos e infraestrutura de atendimento.",
-        modulos: [
-            { icon: Stethoscope, titulo: "Saúde", desc: "Portal da Saúde.", href: "/transparencia/saude", cor: "from-rose-500 to-red-600", badge: "MUNICIPAL" },
-            { icon: Building2, titulo: "Unidades de Saúde", desc: "Relação de UBS/Hospitais.", href: "/unidades-de-saude", cor: "from-blue-500 to-cyan-600", badge: "LOCAIS" },
-            { icon: Pill, titulo: "Medicamentos SUS", desc: "Lista e Estoque.", href: "/transparencia/medicamentos-sus", cor: "from-emerald-500 to-teal-600", badge: "FARMÁCIA" },
-            { icon: Activity, titulo: "Central Regulação", desc: "Filas e Agendamentos.", href: "/transparencia/central-regulacao", cor: "from-orange-500 to-amber-600", badge: "FILAS" },
-            { icon: HeartPulse, titulo: "Plano de Saúde", desc: "Diretrizes Municipais.", href: "/transparencia/plano-saude", cor: "from-pink-500 to-rose-600", badge: "PLANO" },
-            { icon: GraduationCap, titulo: "Plano Educação", desc: "Diretrizes do Ensino.", href: "/transparencia/plano-educacao", cor: "from-amber-600 to-orange-700", badge: "POLÍTICAS" },
-        ]
-    },
-    {
-        tituloCategoria: "Legislação e Normas",
-        desc: "Atos normativos, decretos e regulamentações municipais.",
-        modulos: [
-            { icon: FileText, titulo: "Decretos", desc: "Atos do Executivo.", href: "/transparencia/decretos", cor: "from-slate-600 to-slate-800", badge: "ATOS" },
-            { icon: ScrollText, titulo: "Portarias", desc: "Atos Administrativos.", href: "/transparencia/portarias", cor: "from-blue-600 to-blue-800", badge: "ADMIN" },
-            { icon: ShieldCheck, titulo: "LGPD", desc: "Proteção de Dados.", href: "/transparencia/lgpd", cor: "from-emerald-500 to-green-700", badge: "PRIVACIDADE" },
-            { icon: Presentation, titulo: "Dados Abertos", desc: "Exportação de Dados.", href: "/transparencia/dados-abertos", cor: "from-orange-500 to-amber-600", badge: "OPEN-DATA" },
-        ]
-    },
-    {
-        tituloCategoria: "Gestão, Obras e Contas",
-        desc: "Acompanhamento de obras públicas, convênios, frota municipal e prestação de contas (RREO, RGF, PCG, PCS).",
-        modulos: [
-            { icon: Construction, titulo: "Obras", desc: "Obras Públicas.", href: "/transparencia/obras", cor: "from-amber-600 to-orange-700", badge: "ACOMPANHAMENTO" },
-            { icon: Handshake, titulo: "Convênios", desc: "Convênios e Repasses.", href: "/transparencia/convenios", cor: "from-indigo-600 to-blue-700", badge: "PARCERIAS" },
-            { icon: FilePieChart, titulo: "Prestação de Contas", desc: "Balanços Anuais.", href: "/transparencia/prestacao-contas", cor: "from-emerald-600 to-teal-700", badge: "CONTAS" },
-            { icon: BarChart3, titulo: "Contas de Governo (PCG)", desc: "Prestação de Governo.", href: "/transparencia/pcg", cor: "from-blue-700 to-indigo-800", badge: "PCG" },
-            { icon: FileBarChart, titulo: "Contas de Gestão (PCS)", desc: "Prestação de Gestão.", href: "/transparencia/pcs", cor: "from-slate-700 to-slate-900", badge: "PCS" },
-            { icon: ClipboardList, titulo: "Relatório de Gestão", desc: "Atividades e Metas.", href: "/transparencia/relatorio-gestao", cor: "from-purple-600 to-violet-700", badge: "DESEMPENHO" },
-            { icon: Scale, titulo: "Parecer do TCE", desc: "Julgamento de Contas.", href: "/transparencia/parecer-tce", cor: "from-red-600 to-rose-700", badge: "TCE-RN" },
-            { icon: Truck, titulo: "Frota Municipal", desc: "Veículos e Máquinas.", href: "/transparencia/frota", cor: "from-sky-500 to-cyan-600", badge: "PATRIMÔNIO" },
-            { icon: UserCircle2, titulo: "Gestores", desc: "Responsáveis por Setor.", href: "/transparencia/gestores", cor: "from-teal-500 to-emerald-600", badge: "CONTATOS" },
-        ]
-    }
 ];
 
-export default function TransparenciaPage() {
-    const [linksExternos, setLinksExternos] = useState<any[]>([]);
+export default function Transparencia2023_2025Page() {
+    const [linksExternos, setLinksExternos] = useState<LinkExternoResumo[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
@@ -133,323 +336,291 @@ export default function TransparenciaPage() {
                 const res = await fetch("/api/links-externos");
                 if (res.ok) {
                     const data = await res.json();
-                    setLinksExternos(data.filter((l: any) => l.categoria === "transparencia" || l.categoria === "geral"));
+                    if (Array.isArray(data)) {
+                        setLinksExternos(data);
+                    }
                 }
             } catch (error) {
-                console.error("Erro ao carregar links:", error);
+                console.error("Erro ao carregar links de 2023-2025:", error);
             }
         }
         loadExternalLinks();
     }, []);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-    };
+    const portalCopyUrl = resolvePortalUrl(
+        linksExternos,
+        "portal-2023-2025",
+        PORTAL_2023_2025_DEFAULT_URL
+    );
 
-    const itemVariants = {
-        hidden: { y: 30, opacity: 0 },
-        visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 20 } }
-    };
+    const { categoriasResolvidas, extraLinks } = useMemo(() => {
+        const usedIds = new Set<string>();
+        const cleanSearch = searchTerm.trim().toLowerCase();
 
-    // Filter modules based on search
-    // Filter modules based on search and apply overrides
-    const usedLinkIds = new Set<string>();
+        const resolved = CATEGORIAS_2023_2025.map((cat) => {
+            const modulos = cat.modulos
+                .map((m) => {
+                    const res = resolveModulo2023_2025(linksExternos, m.id, m.href);
+                    if (res.matchedId) usedIds.add(res.matchedId);
+                    return {
+                        ...m,
+                        finalHref: res.href,
+                        isExternal: res.isExternal,
+                        origem: res.origem,
+                    };
+                })
+                .filter(
+                    (m) =>
+                        !cleanSearch ||
+                        m.titulo.toLowerCase().includes(cleanSearch) ||
+                        m.desc.toLowerCase().includes(cleanSearch) ||
+                        m.badge.toLowerCase().includes(cleanSearch) ||
+                        m.origem.toLowerCase().includes(cleanSearch)
+                );
 
-    const filteredCategories = categoriasDeModulos.map(cat => {
-        const processedModulos = cat.modulos.map(m => {
-            const identifier = m.href.split("/").pop()?.toLowerCase() || "";
-            const override = linksExternos.find((l: any) => 
-                l.moduloAlvo?.toLowerCase() === `${identifier}-2023` ||
-                l.moduloAlvo?.toLowerCase() === `${identifier}-2023-2025` ||
-                l.moduloAlvo?.toLowerCase() === identifier
-            );
-            if (override) usedLinkIds.add(override.id);
             return {
-                ...m,
-                finalHref: override ? override.url : m.href,
-                isExternal: !!override
+                ...cat,
+                modulos,
             };
-        }).filter(m => 
-            m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            m.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            m.badge.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        }).filter((cat) => cat.modulos.length > 0);
 
-        return {
-            ...cat,
-            modulos: processedModulos
-        };
-    }).filter(cat => cat.modulos.length > 0);
+        const extras = linksExternos.filter((l) => {
+            const alvo = l?.moduloAlvo?.toLowerCase() || "";
+            if (!alvo || alvo === "portal-2023-2025") return false;
+            if (!alvo.endsWith("-2023-2025") && !alvo.endsWith("-2023")) return false;
+            if (l.id && usedIds.has(l.id)) return false;
+            if (!cleanSearch) return true;
+            return (
+                (l.titulo || "").toLowerCase().includes(cleanSearch) ||
+                (l.descricao || "").toLowerCase().includes(cleanSearch)
+            );
+        });
 
-    const unusedLinks = linksExternos.filter((l: any) => l.categoria === "transparencia" && (!l.moduloAlvo || l.moduloAlvo.trim() === "") && !usedLinkIds.has(l.id));
+        return { categoriasResolvidas: resolved, extraLinks: extras };
+    }, [linksExternos, searchTerm]);
 
-    if (unusedLinks.length > 0) {
-        const extraModulos = unusedLinks.map((l: any) => ({
-            icon: ExternalLink,
-            titulo: l.titulo,
-            desc: l.descricao || "Acesse o portal externo.",
-            href: l.url,
-            finalHref: l.url,
-            isExternal: true,
-            cor: "from-slate-700 to-slate-900",
-            badge: "NOVO SERVIÇO"
-        })).filter((m: any) => 
-            m.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            m.desc.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        if (extraModulos.length > 0) {
-            filteredCategories.push({
-                tituloCategoria: "Outros Portais e Serviços",
-                desc: "Serviços adicionais e links externos vinculados à transparência.",
-                modulos: extraModulos
-            });
-        }
-    }
+    const totalResultados =
+        categoriasResolvidas.reduce((acc, c) => acc + c.modulos.length, 0) + extraLinks.length;
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen">
-            <PageHeader
-                title="Portal da Transparência"
-                subtitle="Acesso integral aos dados públicos, fiscalização social e prestação de contas de São Tomé/RN."
-                variant="premium"
-                icon={<Landmark className="text-white" size={32} />}
-                breadcrumbs={[
-                    { label: "Início", href: "/" },
-                    { label: "Transparência" }
-                ]}
-            />
+        <div className="bg-[#f4fbff] min-h-screen text-slate-900 pt-5 sm:pt-7 pb-24">
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6 space-y-7">
+                <SeletorPeriodos periodoAtivo="2023-2025" linksExternos={linksExternos} />
 
-            {/* Hub Hero Search & Compliance */}
-            <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-40 pb-20">
-                <SeletorPeriodos periodoAtivo="2023-2025" />
-                <motion.div 
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white rounded-[3rem] p-1 shadow-2xl shadow-slate-200/50 border border-slate-100 mb-16 overflow-hidden"
-                >
-                    <div className="flex flex-col lg:flex-row items-stretch">
-                        <div className="flex-1 p-8 lg:p-12 flex flex-col justify-center">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-600/20">
-                                    <Sparkles size={20} />
-                                </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Busca Inteligente</span>
+                {/* Banner 2023-2025 */}
+                <section className="rounded-[26px] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] p-6 sm:p-8 lg:p-9 text-white shadow-xl shadow-[#01b0ef]/20 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#fdb913]" />
+
+                    <div className="space-y-5">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 border border-[#fdb913] text-xs font-extrabold text-slate-900 w-fit shadow-xs">
+                                <History size={13} className="text-[#01b0ef]" />
+                                <span>Acervo Histórico 2023–2025 • {MUNICIPIO.nome}/{MUNICIPIO.uf}</span>
                             </div>
-                            <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-none mb-8">
-                                O que você deseja <br/><span className="text-slate-400 italic">consultar hoje?</span>
-                            </h1>
-                            <div className="relative group max-w-2xl">
-                                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors">
-                                    <Search size={24} />
-                                </div>
-                                <input 
-                                    type="text" 
-                                    placeholder="Ex: Folha de Pagamento, Licitações, Receitas..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-[2rem] pl-16 pr-8 py-7 text-sm font-bold placeholder:text-slate-300 outline-none focus:ring-8 focus:ring-blue-600/5 focus:bg-white transition-all shadow-inner"
-                                />
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                                    <span className="hidden md:flex bg-slate-200 text-slate-500 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">TRANSPARÊNCIA MUNICIPAL</span>
-                                </div>
+
+                            <div className="flex flex-wrap items-center gap-2">
+                                <a
+                                    href={portalCopyUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#fdb913] hover:bg-[#e5a60d] text-slate-900 text-xs font-extrabold transition-colors shadow-sm"
+                                >
+                                    <span>Acessar Portal Legado 2023–2025 (saotome.rn.gov.br)</span>
+                                    <ExternalLink size={13} />
+                                </a>
+                                <Link
+                                    href="/transparencia"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/25 text-xs font-bold transition-colors"
+                                >
+                                    <Sparkles size={13} />
+                                    <span>Ir para o Portal Atual (2026)</span>
+                                </Link>
                             </div>
                         </div>
 
-                        <div className="lg:w-[400px] bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-l-4 border-[#fdb913] p-12 text-white relative flex flex-col justify-between overflow-hidden">
-                             <div className="absolute top-0 right-0 w-80 h-80 bg-white/15 rounded-full blur-[100px] -mr-40 -mt-40" />
-                             <div className="relative z-10">
-                                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 bg-[#fdb913] px-3 py-1 rounded-full w-fit mb-10">Conformidade Legal</div>
-                                 <div className="space-y-6">
-                                     {[
-                                         { label: "LAI - LEI 12.527/2011", status: "Auditado" },
-                                         { label: "LC 131/2009 (CAPIBERIBE)", status: "Ativo" },
-                                         { label: "RADAR TRANSPARÊNCIA", status: "GOLD" },
-                                         { label: "PNTP 2026 COMPLIANCE", status: "V2" },
-                                     ].map((item) => (
-                                         <div key={item.label} className="flex items-center justify-between border-b border-white/25 pb-4 group/item cursor-default">
-                                             <span className="text-[10px] font-black tracking-widest text-white/95">{item.label}</span>
-                                             <Check className="text-[#fdb913]" size={14} />
-                                         </div>
-                                     ))}
-                                 </div>
-                             </div>
-                             <div className="relative z-10 mt-12">
-                                 <div className="flex items-center gap-4 px-6 py-4 bg-white/15 rounded-2xl border border-white/30 backdrop-blur-md">
-                                     <div className="w-10 h-10 bg-[#fdb913] rounded-full flex items-center justify-center text-slate-900 shrink-0">
-                                         <ShieldAlert size={20} />
-                                     </div>
-                                     <p className="text-[9px] font-bold text-white leading-tight uppercase tracking-widest">Dados atualizados conforme periodicidade legal.</p>
-                                 </div>
-                             </div>
+                        <div className="max-w-3xl space-y-1.5">
+                            <h1 className="text-2xl sm:text-4xl font-black font-heading tracking-tight text-white">
+                                Portal da Transparência — Período 2023 a 2025
+                            </h1>
+                            <p className="text-xs sm:text-sm text-sky-100/95">
+                                Consulte diretamente os módulos financeiros, licitações e pessoal do sistema{" "}
+                                <strong>TopSolutions</strong> utilizados entre 2023 e 2025 ou acesse a página
+                                legada no portal anterior.
+                            </p>
+                        </div>
+
+                        {/* Busca nos módulos de 2023-2025 */}
+                        <div className="relative group max-w-2xl">
+                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#01b0ef] transition-colors pointer-events-none">
+                                <Search size={18} />
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Filtrar módulo de 2023 a 2025 (ex: 'receitas', 'licitações', 'servidores')..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full bg-white text-slate-900 rounded-2xl pl-11 pr-10 py-3 text-sm font-semibold placeholder:text-slate-400 outline-none ring-2 ring-transparent focus:ring-[#fdb913] shadow-lg transition-all"
+                            />
+                            {searchTerm && (
+                                <button
+                                    type="button"
+                                    onClick={() => setSearchTerm("")}
+                                    aria-label="Limpar busca"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+                                >
+                                    <X size={14} />
+                                </button>
+                            )}
                         </div>
                     </div>
-                </motion.div>
+                </section>
 
-                {/* Categories & Modules Grid */}
-                <div className="space-y-32">
-                    {filteredCategories.map((categoria, catIdx) => (
-                        <motion.section 
-                            key={categoria.tituloCategoria}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-100px" }}
-                            variants={containerVariants}
-                        >
-                            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 border-b border-slate-100 pb-12">
-                                <div className="max-w-2xl">
-                                    <motion.div variants={itemVariants} className="flex items-center gap-4 mb-5">
-                                        <span className="px-5 py-2 bg-[#01b0ef] text-white rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-md shadow-[#01b0ef]/20">0{catIdx + 1}</span>
-                                        <div className="h-0.5 w-12 bg-[#fdb913] rounded-full" />
-                                    </motion.div>
-                                    <motion.h2 variants={itemVariants} className="text-5xl font-black text-slate-900 tracking-tighter uppercase mb-4 leading-none italic">
-                                        {categoria.tituloCategoria}
-                                    </motion.h2>
-                                    <motion.p variants={itemVariants} className="text-slate-400 font-bold uppercase tracking-widest text-[11px] max-w-md leading-relaxed opacity-70">
-                                        {categoria.desc}
-                                    </motion.p>
-                                </div>
-                                <motion.div variants={itemVariants}>
-                                    <div className="flex items-center gap-3 px-6 py-3 bg-white rounded-2xl border border-slate-100 shadow-sm text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                        <FileSearch size={14} className="text-blue-600" /> {categoria.modulos.length} Módulos Integrados
-                                    </div>
-                                </motion.div>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                                {categoria.modulos.map((m: any, idx) => {
-                                    return (
-                                        <motion.div
-                                            key={m.titulo}
-                                            variants={itemVariants}
-                                            whileHover={{ y: -10, transition: { duration: 0.4 } }}
-                                        >
-                                            <Link 
-                                                href={m.finalHref} 
-                                                target={m.isExternal ? "_blank" : undefined}
-                                                rel={m.isExternal ? "noopener noreferrer" : undefined}
-                                                className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(51,65,85,0.15)] hover:border-blue-600/20 transition-all duration-700 overflow-hidden"
-                                            >
-                                                {/* Header Visuality */}
-                                                <div className={`h-24 bg-gradient-to-br ${m.cor} relative p-6 flex items-start justify-end`}>
-                                                    <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-[2px]" />
-                                                    <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-10 group-hover:scale-150 transition-all duration-1000">
-                                                        <m.icon size={120} strokeWidth={1} />
-                                                    </div>
-                                                    <span className="relative z-10 px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-xl text-[9px] font-black uppercase tracking-widest text-white border border-white/20 shadow-sm">
-                                                        {m.badge}
+                {/* Grupos de Módulos 2023-2025 */}
+                {totalResultados > 0 ? (
+                    <div className="space-y-8">
+                        {categoriasResolvidas.map((cat) => {
+                            const CatIcon = cat.icon;
+                            return (
+                                <section
+                                    key={cat.tituloCategoria}
+                                    className="bg-white rounded-[24px] border border-[#e2e8f0] shadow-gov overflow-hidden"
+                                >
+                                    <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] px-6 py-4 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-4 border-[#fdb913]">
+                                        <div className="flex items-center gap-3.5">
+                                            <div className="w-10 h-10 rounded-xl bg-[#fdb913] flex items-center justify-center text-slate-900 shrink-0">
+                                                <CatIcon size={20} />
+                                            </div>
+                                            <div>
+                                                <div className="flex flex-wrap items-center gap-2">
+                                                    <h2 className="text-base sm:text-lg font-black font-heading tracking-tight text-white">
+                                                        {cat.tituloCategoria}
+                                                    </h2>
+                                                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#fdb913] text-slate-900">
+                                                        {cat.modulos.length}{" "}
+                                                        {cat.modulos.length === 1 ? "módulo" : "módulos"}
                                                     </span>
                                                 </div>
-
-                                                {/* Floating Icon */}
-                                                <div className="absolute top-12 left-8 transition-transform duration-700 group-hover:-translate-y-2 group-hover:scale-110">
-                                                    <div className="w-16 h-16 bg-white rounded-2xl shadow-xl shadow-slate-200/50 flex items-center justify-center border border-slate-50 group-hover:shadow-blue-600/20 transition-all">
-                                                        <m.icon className="text-slate-900 group-hover:text-blue-600 transition-colors" size={28} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="px-8 pt-10 pb-8 flex flex-col flex-1">
-                                                    <h3 className="text-xl font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tighter leading-none mb-4 uppercase">
-                                                        {m.titulo}
-                                                    </h3>
-                                                    <p className="text-slate-400 text-[11px] font-bold uppercase tracking-widest leading-relaxed mb-10 opacity-80 grow line-clamp-3">
-                                                        {m.desc}
-                                                    </p>
-
-                                                    <div className="pt-6 border-t border-slate-50 mt-auto flex items-center justify-between">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#01b0ef] opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                                                            ACESSAR BASE
-                                                        </span>
-                                                        <div className="w-10 h-10 rounded-2xl bg-[#f4fbff] flex items-center justify-center group-hover:bg-[#01b0ef] transition-all duration-500 group-hover:rotate-[360deg] shadow-inner">
-                                                            <ArrowRight size={18} className="text-[#01b0ef] group-hover:text-white transition-colors" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                {m.isExternal && (
-                                                    <div className="absolute bottom-4 left-8">
-                                                        <span className="flex items-center gap-1.5 text-[8px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
-                                                            <ExternalLink size={8} /> PORTAL TERCEIRIZADO
-                                                        </span>
-                                                    </div>
-                                                )}
-                                            </Link>
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-                        </motion.section>
-                    ))}
-                </div>
-            </div>
-
-            {/* Hub Footer - Bright Brand */}
-            <div className="relative py-32 overflow-hidden bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-t-4 border-[#fdb913] text-white">
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-white/30 rounded-full blur-[150px]" />
-                </div>
-                
-                <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                        <div>
-                             <div className="flex items-center gap-4 mb-10">
-                                <div className="w-12 h-12 rounded-2xl bg-[#fdb913] text-slate-900 flex items-center justify-center shadow-lg">
-                                    <Landmark size={26} />
-                                </div>
-                                <div className="h-10 w-px bg-white/30" />
-                                <div className="text-left">
-                                    <div className="text-white font-black text-lg uppercase tracking-[0.3em] leading-none mb-1">Portal da Transparência</div>
-                                    <div className="text-white/85 text-[10px] uppercase font-bold tracking-[0.2em]">São Tomé - RN</div>
-                                </div>
-                            </div>
-                            <h4 className="text-3xl font-black text-white tracking-tighter uppercase mb-6">
-                                Compromisso com o <br/> <span className="inline-block mt-1 px-3 py-0.5 rounded-xl bg-[#fdb913] text-slate-900">Controle Social Ativo.</span>
-                            </h4>
-                            <p className="text-white/95 text-[11px] font-bold uppercase tracking-[0.18em] leading-loose max-w-lg mb-12 border-l-2 border-[#fdb913] pl-8">
-                                Em conformidade integral com as exigências do <span className="underline decoration-[#fdb913]">Programa Nacional de Transparência Pública (PNTP)</span>, asseguramos o livre acesso às informações institucionais e financeiras para todo cidadão.
-                            </p>
-                            <div className="flex gap-4">
-                                <Link href="/contato" className="px-8 py-4 bg-[#fdb913] rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-900 hover:bg-[#e5a60d] transition-all active:scale-95 shadow-xl">Suporte à Decisão</Link>
-                            </div>
-                        </div>
-
-                        <div className="bg-white/15 rounded-[3rem] p-12 border border-white/30 backdrop-blur-md relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-700">
-                                <ShieldCheck size={160} className="text-white" />
-                            </div>
-                            <h5 className="text-[12px] font-black text-white uppercase tracking-[0.3em] mb-10 flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Certificações de Acesso
-                            </h5>
-                            <div className="grid grid-cols-2 gap-8">
-                                {[
-                                    { label: "ACERVO DIGITAL", val: "saotome.gov" },
-                                    { label: "RADAR PNTP", status: "ATUALIZADO" },
-                                    { label: "FISCALIZAÇÃO", val: "TCE/RN" },
-                                    { label: "SINCRONIA", val: "REAL-TIME" },
-                                ].map((stat) => (
-                                    <div key={stat.label} className="border-l border-white/10 pl-6 group/stat cursor-default">
-                                        <p className="text-[9px] font-black text-white/20 uppercase tracking-widest mb-1 group-hover/stat:text-blue-600 transition-colors">{stat.label}</p>
-                                        <p className="text-[13px] font-black text-white/50 group-hover/stat:text-white transition-colors uppercase tracking-widest">{stat.val || stat.status}</p>
+                                                <p className="text-sky-100/90 text-xs mt-0.5">{cat.desc}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
+
+                                    <div className="p-6">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                            {cat.modulos.map((m) => {
+                                                const ModIcon = m.icon;
+                                                return (
+                                                    <Link
+                                                        key={m.id}
+                                                        href={m.finalHref}
+                                                        target={m.isExternal ? "_blank" : undefined}
+                                                        rel={m.isExternal ? "noopener noreferrer" : undefined}
+                                                        className="group flex flex-col justify-between h-full bg-white hover:bg-[#f4fbff] rounded-2xl border border-sky-100 border-t-4 border-t-[#01b0ef] hover:border-t-[#fdb913] shadow-sm hover:shadow-md p-5 transition-all duration-300 hover:-translate-y-0.5"
+                                                    >
+                                                        <div>
+                                                            <div className="flex items-center justify-between mb-3.5">
+                                                                <div className="w-10 h-10 rounded-xl bg-[#e6f8ff] border border-[#01b0ef]/20 text-[#01b0ef] group-hover:bg-[#01b0ef] group-hover:text-white flex items-center justify-center transition-all">
+                                                                    <ModIcon size={18} />
+                                                                </div>
+                                                                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#f4fbff] border border-[#e2e8f0] text-slate-600">
+                                                                    {m.badge}
+                                                                </span>
+                                                            </div>
+
+                                                            <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#01b0ef] transition-colors leading-snug mb-1.5">
+                                                                {m.titulo}
+                                                            </h3>
+                                                            <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                                                                {m.desc}
+                                                            </p>
+                                                        </div>
+
+                                                        <div className="mt-4 pt-3 border-t border-[#e2e8f0] flex items-center justify-between">
+                                                            {m.isExternal ? (
+                                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#01b0ef] bg-[#e6f8ff] px-2 py-0.5 rounded border border-[#01b0ef]/20">
+                                                                    <ExternalLink size={10} /> {m.origem}
+                                                                </span>
+                                                            ) : (
+                                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-700 bg-[#fff4d4] px-2 py-0.5 rounded border border-[#fdb913]/40">
+                                                                    {m.origem}
+                                                                </span>
+                                                            )}
+                                                            <div className="w-7 h-7 rounded-full bg-[#f4fbff] border border-sky-100 group-hover:bg-[#01b0ef] group-hover:border-[#01b0ef] text-slate-600 group-hover:text-white flex items-center justify-center transition-all">
+                                                                {m.isExternal ? (
+                                                                    <ArrowUpRight size={13} />
+                                                                ) : (
+                                                                    <ArrowRight size={13} />
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                </section>
+                            );
+                        })}
+
+                        {extraLinks.length > 0 && (
+                            <section className="bg-white rounded-[24px] border border-[#e2e8f0] shadow-gov overflow-hidden">
+                                <div className="bg-gradient-to-r from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] px-6 py-4 text-white flex items-center justify-between border-b-4 border-[#fdb913]">
+                                    <div>
+                                        <h2 className="text-base sm:text-lg font-black font-heading tracking-tight text-white">
+                                            Outros Links de 2023–2025
+                                        </h2>
+                                        <p className="text-sky-100/90 text-xs mt-0.5">
+                                            Atalhos adicionais configurados no painel administrativo para este período.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                    {extraLinks.map((l) => (
+                                        <a
+                                            key={l.id || l.url}
+                                            href={l.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group flex flex-col justify-between h-full bg-white hover:bg-[#f4fbff] rounded-2xl border border-sky-100 border-t-4 border-t-[#01b0ef] hover:border-t-[#fdb913] shadow-sm hover:shadow-md p-5 transition-all"
+                                        >
+                                            <div>
+                                                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#01b0ef] mb-1.5">
+                                                    {l.titulo || l.moduloAlvo}
+                                                </h3>
+                                                <p className="text-xs text-slate-600 line-clamp-2">
+                                                    {l.descricao || "Acesso externo ao portal de 2023 a 2025."}
+                                                </p>
+                                            </div>
+                                            <div className="mt-4 pt-3 border-t border-[#e2e8f0] flex items-center justify-between">
+                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#01b0ef] bg-[#e6f8ff] px-2 py-0.5 rounded border border-[#01b0ef]/20">
+                                                    <ExternalLink size={10} /> Portal Externo
+                                                </span>
+                                                <ArrowUpRight size={14} className="text-slate-500 group-hover:text-[#01b0ef]" />
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
-                    
-                    <div className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                        <p className="text-white/20 text-[10px] font-bold uppercase tracking-[0.3em]">
-                            © {new Date().getFullYear()} PREFEITURA DE São Tomé/RN • CNPJ: 08.080.210/0001-49
+                ) : (
+                    <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-[#e2e8f0]">
+                        <h3 className="text-lg font-extrabold text-slate-900 mb-1">
+                            Nenhum módulo encontrado para &quot;{searchTerm}&quot;
+                        </h3>
+                        <p className="text-slate-600 text-xs mb-5">
+                            Limpe o filtro abaixo para exibir todos os módulos do período 2023–2025.
                         </p>
-                        <div className="flex gap-10">
-                            {["Privacidade", "Termos", "Ouvidoria"].map(l => (
-                                <Link key={l} href="#" className="text-white/20 hover:text-white transition-colors text-[9px] font-black uppercase tracking-widest">{l}</Link>
-                            ))}
-                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setSearchTerm("")}
+                            className="bg-[#01b0ef] hover:bg-[#0098d4] text-white px-5 py-2.5 rounded-full font-extrabold text-xs transition-all cursor-pointer"
+                        >
+                            Limpar Filtro
+                        </button>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
 }
-
