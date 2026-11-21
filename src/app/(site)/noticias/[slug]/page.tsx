@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, Building2 } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default function NoticiaPage({ params }: { params: { slug: string } }) {
     return <NoticiaLoader slug={params.slug} />;

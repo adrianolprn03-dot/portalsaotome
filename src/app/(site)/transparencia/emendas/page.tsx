@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: "Acompanhamento de emendas parlamentares destinadas ao município de São Tomé. Dados importados de bases oficiais do Governo Federal.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 function fmt(v: number) {
     return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import GlossarioClientPage from "./GlossarioClientPage";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata = {
   title: "Glossário | Prefeitura de São Tomé",

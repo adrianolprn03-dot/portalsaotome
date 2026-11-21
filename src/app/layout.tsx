@@ -3,8 +3,6 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import VLibras from "@/components/VLibras";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
     title: {
         default: "Prefeitura Municipal de São Tomé – RN",

@@ -101,7 +101,7 @@ export default function Header() {
     useEffect(() => {
         const fetchLogo = async () => {
             try {
-                const res = await fetch("/api/admin/configuracoes");
+                const res = await fetch("/api/admin/configuracoes?public=1");
                 if (res.ok) {
                     const data = await res.json();
                     const brasao = data.find((c: any) => c.chave === "simbolo_brasao")?.valor;
@@ -165,7 +165,7 @@ export default function Header() {
                     {navItems.map((item, index) => {
                         const isActive = pathname
                             ? pathname === item.href ||
-                              (item.href !== "/" && pathname.startsWith(item.href))
+                            (item.href !== "/" && pathname.startsWith(item.href))
                             : false;
                         const isDropdownOpen = openDropdown === index;
 

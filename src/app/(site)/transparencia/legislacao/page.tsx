@@ -4,8 +4,7 @@ import LegislacaoClient from "./_LegislacaoClient";
 import { prisma } from "@/lib/prisma";
 import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Legislação Municipal | Prefeitura de São Tomé – RN",

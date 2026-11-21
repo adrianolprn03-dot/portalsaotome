@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
                 headers: {
                     "Content-Type": contentType,
                     "Content-Disposition": "inline",
-                    "Cache-Control": "public, max-age=86400",
+                    "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000",
                 },
             });
         } catch (error) {
@@ -94,7 +94,7 @@ export async function GET(req: NextRequest) {
             headers: {
                 "Content-Type": contentType.includes("pdf") ? "application/pdf" : contentType,
                 "Content-Disposition": "inline",
-                "Cache-Control": "public, max-age=86400",
+                "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000",
             },
         });
     } catch (error) {

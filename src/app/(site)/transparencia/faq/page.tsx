@@ -6,8 +6,7 @@ import ExportButtons from "@/components/transparencia/ExportButtons";
 import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Perguntas Frequentes | Transparência Premium — São Tomé",
@@ -114,7 +113,7 @@ export default async function FAQPage() {
                 {/* Call to Action Premium p/ Ouvidoria/e-SIC */}
                 <div className="mt-24 p-12 bg-gradient-to-br from-[#01b0ef] via-[#1dc0fa] to-[#0098d4] border-t-4 border-[#fdb913] rounded-[3rem] text-white flex flex-col xl:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl shadow-[#01b0ef]/20">
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/15 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
-                    
+
                     <div className="relative z-10 text-center xl:text-left">
                         <div className="flex items-center justify-center xl:justify-start gap-3 mb-6">
                             <div className="p-3 bg-[#fdb913] text-slate-900 rounded-2xl">

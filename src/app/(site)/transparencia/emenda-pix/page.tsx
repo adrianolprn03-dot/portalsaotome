@@ -5,7 +5,7 @@ import DeclaracaoInexistenciaCard, {
 } from "@/components/transparencia/DeclaracaoInexistenciaCard";
 import { resolverFiltroModuloDeclaracao } from "@/lib/declaracoes-catalogo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata = {
   title: "Emendas PIX | Transparência São Tomé",

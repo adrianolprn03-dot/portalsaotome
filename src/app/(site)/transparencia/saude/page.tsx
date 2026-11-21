@@ -20,8 +20,7 @@ export const metadata: Metadata = {
         "Relação Municipal de Medicamentos Essenciais (REMUME), disponibilidade atualizada e orientações para medicamentos básicos e de alto custo.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function SaudeTransparencyPage() {
     const medicamentosRaw = await prisma.medicamento.findMany({

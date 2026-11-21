@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 import HeroSection from "@/components/home/HeroSection";
 import ServicosRapidos from "@/components/home/ServicosRapidos";
 import AcessoRapido from "@/components/home/AcessoRapido";

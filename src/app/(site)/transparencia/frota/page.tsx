@@ -2,8 +2,7 @@ import { prisma } from "@/lib/prisma";
 import FrotaClient from "./_FrotaClient";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Frota Municipal | Portal da Transparência",

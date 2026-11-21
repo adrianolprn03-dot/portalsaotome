@@ -60,29 +60,48 @@ const footerLinks = [
     },
 ];
 
-async function getConfig(chave: string, padrao: string) {
+const FOOTER_CONFIG_DEFAULTS: Record<string, string> = {
+    cnpj: "08.080.210/0001-49",
+    endereco_sede: "Praça Antônio Assunção, s/n, Centro, São Tomé/RN – CEP 59.400-000",
+    contato_email: "ouvidoria@saotome.rn.gov.br",
+    contato_telefone: "(84) 99211-5922",
+    municipio_nome: "Prefeitura Municipal de São Tomé",
+    contato_whatsapp: "",
+    simbolo_brasao: "/logo_v2_white.png",
+    redes_facebook: "#",
+    redes_instagram: "#",
+    redes_youtube: "#",
+};
+
+async function getFooterConfigs() {
+    const map = new Map<string, string>();
     try {
-        const config = await prisma.configuracao.findUnique({ where: { chave } });
-        return config?.valor || padrao;
+        const rows = await prisma.configuracao.findMany({
+            where: { chave: { in: Object.keys(FOOTER_CONFIG_DEFAULTS) } },
+            select: { chave: true, valor: true },
+        });
+        for (const row of rows) {
+            if (row.valor) map.set(row.chave, row.valor);
+        }
     } catch {
-        return padrao;
+        // Usa os valores padrão em caso de indisponibilidade do banco
     }
+    return (chave: keyof typeof FOOTER_CONFIG_DEFAULTS) =>
+        map.get(chave) || FOOTER_CONFIG_DEFAULTS[chave];
 }
 
 export default async function Footer() {
-    const cnpj = await getConfig("cnpj", "08.080.210/0001-49");
-    const endereco = await getConfig(
-        "endereco_sede",
-        "Praça Antônio Assunção, s/n, Centro, São Tomé/RN – CEP 59.400-000"
-    );
-    const email = await getConfig("contato_email", "ouvidoria@saotome.rn.gov.br");
-    const telefone = await getConfig("contato_telefone", "(84) 99211-5922");
-    const razaoSocial = await getConfig("municipio_nome", "Prefeitura Municipal de São Tomé");
-    const whatsapp = await getConfig("contato_whatsapp", "");
-    const brasao = await getConfig("simbolo_brasao", "/logo_v2_white.png");
-    const facebook = await getConfig("redes_facebook", "#");
-    const instagram = await getConfig("redes_instagram", "#");
-    const youtube = await getConfig("redes_youtube", "#");
+    const cfg = await getFooterConfigs();
+    const cnpj = cfg("cnpj");
+    const endereco = cfg("endereco_sede");
+    const email = cfg("contato_email");
+    const telefone = cfg("contato_telefone");
+    const razaoSocial = cfg("municipio_nome");
+    const whatsapp = cfg("contato_whatsapp");
+    const brasao = cfg("simbolo_brasao");
+    const facebook = cfg("redes_facebook");
+    const instagram = cfg("redes_instagram");
+    const youtube = cfg("redes_youtube");
 
     const whatsappHref = whatsapp
         ? `https://wa.me/55${whatsapp.replace(/\D/g, "")}`
@@ -244,9 +263,8 @@ export default async function Footer() {
                                     rel={social.href !== "#" ? "noopener noreferrer" : undefined}
                                     aria-label={social.label}
                                     title={social.label}
-                                    className={`w-9 h-9 bg-white/15 hover:bg-[#fdb913] border border-white/25 rounded-xl flex items-center justify-center transition-all text-white hover:text-slate-900 ${
-                                        social.href === "#" ? "opacity-40 cursor-default pointer-events-none" : ""
-                                    }`}
+                                    className={`w-9 h-9 bg-white/15 hover:bg-[#fdb913] border border-white/25 rounded-xl flex items-center justify-center transition-all text-white hover:text-slate-900 ${social.href === "#" ? "opacity-40 cursor-default pointer-events-none" : ""
+                                        }`}
                                 >
                                     <social.Icon size={16} />
                                 </a>

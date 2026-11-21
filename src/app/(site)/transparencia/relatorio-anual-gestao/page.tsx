@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import PlanoSaudeClientPage from "@/components/transparencia/PlanoSaudeClientPage";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Relatório Anual de Gestão (RAG) | Prefeitura de São Tomé – RN",

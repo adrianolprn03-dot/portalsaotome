@@ -43,6 +43,9 @@ export async function GET(request: NextRequest) {
         prisma.legislacao.count({ where }),
     ]);
 
-    return NextResponse.json({ items, total, page, limit });
+    return NextResponse.json(
+        { items, total, page, limit },
+        { headers: { "Cache-Control": "public, max-age=30, s-maxage=120, stale-while-revalidate=600" } }
+    );
 }
 

@@ -4,8 +4,7 @@ import { Building2, User, MapPin, Phone, Mail, Clock, ShieldCheck, Info } from "
 import { prisma } from "@/lib/prisma";
 import { motion } from "framer-motion";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Institucional do SIC | Portal da Transparência",

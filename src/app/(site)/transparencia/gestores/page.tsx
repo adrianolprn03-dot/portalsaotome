@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { FaEnvelope, FaBalanceScale } from "react-icons/fa";
@@ -74,7 +74,7 @@ export default async function GestoresTransparencyPage() {
                     <div>
                         <h4 className="inline-block px-3 py-1 rounded-full bg-[#fdb913] text-slate-900 font-black uppercase text-[10px] tracking-widest mb-3">Programa Nacional de Transparência Pública</h4>
                         <p className="text-white font-bold text-base leading-relaxed tracking-tight">
-                            Em cumprimento à <span className="underline decoration-[#fdb913] decoration-2 underline-offset-4">Lei nº 12.527/2011 (LAI)</span>, o município disponibiliza os dados biográficos, 
+                            Em cumprimento à <span className="underline decoration-[#fdb913] decoration-2 underline-offset-4">Lei nº 12.527/2011 (LAI)</span>, o município disponibiliza os dados biográficos,
                             funcionais e de contato dos gestores públicos para assegurar o controle social e a integridade da gestão.
                         </p>
                     </div>
@@ -97,7 +97,7 @@ export default async function GestoresTransparencyPage() {
                         </div>
                         <div className="p-10 lg:p-14 flex-1 flex flex-col">
                             <h2 className="text-4xl font-black text-gray-800 uppercase tracking-tighter mb-8 leading-none">{prefeitoNome}</h2>
-                            
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 {renderInfoItem("📅", "Mandato", prefeitoMandato)}
                                 {renderInfoItem("🏛️", "Partido", prefeitoPartido)}
@@ -118,8 +118,8 @@ export default async function GestoresTransparencyPage() {
                                 <button className="flex-1 bg-gray-900 text-white h-16 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-all shadow-xl shadow-gray-200">
                                     Ver Atribuições do Cargo
                                 </button>
-                                <a 
-                                    href={`mailto:${emailGabinete}`} 
+                                <a
+                                    href={`mailto:${emailGabinete}`}
                                     className="w-16 h-16 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-blue-100"
                                     title="Enviar E-mail para o Gabinete"
                                 >
@@ -145,7 +145,7 @@ export default async function GestoresTransparencyPage() {
                         </div>
                         <div className="p-10 lg:p-14 flex-1 flex flex-col">
                             <h2 className="text-4xl font-black text-gray-800 uppercase tracking-tighter mb-8 leading-none">{viceNome}</h2>
-                            
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                                 {renderInfoItem("📅", "Mandato", viceMandato)}
                                 {renderInfoItem("🏛️", "Partido", vicePartido)}
@@ -166,8 +166,8 @@ export default async function GestoresTransparencyPage() {
                                 <button className="flex-1 bg-gray-900 text-white h-16 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-all shadow-xl shadow-gray-200">
                                     Ver Atribuições do Cargo
                                 </button>
-                                <a 
-                                    href={`mailto:${emailGabinete}`} 
+                                <a
+                                    href={`mailto:${emailGabinete}`}
                                     className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-sm border border-indigo-100"
                                     title="Enviar E-mail para o Gabinete"
                                 >

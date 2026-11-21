@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -49,6 +49,12 @@ export async function GET(req: NextRequest) {
             }),
             prisma.noticia.count({ where }),
         ]);
+        if (publicada === "true") {
+            return NextResponse.json(
+                { items, total, page, limit },
+                { headers: { "Cache-Control": "public, max-age=30, s-maxage=120, stale-while-revalidate=600" } }
+            );
+        }
         return jsonNoStore({ items, total, page, limit });
     } catch (error) {
         console.error("Erro ao buscar notícias:", error);

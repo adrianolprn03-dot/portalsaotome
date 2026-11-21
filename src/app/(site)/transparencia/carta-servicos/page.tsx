@@ -5,8 +5,7 @@ import ExportButtons from "@/components/transparencia/ExportButtons";
 import CartaServicosClient from "@/components/transparencia/CartaServicosClient";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Carta de Serviços | Portal da Transparência",

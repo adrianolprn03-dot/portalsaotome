@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import ConcursosClient from "../concursos/_ConcursosClient";
 import { MUNICIPIO } from "@/config/municipio";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Processos Seletivos | Portal da Transparência",

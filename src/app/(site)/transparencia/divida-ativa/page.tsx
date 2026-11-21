@@ -7,7 +7,7 @@ import { resolverFiltroModuloDeclaracao } from "@/lib/declaracoes-catalogo";
 import { Scale, Info, AlertCircle, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata = {
     title: "Dívida Ativa | Portal da Transparência",
@@ -100,14 +100,14 @@ export default async function DividaAtivaPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-6">
-                            <Link 
-                                href="/contato" 
+                            <Link
+                                href="/contato"
                                 className="flex-1 bg-[#01b0ef] text-white text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#0098d4] transition-all shadow-xl shadow-[#01b0ef]/20 active:scale-95"
                             >
                                 Solicitar Informações via E-SIC
                             </Link>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 className="flex-1 bg-[#fdb913] text-slate-900 text-center py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] hover:bg-[#e5a60d] transition-all shadow-xl shadow-[#fdb913]/20 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <ExternalLink size={16} /> Acessar Portal do Contribuinte

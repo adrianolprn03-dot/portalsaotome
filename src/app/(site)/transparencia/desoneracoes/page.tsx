@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import DesoneracoesClientPage from "./DesoneracoesClientPage";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata = {
   title: "Desonerações Fiscais | Transparência São Tomé",

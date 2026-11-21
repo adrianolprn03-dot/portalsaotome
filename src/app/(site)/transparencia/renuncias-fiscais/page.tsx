@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import RenunciasClientPage from "./RenunciasClientPage";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata = {
   title: "Renúncias de Receitas | Transparência São Tomé",

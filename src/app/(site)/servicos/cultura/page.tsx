@@ -8,8 +8,7 @@ import {
     HiOutlinePaintBrush
 } from "react-icons/hi2";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: "Cultura, Esporte e Lazer | Prefeitura de São Tomé – RN",

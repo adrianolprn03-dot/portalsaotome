@@ -5,12 +5,19 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function GET() {
+export async function GET(req: Request) {
     try {
+        const isPublic = new URL(req.url).searchParams.get("public") === "1";
         const configs = await prisma.configuracao.findMany({
             orderBy: { chave: "asc" }
         });
-        return NextResponse.json(configs);
+        return NextResponse.json(configs, {
+            headers: {
+                "Cache-Control": isPublic
+                    ? "public, max-age=60, s-maxage=300, stale-while-revalidate=600"
+                    : "no-store",
+            },
+        });
     } catch (error) {
         console.error("Erro ao buscar configurações:", error);
         return NextResponse.json({ error: "Erro interno" }, { status: 500 });
