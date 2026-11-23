@@ -19,10 +19,10 @@ type QuadroServidor = {
     ativo: boolean;
 };
 
-export default function QuadroServidoresClient({ 
-    initialData 
-}: { 
-    initialData: QuadroServidor[] 
+export default function QuadroServidoresClient({
+    initialData
+}: {
+    initialData: QuadroServidor[]
 }) {
     const [items, setItems] = useState<QuadroServidor[]>(initialData);
     const [loading, setLoading] = useState(false);
@@ -215,12 +215,12 @@ export default function QuadroServidoresClient({
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <p className="text-slate-500 font-medium leading-relaxed">
-                                O Quadro Geral de Pessoal apresenta o demonstrativo de cargos criados por lei, 
-                                as vagas legalmente instituídas e o status de ocupação. Esta divulgação cumpre os requisitos 
+                                O Quadro Geral de Pessoal apresenta o demonstrativo de cargos criados por lei,
+                                as vagas legalmente instituídas e o status de ocupação. Esta divulgação cumpre os requisitos
                                 de transparência ativa previstos na matriz de avaliação do <strong>PNTP 2026</strong>.
                             </p>
                             <p className="text-slate-500 font-medium leading-relaxed">
-                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de São Tomé, 
+                                Os dados são extraídos do sistema de gestão de recursos humanos da Prefeitura de São Tomé,
                                 refletindo a situação atualizada dos vínculos estatutários, comissionados e contratados.
                             </p>
                         </div>

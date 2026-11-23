@@ -73,6 +73,10 @@ function decodeHtml(str = "") {
       .replace(/&#039;|&apos;/g, "'")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
+      .replace(/&#x([0-9a-f]+);/gi, (_, hex) => {
+        const n = parseInt(hex, 16);
+        return Number.isFinite(n) && n > 0 ? String.fromCodePoint(n) : "";
+      })
       .replace(/&#(\d+);/g, (_, code) => {
         const n = Number(code);
         return Number.isFinite(n) && n > 0 ? String.fromCodePoint(n) : "";

@@ -1,7 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaFilePdf, FaPlus, FaTrash, FaEdit, FaSearch, FaHistory } from "react-icons/fa";
+import Link from "next/link";
+import {
+    FaFilePdf,
+    FaPlus,
+    FaTrash,
+    FaEdit,
+    FaSearch,
+    FaExternalLinkAlt,
+    FaCopy,
+    FaMoneyBillWave,
+    FaChartBar,
+    FaHandshake,
+    FaTheaterMasks,
+    FaGavel,
+    FaFileContract,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 import AdminModal from "@/components/admin/AdminModal";
 
@@ -15,12 +30,25 @@ type RelatorioFiscal = {
     criadoEm: string;
 };
 
+const MODULOS_FISCAIS_NAV = [
+    { label: "Receitas Públicas", href: "/admin/receitas", icon: FaMoneyBillWave },
+    { label: "Despesas Públicas", href: "/admin/despesas", icon: FaChartBar },
+    { label: "Emendas Parlamentares", href: "/admin/emendas", icon: FaMoneyBillWave },
+    { label: "Renúncias e Incentivos", href: "/admin/incentivos-culturais", icon: FaTheaterMasks },
+    { label: "Convênios e Acordos", href: "/admin/convenios", icon: FaHandshake },
+    { label: "LOA / LDO / PPA (Legislação)", href: "/admin/legislacao", icon: FaGavel },
+    { label: "Documentos e Planos", href: "/admin/documentos", icon: FaFileContract },
+    { label: "Declarações / Dívida Ativa", href: "/admin/declaracoes", icon: FaFileContract },
+];
+
 export default function RelatoriosFiscaisPage() {
     const [items, setItems] = useState<RelatorioFiscal[]>([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState<RelatorioFiscal | null>(null);
     const [search, setSearch] = useState("");
+    const [tipoFilter, setTipoFilter] = useState("");
+    const [anoFilter, setAnoFilter] = useState("");
     const [origem, setOrigem] = useState<"file" | "url">("file");
     const [uploading, setUploading] = useState(false);
 
@@ -43,7 +71,7 @@ export default function RelatoriosFiscaisPage() {
                 const data = await res.json();
                 setItems(data);
             }
-        } catch (error) {
+        } catch {
             toast.error("Erro ao carregar relatórios.");
         } finally {
             setLoading(false);
@@ -54,17 +82,17 @@ export default function RelatoriosFiscaisPage() {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        if (file.size > 10 * 1024 * 1024) {
-            toast.error("Arquivo muito grande (máx 10MB)");
+        if (file.size > 25 * 1024 * 1024) {
+            toast.error("Arquivo muito grande (máx 25MB)");
             return;
         }
 
         setUploading(true);
         const toastId = toast.loading("Enviando arquivo PDF para o servidor de arquivos...");
-        
+
         const formData = new FormData();
         formData.append("file", file);
-        
+
         try {
             const res = await fetch("/api/upload", { method: "POST", body: formData });
             if (res.ok) {
@@ -101,29 +129,38 @@ export default function RelatoriosFiscaisPage() {
             });
 
             if (res.ok) {
-                toast.success(editItem ? "Atualizado!" : "Criado!");
+                toast.success(editItem ? "Relatório atualizado!" : "Relatório incluído com sucesso!");
                 setModalOpen(false);
                 setEditItem(null);
-                setForm({ titulo: "", tipo: "RREO", periodo: "1º Bimestre", ano: new Date().getFullYear(), arquivo: "" });
+                setForm({
+                    titulo: "",
+                    tipo: "RREO",
+                    periodo: "1º Bimestre",
+                    ano: new Date().getFullYear(),
+                    arquivo: "",
+                });
                 setOrigem("file");
                 fetchItems();
             } else {
-                toast.error("Erro ao salvar.");
+                const err = await res.json().catch(() => ({}));
+                toast.error(err.error || "Erro ao salvar.");
             }
-        } catch (error) {
+        } catch {
             toast.error("Erro na requisição.");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Tem certeza que deseja excluir?")) return;
+        if (!confirm("Tem certeza que deseja excluir este relatório fiscal?")) return;
         try {
             const res = await fetch(`/api/admin/relatorios-fiscais/${id}`, { method: "DELETE" });
             if (res.ok) {
-                toast.success("Excluído!");
+                toast.success("Relatório excluído!");
                 fetchItems();
+            } else {
+                toast.error("Erro ao excluir.");
             }
-        } catch (error) {
+        } catch {
             toast.error("Erro ao excluir.");
         }
     };
@@ -141,41 +178,124 @@ export default function RelatoriosFiscaisPage() {
         setModalOpen(true);
     };
 
-    const filtered = items.filter(i => 
-        i.titulo.toLowerCase().includes(search.toLowerCase()) || 
-        i.tipo.toLowerCase().includes(search.toLowerCase())
-    );
+    const startDuplicate = (item: RelatorioFiscal) => {
+        setEditItem(null);
+        setForm({
+            titulo: `${item.titulo} (Cópia)`,
+            tipo: item.tipo,
+            periodo: item.periodo,
+            ano: item.ano,
+            arquivo: item.arquivo,
+        });
+        setOrigem("url");
+        setModalOpen(true);
+    };
+
+    const filtered = items.filter((i) => {
+        const matchSearch =
+            !search ||
+            i.titulo.toLowerCase().includes(search.toLowerCase()) ||
+            i.tipo.toLowerCase().includes(search.toLowerCase()) ||
+            i.periodo.toLowerCase().includes(search.toLowerCase());
+        const matchTipo = !tipoFilter || i.tipo === tipoFilter;
+        const matchAno = !anoFilter || String(i.ano) === anoFilter;
+        return matchSearch && matchTipo && matchAno;
+    });
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+        <div className="p-4 sm:p-6 max-w-7xl mx-auto space-y-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-gray-800 uppercase tracking-tighter">Relatórios e Contas</h1>
-                    <p className="text-gray-500 text-sm font-medium">Gestão de LRF (RREO, RGF), Balanços e Contas de Governo/Gestão.</p>
+                    <h1 className="text-3xl font-black text-gray-800 uppercase tracking-tighter">
+                        Transparência Fiscal, LRF e Contas Públicas
+                    </h1>
+                    <p className="text-gray-500 text-sm font-medium">
+                        Inclusão e gestão de RREO, RGF, Balanços, Contas de Governo/Gestão, Pareceres do TCE, Julgamento da Câmara e Relatórios Diversos da LRF.
+                    </p>
                 </div>
-                <button 
-                    onClick={() => { 
-                        setEditItem(null); 
-                        setForm({ titulo: "", tipo: "RREO", periodo: "1º Bimestre", ano: new Date().getFullYear(), arquivo: "" });
+                <button
+                    onClick={() => {
+                        setEditItem(null);
+                        setForm({
+                            titulo: "",
+                            tipo: "RREO",
+                            periodo: "1º Bimestre",
+                            ano: new Date().getFullYear(),
+                            arquivo: "",
+                        });
                         setOrigem("file");
-                        setModalOpen(true); 
+                        setModalOpen(true);
                     }}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-[#0098d4] text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200"
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-[#0098d4] text-white px-6 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-200"
                 >
-                    <FaPlus /> Novo Relatório
+                    <FaPlus /> Incluir Relatório LRF / Contas
                 </button>
             </div>
 
+            {/* Hub Rápido do Módulo de Transparência Fiscal e Contas Públicas */}
+            <div className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm space-y-3">
+                <div className="text-[11px] font-black uppercase tracking-widest text-emerald-700">
+                    Módulos Integrados de Transparência Fiscal & Contas Públicas
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+                    {MODULOS_FISCAIS_NAV.map((m) => {
+                        const Icon = m.icon;
+                        return (
+                            <Link
+                                key={m.href}
+                                href={m.href}
+                                className="flex flex-col items-start gap-1.5 p-3 rounded-2xl bg-gray-50 hover:bg-emerald-50 border border-gray-100 hover:border-emerald-200 transition-all group"
+                            >
+                                <Icon className="text-emerald-600 group-hover:scale-110 transition-transform" size={15} />
+                                <span className="text-[11px] font-bold text-gray-700 group-hover:text-emerald-900 leading-tight">
+                                    {m.label}
+                                </span>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </div>
+
             {/* Filtros */}
-            <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm mb-8 flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1 group">
+            <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div className="relative md:col-span-6 group">
                     <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-blue-500 transition-colors" />
-                    <input 
-                        type="text" 
-                        placeholder="Pesquisar por título ou tipo (RREO, RGF)..." 
-                        className="w-full pl-12 pr-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                    <input
+                        type="text"
+                        placeholder="Pesquisar por título, período ou tipo (RREO, RGF, Balanço, TCE)..."
+                        className="w-full pl-12 pr-6 py-3.5 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+                <div className="md:col-span-4">
+                    <select
+                        value={tipoFilter}
+                        onChange={(e) => setTipoFilter(e.target.value)}
+                        className="w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                    >
+                        <option value="">Todos os Tipos de Relatório LRF / Contas</option>
+                        <option value="RREO">RREO (Execução Orçamentária)</option>
+                        <option value="RGF">RGF (Gestão Fiscal)</option>
+                        <option value="BALANCO">Balanço / Prestação de Contas</option>
+                        <option value="PCG">Contas de Governo Anual (PCG)</option>
+                        <option value="PCS">Contas de Gestão Anual (PCS)</option>
+                        <option value="PARECER_TCE">Parecer Prévio do TCE/RN</option>
+                        <option value="JULGAMENTO_CAMARA">Julgamento de Contas (Câmara)</option>
+                        <option value="RELATORIO_GESTAO">Relatório de Gestão</option>
+                        <option value="LOA">LOA - Anexos Fiscais</option>
+                        <option value="LDO">LDO - Metas e Riscos Fiscais</option>
+                        <option value="PPA">PPA - Planejamento Plurianual</option>
+                        <option value="OUTROS">Outros Relatórios Fiscais / LRF</option>
+                    </select>
+                </div>
+                <div className="md:col-span-2">
+                    <input
+                        type="number"
+                        placeholder="Ano (Ex: 2026)"
+                        value={anoFilter}
+                        onChange={(e) => setAnoFilter(e.target.value)}
+                        className="w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
                     />
                 </div>
             </div>
@@ -185,41 +305,96 @@ export default function RelatoriosFiscaisPage() {
                 <table className="w-full text-left">
                     <thead className="bg-gray-50 border-b border-gray-100">
                         <tr>
-                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Relatório</th>
-                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Tipo</th>
-                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Período</th>
-                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Ano</th>
-                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Ações</th>
+                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                                Relatório ({filtered.length})
+                            </th>
+                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                                Tipo / Módulo
+                            </th>
+                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                                Período
+                            </th>
+                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                                Ano
+                            </th>
+                            <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">
+                                Ações
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
                         {loading ? (
-                            <tr><td colSpan={5} className="px-8 py-10 text-center text-gray-400">Carregando dados...</td></tr>
-                        ) : filtered.length === 0 ? (
-                            <tr><td colSpan={5} className="px-8 py-10 text-center text-gray-400">Nenhum relatório encontrado.</td></tr>
-                        ) : filtered.map((item) => (
-                            <tr key={item.id} className="hover:bg-blue-50/30 transition-colors group">
-                                <td className="px-8 py-6">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
-                                            <FaFilePdf size={18} />
-                                        </div>
-                                        <span className="font-black text-gray-700 text-sm group-hover:text-blue-600 transition-colors">{item.titulo}</span>
-                                    </div>
-                                </td>
-                                <td className="px-8 py-6 h-full">
-                                    <span className="bg-gray-100 text-gray-500 text-[10px] font-black px-3 py-1 rounded-lg border border-gray-200 uppercase tracking-widest">{item.tipo}</span>
-                                </td>
-                                <td className="px-8 py-6 text-sm font-bold text-gray-400">{item.periodo}</td>
-                                <td className="px-8 py-6 text-sm font-black text-gray-700">{item.ano}</td>
-                                <td className="px-8 py-6 text-right">
-                                    <div className="flex items-center justify-end gap-2">
-                                        <button onClick={() => startEdit(item)} className="p-3 text-blue-400 hover:text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-md"><FaEdit size={14}/></button>
-                                        <button onClick={() => handleDelete(item.id)} className="p-3 text-red-400 hover:text-red-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-md"><FaTrash size={14}/></button>
-                                    </div>
+                            <tr>
+                                <td colSpan={5} className="px-8 py-10 text-center text-gray-400">
+                                    Carregando dados...
                                 </td>
                             </tr>
-                        ))}
+                        ) : filtered.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} className="px-8 py-10 text-center text-gray-400">
+                                    Nenhum relatório encontrado.
+                                </td>
+                            </tr>
+                        ) : (
+                            filtered.map((item) => (
+                                <tr key={item.id} className="hover:bg-blue-50/30 transition-colors group">
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
+                                                <FaFilePdf size={18} />
+                                            </div>
+                                            <div>
+                                                <span className="font-black text-gray-700 text-sm group-hover:text-blue-600 transition-colors block">
+                                                    {item.titulo}
+                                                </span>
+                                                {item.arquivo && (
+                                                    <a
+                                                        href={item.arquivo}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-[11px] font-bold text-blue-600 hover:underline inline-flex items-center gap-1 mt-0.5"
+                                                    >
+                                                        Abrir PDF <FaExternalLinkAlt size={9} />
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-6 h-full">
+                                        <span className="bg-gray-100 text-gray-600 text-[10px] font-black px-3 py-1 rounded-lg border border-gray-200 uppercase tracking-widest">
+                                            {item.tipo}
+                                        </span>
+                                    </td>
+                                    <td className="px-8 py-6 text-sm font-bold text-gray-500">{item.periodo}</td>
+                                    <td className="px-8 py-6 text-sm font-black text-gray-700">{item.ano}</td>
+                                    <td className="px-8 py-6 text-right">
+                                        <div className="flex items-center justify-end gap-2">
+                                            <button
+                                                onClick={() => startDuplicate(item)}
+                                                title="Duplicar Relatório"
+                                                className="p-3 text-gray-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-md"
+                                            >
+                                                <FaCopy size={14} />
+                                            </button>
+                                            <button
+                                                onClick={() => startEdit(item)}
+                                                title="Editar Relatório"
+                                                className="p-3 text-blue-400 hover:text-blue-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-md"
+                                            >
+                                                <FaEdit size={14} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(item.id)}
+                                                title="Excluir Relatório"
+                                                className="p-3 text-red-400 hover:text-red-600 hover:bg-white rounded-xl transition-all shadow-sm hover:shadow-md"
+                                            >
+                                                <FaTrash size={14} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -228,7 +403,7 @@ export default function RelatoriosFiscaisPage() {
             <AdminModal
                 open={modalOpen}
                 onClose={() => setModalOpen(false)}
-                title={editItem ? "Editar Relatório" : "Novo Relatório Fiscal"}
+                title={editItem ? "Editar Relatório Fiscal / Contas" : "Incluir Relatório Fiscal / LRF / Contas"}
                 maxWidth="2xl"
                 footer={
                     <>
@@ -250,137 +425,165 @@ export default function RelatoriosFiscaisPage() {
                     </>
                 }
             >
-                            <form id="form-relatorio-fiscal" onSubmit={handleSubmit} className="space-y-5">
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Título do Documento *</label>
-                                    <input 
-                                        type="text" required
-                                        className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
-                                        value={form.titulo}
-                                        onChange={(e) => setForm({ ...form, titulo: e.target.value })}
-                                        placeholder="Ex: RREO - 1º Bimestre de 2024"
-                                    />
-                                </div>
+                <form id="form-relatorio-fiscal" onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                            Título do Documento *
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                            value={form.titulo}
+                            onChange={(e) => setForm({ ...form, titulo: e.target.value })}
+                            placeholder="Ex: RREO - 1º Bimestre de 2026 / Balanço Geral 2025 / Parecer TCE"
+                        />
+                    </div>
 
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Módulo (Tipo) *</label>
-                                        <select 
-                                            className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
-                                            value={form.tipo}
-                                            onChange={(e) => setForm({ ...form, tipo: e.target.value })}
-                                        >
-                                            <optgroup label="Lei de Responsabilidade Fiscal">
-                                                <option value="RREO">RREO (Resumido Exec. Orç.)</option>
-                                                <option value="RGF">RGF (Gestão Fiscal)</option>
-                                            </optgroup>
-                                            <optgroup label="Contas de Governo (PCG)">
-                                                <option value="PCG">Contas de Governo Anual</option>
-                                            </optgroup>
-                                            <optgroup label="Contas de Gestão (PCS)">
-                                                <option value="PCS">Contas de Gestão Anual</option>
-                                            </optgroup>
-                                            <optgroup label="Balanço e Relatórios">
-                                                <option value="BALANCO">Prestação de Contas (Balanço)</option>
-                                                <option value="RELATORIO_GESTAO">Relatório de Gestão</option>
-                                            </optgroup>
-                                            <optgroup label="Tribunal de Contas">
-                                                <option value="PARECER_TCE">Parecer Prévio TCE</option>
-                                            </optgroup>
-                                            <option value="OUTROS">Outros Documentos / Contas</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Ano Exercício *</label>
-                                        <input 
-                                            type="number" required
-                                            className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
-                                            value={form.ano}
-                                            onChange={(e) => setForm({ ...form, ano: parseInt(e.target.value) || new Date().getFullYear() })}
-                                        />
-                                    </div>
-                                </div>
+                    <div className="grid grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                                Módulo (Tipo LRF / Contas) *
+                            </label>
+                            <select
+                                className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                                value={form.tipo}
+                                onChange={(e) => setForm({ ...form, tipo: e.target.value })}
+                            >
+                                <optgroup label="Lei de Responsabilidade Fiscal (LRF)">
+                                    <option value="RREO">RREO (Relatório Resumido Exec. Orçamentária)</option>
+                                    <option value="RGF">RGF (Relatório de Gestão Fiscal)</option>
+                                </optgroup>
+                                <optgroup label="Prestação de Contas e Balanços">
+                                    <option value="BALANCO">Prestação de Contas Anual (Balanço Geral)</option>
+                                    <option value="PCG">Contas de Governo Anual (PCG)</option>
+                                    <option value="PCS">Contas de Gestão Anual (PCS)</option>
+                                    <option value="RELATORIO_GESTAO">Relatório Circunstanciado de Gestão</option>
+                                </optgroup>
+                                <optgroup label="Tribunal de Contas (TCE) e Câmara Municipal">
+                                    <option value="PARECER_TCE">Parecer Prévio do TCE/RN</option>
+                                    <option value="JULGAMENTO_CAMARA">Julgamento das Contas (Câmara Municipal)</option>
+                                </optgroup>
+                                <optgroup label="Planejamento Orçamentário e Outros LRF">
+                                    <option value="LOA">LOA (Lei Orçamentária Anual / Anexos)</option>
+                                    <option value="LDO">LDO (Diretrizes Orçamentárias / Metas Fiscais)</option>
+                                    <option value="PPA">PPA (Plano Plurianual / Anexos)</option>
+                                    <option value="PLANO_ESTRATEGICO">Plano Estratégico / Orçamentário</option>
+                                    <option value="OUTROS">Outros Relatórios Diversos da LRF / Contas</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                                Ano Exercício *
+                            </label>
+                            <input
+                                type="number"
+                                required
+                                className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                                value={form.ano}
+                                onChange={(e) =>
+                                    setForm({ ...form, ano: parseInt(e.target.value) || new Date().getFullYear() })
+                                }
+                            />
+                        </div>
+                    </div>
 
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Período Referência *</label>
-                                    <select 
-                                        className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
-                                        value={form.periodo}
-                                        onChange={(e) => setForm({ ...form, periodo: e.target.value })}
-                                    >
-                                        <optgroup label="Bimestres (RREO)">
-                                            <option value="1º Bimestre">1º Bimestre</option>
-                                            <option value="2º Bimestre">2º Bimestre</option>
-                                            <option value="3º Bimestre">3º Bimestre</option>
-                                            <option value="4º Bimestre">4º Bimestre</option>
-                                            <option value="5º Bimestre">5º Bimestre</option>
-                                            <option value="6º Bimestre">6º Bimestre</option>
-                                        </optgroup>
-                                        <optgroup label="Quadrimestres (RGF)">
-                                            <option value="1º Quadrimestre">1º Quadrimestre</option>
-                                            <option value="2º Quadrimestre">2º Quadrimestre</option>
-                                            <option value="3º Quadrimestre">3º Quadrimestre</option>
-                                        </optgroup>
-                                        <option value="Anual">Anual / Consolidado</option>
-                                    </select>
-                                </div>
+                    <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                            Período de Referência *
+                        </label>
+                        <select
+                            className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                            value={form.periodo}
+                            onChange={(e) => setForm({ ...form, periodo: e.target.value })}
+                        >
+                            <optgroup label="Bimestres (RREO)">
+                                <option value="1º Bimestre">1º Bimestre</option>
+                                <option value="2º Bimestre">2º Bimestre</option>
+                                <option value="3º Bimestre">3º Bimestre</option>
+                                <option value="4º Bimestre">4º Bimestre</option>
+                                <option value="5º Bimestre">5º Bimestre</option>
+                                <option value="6º Bimestre">6º Bimestre</option>
+                            </optgroup>
+                            <optgroup label="Quadrimestres / Semestres (RGF)">
+                                <option value="1º Quadrimestre">1º Quadrimestre</option>
+                                <option value="2º Quadrimestre">2º Quadrimestre</option>
+                                <option value="3º Quadrimestre">3º Quadrimestre</option>
+                                <option value="1º Semestre">1º Semestre</option>
+                                <option value="2º Semestre">2º Semestre</option>
+                            </optgroup>
+                            <optgroup label="Anual / Exercício Completo">
+                                <option value="Anual">Anual / Consolidado</option>
+                                <option value="Exercício Integral">Exercício Integral</option>
+                            </optgroup>
+                        </select>
+                    </div>
 
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Origem do Documento *</label>
-                                    <div className="flex gap-4 mb-4">
-                                        <button
-                                            type="button"
-                                            onClick={() => setOrigem("file")}
-                                            className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all ${origem === "file" ? "bg-blue-50 text-blue-600 border-blue-200" : "bg-white text-gray-400 border-gray-100 hover:bg-gray-50"}`}
-                                        >
-                                            Upload de PDF
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setOrigem("url")}
-                                            className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all ${origem === "url" ? "bg-blue-50 text-blue-600 border-blue-200" : "bg-white text-gray-400 border-gray-100 hover:bg-gray-50"}`}
-                                        >
-                                            URL Externa
-                                        </button>
-                                    </div>
+                    <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                            Origem do Documento *
+                        </label>
+                        <div className="flex gap-4 mb-4">
+                            <button
+                                type="button"
+                                onClick={() => setOrigem("file")}
+                                className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all ${
+                                    origem === "file"
+                                        ? "bg-blue-50 text-blue-600 border-blue-200"
+                                        : "bg-white text-gray-400 border-gray-100 hover:bg-gray-50"
+                                }`}
+                            >
+                                Upload de PDF
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setOrigem("url")}
+                                className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest border transition-all ${
+                                    origem === "url"
+                                        ? "bg-blue-50 text-blue-600 border-blue-200"
+                                        : "bg-white text-gray-400 border-gray-100 hover:bg-gray-50"
+                                }`}
+                            >
+                                URL Externa
+                            </button>
+                        </div>
 
-                                    {origem === "file" ? (
-                                        <div>
-                                            <input 
-                                                type="file" accept="application/pdf"
-                                                onChange={handleFileUpload}
-                                                disabled={uploading}
-                                                className="w-full px-6 py-4 bg-gray-50 border border-dashed border-gray-200 rounded-2xl text-xs font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none disabled:opacity-50"
-                                            />
-                                            {uploading && (
-                                                <p className="text-[10px] text-blue-500 font-bold mt-2">Enviando PDF...</p>
-                                            )}
-                                            {form.arquivo && (
-                                                <p className="text-[10px] text-emerald-500 font-bold mt-2">
-                                                    ✓ {form.arquivo.startsWith("data:") ? "PDF carregado (Formato Base64 legacy)." : "PDF enviado com sucesso para a nuvem."}
-                                                </p>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <input 
-                                                type="url" required={origem === "url"}
-                                                placeholder="https://exemplo.com/documento.pdf"
-                                                className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
-                                                value={form.arquivo && !form.arquivo.startsWith("data:") ? form.arquivo : ""}
-                                                onChange={(e) => setForm({ ...form, arquivo: e.target.value })}
-                                            />
-                                            <p className="text-[10px] text-gray-400 mt-2">Digite o link completo (começando com http:// ou https://).</p>
-                                            
-                                            {form.arquivo && form.arquivo.includes("drive.google.com") && (
-                                                <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium leading-relaxed">
-                                                    ⚠️ <strong>Atenção para Google Drive:</strong> Certifique-se de que as configurações de compartilhamento no Drive estejam definidas como <strong>&quot;Qualquer pessoa com o link pode visualizar&quot;</strong>. Caso contrário, os cidadãos não conseguirão visualizar o documento.
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                            </form>
+                        {origem === "file" ? (
+                            <div>
+                                <input
+                                    type="file"
+                                    accept="application/pdf"
+                                    onChange={handleFileUpload}
+                                    disabled={uploading}
+                                    className="w-full px-6 py-4 bg-gray-50 border border-dashed border-gray-200 rounded-2xl text-xs font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none disabled:opacity-50"
+                                />
+                                {uploading && (
+                                    <p className="text-[10px] text-blue-500 font-bold mt-2">Enviando PDF...</p>
+                                )}
+                                {form.arquivo && (
+                                    <p className="text-[10px] text-emerald-500 font-bold mt-2">
+                                        ✓ PDF enviado com sucesso para a nuvem ({form.arquivo}).
+                                    </p>
+                                )}
+                            </div>
+                        ) : (
+                            <div>
+                                <input
+                                    type="url"
+                                    required={origem === "url"}
+                                    placeholder="https://exemplo.com/documento.pdf"
+                                    className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                                    value={form.arquivo && !form.arquivo.startsWith("data:") ? form.arquivo : ""}
+                                    onChange={(e) => setForm({ ...form, arquivo: e.target.value })}
+                                />
+                                <p className="text-[10px] text-gray-400 mt-2">
+                                    Digite o link completo (começando com http:// ou https://).
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </form>
             </AdminModal>
         </div>
     );

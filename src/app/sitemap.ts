@@ -67,9 +67,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
         // === NORMATIVO ===
         { url: `${base}/transparencia/legislacao`, lastModified: now, priority: 0.8 },
+        { url: `${base}/transparencia/lei-organica`, lastModified: now, priority: 0.85 },
         { url: `${base}/transparencia/leis`, lastModified: now, priority: 0.8 },
         { url: `${base}/transparencia/decretos`, lastModified: now, priority: 0.8 },
         { url: `${base}/transparencia/portarias`, lastModified: now, priority: 0.7 },
+        { url: `${base}/transparencia/resolucoes`, lastModified: now, priority: 0.75 },
 
         // === PESSOAL ===
         { url: `${base}/transparencia/servidores`, lastModified: now, priority: 0.9 },

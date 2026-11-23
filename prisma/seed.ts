@@ -25,6 +25,20 @@ async function main() {
             envPassKey: "SEED_CONTROLADORIA_PASSWORD",
         },
         {
+            nome: "Gestão de Legislação e Atos Oficiais",
+            email: "legislacao@saotome.rn.gov.br",
+            cargo: "Gestor de Legislação, Decretos e Portarias",
+            perfil: "legislacao",
+            envPassKey: "SEED_LEGISLACAO_PASSWORD",
+        },
+        {
+            nome: "Gestão de LRF e Contas Públicas",
+            email: "lrf@saotome.rn.gov.br",
+            cargo: "Gestor de Transparência Fiscal, LRF e Contas Públicas",
+            perfil: "lrf_contas",
+            envPassKey: "SEED_LRF_PASSWORD",
+        },
+        {
             nome: "Assessoria de Comunicação",
             email: "comunicacao@saotome.rn.gov.br",
             cargo: "Assessoria de Comunicação",

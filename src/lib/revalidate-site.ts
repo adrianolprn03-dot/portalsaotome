@@ -76,9 +76,11 @@ export const REVALIDATE_GROUPS = {
     ],
     legislacao: [
         "/transparencia/legislacao",
+        "/transparencia/lei-organica",
         "/transparencia/leis",
         "/transparencia/decretos",
         "/transparencia/portarias",
+        "/transparencia/resolucoes",
         "/transparencia/editais",
         "/admin/legislacao",
     ],

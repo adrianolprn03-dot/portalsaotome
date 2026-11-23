@@ -9,6 +9,11 @@ import {
     Sparkles,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import {
+    FEMURN_STABLE_SEARCH_URL,
+    isValidPublicUrl,
+    sanitizeDiarioOficialUrl,
+} from "@/lib/portal-links";
 
 const acessosBase = [
     {
@@ -89,8 +94,17 @@ export default async function AcessoRapido() {
                             (l: any) =>
                                 l.moduloAlvo?.toLowerCase() === item.id.toLowerCase()
                         );
-                        const finalHref = override && override.url ? override.url : item.href;
-                        const isExternal = !!override;
+                        const overrideValid = override && isValidPublicUrl(override.url);
+                        const finalHref =
+                            item.id === "home-diario"
+                                ? sanitizeDiarioOficialUrl(
+                                      overrideValid ? override.url : FEMURN_STABLE_SEARCH_URL
+                                  )
+                                : overrideValid
+                                ? override.url
+                                : item.href;
+                        const isExternal =
+                            finalHref.startsWith("http://") || finalHref.startsWith("https://");
 
                         return (
                             <Link

@@ -10,6 +10,8 @@ import { obterModeloDeclaracao, resolverFiltroModuloDeclaracao } from "@/lib/dec
 const DECLARACAO_ALLOWED_ROLES: PerfilUsuario[] = [
     "admin",
     "controladoria",
+    "legislacao",
+    "lrf_contas",
     "financas",
     "rh",
     "obras",

@@ -1,17 +1,27 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
-    FaFilePdf, FaMagnifyingGlass, FaCalendarDays, FaDownload,
-    FaEye, FaXmark, FaGavel, FaFileSignature, FaScroll, FaFileLines, FaScaleBalanced,
-    FaFileExcel, FaFileCsv, FaArrowDownShortWide, FaArrowUpWideShort
+    FaFilePdf,
+    FaCalendarDays,
+    FaGavel,
+    FaFileSignature,
+    FaScroll,
+    FaFileLines,
+    FaScaleBalanced,
+    FaFileCircleCheck,
+    FaGlobe,
+    FaArrowUpRightFromSquare,
 } from "react-icons/fa6";
-import { FaRegFileLines } from "react-icons/fa6";
-import { motion, AnimatePresence } from "framer-motion";
-import { exportToCSV, exportToJSON, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
-import PDFViewer from "@/components/transparencia/PDFViewer";
-import BannerPNTP from "@/components/transparencia/BannerPNTP";
+import { exportToCSV, exportToPDF, exportToXLSX } from "@/lib/exportUtils";
 import { MUNICIPIO } from "@/config/municipio";
+import { isValidPublicUrl } from "@/lib/portal-links";
+import LRFDocumentCatalog, {
+    type ActiveFilterBadge,
+    type CatalogCategoryMeta,
+    type CatalogItem,
+    type CatalogStatCard,
+} from "@/components/transparencia/LRFDocumentCatalog";
 
 export type Legislacao = {
     id: string;
@@ -25,9 +35,26 @@ export type Legislacao = {
     criadoEm: string;
 };
 
+export interface LinkExternoItem {
+    id: string;
+    titulo: string;
+    descricao?: string | null;
+    url: string;
+    hostname: string;
+}
+
+export type LegislacaoIconKey = "scale" | "gavel" | "file-check" | "file-lines" | "scroll";
+
+const ICON_MAP: Record<LegislacaoIconKey, React.ReactNode> = {
+    scale: <FaScaleBalanced />,
+    gavel: <FaGavel />,
+    "file-check": <FaFileCircleCheck />,
+    "file-lines": <FaFileLines />,
+    scroll: <FaScroll />,
+};
+
 const parseNumero = (numStr: string): number => {
     if (!numStr) return 0;
-    // Captura o primeiro número principal na string do número do ato (ex: "542/2024" -> 542, "Nº 012" -> 12, "001" -> 1)
     const match = numStr.match(/(\d+)/);
     return match ? parseInt(match[1], 10) : 0;
 };
@@ -41,17 +68,31 @@ const safeDecode = (str: string): string => {
 };
 
 const MONTH_MAP: Record<string, number> = {
-    janeiro: 1, jan: 1,
-    fevereiro: 2, fev: 2,
-    marco: 3, março: 3, mar: 3,
-    abril: 4, abr: 4,
-    maio: 5, mai: 5,
-    junho: 6, jun: 6,
-    julho: 7, jul: 7,
-    agosto: 8, ago: 8, setembro: 9, set: 9,
-    outubro: 10, out: 10,
-    novembro: 11, nov: 11,
-    dezembro: 12, dez: 12,
+    janeiro: 1,
+    jan: 1,
+    fevereiro: 2,
+    fev: 2,
+    marco: 3,
+    março: 3,
+    mar: 3,
+    abril: 4,
+    abr: 4,
+    maio: 5,
+    mai: 5,
+    junho: 6,
+    jun: 6,
+    julho: 7,
+    jul: 7,
+    agosto: 8,
+    ago: 8,
+    setembro: 9,
+    set: 9,
+    outubro: 10,
+    out: 10,
+    novembro: 11,
+    nov: 11,
+    dezembro: 12,
+    dez: 12,
 };
 
 export const MESES = [
@@ -71,14 +112,11 @@ export const MESES = [
 ];
 
 export function getAtoMetadata(l: Legislacao) {
-    let rawAno = typeof l.ano === "number" ? l.ano : parseInt(String(l.ano), 10) || 0;
-    // Corrige erro de digitação comum (ex: 2923 -> 2023)
-    let year = rawAno === 2923 ? 2023 : (rawAno > 2050 || rawAno < 1900 ? 2024 : rawAno);
+    const rawAno = typeof l.ano === "number" ? l.ano : parseInt(String(l.ano), 10) || 0;
+    let year = rawAno === 2923 ? 2023 : rawAno > 2050 || rawAno < 1900 ? 2024 : rawAno;
     let month: number | null = null;
     let day: number | null = null;
-    let hasExactDate = false;
 
-    // 1. dataAto oficial se preenchido
     if (l.dataAto) {
         const d = new Date(l.dataAto);
         if (!isNaN(d.getTime())) {
@@ -88,15 +126,15 @@ export function getAtoMetadata(l: Legislacao) {
                 day: d.getDate(),
                 hasExactDate: true,
                 date: d,
-                displayDate: d.toLocaleDateString("pt-BR")
+                displayDate: d.toLocaleDateString("pt-BR"),
             };
         }
     }
 
-    // 2. Extração de datas escritas em português no nome do arquivo, ementa ou número
-    const textToSearch = safeDecode((l.arquivo || "") + " " + (l.ementa || "") + " " + (l.numero || ""));
+    const textToSearch = safeDecode(
+        (l.arquivo || "") + " " + (l.ementa || "") + " " + (l.numero || "")
+    );
 
-    // Ex: "30 de marco de 2026", "05-de-marco-de-2026", "25 DE FEVEREIRO DE 2026"
     const writtenMatch = textToSearch.match(
         /(?:de[\s\-_]+)?(\d{1,2})[\s\-_]+de[\s\-_]+(janeiro|fevereiro|março|marco|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)(?:[\s\-_]+de[\s\-_]+(\d{4}))?/i
     );
@@ -109,7 +147,6 @@ export function getAtoMetadata(l: Legislacao) {
             if (parsedYear >= 1990 && parsedYear <= 2050) year = parsedYear;
         }
         if (month && day) {
-            hasExactDate = true;
             const d = new Date(year, month - 1, day);
             return {
                 year,
@@ -117,13 +154,14 @@ export function getAtoMetadata(l: Legislacao) {
                 day,
                 hasExactDate: true,
                 date: d,
-                displayDate: `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+                displayDate: `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`,
             };
         }
     }
 
-    // Ex: "31/03/2026" ou "31-03-2026"
-    const numericMatch = textToSearch.match(/(?:em|data:?[\s\-_]*)?(\d{1,2})[\/\.-](\d{1,2})[\/\.-](\d{4})/i);
+    const numericMatch = textToSearch.match(
+        /(?:em|data:?[\s\-_]*)?(\d{1,2})[\/\.-](\d{1,2})[\/\.-](\d{4})/i
+    );
     if (numericMatch) {
         day = parseInt(numericMatch[1], 10);
         month = parseInt(numericMatch[2], 10);
@@ -137,32 +175,30 @@ export function getAtoMetadata(l: Legislacao) {
                 day,
                 hasExactDate: true,
                 date: d,
-                displayDate: `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`
+                displayDate: `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`,
             };
         }
     }
 
-    // 3. Caminho de upload do WordPress: "/uploads/YYYY/MM/"
     const wpMatch = (l.arquivo || "").match(/\/(\d{4})\/(\d{2})\//);
     if (wpMatch) {
         const wpYear = parseInt(wpMatch[1], 10);
         const wpMonth = parseInt(wpMatch[2], 10);
-        const targetYear = (year && year >= 1990 && year <= 2050) ? year : wpYear;
+        const targetYear = year && year >= 1990 && year <= 2050 ? year : wpYear;
         if (wpMonth >= 1 && wpMonth <= 12) {
             const d = new Date(targetYear, wpMonth - 1, 1);
-            const nomeMes = MESES.find(m => m.v === String(wpMonth))?.l || `Mês ${wpMonth}`;
+            const nomeMes = MESES.find((m) => m.v === String(wpMonth))?.l || `Mês ${wpMonth}`;
             return {
                 year: targetYear,
                 month: wpMonth,
                 day: 1,
                 hasExactDate: false,
                 date: d,
-                displayDate: `${nomeMes} de ${targetYear}`
+                displayDate: `${nomeMes} de ${targetYear}`,
             };
         }
     }
 
-    // 4. Se a data de criação no banco for do mesmo ano do ato
     if (l.criadoEm) {
         const d = new Date(l.criadoEm);
         if (!isNaN(d.getTime()) && d.getFullYear() === year) {
@@ -172,54 +208,161 @@ export function getAtoMetadata(l: Legislacao) {
                 day: d.getDate(),
                 hasExactDate: false,
                 date: d,
-                displayDate: d.toLocaleDateString("pt-BR")
+                displayDate: d.toLocaleDateString("pt-BR"),
             };
         }
     }
 
-    // 5. Fallback para apenas o exercício/ano
     return {
         year,
         month: null,
         day: null,
         hasExactDate: false,
         date: new Date(year, 0, 1),
-        displayDate: `Exercício ${year}`
+        displayDate: `Exercício ${year}`,
     };
 }
 
-const tipoInfo: Record<string, { label: string; icon: any }> = {
-    "lei-organica": { label: "Lei Orgânica", icon: FaScroll },
-    "lei": { label: "Lei Municipal", icon: FaScaleBalanced },
-    "LEI": { label: "Lei Municipal", icon: FaScaleBalanced },
-    "decreto": { label: "Decreto", icon: FaGavel },
-    "DECRETO": { label: "Decreto", icon: FaGavel },
-    "portaria": { label: "Portaria", icon: FaFileSignature },
-    "PORTARIA": { label: "Portaria", icon: FaFileSignature },
-    "portaria_diaria": { label: "Portaria de Diária", icon: FaRegFileLines },
-    "resolucao": { label: "Resolução", icon: FaFileLines },
-    "RESOLUCAO": { label: "Resolução", icon: FaFileLines },
-    "LDO": { label: "LDO", icon: FaFileLines },
-    "LOA": { label: "LOA", icon: FaFileLines },
-    "PPA": { label: "PPA", icon: FaFileLines },
+function normalizeActTypeKey(rawTipo: string): string {
+    const clean = (rawTipo || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+    if (clean === "lei-organica" || clean === "lei organica") return "lei-organica";
+    if (clean === "resolucao" || clean === "resolucoes") return "resolucao";
+    if (clean === "decreto" || clean === "decreto municipal" || clean === "decretos")
+        return "decreto";
+    if (clean === "portaria" || clean === "portarias") return "portaria";
+    if (clean === "portaria_diaria" || clean === "portaria de diaria") return "portaria_diaria";
+    if (clean === "lei" || clean === "lei municipal" || clean === "leis") return "lei";
+    if (clean === "loa") return "LOA";
+    if (clean === "ldo") return "LDO";
+    if (clean === "ppa") return "PPA";
+    return rawTipo || "outros";
+}
+
+const getActCategoryMeta = (catKey: string): CatalogCategoryMeta => {
+    switch (catKey) {
+        case "lei-organica":
+            return {
+                title: "Lei Orgânica do Município",
+                subtitle: "Carta Magna municipal, emendas e texto consolidado",
+                badgeStyle: "bg-purple-50 text-purple-700 border-purple-200",
+                icon: <FaScroll className="text-purple-600" size={16} />,
+                itemSingular: "ato",
+                itemPlural: "atos",
+            };
+        case "lei":
+            return {
+                title: "Leis Municipais",
+                subtitle: "Leis ordinárias e complementares sancionadas pelo Executivo",
+                badgeStyle: "bg-blue-50 text-[#01b0ef] border-blue-200",
+                icon: <FaScaleBalanced className="text-[#01b0ef]" size={16} />,
+                itemSingular: "lei",
+                itemPlural: "leis",
+            };
+        case "decreto":
+            return {
+                title: "Decretos Executivos",
+                subtitle: "Atos normativos e regulamentares emitidos pelo Prefeito",
+                badgeStyle: "bg-indigo-50 text-indigo-700 border-indigo-200",
+                icon: <FaGavel className="text-indigo-600" size={16} />,
+                itemSingular: "decreto",
+                itemPlural: "decretos",
+            };
+        case "portaria":
+        case "portaria_diaria":
+            return {
+                title: catKey === "portaria_diaria" ? "Portarias de Diárias" : "Portarias Municipais",
+                subtitle: "Atos administrativos de pessoal, designações e concessões",
+                badgeStyle: "bg-emerald-50 text-emerald-700 border-emerald-200",
+                icon: <FaFileSignature className="text-emerald-600" size={16} />,
+                itemSingular: "portaria",
+                itemPlural: "portarias",
+            };
+        case "resolucao":
+            return {
+                title: "Resoluções Municipais",
+                subtitle: "Deliberações, normativas de órgãos e conselhos municipais",
+                badgeStyle: "bg-amber-50 text-amber-800 border-amber-200",
+                icon: <FaFileLines className="text-amber-600" size={16} />,
+                itemSingular: "resolução",
+                itemPlural: "resoluções",
+            };
+        default:
+            return {
+                title: catKey || "Atos Oficiais",
+                subtitle: "Normativas e publicações legais do município",
+                badgeStyle: "bg-slate-100 text-slate-700 border-slate-200",
+                icon: <FaFilePdf className="text-slate-600" size={16} />,
+                itemSingular: "ato",
+                itemPlural: "atos",
+            };
+    }
 };
+
+const getActPriority = (catKey: string): number => {
+    const order: Record<string, number> = {
+        "lei-organica": 1,
+        lei: 2,
+        decreto: 3,
+        portaria: 4,
+        portaria_diaria: 5,
+        resolucao: 6,
+    };
+    return order[catKey] ?? 10;
+};
+
+const DOC_TYPES_BY_ATO: Record<string, string[]> = {
+    TODOS: ["Portaria", "Decreto", "Decreto Municipal", "Resolução", "Lei Municipal", "Lei Orgânica", "lei-organica", "resolucao"],
+    lei: ["Lei Municipal"],
+    decreto: ["Decreto", "Decreto Municipal"],
+    portaria: ["Portaria"],
+    resolucao: ["Resolução", "resolucao"],
+    "lei-organica": ["Lei Orgânica", "lei-organica"],
+};
+
+const tipoLabelsShort: Record<string, string> = {
+    "lei-organica": "Lei Orgânica",
+    lei: "Lei Municipal",
+    decreto: "Decreto",
+    portaria: "Portaria",
+    portaria_diaria: "Portaria de Diária",
+    resolucao: "Resolução",
+};
+
+interface LegislacaoClientProps {
+    initialTipo?: string;
+    hideTipoFilter?: boolean;
+    pageTitle?: string;
+    pageSubtitle?: string;
+    breadcrumbLabel?: string;
+    iconKey?: LegislacaoIconKey;
+    yearSubtitle?: string;
+    linksExternos?: LinkExternoItem[];
+}
 
 export default function LegislacaoClient({
     initialTipo = "",
-    hideTipoFilter = false
-}: {
-    initialTipo?: string;
-    hideTipoFilter?: boolean;
-}) {
+    hideTipoFilter = false,
+    pageTitle,
+    pageSubtitle,
+    breadcrumbLabel,
+    iconKey = "scale",
+    yearSubtitle = "Atos Normativos e Legislação Municipal",
+    linksExternos = [],
+}: LegislacaoClientProps) {
     const [leis, setLeis] = useState<Legislacao[]>([]);
     const [loading, setLoading] = useState(true);
     const [tipoFiltro, setTipoFiltro] = useState(initialTipo || "TODOS");
     const [anoFiltro, setAnoFiltro] = useState<number | null>(null);
     const [mesFiltro, setMesFiltro] = useState<number | null>(null);
     const [buscaFiltro, setBuscaFiltro] = useState("");
-    // Padrão: do atual para o mais antigo ("desc")
     const [ordem, setOrdem] = useState<"desc" | "asc">("desc");
-    const [pdfViewer, setPdfViewer] = useState<{ url: string; titulo: string } | null>(null);
+
+    const isStandalone = Boolean(pageTitle);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -241,16 +384,55 @@ export default function LegislacaoClient({
     const fetchLeis = useCallback(async () => {
         setLoading(true);
         try {
-            const query = new URLSearchParams({
-                limit: "5000"
-            });
-            if (tipoFiltro && tipoFiltro !== "TODOS") query.append("tipo", tipoFiltro);
-
-            const res = await fetch(`/api/legislacao?${query.toString()}`);
-            if (res.ok) {
-                const data = await res.json();
-                setLeis(data.items || []);
+            const legQuery = new URLSearchParams({ limit: "5000" });
+            if (tipoFiltro && tipoFiltro !== "TODOS") {
+                legQuery.append("tipo", tipoFiltro);
             }
+
+            const docTipos = DOC_TYPES_BY_ATO[tipoFiltro] || DOC_TYPES_BY_ATO[tipoFiltro.toLowerCase()];
+            const requests: Promise<Response>[] = [fetch(`/api/legislacao?${legQuery.toString()}`)];
+            if (docTipos && docTipos.length > 0 && tipoFiltro !== "portaria_diaria") {
+                requests.push(
+                    fetch(`/api/documentos?tipo=${encodeURIComponent(docTipos.join(","))}`)
+                );
+            }
+
+            const responses = await Promise.all(requests);
+            const legData = responses[0]?.ok ? await responses[0].json() : { items: [] };
+            const legItems: Legislacao[] = Array.isArray(legData?.items) ? legData.items : [];
+
+            const combined: Legislacao[] = [...legItems];
+            const seenUrls = new Set<string>(
+                legItems
+                    .map((i) => (i.arquivo || i.documentUrl || "").toLowerCase().trim())
+                    .filter(Boolean)
+            );
+
+            if (responses[1]?.ok) {
+                const docsData = await responses[1].json();
+                if (Array.isArray(docsData)) {
+                    for (const d of docsData) {
+                        if (d.ativo === false) continue;
+                        const fileUrl = (d.arquivo || d.documentUrl || "").trim();
+                        if (fileUrl && seenUrls.has(fileUrl.toLowerCase())) continue;
+                        if (fileUrl) seenUrls.add(fileUrl.toLowerCase());
+
+                        combined.push({
+                            id: `doc-${d.id}`,
+                            tipo: normalizeActTypeKey(d.tipo),
+                            numero: d.competencia || "",
+                            ano: d.ano || new Date(d.criadoEm).getFullYear(),
+                            dataAto: d.dataAtualizacaoEfetiva || d.criadoEm,
+                            ementa: d.descricao ? `${d.titulo} — ${d.descricao}` : d.titulo,
+                            arquivo: d.arquivo || null,
+                            documentUrl: d.documentUrl || null,
+                            criadoEm: d.criadoEm,
+                        });
+                    }
+                }
+            }
+
+            setLeis(combined);
         } catch (error) {
             console.error(error);
         } finally {
@@ -262,15 +444,17 @@ export default function LegislacaoClient({
         fetchLeis();
     }, [fetchLeis]);
 
-    // Anota cada ato com seus metadados de data e cronologia
     const processedLeis = useMemo(() => {
-        return leis.map(l => ({
-            ...l,
-            meta: getAtoMetadata(l)
-        }));
+        return leis.map((l) => {
+            const normTipo = normalizeActTypeKey(l.tipo);
+            return {
+                ...l,
+                normTipo,
+                meta: getAtoMetadata(l),
+            };
+        });
     }, [leis]);
 
-    // Filtragem por busca textual, variações de número/ano sem acento, ano e mês real
     const filtered = useMemo(() => {
         const norm = (s: string) =>
             (s || "")
@@ -286,27 +470,52 @@ export default function LegislacaoClient({
             .split(/\s+/)
             .filter((t) => t.length >= 1 && !["de", "da", "do", "n", "no", "nº"].includes(t));
 
-        return processedLeis.filter((item) => {
-            const matchesAno = anoFiltro === null || item.meta.year === anoFiltro;
-            const matchesMes = mesFiltro === null || item.meta.month === mesFiltro;
-            if (!matchesAno || !matchesMes) return false;
-            if (!buscaNorm) return true;
+        return processedLeis
+            .filter((item) => {
+                const matchesAno = anoFiltro === null || item.meta.year === anoFiltro;
+                const matchesMes = mesFiltro === null || item.meta.month === mesFiltro;
+                if (!matchesAno || !matchesMes) return false;
+                if (!buscaNorm) return true;
 
-            const numInt = parseNumero(item.numero);
-            const tipoLabel = tipoInfo[item.tipo]?.label || item.tipo;
-            const candidateNorm = norm(
-                `${tipoLabel} ${item.tipo} ${item.numero} ${numInt || ""}/${item.meta.year} ${numInt || ""} ${item.meta.year} ${item.ementa}`
-            );
+                const numInt = parseNumero(item.numero);
+                const tipoLabel = tipoLabelsShort[item.normTipo] || item.tipo;
+                const candidateNorm = norm(
+                    `${tipoLabel} ${item.tipo} ${item.numero} ${numInt || ""}/${item.meta.year} ${
+                        numInt || ""
+                    } ${item.meta.year} ${item.ementa}`
+                );
 
-            if (candidateNorm.includes(buscaNorm)) return true;
-            if (queryTokens.length > 0 && queryTokens.every((tk) => candidateNorm.includes(tk))) {
-                return true;
-            }
-            return false;
-        });
-    }, [processedLeis, buscaFiltro, anoFiltro, mesFiltro]);
+                if (candidateNorm.includes(buscaNorm)) return true;
+                if (queryTokens.length > 0 && queryTokens.every((tk) => candidateNorm.includes(tk))) {
+                    return true;
+                }
+                return false;
+            })
+            .sort((a, b) => {
+                const timeA = a.meta.date.getTime();
+                const timeB = b.meta.date.getTime();
+                if (timeA !== timeB && !isNaN(timeA) && !isNaN(timeB)) {
+                    return ordem === "desc" ? timeB - timeA : timeA - timeB;
+                }
 
-    // Lista de todos os anos cadastrados (mais atual para mais antigo)
+                const numA = parseNumero(a.numero);
+                const numB = parseNumero(b.numero);
+                if (numA !== numB) {
+                    return ordem === "desc" ? numB - numA : numA - numB;
+                }
+
+                return ordem === "desc"
+                    ? b.numero.localeCompare(a.numero, undefined, {
+                          numeric: true,
+                          sensitivity: "base",
+                      })
+                    : a.numero.localeCompare(b.numero, undefined, {
+                          numeric: true,
+                          sensitivity: "base",
+                      });
+            });
+    }, [processedLeis, buscaFiltro, anoFiltro, mesFiltro, ordem]);
+
     const todosOsAnos = useMemo(() => {
         const set = new Set<number>();
         for (const item of processedLeis) {
@@ -317,7 +526,6 @@ export default function LegislacaoClient({
         return Array.from(set).sort((a, b) => b - a);
     }, [processedLeis]);
 
-    // Anos disponíveis nos itens atualmente filtrados (respeitando a ordem selecionada)
     const anosDisponiveis = useMemo(() => {
         const set = new Set<number>();
         for (const item of filtered) {
@@ -336,405 +544,251 @@ export default function LegislacaoClient({
         setOrdem("desc");
     };
 
-    const handleExport = (format: "pdf" | "csv" | "json" | "xlsx") => {
-        const payload = filtered.map(l => ({
-            "Tipo": tipoInfo[l.tipo]?.label || l.tipo,
-            "Número": l.numero,
-            "Ano": l.meta.year,
-            "Ementa": l.ementa,
+    const handleExport = (format: "pdf" | "csv" | "xlsx") => {
+        const payload = filtered.map((l) => ({
+            Tipo: tipoLabelsShort[l.normTipo] || l.tipo,
+            "Número": l.numero || "S/N",
+            Ano: l.meta.year,
+            Ementa: l.ementa,
             "Data de Publicação": l.meta.displayDate,
-            "Arquivo": l.arquivo || "Não disponível"
+            Arquivo: l.arquivo || l.documentUrl || "Não disponível",
         }));
 
-        const filename = `legislacao_${tipoFiltro.toLowerCase()}_${anoFiltro || 'geral'}`;
-        const title = `Relatório de Legislação Municipal – ${MUNICIPIO.nome}/${MUNICIPIO.uf}`;
+        const filename = `legislacao_${tipoFiltro.toLowerCase()}_${anoFiltro || "geral"}`;
+        const exportTitle = `${pageTitle || "Relatório de Legislação Municipal"} – ${MUNICIPIO.nome}/${MUNICIPIO.uf}`;
 
         if (format === "csv") exportToCSV(payload, filename);
-        else if (format === "json") exportToJSON(payload, filename);
         else if (format === "xlsx") exportToXLSX(payload, filename);
-        else exportToPDF(payload, filename, title);
+        else exportToPDF(payload, filename, exportTitle);
     };
 
-    const stats = {
-        total: filtered.length,
-        esteAno: processedLeis.filter(l => l.meta.year === new Date().getFullYear()).length,
-        comArquivo: filtered.filter(l => !!l.arquivo).length,
-    };
+    const currentYear = new Date().getFullYear();
 
-    const hasActiveFilters = Boolean(buscaFiltro || anoFiltro || mesFiltro !== null || (tipoFiltro !== "TODOS" && !hideTipoFilter));
+    const stats: CatalogStatCard[] = [
+        {
+            label: "Total de Atos Registrados",
+            value: filtered.length,
+            sublabel: "Atos catalogados na consulta",
+            icon: <FaScaleBalanced size={20} />,
+            variant: "primary",
+        },
+        {
+            label: `Publicados em ${currentYear}`,
+            value: processedLeis.filter((l) => l.meta.year === currentYear).length,
+            sublabel: "Publicações no exercício vigente",
+            icon: <FaCalendarDays size={20} />,
+            variant: "emerald",
+        },
+        {
+            label: "Arquivos Disponíveis",
+            value: filtered.filter((l) => isValidPublicUrl(l.arquivo || l.documentUrl)).length,
+            sublabel: "Inteiro teor disponível",
+            icon: <FaFilePdf size={20} />,
+            variant: "amber",
+        },
+    ];
+
+    const catalogItems: CatalogItem[] = useMemo(
+        () =>
+            filtered.map((l) => {
+                const label = tipoLabelsShort[l.normTipo] || l.tipo;
+                const fileUrl = l.arquivo || l.documentUrl || null;
+                const numClean = (l.numero || "").trim();
+                const displayNumero = numClean
+                    ? numClean.endsWith(`/${l.meta.year}`)
+                        ? numClean
+                        : `${numClean}/${l.meta.year}`
+                    : "";
+                const cardTitle = numClean ? `${label} nº ${numClean}` : l.ementa;
+
+                return {
+                    id: l.id,
+                    ano: l.meta.year,
+                    categoriaKey: l.normTipo,
+                    badgeText: label,
+                    secondaryPill: l.meta.displayDate.startsWith("Exercício")
+                        ? l.meta.displayDate
+                        : `Publicado em ${l.meta.displayDate}`,
+                    titulo: cardTitle,
+                    descricao: numClean ? l.ementa : undefined,
+                    fileUrl,
+                    onViewTitle: displayNumero ? `${label} Nº ${displayNumero}` : cardTitle,
+                };
+            }),
+        [filtered]
+    );
+
+    const chartSourceItems: CatalogItem[] = useMemo(
+        () =>
+            processedLeis.map((l) => ({
+                id: l.id,
+                ano: l.meta.year,
+                categoriaKey: l.normTipo,
+                badgeText: tipoLabelsShort[l.normTipo] || l.tipo,
+                titulo: l.numero || l.ementa,
+                fileUrl: l.arquivo || l.documentUrl,
+            })),
+        [processedLeis]
+    );
+
+    const activeFilterBadges: ActiveFilterBadge[] = [];
+    if (tipoFiltro !== "TODOS" && !hideTipoFilter) {
+        activeFilterBadges.push({
+            key: "tipo",
+            label: tipoLabelsShort[normalizeActTypeKey(tipoFiltro)] || tipoFiltro,
+            colorClass: "bg-blue-50 text-[#01b0ef] border-blue-200",
+            onClear: () => setTipoFiltro("TODOS"),
+        });
+    }
+    if (anoFiltro) {
+        activeFilterBadges.push({
+            key: "ano",
+            label: `Ano: ${anoFiltro}`,
+            colorClass: "bg-amber-50 text-amber-800 border-amber-200",
+            onClear: () => setAnoFiltro(null),
+        });
+    }
+    if (mesFiltro) {
+        activeFilterBadges.push({
+            key: "mes",
+            label: `Mês: ${MESES.find((m) => m.v === mesFiltro.toString())?.l}`,
+            colorClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
+            onClear: () => setMesFiltro(null),
+        });
+    }
+    if (buscaFiltro) {
+        activeFilterBadges.push({
+            key: "busca",
+            label: `"${buscaFiltro}"`,
+            colorClass: "bg-sky-50 text-sky-800 border-sky-200",
+            onClear: () => setBuscaFiltro(""),
+        });
+    }
+
+    const hasActiveFilters = Boolean(
+        buscaFiltro ||
+            anoFiltro ||
+            mesFiltro !== null ||
+            (tipoFiltro !== "TODOS" && !hideTipoFilter)
+    );
+
+    const externalLinksSection =
+        linksExternos.length > 0 ? (
+            <div className="bg-white rounded-2xl p-6 border border-[#e2e8f0] shadow-sm">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-[#e2e8f0]">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center shrink-0">
+                            <FaGlobe size={18} />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-black text-slate-900 tracking-tight">
+                                Outras Fontes de Legislação e Publicações
+                            </h3>
+                            <p className="text-xs text-slate-600">
+                                Portais oficiais complementares e repositórios externos integrados
+                            </p>
+                        </div>
+                    </div>
+                    <span className="text-xs font-bold text-slate-700 bg-[#f4fbff] border border-[#e2e8f0] px-3 py-1 rounded-lg">
+                        {linksExternos.length}{" "}
+                        {linksExternos.length === 1 ? "fonte" : "fontes"}
+                    </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {linksExternos.map((link) => (
+                        <a
+                            key={link.id}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group bg-[#f4fbff] hover:bg-white rounded-xl p-4 border border-[#e2e8f0] hover:border-[#01b0ef]/50 shadow-xs hover:shadow-sm transition-all flex items-start gap-3"
+                        >
+                            <div className="w-9 h-9 bg-white text-[#01b0ef] border border-[#e2e8f0] rounded-lg flex items-center justify-center shrink-0 group-hover:bg-[#01b0ef] group-hover:text-white transition-colors">
+                                <FaArrowUpRightFromSquare size={14} />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <span className="font-bold text-slate-900 text-xs block mb-1 group-hover:text-[#01b0ef] transition-colors">
+                                    {link.titulo}
+                                </span>
+                                {link.descricao && (
+                                    <span className="text-[11px] text-slate-600 block mb-2 leading-relaxed line-clamp-2">
+                                        {link.descricao}
+                                    </span>
+                                )}
+                                <span className="text-[10px] text-[#01b0ef] font-bold inline-flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-[#e2e8f0]">
+                                    <FaGlobe size={9} /> {link.hostname}
+                                </span>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        ) : null;
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-20">
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
-                    <div>
-                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Total de Atos Registrados</p>
-                        <p className="text-3xl font-black text-slate-900 tracking-tight">{stats.total}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-blue-50 text-[#01b0ef] rounded-xl flex items-center justify-center">
-                        <FaScaleBalanced size={20} />
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] flex items-center justify-between">
-                    <div>
-                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Publicados em {new Date().getFullYear()}</p>
-                        <p className="text-3xl font-black text-emerald-600 tracking-tight">{stats.esteAno}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-                        <FaCalendarDays size={20} />
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e2e8f0] border-t-4 border-t-[#fdb913] flex items-center justify-between">
-                    <div>
-                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">Arquivos Disponíveis</p>
-                        <p className="text-3xl font-black text-slate-900 tracking-tight">{stats.comArquivo}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-[#fdb913] text-slate-900 rounded-xl flex items-center justify-center shadow-xs">
-                        <FaFilePdf size={20} />
-                    </div>
-                </div>
-            </div>
-
-            {/* ═══════ PAINEL DE FILTROS (MÊS, ANO, BUSCA, ORDENAÇÃO) ═══════ */}
-            <div className="bg-white rounded-2xl border border-[#e2e8f0] shadow-sm mb-8">
-
-                {/* Abas de Tipo (se não estiver escondido) */}
-                {!hideTipoFilter && (
-                    <div className="px-5 pt-5 pb-0">
-                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2.5 block">Tipo de Ato / Legislação</label>
-                        <div className="flex flex-wrap gap-2">
-                            {[
-                                { id: "TODOS", label: "Todos" },
-                                { id: "lei", label: "Leis" },
-                                { id: "decreto", label: "Decretos" },
-                                { id: "portaria", label: "Portarias" },
-                                { id: "resolucao", label: "Resoluções" },
-                                { id: "lei-organica", label: "Lei Orgânica" }
-                            ].map(tab => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => setTipoFiltro(tab.id)}
-                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${tipoFiltro === tab.id
-                                        ? "bg-[#01b0ef] text-white shadow-sm"
-                                        : "bg-[#f4fbff] text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                                        }`}
-                                >
-                                    {tab.label}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* Linha com Busca + Filtro de Ano + Filtro de Mês + Alternar Ordem + Exportação */}
-                <div className="p-5 flex flex-col md:flex-row gap-3 items-stretch md:items-center">
-
-                    {/* Campo de Busca */}
-                    <div className="relative flex-1">
-                        <FaMagnifyingGlass className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={13} />
-                        <input
-                            type="text"
-                            placeholder="Pesquisar por número ou ementa..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none"
-                            value={buscaFiltro}
-                            onChange={(e) => setBuscaFiltro(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Filtro de Ano */}
-                    <div className="relative w-full md:w-36">
-                        <FaCalendarDays className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
-                        <select
-                            aria-label="Filtrar por ano"
-                            value={anoFiltro ?? ""}
-                            onChange={(e) => setAnoFiltro(e.target.value ? Number(e.target.value) : null)}
-                            className="w-full pl-10 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none cursor-pointer appearance-none"
-                        >
-                            <option value="">Todos os anos</option>
-                            {todosOsAnos.map(ano => (
-                                <option key={ano} value={ano}>{ano}</option>
-                            ))}
-                        </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    {/* Filtro de Mês */}
-                    <div className="relative w-full md:w-44">
-                        <FaCalendarDays className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
-                        <select
-                            aria-label="Filtrar por mês"
-                            value={mesFiltro ?? ""}
-                            onChange={(e) => setMesFiltro(e.target.value ? Number(e.target.value) : null)}
-                            className="w-full pl-10 pr-8 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-[#01b0ef]/20 focus:border-[#01b0ef] transition-all outline-none cursor-pointer appearance-none"
-                        >
-                            {MESES.map(m => (
-                                <option key={m.v} value={m.v}>{m.l}</option>
-                            ))}
-                        </select>
-                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    {/* Botão de Alternar Ordem Cronológica (Do atual para o mais antigo por padrão) */}
-                    <button
-                        onClick={() => setOrdem(prev => prev === "desc" ? "asc" : "desc")}
-                        title="Alternar ordem de exibição (atual/antigo)"
-                        className="flex items-center justify-center gap-2 px-3.5 py-2.5 bg-[#f4fbff] border border-[#e2e8f0] rounded-xl text-xs font-bold text-slate-900 hover:bg-slate-200 transition-all cursor-pointer shadow-sm shrink-0"
-                    >
-                        {ordem === "desc" ? (
-                            <>
-                                <FaArrowDownShortWide className="text-[#01b0ef]" size={14} />
-                                <span className="hidden sm:inline">Mais atuais primeiro</span>
-                            </>
-                        ) : (
-                            <>
-                                <FaArrowUpWideShort className="text-[#01b0ef]" size={14} />
-                                <span className="hidden sm:inline">Mais antigos primeiro</span>
-                            </>
-                        )}
-                    </button>
-
-                    <div className="hidden md:block w-px h-8 bg-[#e2e8f0]" />
-
-                    {/* Ferramentas de Exportação */}
-                    <div className="flex items-center gap-1.5 justify-end">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mr-1 hidden lg:block">Exportar:</span>
-                        {[
-                            { id: 'pdf' as const, icon: <FaFilePdf size={13} />, label: 'PDF', color: 'text-red-500 hover:bg-red-50' },
-                            { id: 'xlsx' as const, icon: <FaFileExcel size={13} />, label: 'Excel', color: 'text-emerald-500 hover:bg-emerald-50' },
-                            { id: 'csv' as const, icon: <FaFileCsv size={13} />, label: 'CSV', color: 'text-blue-500 hover:bg-blue-50' }
-                        ].map(tool => (
-                            <button
-                                key={tool.id}
-                                onClick={() => handleExport(tool.id)}
-                                title={`Exportar como ${tool.label}`}
-                                className={`p-2 rounded-lg transition-all ${tool.color} border border-transparent hover:border-current/10 cursor-pointer`}
-                            >
-                                {tool.icon}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Badges de Filtros Ativos */}
-                {hasActiveFilters && (
-                    <div className="px-5 pb-4 flex items-center gap-2 flex-wrap border-t border-[#e2e8f0] pt-3">
-                        <span className="text-[10px] font-bold text-slate-600 uppercase">Filtros Ativos:</span>
-                        {tipoFiltro !== "TODOS" && !hideTipoFilter && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-[#01b0ef] rounded-md text-[11px] font-semibold border border-blue-200">
-                                {tipoInfo[tipoFiltro]?.label || tipoFiltro}
-                                <button onClick={() => setTipoFiltro("TODOS")} className="ml-0.5 hover:text-blue-900 cursor-pointer"><FaXmark size={8} /></button>
-                            </span>
-                        )}
-                        {anoFiltro && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-800 rounded-md text-[11px] font-semibold border border-amber-200">
-                                Ano: {anoFiltro}
-                                <button onClick={() => setAnoFiltro(null)} className="ml-0.5 hover:text-amber-900 cursor-pointer"><FaXmark size={8} /></button>
-                            </span>
-                        )}
-                        {mesFiltro && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-md text-[11px] font-semibold border border-emerald-200">
-                                Mês: {MESES.find(m => m.v === mesFiltro.toString())?.l}
-                                <button onClick={() => setMesFiltro(null)} className="ml-0.5 hover:text-emerald-900 cursor-pointer"><FaXmark size={8} /></button>
-                            </span>
-                        )}
-                        {buscaFiltro && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-sky-50 text-sky-800 rounded-md text-[11px] font-semibold border border-sky-200">
-                                &quot;{buscaFiltro}&quot;
-                                <button onClick={() => setBuscaFiltro("")} className="ml-0.5 hover:text-sky-900 cursor-pointer"><FaXmark size={8} /></button>
-                            </span>
-                        )}
-                        <button
-                            onClick={handleClearFilters}
-                            className="text-[10px] font-bold text-slate-600 hover:text-red-600 uppercase transition-colors ml-1 cursor-pointer"
-                        >
-                            Limpar filtros
-                        </button>
-                    </div>
-                )}
-            </div>
-
-            {/* ═══════ LISTAGEM ESTRUTURADA (DO ATUAL PARA O MAIS ANTIGO) ═══════ */}
-            <div className="space-y-12 min-h-[400px]">
-                {loading ? (
-                    <div className="flex flex-col items-center justify-center py-40">
-                        <div className="w-12 h-12 border-4 border-[#01b0ef]/20 border-t-[#01b0ef] rounded-full animate-spin mb-4" />
-                        <p className="text-sm text-slate-400 font-black tracking-widest uppercase text-[10px]">Carregando legislação...</p>
-                    </div>
-                ) : anosDisponiveis.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200">
-                        <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <FaMagnifyingGlass className="text-slate-300" size={28} />
-                        </div>
-                        <h4 className="text-lg font-bold text-slate-700 mb-2">Nenhum ato encontrado</h4>
-                        <p className="text-sm text-slate-400 mb-6 max-w-md mx-auto">
-                            Não localizamos registros para os critérios selecionados (Mês / Ano / Termo de busca).
-                        </p>
-                        <button
-                            onClick={handleClearFilters}
-                            className="px-4 py-2 bg-[#01b0ef] text-white rounded-xl text-xs font-bold hover:bg-[#0098d4] transition-colors cursor-pointer"
-                        >
-                            Limpar filtros
-                        </button>
-                    </div>
-                ) : (
-                    <AnimatePresence mode="popLayout">
-                        {anosDisponiveis.map(ano => {
-                            // Ordenação cronológica rigorosa: do atual para o mais antigo (ou vice-versa se alternado)
-                            const itensDoAno = filtered
-                                .filter(item => item.meta.year === ano)
-                                .sort((a, b) => {
-                                    // 1. Data real do ato (timestamp)
-                                    const timeA = a.meta.date.getTime();
-                                    const timeB = b.meta.date.getTime();
-                                    if (timeA !== timeB && !isNaN(timeA) && !isNaN(timeB)) {
-                                        return ordem === "desc" ? timeB - timeA : timeA - timeB;
-                                    }
-
-                                    // 2. Se as datas forem idênticas, comparar pelo número do ato
-                                    const numA = parseNumero(a.numero);
-                                    const numB = parseNumero(b.numero);
-                                    if (numA !== numB) {
-                                        return ordem === "desc" ? numB - numA : numA - numB;
-                                    }
-
-                                    // 3. Fallback alfabético de string
-                                    return ordem === "desc"
-                                        ? b.numero.localeCompare(a.numero, undefined, { numeric: true, sensitivity: 'base' })
-                                        : a.numero.localeCompare(b.numero, undefined, { numeric: true, sensitivity: 'base' });
-                                });
-
-                            return (
-                                <motion.div
-                                    key={ano}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-6"
-                                >
-                                    {/* Cabeçalho do Exercício / Ano */}
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-[#01b0ef] text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
-                                                <FaCalendarDays size={14} />
-                                            </div>
-                                            <h3 className="text-2xl font-black text-slate-900">Exercício {ano}</h3>
-                                        </div>
-                                        <div className="flex-1 h-px bg-[#e2e8f0]" />
-                                        <span className="text-xs font-bold text-slate-600 bg-[#f4fbff] border border-[#e2e8f0] px-3 py-1.5 rounded-lg">
-                                            {itensDoAno.length} {itensDoAno.length === 1 ? "Ato" : "Atos"} ({ordem === "desc" ? "Mais atual ao mais antigo" : "Mais antigo ao mais atual"})
-                                        </span>
-                                    </div>
-
-                                    {/* Grid de Cards de Legislação */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                                        {itensDoAno.map((l, idx) => {
-                                            const info = tipoInfo[l.tipo] || { label: l.tipo, icon: FaFileLines };
-                                            return (
-                                                <motion.div
-                                                    key={l.id}
-                                                    initial={{ opacity: 0, y: 16 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: idx * 0.02 }}
-                                                    className="group bg-white rounded-2xl border border-[#e2e8f0] hover:border-[#01b0ef]/50 shadow-sm transition-all duration-200 flex flex-col justify-between overflow-hidden"
-                                                >
-                                                    {/* Card body */}
-                                                    <div className="p-6 flex-1">
-                                                        <div className="flex justify-between items-start mb-4">
-                                                            <div className="flex flex-col">
-                                                                <span className="text-[10px] font-bold text-[#01b0ef] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 uppercase tracking-wider mb-2 w-fit">
-                                                                    {info.label}
-                                                                </span>
-                                                                <h4 className="text-xl font-black text-slate-900 group-hover:text-[#01b0ef] transition-colors duration-200">
-                                                                    Nº {l.numero}
-                                                                </h4>
-                                                            </div>
-                                                            <div className="w-10 h-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-all duration-200 shadow-sm">
-                                                                <FaFilePdf size={16} />
-                                                            </div>
-                                                        </div>
-
-                                                        <p className="text-xs font-medium text-slate-600 leading-relaxed mb-4 line-clamp-4 group-hover:text-slate-900 transition-colors" title={l.ementa}>
-                                                            {l.ementa}
-                                                        </p>
-
-                                                        {/* Data Real da Legislação */}
-                                                        <div className="flex items-center gap-2 mt-auto pt-2">
-                                                            <FaCalendarDays size={12} className="text-slate-400 shrink-0" />
-                                                            <span className="text-xs font-semibold text-slate-600">
-                                                                {l.meta.displayDate.startsWith("Exercício")
-                                                                    ? l.meta.displayDate
-                                                                    : `Publicado em ${l.meta.displayDate}`
-                                                                }
-                                                            </span>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Card footer com ações */}
-                                                    <div className="px-5 py-3.5 bg-slate-50/80 border-t border-slate-100 flex items-center gap-2">
-                                                        {l.arquivo ? (
-                                                            <>
-                                                                <button
-                                                                    onClick={() => {
-                                                                        const exibirNumero = l.numero.endsWith(`/${l.meta.year}`) ? l.numero : `${l.numero}/${l.meta.year}`;
-                                                                        setPdfViewer({ url: l.arquivo!, titulo: `${info.label} Nº ${exibirNumero}` });
-                                                                    }}
-                                                                    className="flex-1 flex items-center justify-center gap-2 py-2 bg-white text-[#01b0ef] border border-[#e2e8f0] rounded-xl text-xs font-bold hover:bg-[#01b0ef] hover:text-white hover:border-[#01b0ef] transition-all duration-150 shadow-sm cursor-pointer"
-                                                                >
-                                                                    <FaEye size={12} />
-                                                                    Visualizar
-                                                                </button>
-                                                                <a
-                                                                    href={l.arquivo}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="flex items-center justify-center gap-2 py-2 px-3.5 bg-white text-slate-900 border border-[#e2e8f0] rounded-xl text-xs font-bold hover:bg-[#0f172a] hover:text-white transition-all duration-150 cursor-pointer"
-                                                                >
-                                                                    <FaDownload size={11} />
-                                                                    Baixar
-                                                                </a>
-                                                            </>
-                                                        ) : (
-                                                            <div className="w-full py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold text-center border border-dashed border-slate-200">
-                                                                Arquivo Indisponível
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </motion.div>
-                                            );
-                                        })}
-                                    </div>
-                                </motion.div>
-                            );
-                        })}
-                    </AnimatePresence>
-                )}
-            </div>
-
-            <div className="mt-20">
-                <BannerPNTP />
-            </div>
-
-            {/* ═══════ MODAL PDF VIEWER ═══════ */}
-            <AnimatePresence>
-                {pdfViewer && (
-                    <PDFViewer
-                        url={pdfViewer.url}
-                        titulo={pdfViewer.titulo}
-                        onClose={() => setPdfViewer(null)}
-                    />
-                )}
-            </AnimatePresence>
-        </div>
+        <LRFDocumentCatalog
+            embedded={!isStandalone}
+            title={pageTitle || "Legislação Municipal"}
+            subtitle={
+                pageSubtitle ||
+                "Atos normativos do Município de São Tomé — leis, decretos, portarias, resoluções e Lei Orgânica."
+            }
+            icon={ICON_MAP[iconKey] || <FaScaleBalanced />}
+            breadcrumbs={[
+                { label: "Início", href: "/" },
+                { label: "Transparência", href: "/transparencia" },
+                { label: breadcrumbLabel || pageTitle || "Legislação" },
+            ]}
+            stats={stats}
+            loading={loading}
+            loadingText="Carregando atos normativos..."
+            totalCount={processedLeis.length}
+            items={catalogItems}
+            chartSourceItems={chartSourceItems}
+            availableYears={todosOsAnos}
+            orderedYears={anosDisponiveis}
+            yearSubtitle={yearSubtitle}
+            listTabLabel="Atos Oficiais"
+            yearGroupUnitSingular="ato"
+            yearGroupUnitPlural="atos"
+            counterDescription="organizados em sequência cronológica"
+            tabs={
+                !hideTipoFilter
+                    ? [
+                          { id: "TODOS", label: "Todos" },
+                          { id: "lei", label: "Leis" },
+                          { id: "decreto", label: "Decretos" },
+                          { id: "portaria", label: "Portarias" },
+                          { id: "resolucao", label: "Resoluções" },
+                          { id: "lei-organica", label: "Lei Orgânica" },
+                      ]
+                    : undefined
+            }
+            tabsLabel="Tipo de Ato / Legislação"
+            activeTab={tipoFiltro}
+            onTabChange={setTipoFiltro}
+            searchValue={buscaFiltro}
+            onSearchChange={setBuscaFiltro}
+            searchPlaceholder="Pesquisar por número ou ementa..."
+            yearValue={anoFiltro}
+            onYearChange={setAnoFiltro}
+            monthOptions={MESES}
+            monthValue={mesFiltro}
+            onMonthChange={setMesFiltro}
+            sortOrder={ordem}
+            onToggleSortOrder={() => setOrdem((prev) => (prev === "desc" ? "asc" : "desc"))}
+            sortAscLabel="Mais antigos primeiro"
+            sortDescLabel="Mais atuais primeiro"
+            onExport={handleExport}
+            activeFilterBadges={activeFilterBadges}
+            hasActiveFilters={hasActiveFilters}
+            onClearAllFilters={handleClearFilters}
+            getCategoryMeta={getActCategoryMeta}
+            getCategoryPriority={getActPriority}
+            emptyTitle="Nenhum ato encontrado"
+            emptyDescription="Não localizamos registros para os critérios selecionados (Mês / Ano / Termo de busca)."
+            bottomContent={isStandalone ? externalLinksSection : null}
+        />
     );
 }

@@ -232,9 +232,23 @@ const PORTAL_CORE_SERVICES: Array<{
     {
         id: "srv-legislacao",
         titulo: "Legislação Municipal (Leis, Decretos e Portarias)",
-        resumo: "Acervo de leis ordinárias, leis complementares, decretos executivos e portarias do Município de São Tomé.",
+        resumo: "Acervo de leis ordinárias, leis complementares, decretos executivos, portarias e resoluções do Município de São Tomé.",
         href: "/transparencia/legislacao",
-        keywords: ["legislacao", "leis", "lei municipal", "decretos", "portarias", "lei organica", "atos normativos"],
+        keywords: ["legislacao", "leis", "lei municipal", "decretos", "portarias", "atos normativos"],
+    },
+    {
+        id: "srv-lei-organica",
+        titulo: "Lei Orgânica do Município de São Tomé",
+        resumo: "Texto oficial da Lei Orgânica Municipal e suas emendas.",
+        href: "/transparencia/lei-organica",
+        keywords: ["lei organica", "lei organica municipal", "carta magna municipal"],
+    },
+    {
+        id: "srv-resolucoes",
+        titulo: "Resoluções Municipais",
+        resumo: "Deliberações normativas, instruções e resoluções dos órgãos e conselhos municipais.",
+        href: "/transparencia/resolucoes",
+        keywords: ["resolucoes", "resolucao", "deliberacoes"],
     },
     {
         id: "srv-transparencia",

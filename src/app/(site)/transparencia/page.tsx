@@ -219,9 +219,11 @@ const categoriasDeModulos = [
         desc: "Legislação municipal consolidada, leis ordinárias e complementares, decretos executivos, portarias, LGPD e dados abertos.",
         modulos: [
             { icon: Scale, titulo: "Legislação Municipal", desc: "Portal consolidado de atos normativos, leis orgânicas e regulamentações.", href: "/transparencia/legislacao", badge: "LEGISLAÇÃO", tipoCriterio: "ESSENCIAL" },
+            { icon: ScrollText, titulo: "Lei Orgânica Municipal", desc: "Norma fundamental de organização político-administrativa de São Tomé/RN.", href: "/transparencia/lei-organica", badge: "LEI ORGÂNICA", tipoCriterio: "ESSENCIAL" },
             { icon: Files, titulo: "Leis Municipais", desc: "Legislação completa aprovada pelo legislativo e executivo municipal.", href: "/transparencia/leis", badge: "LEIS", tipoCriterio: "ESSENCIAL" },
             { icon: FileText, titulo: "Decretos Municipais", desc: "Atos normativos regulamentares assinados pelo chefe do executivo.", href: "/transparencia/decretos", badge: "DECRETOS", tipoCriterio: "ESSENCIAL" },
             { icon: ScrollText, titulo: "Portarias Executivas", desc: "Atos administrativos de provimento, nomeações, delegações e atribuições.", href: "/transparencia/portarias", badge: "PORTARIAS", tipoCriterio: "ESSENCIAL" },
+            { icon: FileText, titulo: "Resoluções Municipais", desc: "Atos deliberativos, normativas administrativas e resoluções dos órgãos.", href: "/transparencia/resolucoes", badge: "RESOLUÇÕES", tipoCriterio: "ESSENCIAL" },
             { icon: ShieldCheck, titulo: "LGPD & Privacidade", desc: "Encarregado pelo tratamento de dados pessoais (DPO) e requisições de privacidade.", href: "/transparencia/lgpd", badge: "PRIVACIDADE", tipoCriterio: "ESSENCIAL" },
             { icon: Shield, titulo: "Integridade Pública", desc: "Código de conduta ética, plano de integridade, conformidade e governança.", href: "/transparencia/integridade", badge: "GOVERNANÇA", tipoCriterio: "OBRIGATÓRIO" },
             { icon: Presentation, titulo: "Dados Abertos", desc: "Arquivos e catálogos em formatos abertos e estruturados (CSV, JSON, XML).", href: "/transparencia/dados-abertos", badge: "FORMATO-ABERTO", tipoCriterio: "RECOMENDADO" },

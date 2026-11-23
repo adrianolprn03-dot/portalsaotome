@@ -1,10 +1,7 @@
 export const revalidate = 300;
 
 import type { Metadata } from "next";
-import { FaGraduationCap } from "react-icons/fa";
 import { prisma } from "@/lib/prisma";
-import PageHeader from "@/components/PageHeader";
-import BannerPNTP from "@/components/transparencia/BannerPNTP";
 import PlanoEducacaoClientPage from "@/components/transparencia/PlanoEducacaoClientPage";
 
 export const metadata: Metadata = {
@@ -37,31 +34,5 @@ export default async function PlanoEducacaoPage() {
         atualizadoEm: d.atualizadoEm.toISOString(),
     }));
 
-    return (
-        <div className="bg-[#f4fbff] min-h-screen pb-16">
-            <PageHeader
-                title="Plano Municipal de Educação e Relatórios de Resultados"
-                subtitle="Acompanhamento das metas, estratégias decenais do PME e respectivos relatórios de monitoramento e avaliação educacional (Cartilha PNTP 2026 - Item 19.1)."
-                icon={<FaGraduationCap />}
-                breadcrumbs={[
-                    { label: "Início", href: "/" },
-                    { label: "Transparência", href: "/transparencia" },
-                    { label: "Educação", href: "/transparencia/educacao" },
-                    { label: "Plano de Educação (PME)" },
-                ]}
-            />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 space-y-10">
-                <PlanoEducacaoClientPage initialDocs={docs} />
-            </div>
-
-            <div className="mt-14">
-                <BannerPNTP
-                    criterio="19.1"
-                    requisito="Divulgação do Plano Municipal de Educação e do respectivo relatório de resultados com série histórica e pesquisa"
-                    status="Em Conformidade PNTP 2026"
-                />
-            </div>
-        </div>
-    );
+    return <PlanoEducacaoClientPage initialDocs={docs} />;
 }

@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-    const auth = await requireServerAuth(["admin", "controladoria", "financas", "editor"]);
+    const auth = await requireServerAuth(["admin", "controladoria", "lrf_contas", "financas", "editor"]);
     if (!auth.authorized) return auth.response;
 
     try {

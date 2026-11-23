@@ -1,6 +1,23 @@
+export const TIPOS_LEGISLACAO = [
+    { value: "lei", label: "Lei Ordinária / Municipal" },
+    { value: "lei-complementar", label: "Lei Complementar" },
+    { value: "decreto", label: "Decreto Executivo" },
+    { value: "portaria", label: "Portaria" },
+    { value: "resolucao", label: "Resolução" },
+    { value: "instrucao-normativa", label: "Instrução Normativa" },
+    { value: "lei-organica", label: "Lei Orgânica Municipal" },
+    { value: "loa", label: "LOA (Lei Orçamentária Anual)" },
+    { value: "ldo", label: "LDO (Lei de Diretrizes Orçamentárias)" },
+    { value: "ppa", label: "PPA (Plano Plurianual)" },
+    { value: "ato-administrativo", label: "Ato Administrativo" },
+    { value: "outros", label: "Legislação Diversa / Outros Atos" },
+];
+
 export type PerfilUsuario =
     | "admin"
     | "controladoria"
+    | "legislacao"
+    | "lrf_contas"
     | "comunicacao"
     | "financas"
     | "saude"
@@ -36,6 +53,22 @@ export const PERFIS_META: Record<PerfilUsuario, PerfilMeta> = {
         modulesSummary: "Checklist PNTP, Histórico, Aprovações, Relatórios e Consulta de Equipe",
         badgeClass: "bg-indigo-50 text-indigo-700 border-indigo-200",
         cardAccent: "from-indigo-500 to-blue-600",
+    },
+    legislacao: {
+        value: "legislacao",
+        label: "Legislação, Decretos & Portarias",
+        shortDesc: "Inclusão, edição, exclusão e gestão de Leis, Decretos, Portarias, Resoluções e Legislações Diversas.",
+        modulesSummary: "Legislação Municipal (Leis, Decretos, Portarias e Atos Diversos), Documentos Oficiais, Editais, Declarações PNTP e Histórico",
+        badgeClass: "bg-purple-50 text-purple-700 border-purple-200",
+        cardAccent: "from-purple-600 to-indigo-600",
+    },
+    lrf_contas: {
+        value: "lrf_contas",
+        label: "Transparência Fiscal, LRF & Contas Públicas",
+        shortDesc: "Inclusão de relatórios da LRF (RREO, RGF, Balanços), Contas Públicas (TCE/Câmara), Planejamento e Transparência Fiscal.",
+        modulesSummary: "Relatórios Fiscais (LRF/Contas/TCE/Câmara), Receitas, Despesas, Emendas, Renúncias Fiscais, Convênios, Dívida Ativa/Declarações, Documentos e Legislação Orçamentária",
+        badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-300",
+        cardAccent: "from-emerald-600 to-green-700",
     },
     comunicacao: {
         value: "comunicacao",
@@ -118,6 +151,8 @@ export const PERFIS_LABELS: Record<PerfilUsuario, string> = Object.fromEntries(
 export const PERFIL_OPTIONS: PerfilMeta[] = [
     PERFIS_META.admin,
     PERFIS_META.controladoria,
+    PERFIS_META.legislacao,
+    PERFIS_META.lrf_contas,
     PERFIS_META.comunicacao,
     PERFIS_META.financas,
     PERFIS_META.saude,
@@ -153,29 +188,29 @@ export const ADMIN_ROUTE_RULES: readonly AdminRouteRule[] = [
     { prefix: "/admin/configuracoes", roles: ["admin"] },
 
     // Governança, PNTP e Integrações
-    { prefix: "/admin/declaracoes", roles: ["admin", "controladoria", "financas", "rh", "obras", "saude", "educacao", "esic", "comunicacao", "integracao", "editor"] },
-    { prefix: "/admin/pntp", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
-    { prefix: "/admin/historico", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
-    { prefix: "/admin/importacao", roles: ["admin", "controladoria", "integracao"] },
-    { prefix: "/admin/links-externos", roles: ["admin", "controladoria", "financas", "integracao"] },
+    { prefix: "/admin/declaracoes", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "rh", "obras", "saude", "educacao", "esic", "comunicacao", "integracao", "editor"] },
+    { prefix: "/admin/pntp", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "integracao", "editor"] },
+    { prefix: "/admin/historico", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "integracao", "editor"] },
+    { prefix: "/admin/importacao", roles: ["admin", "controladoria", "lrf_contas", "financas", "integracao"] },
+    { prefix: "/admin/links-externos", roles: ["admin", "controladoria", "lrf_contas", "financas", "integracao"] },
 
-    // Publicações, Finanças, Contratos e Editais
-    { prefix: "/admin/documentos", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
-    { prefix: "/admin/editais", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/legislacao", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/receitas", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
-    { prefix: "/admin/despesas", roles: ["admin", "controladoria", "financas", "integracao", "editor"] },
-    { prefix: "/admin/licitacoes", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/contratos", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/convenios", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/emendas-pix", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/emendas", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/incentivos-culturais", roles: ["admin", "controladoria", "financas", "editor"] },
-    { prefix: "/admin/relatorios-fiscais", roles: ["admin", "controladoria", "financas", "editor"] },
+    // Publicações, Legislação, Finanças, Contas Públicas, Contratos e Editais
+    { prefix: "/admin/documentos", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "integracao", "editor"] },
+    { prefix: "/admin/editais", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/legislacao", roles: ["admin", "controladoria", "legislacao", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/receitas", roles: ["admin", "controladoria", "lrf_contas", "financas", "integracao", "editor"] },
+    { prefix: "/admin/despesas", roles: ["admin", "controladoria", "lrf_contas", "financas", "integracao", "editor"] },
+    { prefix: "/admin/licitacoes", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/contratos", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/convenios", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/emendas-pix", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/emendas", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/incentivos-culturais", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
+    { prefix: "/admin/relatorios-fiscais", roles: ["admin", "controladoria", "lrf_contas", "financas", "editor"] },
 
     // Recursos Humanos / Pessoal
     { prefix: "/admin/servidores", roles: ["admin", "controladoria", "rh", "editor"] },
-    { prefix: "/admin/diarias", roles: ["admin", "controladoria", "financas", "rh", "editor"] },
+    { prefix: "/admin/diarias", roles: ["admin", "controladoria", "lrf_contas", "financas", "rh", "editor"] },
     { prefix: "/admin/estagiarios", roles: ["admin", "controladoria", "rh", "editor"] },
     { prefix: "/admin/terceirizados", roles: ["admin", "controladoria", "rh", "editor"] },
     { prefix: "/admin/concursos", roles: ["admin", "controladoria", "rh", "editor"] },

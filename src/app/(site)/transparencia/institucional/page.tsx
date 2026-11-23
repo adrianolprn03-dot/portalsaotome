@@ -393,7 +393,7 @@ export default async function InstitucionalPage() {
                                     { label: "Estrutura Organizacional", href: "/a-prefeitura/estrutura", desc: "Organograma completo" },
                                     { label: "Lei da Estrutura (PDF)", href: "/uploads/LEI-COMPLEMENTAR-16-2022_compressed.pdf", desc: "Lei Complementar nº 16/2022", target: "_blank" },
                                     { label: "Símbolos Municipais", href: "/transparencia/simbolos", desc: "Brasão, bandeira e hino" },
-                                    { label: "Lei Orgânica", href: "/transparencia/leis", desc: "Legislação base do município" },
+                                    { label: "Lei Orgânica", href: "/transparencia/lei-organica", desc: "Legislação base do município" },
                                     { label: "Ouvidoria", href: "/servicos/ouvidoria", desc: "Fale com a gestão" },
                                 ].map((l) => (
                                     <Link

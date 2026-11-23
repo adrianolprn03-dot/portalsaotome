@@ -8,61 +8,70 @@ import {
     MapPin,
     Clock,
     MessageCircle,
+    ShieldCheck,
+    Headset,
+    ArrowUpRight,
+    ChevronRight,
     Lock,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { buildWhatsAppHref, isValidPublicUrl } from "@/lib/portal-links";
 
-const footerSections = [
+const footerLinks = [
     {
         title: "Institucional",
         links: [
-            { label: "A Prefeitura", href: "/a-prefeitura" },
-            { label: "Prefeito e Vice-Prefeito", href: "/a-prefeitura/prefeito" },
-            { label: "Estrutura Administrativa", href: "/a-prefeitura/estrutura" },
+            { label: "História da Cidade", href: "/a-prefeitura/historia" },
+            { label: "Prefeito e Vice", href: "/a-prefeitura/prefeito" },
             { label: "Secretarias Municipais", href: "/secretarias" },
-            { label: "História de São Tomé", href: "/a-prefeitura/historia" },
+            { label: "Estrutura Administrativa", href: "/a-prefeitura/estrutura" },
+            { label: "Agenda do Executivo", href: "/a-prefeitura/agenda" },
             { label: "Símbolos Municipais", href: "/municipio/simbolos" },
         ],
     },
     {
-        title: "Serviços",
-        links: [
-            { label: "Carta de Serviços", href: "/transparencia/carta-servicos" },
-            { label: "Unidades de Saúde (UBS)", href: "/unidades-de-saude" },
-            { label: "Unidades Escolares e Creches", href: "/unidades-escolares" },
-            { label: "Assistência Social (CRAS)", href: "/socioassistencial" },
-            { label: "Registrar manifestação (Ouvidoria)", href: "/servicos/ouvidoria" },
-            { label: "Solicitar informação pública (e-SIC)", href: "/servicos/esic" },
-            { label: "Consultar protocolo", href: "/servicos/consulta-protocolo" },
-        ],
-    },
-    {
-        title: "Transparência",
+        title: "Transparência Ativa",
         links: [
             { label: "Portal da Transparência", href: "/transparencia" },
-            { label: "Despesas Públicas", href: "/transparencia/despesas" },
             { label: "Receitas Públicas", href: "/transparencia/receitas" },
+            { label: "Despesas Públicas", href: "/transparencia/despesas" },
             { label: "Licitações e Editais", href: "/transparencia/licitacoes" },
             { label: "Contratos Administrativos", href: "/transparencia/contratos" },
             { label: "Obras Públicas", href: "/transparencia/obras" },
+            { label: "Servidores e Folha", href: "/transparencia/servidores" },
             { label: "Legislação Municipal", href: "/transparencia/legislacao" },
             { label: "Dados Abertos (CSV/JSON)", href: "/transparencia/dados-abertos" },
+            { label: "Radar PNTP 2026", href: "/transparencia/radar" },
+        ],
+    },
+    {
+        title: "Cidadão & Serviços",
+        links: [
+            { label: "Ouvidoria Municipal", href: "/servicos/ouvidoria" },
+            { label: "e-SIC (Acesso à Informação)", href: "/servicos/esic" },
+            { label: "Carta de Serviços", href: "/transparencia/carta-servicos" },
+            { label: "Unidades de Saúde e SUS", href: "/unidades-de-saude" },
+            { label: "Unidades Escolares", href: "/unidades-escolares" },
+            { label: "Rede Socioassistencial", href: "/socioassistencial" },
+            { label: "FAQ / Perguntas Frequentes", href: "/transparencia/faq" },
+            { label: "Acessibilidade Digital", href: "/transparencia/acessibilidade" },
+            { label: "Política de Privacidade (LGPD)", href: "/privacidade" },
+            { label: "Mapa do Site", href: "/mapa-do-site" },
         ],
     },
 ];
 
 const FOOTER_CONFIG_DEFAULTS: Record<string, string> = {
     cnpj: "08.080.210/0001-49",
-    endereco_sede: "Praça Antônio Assunção, s/n, Centro",
-    horario_funcionamento: "Segunda a Sexta, das 07h às 13h",
+    endereco_sede: "Praça Antônio Assunção, s/n, Centro, São Tomé/RN – CEP 59.400-000",
     contato_email: "ouvidoria@saotome.rn.gov.br",
     contato_telefone: "(84) 99211-5922",
     municipio_nome: "Prefeitura Municipal de São Tomé",
     contato_whatsapp: "",
-    redes_facebook: "",
-    redes_instagram: "",
-    redes_youtube: "",
+    simbolo_brasao: "/logo_v2_white.png",
+    redes_facebook: "#",
+    redes_instagram: "#",
+    redes_youtube: "#",
 };
 
 async function getFooterConfigs() {
@@ -73,97 +82,182 @@ async function getFooterConfigs() {
             select: { chave: true, valor: true },
         });
         for (const row of rows) {
-            if (row.valor !== null && row.valor !== undefined) {
-                map.set(row.chave, row.valor.trim());
-            }
+            if (row.valor) map.set(row.chave, row.valor);
         }
     } catch {
-        // Fallback seguro para padrões institucionais
+        // Usa os valores padrão em caso de indisponibilidade do banco
     }
-    return (chave: keyof typeof FOOTER_CONFIG_DEFAULTS) => {
-        const val = map.get(chave);
-        if (val !== undefined && val !== "") return val;
-        return FOOTER_CONFIG_DEFAULTS[chave];
-    };
+    return (chave: keyof typeof FOOTER_CONFIG_DEFAULTS) =>
+        map.get(chave) || FOOTER_CONFIG_DEFAULTS[chave];
 }
 
 export default async function Footer() {
     const cfg = await getFooterConfigs();
     const cnpj = cfg("cnpj");
-    const enderecoRaw = cfg("endereco_sede");
-    const endereco = enderecoRaw.toLowerCase().includes("são tomé")
-        ? enderecoRaw
-        : `${enderecoRaw}, São Tomé/RN – CEP 59.400-000`;
-    const horarioRaw = cfg("horario_funcionamento");
-    const horario = horarioRaw.toLowerCase().includes("segunda")
-        ? horarioRaw
-        : `Segunda a Sexta, ${horarioRaw}`;
+    const endereco = cfg("endereco_sede");
     const email = cfg("contato_email");
     const telefone = cfg("contato_telefone");
-    const razaoSocialRaw = cfg("municipio_nome");
-    const razaoSocial = razaoSocialRaw.toLowerCase().includes("prefeitura")
-        ? razaoSocialRaw
-        : `Prefeitura Municipal de ${razaoSocialRaw}`;
-
-    const whatsappConfirmedHref = buildWhatsAppHref(cfg("contato_whatsapp"));
+    const razaoSocial = cfg("municipio_nome");
+    const whatsapp = cfg("contato_whatsapp");
+    const brasao = cfg("simbolo_brasao");
     const facebook = cfg("redes_facebook");
     const instagram = cfg("redes_instagram");
     const youtube = cfg("redes_youtube");
 
-    // Filtra estritamente canais confirmados e válidos (nunca exibe "#" ou links vazios)
-    const confirmedSocialLinks = [
-        ...(isValidPublicUrl(facebook)
-            ? [{ Icon: Facebook, href: facebook, label: "Facebook oficial da Prefeitura" }]
+    const whatsappHref = buildWhatsAppHref(whatsapp);
+
+    const socialLinks = [
+        { Icon: Facebook, href: facebook, label: "Facebook" },
+        { Icon: Instagram, href: instagram, label: "Instagram" },
+        { Icon: Youtube, href: youtube, label: "YouTube" },
+        ...(whatsappHref
+            ? [{ Icon: MessageCircle, href: whatsappHref, label: "WhatsApp Oficial" }]
             : []),
-        ...(isValidPublicUrl(instagram)
-            ? [{ Icon: Instagram, href: instagram, label: "Instagram oficial da Prefeitura" }]
-            : []),
-        ...(isValidPublicUrl(youtube)
-            ? [{ Icon: Youtube, href: youtube, label: "YouTube oficial da Prefeitura" }]
-            : []),
-        ...(whatsappConfirmedHref
-            ? [{ Icon: MessageCircle, href: whatsappConfirmedHref, label: "WhatsApp oficial da Prefeitura" }]
-            : []),
-    ];
+    ].filter((social) => isValidPublicUrl(social.href));
 
     return (
-        <footer className="bg-[#004666] text-white relative overflow-hidden" role="contentinfo">
-            <div className="h-1.5 w-full heraldic-stripe" />
+        <footer className="bg-[#01b0ef] text-white relative overflow-hidden" role="contentinfo">
+            {/* Top Luminous CTA Strip */}
+            <div className="bg-[#eefaff] border-y-4 border-[#fdb913] relative">
+                <div className="max-w-[1280px] mx-auto px-6 py-10 md:py-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                    <div className="space-y-2 max-w-xl">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fdb913]/20 border border-[#fdb913]/50 text-xs font-bold uppercase tracking-wider text-slate-900">
+                            <span className="w-2 h-2 rounded-full bg-[#fdb913]" />
+                            <span>Atendimento Oficial ao Cidadão</span>
+                        </div>
+                        <h3 className="font-heading text-slate-900 font-extrabold text-2xl md:text-3xl tracking-tight">
+                            Precisa solicitar informações ou registrar uma manifestação?
+                        </h3>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                            Utilize os canais digitais regulamentados pela Lei de Acesso à Informação (Lei nº 12.527/2011) e pelo Código de Defesa do Usuário do Serviço Público.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3.5 w-full lg:w-auto">
+                        <Link
+                            href="/servicos/ouvidoria"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 bg-[#fdb913] hover:brightness-105 text-slate-900 font-bold px-6 py-3.5 rounded-xl transition-all text-sm shadow-civic-sm"
+                        >
+                            <Headset size={17} />
+                            <span>Ouvidoria Municipal</span>
+                        </Link>
+                        <Link
+                            href="/servicos/esic"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 bg-[#01b0ef] hover:bg-[#0098d4] text-white font-bold px-6 py-3.5 rounded-xl transition-all text-sm shadow-civic-sm"
+                        >
+                            <ShieldCheck size={17} className="text-[#fdb913]" />
+                            <span>Pedido e-SIC (LAI)</span>
+                        </Link>
+                        <Link
+                            href="/transparencia"
+                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 border-2 border-[#01b0ef] bg-white hover:bg-[#01b0ef] text-[#01b0ef] hover:text-white font-bold px-6 py-3.5 rounded-xl transition-all text-sm"
+                        >
+                            <span>Portal da Transparência</span>
+                            <ArrowUpRight size={16} />
+                        </Link>
+                    </div>
+                </div>
+            </div>
 
-            <div className="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 relative z-10">
-                {/* Identidade Institucional no Topo do Rodapé */}
-                <div className="pb-10 mb-10 border-b border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-3.5 group w-fit"
-                        aria-label="Prefeitura Municipal de São Tomé — Página Inicial"
-                    >
-                        <div className="w-12 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center shrink-0 shadow-xs">
+            {/* Main Architectural Grid */}
+            <div className="max-w-[1280px] mx-auto px-6 py-16 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10">
+                    {/* Institutional Identity Column (4 cols) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="flex items-center gap-4">
                             <img
-                                src="/brasao_oficial.png"
+                                src={brasao}
                                 alt="Brasão Oficial de São Tomé"
-                                width={40}
-                                height={38}
-                                className="w-full h-full object-contain"
+                                className="h-14 md:h-16 w-auto object-contain max-w-[190px] drop-shadow-sm"
                             />
                         </div>
-                        <div>
-                            <span className="font-heading text-lg sm:text-xl font-extrabold text-white block leading-tight">
-                                {razaoSocial}
+
+                        <p className="text-white/90 text-sm leading-relaxed">
+                            Gestão pública comprometida com a transparência ativa, eficiência administrativa e qualidade de vida para todos os cidadãos são-tomeenses.
+                        </p>
+
+                        <div className="space-y-3 text-sm pt-1">
+                            <div className="flex items-start gap-3 text-white">
+                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                    <MapPin size={15} />
+                                </div>
+                                <span className="leading-snug text-xs sm:text-sm font-medium">{endereco}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white">
+                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 shadow-xs">
+                                    <Clock size={15} />
+                                </div>
+                                <span className="text-xs sm:text-sm font-medium">
+                                    Atendimento: Segunda a Sexta, das 07h às 13h
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white">
+                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 shadow-xs">
+                                    <Phone size={15} />
+                                </div>
+                                <span className="font-mono text-xs sm:text-sm font-bold">{telefone}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-white">
+                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 shadow-xs">
+                                    <Mail size={15} />
+                                </div>
+                                <a
+                                    href={`mailto:${email}`}
+                                    className="hover:underline transition-colors text-xs sm:text-sm font-medium break-all"
+                                >
+                                    {email}
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Metadata Pills */}
+                        <div className="flex flex-wrap gap-2 pt-2">
+                            <span className="px-3 py-1 rounded-lg bg-white/20 border border-white/30 text-[11px] font-mono font-bold text-white">
+                                CNPJ: {cnpj}
                             </span>
-                            <span className="text-xs text-sky-200 font-semibold block mt-0.5">
-                                Estado do Rio Grande do Norte • CNPJ: {cnpj} • IBGE: 2412005
+                            <span className="px-3 py-1 rounded-lg bg-white/20 border border-white/30 text-[11px] font-mono font-bold text-white">
+                                IBGE: 2412005
                             </span>
                         </div>
-                    </Link>
+                    </div>
 
-                    {confirmedSocialLinks.length > 0 && (
-                        <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-sky-100">
-                                Canais oficiais:
-                            </span>
-                            <div className="flex items-center gap-2">
-                                {confirmedSocialLinks.map((social) => (
+                    {/* Navigation Columns (8 cols) */}
+                    <div className="lg:col-span-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                            {footerLinks.map((section) => (
+                                <div key={section.title}>
+                                    <h4 className="font-heading text-white font-extrabold text-sm tracking-wide mb-5 pb-3 border-b border-white/25 flex items-center gap-2">
+                                        <span className="w-1.5 h-4 rounded-full bg-[#fdb913]" />
+                                        {section.title}
+                                    </h4>
+                                    <ul className="space-y-2.5">
+                                        {section.links.map((link) => (
+                                            <li key={link.href}>
+                                                <Link
+                                                    href={link.href}
+                                                    className="group flex items-center gap-1.5 text-white/90 text-[13px] font-medium hover:text-[#fdb913] transition-colors"
+                                                >
+                                                    <ChevronRight
+                                                        size={13}
+                                                        className="text-[#fdb913] opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all"
+                                                    />
+                                                    <span>{link.label}</span>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Social & Quick Bottom Bar */}
+                <div className="mt-14 pt-8 border-t border-white/25 flex flex-col md:flex-row items-center justify-between gap-6">
+                    {socialLinks.length > 0 && (
+                        <div className="flex items-center gap-4">
+                            <span className="text-xs font-bold text-white/90">Canais Oficiais:</span>
+                            <div className="flex gap-2.5">
+                                {socialLinks.map((social) => (
                                     <a
                                         key={social.label}
                                         href={social.href}
@@ -171,161 +265,48 @@ export default async function Footer() {
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
                                         title={social.label}
-                                        className="w-10 h-10 bg-white/10 hover:bg-[#fdb913] border border-white/20 rounded-xl flex items-center justify-center transition-colors text-white hover:text-slate-900"
+                                        className="w-9 h-9 bg-white/15 hover:bg-[#fdb913] border border-white/25 rounded-xl flex items-center justify-center transition-all text-white hover:text-slate-900"
                                     >
-                                        <social.Icon size={17} aria-hidden="true" />
+                                        <social.Icon size={16} />
                                     </a>
                                 ))}
                             </div>
                         </div>
                     )}
-                </div>
 
-                {/* Grade em 4 Colunas: Institucional, Serviços, Transparência e Contato */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10">
-                    {footerSections.map((section) => (
-                        <div key={section.title} className="lg:col-span-3">
-                            <h2 className="font-heading text-white font-extrabold text-sm uppercase tracking-wider mb-4 pb-2.5 border-b border-white/15 flex items-center gap-2">
-                                <span
-                                    className="w-1.5 h-4 rounded-full bg-[#fdb913]"
-                                    aria-hidden="true"
-                                />
-                                <span>{section.title}</span>
-                            </h2>
-                            <ul className="space-y-2.5" role="list">
-                                {section.links.map((link) => (
-                                    <li key={link.href}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-white/95 hover:text-[#fdb913] text-sm font-medium transition-colors inline-block"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-
-                    {/* 4ª Coluna: Contato */}
-                    <div className="lg:col-span-3">
-                        <h2 className="font-heading text-white font-extrabold text-sm uppercase tracking-wider mb-4 pb-2.5 border-b border-white/15 flex items-center gap-2">
-                            <span
-                                className="w-1.5 h-4 rounded-full bg-[#fdb913]"
-                                aria-hidden="true"
-                            />
-                            <span>Contato</span>
-                        </h2>
-
-                        <div className="space-y-3.5 text-sm">
-                            <div className="flex items-start gap-3 text-white">
-                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 mt-0.5">
-                                    <MapPin size={15} aria-hidden="true" />
-                                </div>
-                                <div>
-                                    <span className="block text-[11px] font-bold uppercase tracking-wider text-sky-200">
-                                        Endereço da Sede
-                                    </span>
-                                    <span className="leading-snug text-white font-medium">
-                                        {endereco}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3 text-white">
-                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 mt-0.5">
-                                    <Clock size={15} aria-hidden="true" />
-                                </div>
-                                <div>
-                                    <span className="block text-[11px] font-bold uppercase tracking-wider text-sky-200">
-                                        Horário de Atendimento
-                                    </span>
-                                    <span className="text-white font-medium">{horario}</span>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3 text-white">
-                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 mt-0.5">
-                                    <Phone size={15} aria-hidden="true" />
-                                </div>
-                                <div>
-                                    <span className="block text-[11px] font-bold uppercase tracking-wider text-sky-200">
-                                        Telefone
-                                    </span>
-                                    <a
-                                        href={`tel:${telefone.replace(/\D/g, "")}`}
-                                        className="font-mono font-bold text-white hover:text-[#fdb913] transition-colors"
-                                    >
-                                        {telefone}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3 text-white">
-                                <div className="w-8 h-8 rounded-lg bg-[#fdb913] text-slate-900 flex items-center justify-center shrink-0 mt-0.5">
-                                    <Mail size={15} aria-hidden="true" />
-                                </div>
-                                <div className="min-w-0">
-                                    <span className="block text-[11px] font-bold uppercase tracking-wider text-sky-200">
-                                        E-mail Oficial
-                                    </span>
-                                    <a
-                                        href={`mailto:${email}`}
-                                        className="text-white hover:text-[#fdb913] hover:underline transition-colors font-medium break-all"
-                                    >
-                                        {email}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className="pt-2">
-                                <Link
-                                    href="/contato"
-                                    className="inline-flex items-center gap-2 text-xs font-bold text-[#fdb913] hover:underline"
-                                >
-                                    <span>Abrir página de contato e atendimento →</span>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Barra Inferior Única: Acessibilidade, Privacidade, Mapa do Site e Acesso Restrito */}
-                <div className="mt-12 pt-6 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-sky-100 text-center md:text-left">
-                        © {new Date().getFullYear()} {razaoSocial} – RN. Em conformidade com a LAI (Lei nº 12.527/2011), LRF (LC nº 101/2000) e LGPD (Lei nº 13.709/2018).
-                    </p>
-
-                    <nav
-                        aria-label="Links institucionais e acesso restrito"
-                        className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-bold text-white"
-                    >
+                    <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-white/95">
+                        <Link href="/mapa-do-site" className="hover:text-[#fdb913] transition-colors">
+                            Mapa do Site
+                        </Link>
+                        <Link href="/privacidade" className="hover:text-[#fdb913] transition-colors">
+                            Privacidade e LGPD
+                        </Link>
                         <Link
                             href="/transparencia/acessibilidade"
                             className="hover:text-[#fdb913] transition-colors"
                         >
-                            Acessibilidade
-                        </Link>
-                        <Link
-                            href="/privacidade"
-                            className="hover:text-[#fdb913] transition-colors"
-                        >
-                            Privacidade
-                        </Link>
-                        <Link
-                            href="/mapa-do-site"
-                            className="hover:text-[#fdb913] transition-colors"
-                        >
-                            Mapa do Site
+                            Acessibilidade (e-MAG)
                         </Link>
                         <Link
                             href="/admin"
-                            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#fdb913] hover:bg-[#e5a50a] text-slate-900 font-bold rounded-xl transition-colors shadow-xs"
+                            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#fdb913] hover:brightness-105 text-slate-900 font-bold rounded-xl transition-all shadow-sm"
                         >
-                            <Lock size={13} aria-hidden="true" />
-                            <span>Acesso restrito</span>
+                            <Lock size={13} />
+                            <span>Acesso Restrito</span>
                         </Link>
-                    </nav>
+                    </div>
+                </div>
+            </div>
+
+            {/* Legal & LGPD Bottom Strip */}
+            <div className="bg-[#0096ce] py-4 px-6 border-t border-white/20">
+                <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/95 text-center sm:text-left font-medium">
+                    <p>
+                        © {new Date().getFullYear()} {razaoSocial} – RN. Todos os direitos reservados.
+                    </p>
+                    <p>
+                        Em conformidade com a LAI (Lei nº 12.527/2011), LRF (LC nº 101/2000) e LGPD (Lei nº 13.709/2018).
+                    </p>
                 </div>
             </div>
         </footer>

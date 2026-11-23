@@ -17,10 +17,28 @@ export async function GET(request: NextRequest) {
         const rawList = tipo.includes(",") ? tipo.split(",").map(t => t.trim()) : [tipo.trim()];
         const expandedTipos = new Set<string>();
         for (const t of rawList) {
+            const lower = t.toLowerCase();
             expandedTipos.add(t);
-            expandedTipos.add(t.toLowerCase());
+            expandedTipos.add(lower);
             expandedTipos.add(t.toUpperCase());
-            expandedTipos.add(t.charAt(0).toUpperCase() + t.slice(1).toLowerCase());
+            expandedTipos.add(t.charAt(0).toUpperCase() + lower.slice(1));
+
+            if (lower === "resolucao" || lower === "resolução") {
+                expandedTipos.add("resolucao");
+                expandedTipos.add("RESOLUCAO");
+                expandedTipos.add("resolução");
+                expandedTipos.add("Resolução");
+                expandedTipos.add("RESOLUÇÃO");
+            }
+            if (lower === "lei-organica" || lower === "lei organica" || lower === "lei orgânica") {
+                expandedTipos.add("lei-organica");
+                expandedTipos.add("LEI-ORGANICA");
+                expandedTipos.add("lei organica");
+                expandedTipos.add("lei orgânica");
+                expandedTipos.add("Lei Orgânica");
+                expandedTipos.add("LEI ORGÂNICA");
+                expandedTipos.add("LEI ORGANICA");
+            }
         }
         where.tipo = { in: Array.from(expandedTipos) };
     }
