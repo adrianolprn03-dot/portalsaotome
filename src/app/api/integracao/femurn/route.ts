@@ -27,11 +27,27 @@ function json(data: object, status = 200) {
     return NextResponse.json(data, { status, headers: { "Cache-Control": "no-store" } });
 }
 
+function limparToken(valor: string) {
+    return valor
+        .trim()
+        .replace(/^["']+|["']+$/g, "")
+        .trim()
+        .replace(/^(?:Bearer\s+)+/i, "")
+        .trim()
+        .replace(/^["']+|["']+$/g, "")
+        .trim();
+}
+
 function autorizar(req: Request) {
-    const token = process.env.FEMURN_INTEGRATION_TOKEN;
+    const token = limparToken(process.env.FEMURN_INTEGRATION_TOKEN ?? "");
     if (!token || token.length < 32) return json({ erro: "Integração indisponível" }, 503);
+    const authHeader = (req.headers.get("authorization") ?? "").trim();
+    if (!/^Bearer\s+/i.test(authHeader)) {
+        return json({ erro: "Não autorizado" }, 401);
+    }
+    const recebido = limparToken(authHeader);
     const digest = (value: string) => createHash("sha256").update(value).digest();
-    if (!timingSafeEqual(digest(req.headers.get("authorization") ?? ""), digest("Bearer " + token))) {
+    if (!recebido || !timingSafeEqual(digest(recebido), digest(token))) {
         return json({ erro: "Não autorizado" }, 401);
     }
 }
@@ -55,10 +71,18 @@ export async function GET(req: Request) {
     if (denied) return denied;
     const params = new URL(req.url).searchParams;
     const cod = codigo.safeParse(params.get("codigo"));
-    const md5 = checksum.safeParse(params.get("checksum_md5"));
-    if (!cod.success || !md5.success) return json({ erro: "Código ou checksum inválido" }, 400);
+    const rawMd5 = params.get("checksum_md5");
+    if (!cod.success) return json({ erro: "Código ou checksum inválido" }, 400);
+    if (rawMd5 !== null && rawMd5 !== "") {
+        const md5 = checksum.safeParse(rawMd5);
+        if (!md5.success) return json({ erro: "Código ou checksum inválido" }, 400);
+        const registro = await consultar(cod.data);
+        return registro ? existente(registro, md5.data) : json({ processar: true });
+    }
     const registro = await consultar(cod.data);
-    return registro ? existente(registro, md5.data) : json({ processar: true });
+    return registro
+        ? json({ ok: true, processar: false, resultado: "ja_processado", id: registro.legislacaoId, checksum_md5: registro.checksumMd5 })
+        : json({ processar: true });
 }
 
 export async function POST(req: Request) {
