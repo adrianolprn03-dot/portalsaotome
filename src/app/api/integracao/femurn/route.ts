@@ -38,16 +38,35 @@ function limparToken(valor: string) {
         .trim();
 }
 
+function logMotivoAuth(motivo: "variável ausente" | "cabeçalho ausente" | "formato inválido" | "token divergente") {
+    // Log temporário de diagnóstico sem expor token ou conteúdo do cabeçalho
+    console.warn("[femurn-auth]", motivo);
+}
+
 function autorizar(req: Request) {
     const token = limparToken(process.env.FEMURN_INTEGRATION_TOKEN ?? "");
-    if (!token || token.length < 32) return json({ erro: "Integração indisponível" }, 503);
-    const authHeader = (req.headers.get("authorization") ?? "").trim();
+    if (!token || token.length < 32) {
+        logMotivoAuth("variável ausente");
+        return json({ erro: "Integração indisponível" }, 503);
+    }
+    const rawAuth = req.headers.get("authorization");
+    if (!rawAuth || !rawAuth.trim()) {
+        logMotivoAuth("cabeçalho ausente");
+        return json({ erro: "Não autorizado" }, 401);
+    }
+    const authHeader = rawAuth.trim();
     if (!/^Bearer\s+/i.test(authHeader)) {
+        logMotivoAuth("formato inválido");
         return json({ erro: "Não autorizado" }, 401);
     }
     const recebido = limparToken(authHeader);
+    if (!recebido) {
+        logMotivoAuth("formato inválido");
+        return json({ erro: "Não autorizado" }, 401);
+    }
     const digest = (value: string) => createHash("sha256").update(value).digest();
-    if (!recebido || !timingSafeEqual(digest(recebido), digest(token))) {
+    if (!timingSafeEqual(digest(recebido), digest(token))) {
+        logMotivoAuth("token divergente");
         return json({ erro: "Não autorizado" }, 401);
     }
 }
