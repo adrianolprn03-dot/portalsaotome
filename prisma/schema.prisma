@@ -27,6 +27,7 @@ model Secretaria {
   nome                   String
   slug                   String    @unique
   descricao              String
+  resumoAtendimento      String?
   servicos               String    @default("[]")
   contato                String?
   telefone               String?
@@ -47,20 +48,22 @@ model Secretaria {
 }
 
 model Noticia {
-  id           String      @id @default(cuid())
-  titulo       String
-  slug         String      @unique
-  resumo       String
-  conteudo     String
-  imagem       String?
-  publicada    Boolean     @default(false)
-  destaque     Boolean     @default(false)
-  publicadoEm  DateTime?
-  criadoEm     DateTime    @default(now())
-  atualizadoEm DateTime    @updatedAt
-  secretariaId String?
-  tags         String      @default("[]")
-  secretaria   Secretaria? @relation(fields: [secretariaId], references: [id])
+  id             String      @id @default(cuid())
+  titulo         String
+  slug           String      @unique
+  resumo         String
+  conteudo       String
+  imagem         String?
+  tipoPublicacao String      @default("noticia") // noticia, aviso
+  validoAte      DateTime?
+  publicada      Boolean     @default(false)
+  destaque       Boolean     @default(false)
+  publicadoEm    DateTime?
+  criadoEm       DateTime    @default(now())
+  atualizadoEm   DateTime    @updatedAt
+  secretariaId   String?
+  tags           String      @default("[]")
+  secretaria     Secretaria? @relation(fields: [secretariaId], references: [id])
 }
 
 model Licitacao {
@@ -512,6 +515,18 @@ model Legislacao {
   ativo                  Boolean   @default(true)
   criadoEm               DateTime  @default(now())
   atualizadoEm           DateTime  @default(now()) @updatedAt
+  femurn                 LegislacaoFemurn?
+}
+
+model LegislacaoFemurn {
+  codigo         String     @id
+  legislacaoId   String     @unique
+  legislacao     Legislacao @relation(fields: [legislacaoId], references: [id], onDelete: Cascade)
+  checksumMd5    String
+  publicadoEm    DateTime
+  orgao          String
+  edicao         String
+  pdf            Bytes
 }
 
 model UnidadeAtendimento {

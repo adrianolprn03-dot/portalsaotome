@@ -30,6 +30,7 @@ type Legislacao = {
     orgaoResponsavel?: string | null;
     arquivo: string | null;
     ativo: boolean;
+    femurn?: { codigo: string } | null;
     criadoEm: string;
 };
 
@@ -359,7 +360,7 @@ export default function LegislacaoAdminPage() {
                                                     }`}
                                                 >
                                                     {item.ativo ? <FiCheckCircle size={11} /> : <FiXCircle size={11} />}
-                                                    {item.ativo ? "Publicado" : "Inativo"}
+                                                    {item.ativo ? "Publicado" : item.femurn ? "Rascunho FEMURN" : "Inativo"}
                                                 </button>
                                                 <span className="text-[11px] text-gray-500 capitalize">
                                                     Vigência: {item.situacaoVigencia || "vigente"}

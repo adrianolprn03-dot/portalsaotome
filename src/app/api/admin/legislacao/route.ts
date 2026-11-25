@@ -5,6 +5,16 @@ import { requireServerAuth } from "@/lib/rbac";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
 
 export async function GET(request: NextRequest) {
+    const auth = await requireServerAuth([
+        "admin",
+        "controladoria",
+        "legislacao",
+        "lrf_contas",
+        "financas",
+        "editor",
+    ]);
+    if (!auth.authorized) return auth.response;
+
     const { searchParams } = new URL(request.url);
     const tipo = searchParams.get("tipo");
     const ano = searchParams.get("ano");
@@ -34,6 +44,7 @@ export async function GET(request: NextRequest) {
     const [items, total] = await Promise.all([
         prisma.legislacao.findMany({
             where,
+            include: { femurn: { select: { codigo: true } } },
             orderBy: [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }],
             skip,
             take: limit,

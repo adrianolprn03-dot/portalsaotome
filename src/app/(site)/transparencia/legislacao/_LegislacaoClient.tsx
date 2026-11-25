@@ -33,6 +33,7 @@ export type Legislacao = {
     arquivo: string | null;
     documentUrl?: string | null;
     criadoEm: string;
+    femurn?: { codigo: string; publicadoEm: string; edicao: string; orgao: string } | null;
 };
 
 export interface LinkExternoItem {
@@ -601,6 +602,16 @@ export default function LegislacaoClient({
                     : "";
                 const cardTitle = numClean ? `${label} nº ${numClean}` : l.ementa;
 
+                const femurnMeta = l.femurn
+                    ? `${l.femurn.orgao}${l.dataAto ? ` · Ato de ${l.dataAto.slice(0, 10).split("-").reverse().join("/")}` : ""}`
+                    : undefined;
+                const femurnUrl = l.femurn
+                    ? `https://www.diariomunicipal.com.br/femurn/materia/${l.femurn.codigo}`
+                    : undefined;
+                const femurnLabel = l.femurn
+                    ? `FEMURN · Edição ${l.femurn.edicao} · ${l.femurn.publicadoEm.slice(0, 10).split("-").reverse().join("/")}`
+                    : undefined;
+
                 return {
                     id: l.id,
                     ano: l.meta.year,
@@ -609,9 +620,13 @@ export default function LegislacaoClient({
                     secondaryPill: l.meta.displayDate.startsWith("Exercício")
                         ? l.meta.displayDate
                         : `Publicado em ${l.meta.displayDate}`,
+                    tertiaryTag: l.femurn ? `FEMURN · Ed. ${l.femurn.edicao}` : undefined,
                     titulo: cardTitle,
                     descricao: numClean ? l.ementa : undefined,
+                    metaInfo: femurnMeta,
                     fileUrl,
+                    extraUrl: femurnUrl,
+                    extraLabel: femurnLabel,
                     onViewTitle: displayNumero ? `${label} Nº ${displayNumero}` : cardTitle,
                 };
             }),

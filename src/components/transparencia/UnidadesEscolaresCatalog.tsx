@@ -189,11 +189,11 @@ export default function UnidadesEscolaresCatalog({
                             key={tab.id}
                             type="button"
                             onClick={() => setTipoFiltro(tab.id as any)}
-                            className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition ${
-                                tipoFiltro === tab.id
-                                    ? "bg-[#01b0ef] text-white"
-                                    : "bg-slate-100 hover:bg-slate-200 text-slate-600"
-                            }`}
+
+                            className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition ${tipoFiltro === tab.id
+                                ? "bg-[#01b0ef] text-white"
+                                : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                                }`}
                         >
                             {tab.label}
                         </button>

@@ -3,6 +3,7 @@ export const TIPOS_LEGISLACAO = [
     { value: "lei-complementar", label: "Lei Complementar" },
     { value: "decreto", label: "Decreto Executivo" },
     { value: "portaria", label: "Portaria" },
+    { value: "portaria_diaria", label: "Portaria de Diária" },
     { value: "resolucao", label: "Resolução" },
     { value: "instrucao-normativa", label: "Instrução Normativa" },
     { value: "lei-organica", label: "Lei Orgânica Municipal" },

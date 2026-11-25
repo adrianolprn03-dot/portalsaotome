@@ -54,6 +54,7 @@ export async function GET(request: NextRequest) {
     const [items, total] = await Promise.all([
         prisma.legislacao.findMany({
             where,
+            include: { femurn: { select: { codigo: true, publicadoEm: true, edicao: true, orgao: true } } },
             orderBy: [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }, { id: "desc" }],
             skip,
             take: limit,

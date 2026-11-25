@@ -23,6 +23,12 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
     const [orgaoResponsavel, setOrgaoResponsavel] = useState("Gabinete do Prefeito");
     const [arquivo, setArquivo] = useState("");
     const [ativo, setAtivo] = useState(true);
+    const [femurn, setFemurn] = useState<{
+        codigo: string;
+        publicadoEm: string;
+        orgao: string;
+        edicao: string;
+    } | null>(null);
 
     useEffect(() => {
         const fetchLegislacao = async () => {
@@ -35,11 +41,12 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
                     setAno(data.ano ? data.ano.toString() : "");
                     setEmenta(data.ementa || "");
                     setCategoria(data.categoria || "");
-                    setDataAto(data.dataAto ? new Date(data.dataAto).toISOString().slice(0, 10) : "");
+                    setDataAto(data.dataAto ? String(data.dataAto).slice(0, 10) : "");
                     setSituacaoVigencia(data.situacaoVigencia || "vigente");
                     setOrgaoResponsavel(data.orgaoResponsavel || "Gabinete do Prefeito");
                     setArquivo(data.arquivo || "");
                     setAtivo(Boolean(data.ativo));
+                    setFemurn(data.femurn ?? null);
                 } else {
                     toast.error("Legislação não encontrada.");
                     router.push("/admin/legislacao");
@@ -122,6 +129,32 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
             </div>
 
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 space-y-6">
+                {femurn && (
+                    <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50/40 p-4 text-sm">
+                        <p className="font-semibold text-gray-800">
+                            FEMURN · Edição {femurn.edicao} · Publicação em{" "}
+                            {femurn.publicadoEm.slice(0, 10).split("-").reverse().join("/")}
+                        </p>
+                        <p className="text-gray-600">{femurn.orgao}</p>
+                        <a
+                            className="inline-block text-blue-700 font-semibold underline"
+                            href={`https://www.diariomunicipal.com.br/femurn/materia/${femurn.codigo}`}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Conferir matéria na FEMURN
+                        </a>
+                        <label className="block pt-1">
+                            Data do ato
+                            <input
+                                className="ml-2 rounded border px-2 py-1 bg-white"
+                                type="date"
+                                value={dataAto}
+                                onChange={(e) => setDataAto(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -5,7 +5,20 @@ import { requireServerAuth } from "@/lib/rbac";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-    const item = await prisma.legislacao.findUnique({ where: { id: params.id } });
+    const auth = await requireServerAuth([
+        "admin",
+        "controladoria",
+        "legislacao",
+        "lrf_contas",
+        "financas",
+        "editor",
+    ]);
+    if (!auth.authorized) return auth.response;
+
+    const item = await prisma.legislacao.findUnique({
+        where: { id: params.id },
+        include: { femurn: { select: { codigo: true, publicadoEm: true, edicao: true, orgao: true } } },
+    });
     if (!item) return jsonNoStore({ error: "Não encontrado" }, { status: 404 });
     return jsonNoStore(item);
 }
@@ -23,11 +36,45 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     try {
         const body = await request.json();
-        const { tipo, numero, ano, ementa, arquivo, ativo } = body;
+        const { tipo, numero, ano, ementa, arquivo, ativo, dataAto } = body;
+
+        const dataObj = dataAto ? new Date(dataAto) : null;
+        if (
+            dataAto &&
+            (typeof dataAto !== "string" ||
+                !/^\d{4}-\d{2}-\d{2}$/.test(dataAto) ||
+                !dataObj ||
+                Number.isNaN(dataObj.getTime()) ||
+                dataObj.toISOString().slice(0, 10) !== dataAto)
+        ) {
+            return jsonNoStore({ error: "Data do ato inválida" }, { status: 400 });
+        }
+
+        if (ativo === true) {
+            const origem = await prisma.legislacaoFemurn.findUnique({
+                where: { legislacaoId: params.id },
+                select: { codigo: true, publicadoEm: true },
+            });
+            if (
+                origem &&
+                (!dataObj ||
+                    dataObj > origem.publicadoEm ||
+                    !/^\d{1,9}$/.test(String(numero ?? "").trim()) ||
+                    Number(numero) <= 0 ||
+                    String(ementa ?? "").trim().length < 5 ||
+                    Number(String(dataAto).slice(0, 4)) !== Number(ano))
+            ) {
+                return jsonNoStore(
+                    { error: "Confira número, ano, data do ato e ementa antes de publicar" },
+                    { status: 422 }
+                );
+            }
+        }
 
         const data: Record<string, unknown> = {
             dataAtualizacaoEfetiva: new Date(),
         };
+        if (dataAto !== undefined) data.dataAto = dataObj;
         if (tipo !== undefined) data.tipo = String(tipo).trim();
         if (numero !== undefined) data.numero = String(numero).trim();
         if (ano !== undefined) data.ano = parseInt(String(ano), 10);
@@ -35,7 +82,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         if (arquivo !== undefined) data.arquivo = arquivo || null;
         if (ativo !== undefined) data.ativo = Boolean(ativo);
         if (body.categoria !== undefined) data.categoria = body.categoria ? String(body.categoria).trim() : null;
-        if (body.dataAto !== undefined) data.dataAto = body.dataAto ? new Date(body.dataAto) : null;
         if (body.documentUrl !== undefined) data.documentUrl = body.documentUrl || null;
         if (body.arquivoEditavelUrl !== undefined) data.arquivoEditavelUrl = body.arquivoEditavelUrl || null;
         if (body.situacaoVigencia !== undefined) data.situacaoVigencia = body.situacaoVigencia;
