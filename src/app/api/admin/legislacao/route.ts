@@ -4,6 +4,37 @@ import { prisma } from "@/lib/prisma";
 import { requireServerAuth } from "@/lib/rbac";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
 
+function parseNumeroAto(numStr?: string | null): number {
+    if (!numStr) return 0;
+    const m = String(numStr).match(/(\d+)/);
+    return m ? parseInt(m[1], 10) : 0;
+}
+
+function compareLegislacaoDesc(a: any, b: any): number {
+    if ((b.ano || 0) !== (a.ano || 0)) {
+        return (b.ano || 0) - (a.ano || 0);
+    }
+    const numA = parseNumeroAto(a.numero);
+    const numB = parseNumeroAto(b.numero);
+    if (numA !== numB) {
+        return numB - numA;
+    }
+    const dateA = a.dataAto ? new Date(a.dataAto).getTime() : 0;
+    const dateB = b.dataAto ? new Date(b.dataAto).getTime() : 0;
+    if (dateA !== dateB) {
+        return dateB - dateA;
+    }
+    const updA = new Date(a.dataAtualizacaoEfetiva || a.atualizadoEm || a.criadoEm || 0).getTime();
+    const updB = new Date(b.dataAtualizacaoEfetiva || b.atualizadoEm || b.criadoEm || 0).getTime();
+    if (updA !== updB) {
+        return updB - updA;
+    }
+    return String(b.numero || "").localeCompare(String(a.numero || ""), undefined, {
+        numeric: true,
+        sensitivity: "base",
+    });
+}
+
 export async function GET(request: NextRequest) {
     const auth = await requireServerAuth([
         "admin",
@@ -41,16 +72,15 @@ export async function GET(request: NextRequest) {
         ];
     }
 
-    const [items, total] = await Promise.all([
-        prisma.legislacao.findMany({
-            where,
-            include: { femurn: { select: { codigo: true } } },
-            orderBy: [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }],
-            skip,
-            take: limit,
-        }),
-        prisma.legislacao.count({ where }),
-    ]);
+    const allItems = await prisma.legislacao.findMany({
+        where,
+        include: { femurn: { select: { codigo: true } } },
+        orderBy: [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }],
+    });
+
+    allItems.sort(compareLegislacaoDesc);
+    const total = allItems.length;
+    const items = allItems.slice(skip, skip + limit);
 
     return jsonNoStore({
         items,

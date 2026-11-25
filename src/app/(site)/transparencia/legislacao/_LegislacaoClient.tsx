@@ -33,6 +33,8 @@ export type Legislacao = {
     arquivo: string | null;
     documentUrl?: string | null;
     criadoEm: string;
+    atualizadoEm?: string | null;
+    dataAtualizacaoEfetiva?: string | null;
     femurn?: { codigo: string; publicadoEm: string; edicao: string; orgao: string } | null;
 };
 
@@ -132,6 +134,20 @@ export function getAtoMetadata(l: Legislacao) {
         }
     }
 
+    if (l.femurn?.publicadoEm) {
+        const d = new Date(l.femurn.publicadoEm);
+        if (!isNaN(d.getTime())) {
+            return {
+                year: year || d.getFullYear(),
+                month: d.getMonth() + 1,
+                day: d.getDate(),
+                hasExactDate: true,
+                date: d,
+                displayDate: d.toLocaleDateString("pt-BR"),
+            };
+        }
+    }
+
     const textToSearch = safeDecode(
         (l.arquivo || "") + " " + (l.ementa || "") + " " + (l.numero || "")
     );
@@ -196,20 +212,6 @@ export function getAtoMetadata(l: Legislacao) {
                 hasExactDate: false,
                 date: d,
                 displayDate: `${nomeMes} de ${targetYear}`,
-            };
-        }
-    }
-
-    if (l.criadoEm) {
-        const d = new Date(l.criadoEm);
-        if (!isNaN(d.getTime()) && d.getFullYear() === year) {
-            return {
-                year,
-                month: d.getMonth() + 1,
-                day: d.getDate(),
-                hasExactDate: false,
-                date: d,
-                displayDate: d.toLocaleDateString("pt-BR"),
             };
         }
     }
@@ -493,27 +495,40 @@ export default function LegislacaoClient({
                 return false;
             })
             .sort((a, b) => {
-                const timeA = a.meta.date.getTime();
-                const timeB = b.meta.date.getTime();
-                if (timeA !== timeB && !isNaN(timeA) && !isNaN(timeB)) {
-                    return ordem === "desc" ? timeB - timeA : timeA - timeB;
+                const dir = ordem === "desc" ? 1 : -1;
+
+                if (a.meta.year !== b.meta.year) {
+                    return (b.meta.year - a.meta.year) * dir;
                 }
 
                 const numA = parseNumero(a.numero);
                 const numB = parseNumero(b.numero);
                 if (numA !== numB) {
-                    return ordem === "desc" ? numB - numA : numA - numB;
+                    return (numB - numA) * dir;
                 }
 
-                return ordem === "desc"
-                    ? b.numero.localeCompare(a.numero, undefined, {
-                          numeric: true,
-                          sensitivity: "base",
-                      })
-                    : a.numero.localeCompare(b.numero, undefined, {
-                          numeric: true,
-                          sensitivity: "base",
-                      });
+                const timeA = a.meta.date.getTime();
+                const timeB = b.meta.date.getTime();
+                if (timeA !== timeB && !isNaN(timeA) && !isNaN(timeB)) {
+                    return (timeB - timeA) * dir;
+                }
+
+                const updA = new Date(
+                    a.dataAtualizacaoEfetiva || a.atualizadoEm || a.criadoEm || 0
+                ).getTime();
+                const updB = new Date(
+                    b.dataAtualizacaoEfetiva || b.atualizadoEm || b.criadoEm || 0
+                ).getTime();
+                if (updA !== updB && !isNaN(updA) && !isNaN(updB)) {
+                    return (updB - updA) * dir;
+                }
+
+                return (
+                    b.numero.localeCompare(a.numero, undefined, {
+                        numeric: true,
+                        sensitivity: "base",
+                    }) * dir
+                );
             });
     }, [processedLeis, buscaFiltro, anoFiltro, mesFiltro, ordem]);
 
