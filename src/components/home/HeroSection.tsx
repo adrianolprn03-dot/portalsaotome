@@ -130,8 +130,7 @@ export default function HeroSection() {
                                 </span>
                                 <span className="text-slate-900">,</span>
                             </span>
-                            <span className="block">Construindo Hoje,</span>
-                            <span className="block">o Futuro da nossa gente!</span>
+                            <span className="block">O Trabalho segue em frente</span>
                         </h1>
 
                         {/* Unified Search Command Bar */}
