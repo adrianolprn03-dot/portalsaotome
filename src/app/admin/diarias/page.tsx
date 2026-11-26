@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
     FaPlus, FaSearch, FaEdit, FaTrash, FaSpinner, FaPlane, 
-    FaCalendarAlt, FaShieldAlt, FaFilePdf, FaCheckCircle, FaExternalLinkAlt, FaStamp
+    FaCalendarAlt, FaShieldAlt, FaFilePdf, FaCheckCircle, FaExternalLinkAlt, FaStamp, FaExclamationTriangle
 } from "react-icons/fa";
 import { FaBuildingColumns } from "react-icons/fa6";
 import toast from "react-hot-toast";
@@ -181,29 +181,74 @@ export default function AdminDiariasPage() {
                             role="alert"
                             className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-red-50 border border-red-300 text-red-900 px-5 py-4 rounded-2xl shadow-sm"
                         >
-                            <div>
-                                <p className="text-sm font-bold text-red-900">
-                                    {rascunhosFemurnCount === 1
-                                        ? "1 diária importada da FEMURN aguardando aprovação"
-                                        : `${rascunhosFemurnCount} diárias importadas da FEMURN aguardando aprovação`}
-                                </p>
-                                <p className="text-xs text-red-700">
-                                    Revise os dados extraídos da portaria antes de publicar no Portal da Transparência.
-                                </p>
+                            <div className="flex items-start sm:items-center gap-3">
+                                <span className="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0 animate-pulse">
+                                    <FaExclamationTriangle size={16} />
+                                </span>
+                                <div>
+                                    <p className="text-sm font-bold text-red-900">
+                                        {rascunhosFemurnCount === 1
+                                            ? "1 diária da FEMURN aguardando aprovação em rascunho"
+                                            : `${rascunhosFemurnCount} diárias da FEMURN aguardando aprovação em rascunho`}
+                                    </p>
+                                    <p className="text-xs text-red-700">
+                                        Revise e publique os rascunhos para que fiquem visíveis no Portal da Transparência.
+                                    </p>
+                                </div>
                             </div>
-                            <button
-                                type="button"
-                                onClick={() => setSomenteRascunhosFemurn((v) => !v)}
-                                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm cursor-pointer"
-                            >
-                                {somenteRascunhosFemurn ? "Mostrar Todas" : `Ver Rascunhos FEMURN (${rascunhosFemurnCount})`}
-                            </button>
+                            {!somenteRascunhosFemurn && (
+                                <button
+                                    type="button"
+                                    onClick={() => setSomenteRascunhosFemurn(true)}
+                                    className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm cursor-pointer"
+                                >
+                                    Ver Rascunhos ({rascunhosFemurnCount})
+                                </button>
+                            )}
                         </div>
                     )}
 
+                    {/* Atalhos Rápidos de Filtro */}
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            onClick={() => setSomenteRascunhosFemurn(false)}
+                            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                                !somenteRascunhosFemurn
+                                    ? "bg-[#01b0ef] text-white border-[#01b0ef] shadow-xs"
+                                    : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                            }`}
+                        >
+                            Todas as Diárias
+                        </button>
+                        <button
+                            type="button"
+                            aria-pressed={somenteRascunhosFemurn}
+                            onClick={() => setSomenteRascunhosFemurn(true)}
+                            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-colors cursor-pointer ${
+                                somenteRascunhosFemurn
+                                    ? "bg-red-600 text-white border-red-600"
+                                    : rascunhosFemurnCount > 0
+                                        ? "bg-red-50 text-red-700 border-red-300 hover:bg-red-100"
+                                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                            }`}
+                        >
+                            <span>Rascunhos FEMURN</span>
+                            {rascunhosFemurnCount > 0 && (
+                                <span
+                                    className={`px-1.5 py-0.5 rounded-full text-[10px] font-black leading-none ${
+                                        somenteRascunhosFemurn ? "bg-white text-red-600" : "bg-red-600 text-white"
+                                    }`}
+                                >
+                                    {rascunhosFemurnCount}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+
                     <div className="bg-white rounded-2xl shadow-sm border border-[#e2e8f0] overflow-hidden">
-                        <div className="p-4 border-b border-[#e2e8f0] bg-[#F8FAFC] flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
-                            <div className="relative max-w-md flex-1">
+                        <div className="p-4 border-b border-[#e2e8f0] bg-[#F8FAFC]">
+                            <div className="relative max-w-md">
                                 <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                                 <input
                                     type="text"
@@ -212,30 +257,6 @@ export default function AdminDiariasPage() {
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                 />
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => setSomenteRascunhosFemurn(false)}
-                                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
-                                        !somenteRascunhosFemurn ? "bg-[#01b0ef] text-white border-[#01b0ef]" : "bg-white text-slate-600 border-[#e2e8f0]"
-                                    }`}
-                                >
-                                    Todas ({items.length})
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setSomenteRascunhosFemurn(true)}
-                                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
-                                        somenteRascunhosFemurn
-                                            ? "bg-red-600 text-white border-red-600"
-                                            : rascunhosFemurnCount > 0
-                                                ? "bg-red-50 text-red-700 border-red-300"
-                                                : "bg-white text-slate-600 border-[#e2e8f0]"
-                                    }`}
-                                >
-                                    Rascunhos FEMURN ({rascunhosFemurnCount})
-                                </button>
                             </div>
                         </div>
 
