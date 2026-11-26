@@ -16,10 +16,15 @@ export async function GET() {
     if (!auth.authorized) return auth.response;
 
     try {
-        const total = await prisma.legislacao.count({
-            where: { ativo: false, femurn: { isNot: null } },
-        });
-        return jsonNoStore({ total });
+        const [total, diarias] = await Promise.all([
+            prisma.legislacao.count({
+                where: { ativo: false, femurn: { isNot: null } },
+            }),
+            prisma.diaria.count({
+                where: { situacaoPublicacao: "rascunho", femurn: { isNot: null } },
+            }),
+        ]);
+        return jsonNoStore({ total, legislacao: total, diarias });
     } catch {
         return jsonNoStore({ error: "Erro ao contar rascunhos da FEMURN" }, { status: 500 });
     }

@@ -2,17 +2,21 @@
 
 import { useEffect, useState } from "react";
 
+export type RascunhosFemurnCounts = {
+    legislacao: number;
+    diarias: number;
+};
+
 /**
- * Retorna quantos atos da FEMURN estão em rascunho aguardando aprovação.
- * Atualiza ao montar, a cada 60s e ao voltar o foco para a aba.
- * Retorna 0 quando o usuário não tem acesso ou a consulta falha.
+ * Retorna as contagens de rascunhos da FEMURN aguardando aprovação
+ * em Legislação e Atos e em Diárias de Viagem.
  */
-export function useRascunhosFemurn(enabled = true, refreshKey?: unknown) {
-    const [total, setTotal] = useState(0);
+export function useRascunhosFemurnDetalhes(enabled = true, refreshKey?: unknown): RascunhosFemurnCounts {
+    const [counts, setCounts] = useState<RascunhosFemurnCounts>({ legislacao: 0, diarias: 0 });
 
     useEffect(() => {
         if (!enabled) {
-            setTotal(0);
+            setCounts({ legislacao: 0, diarias: 0 });
             return;
         }
         let ativo = true;
@@ -21,7 +25,12 @@ export function useRascunhosFemurn(enabled = true, refreshKey?: unknown) {
                 const res = await fetch("/api/admin/legislacao/rascunhos-femurn", { cache: "no-store" });
                 if (!res.ok) return;
                 const data = await res.json();
-                if (ativo && typeof data.total === "number") setTotal(data.total);
+                if (ativo) {
+                    setCounts({
+                        legislacao: typeof data.legislacao === "number" ? data.legislacao : (typeof data.total === "number" ? data.total : 0),
+                        diarias: typeof data.diarias === "number" ? data.diarias : 0,
+                    });
+                }
             } catch {
                 /* mantém o último valor */
             }
@@ -37,5 +46,12 @@ export function useRascunhosFemurn(enabled = true, refreshKey?: unknown) {
         };
     }, [enabled, refreshKey]);
 
-    return total;
+    return counts;
+}
+
+/**
+ * Retorna quantos atos da FEMURN estão em rascunho aguardando aprovação em Legislação.
+ */
+export function useRascunhosFemurn(enabled = true, refreshKey?: unknown) {
+    return useRascunhosFemurnDetalhes(enabled, refreshKey).legislacao;
 }
