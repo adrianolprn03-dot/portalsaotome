@@ -72,6 +72,14 @@ export default async function AdminDashboard() {
     let linksComErroCount = 0;
     let esicPendentesCount = 0;
     let esicRecursosCount = 0;
+    let femurnRascunhos = {
+        decretos: 0,
+        portarias: 0,
+        outrosDocumentos: 0,
+        totalLegislacao: 0,
+        diarias: 0,
+        totalGeral: 0,
+    };
     let essenciaisPendentesCount = CATALOGO_CRITERIOS_PNTP_2026.filter(
         (c) => c.classificacao === "ESSENCIAL"
     ).length;
@@ -115,6 +123,8 @@ export default async function AdminDashboard() {
             noticiasRecentes,
             obrasRecentes,
             importacoesRecentes,
+            femurnLegislacaoGrupo,
+            femurnDiariasCount,
         ] = await Promise.all([
             prisma.noticia.count(),
             prisma.licitacao.count(),
@@ -153,6 +163,14 @@ export default async function AdminDashboard() {
                 orderBy: { criadoEm: "desc" },
                 select: { id: true, modulo: true, arquivo: true, status: true, total: true, criadoEm: true },
             }),
+            prisma.legislacao.groupBy({
+                by: ["tipo"],
+                where: { ativo: false, femurn: { isNot: null } },
+                _count: { _all: true },
+            }),
+            prisma.diaria.count({
+                where: { situacaoPublicacao: "rascunho", femurn: { isNot: null } },
+            }),
         ]);
 
         counts = {
@@ -170,6 +188,26 @@ export default async function AdminDashboard() {
             legislacao,
             unidades,
             regulacao,
+        };
+
+        let decretosFemurn = 0;
+        let portariasFemurn = 0;
+        let outrosLegFemurn = 0;
+        for (const grupo of femurnLegislacaoGrupo) {
+            const qtd = grupo._count._all;
+            const t = grupo.tipo.toLowerCase();
+            if (t === "decreto") decretosFemurn += qtd;
+            else if (t === "portaria" || t === "portaria_diaria") portariasFemurn += qtd;
+            else outrosLegFemurn += qtd;
+        }
+        const totalLegislacaoFemurn = decretosFemurn + portariasFemurn + outrosLegFemurn;
+        femurnRascunhos = {
+            decretos: decretosFemurn,
+            portarias: portariasFemurn,
+            outrosDocumentos: outrosLegFemurn,
+            totalLegislacao: totalLegislacaoFemurn,
+            diarias: femurnDiariasCount,
+            totalGeral: totalLegislacaoFemurn + femurnDiariasCount,
         };
 
         esicPendentesCount = esicAbertos;
@@ -385,6 +423,109 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
             </div>
+
+            {/* ALERTA PRINCIPAL: RASCUNHOS DA FEMURN AGUARDANDO APROVAÇÃO */}
+            {femurnRascunhos.totalGeral > 0 &&
+                (canAccessAdminPath(role, "/admin/legislacao") || canAccessAdminPath(role, "/admin/diarias")) && (
+                <section
+                    aria-label="Rascunhos da FEMURN aguardando aprovação"
+                    className="rounded-3xl bg-red-50 border-2 border-red-300 p-6 shadow-sm space-y-5"
+                >
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                        <div className="flex items-start sm:items-center gap-4">
+                            <span className="w-11 h-11 rounded-2xl bg-red-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-red-600/30 animate-pulse">
+                                <FaExclamationTriangle size={20} />
+                            </span>
+                            <div>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <h2 className="text-base sm:text-lg font-black text-red-950 tracking-tight">
+                                        Rascunhos da FEMURN Aguardando Aprovação
+                                    </h2>
+                                    <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white text-xs font-black">
+                                        {femurnRascunhos.totalGeral} {femurnRascunhos.totalGeral === 1 ? "documento" : "documentos"}
+                                    </span>
+                                </div>
+                                <p className="text-xs sm:text-sm text-red-800 mt-0.5">
+                                    Existem atos importados do Diário Oficial (FEMURN) em rascunho aguardando conferência e publicação manual.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 shrink-0">
+                            {canAccessAdminPath(role, "/admin/legislacao") && (
+                                <Link
+                                    href="/admin/legislacao"
+                                    className="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm flex items-center gap-2"
+                                >
+                                    Revisar Legislação ({femurnRascunhos.totalLegislacao}) <FaArrowRight size={10} />
+                                </Link>
+                            )}
+                            {canAccessAdminPath(role, "/admin/diarias") && (
+                                <Link
+                                    href="/admin/diarias"
+                                    className="px-4 py-2.5 rounded-xl bg-white hover:bg-red-100 text-red-700 border border-red-300 text-xs font-bold uppercase tracking-wider transition-colors shadow-xs flex items-center gap-2"
+                                >
+                                    Revisar Diárias ({femurnRascunhos.diarias}) <FaArrowRight size={10} />
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        {canAccessAdminPath(role, "/admin/legislacao") && (
+                            <Link
+                                href="/admin/legislacao"
+                                className="bg-white/95 hover:bg-white border border-red-200 rounded-2xl p-4 transition-all hover:shadow-sm flex items-center justify-between"
+                            >
+                                <div>
+                                    <div className="text-[11px] font-bold uppercase tracking-wider text-red-700">Decretos</div>
+                                    <div className="text-2xl font-black text-red-950 mt-0.5">{femurnRascunhos.decretos}</div>
+                                    <div className="text-[11px] text-red-700/80">Em Legislação e Atos</div>
+                                </div>
+                                <FaGavel className="text-red-500" size={20} />
+                            </Link>
+                        )}
+                        {canAccessAdminPath(role, "/admin/legislacao") && (
+                            <Link
+                                href="/admin/legislacao"
+                                className="bg-white/95 hover:bg-white border border-red-200 rounded-2xl p-4 transition-all hover:shadow-sm flex items-center justify-between"
+                            >
+                                <div>
+                                    <div className="text-[11px] font-bold uppercase tracking-wider text-red-700">Portarias</div>
+                                    <div className="text-2xl font-black text-red-950 mt-0.5">{femurnRascunhos.portarias}</div>
+                                    <div className="text-[11px] text-red-700/80">Em Legislação e Atos</div>
+                                </div>
+                                <FaFileContract className="text-red-500" size={20} />
+                            </Link>
+                        )}
+                        {canAccessAdminPath(role, "/admin/diarias") && (
+                            <Link
+                                href="/admin/diarias"
+                                className="bg-white/95 hover:bg-white border border-red-200 rounded-2xl p-4 transition-all hover:shadow-sm flex items-center justify-between"
+                            >
+                                <div>
+                                    <div className="text-[11px] font-bold uppercase tracking-wider text-red-700">Diárias de Viagem</div>
+                                    <div className="text-2xl font-black text-red-950 mt-0.5">{femurnRascunhos.diarias}</div>
+                                    <div className="text-[11px] text-red-700/80">Portarias de deslocamento</div>
+                                </div>
+                                <FaFileAlt className="text-red-500" size={20} />
+                            </Link>
+                        )}
+                        <div className="bg-red-600 text-white rounded-2xl p-4 flex items-center justify-between shadow-sm">
+                            <div>
+                                <div className="text-[11px] font-bold uppercase tracking-wider text-red-100">Todos os Documentos</div>
+                                <div className="text-2xl font-black mt-0.5">{femurnRascunhos.totalGeral}</div>
+                                <div className="text-[11px] text-red-100">
+                                    {femurnRascunhos.outrosDocumentos > 0
+                                        ? `Inclui ${femurnRascunhos.outrosDocumentos} outro(s) ato(s)`
+                                        : "Total pendente da FEMURN"}
+                                </div>
+                            </div>
+                            <FaClipboardCheck className="text-red-100" size={22} />
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* VISÃO GERAL ADMINISTRATIVA: 8 INDICADORES OPERACIONAIS + PENDÊNCIAS POR SECRETARIA */}
             {canAccessAdminPath(role, "/admin/pntp") && (
