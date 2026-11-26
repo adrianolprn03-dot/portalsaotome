@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { MUNICIPIO } from "@/config/municipio";
 import { useState } from "react";
+import { useRascunhosFemurn } from "@/lib/useRascunhosFemurn";
 import {
     FaHome, FaNewspaper, FaGavel, FaFileContract, FaUsers,
     FaMoneyBillWave, FaChartBar, FaBuilding, FaBullhorn,
@@ -119,6 +120,7 @@ const menuCategories: MenuCategory[] = [
 export default function AdminSidebar({ userRole = "admin" }: { userRole?: string }) {
     const pathname = usePathname();
     const [collapsed, setCollapsed] = useState(false);
+    const rascunhosFemurn = useRascunhosFemurn(canAccessAdminPath(userRole, "/admin/legislacao"), pathname);
 
     const isActive = (href: string, exact?: boolean) =>
         exact ? pathname === href : pathname.startsWith(href);
@@ -194,6 +196,18 @@ export default function AdminSidebar({ userRole = "admin" }: { userRole?: string
 
                                             {!collapsed && (
                                                 <span className="truncate leading-tight tracking-tight">{item.label}</span>
+                                            )}
+
+                                            {item.href === "/admin/legislacao" && rascunhosFemurn > 0 && (
+                                                <span
+                                                    className={`bg-red-600 text-white text-[10px] font-black rounded-full min-w-[20px] h-5 px-1.5 flex items-center justify-center shadow-md shadow-red-600/40 animate-pulse ${
+                                                        collapsed ? "absolute top-1 right-2" : "ml-auto"
+                                                    }`}
+                                                    title={`${rascunhosFemurn} ato(s) da FEMURN aguardando aprovação`}
+                                                    aria-label={`${rascunhosFemurn} atos da FEMURN aguardando aprovação`}
+                                                >
+                                                    {rascunhosFemurn}
+                                                </span>
                                             )}
                                         </Link>
                                     );

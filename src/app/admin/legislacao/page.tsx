@@ -14,9 +14,11 @@ import {
     FiXCircle,
     FiChevronLeft,
     FiChevronRight,
+    FiAlertTriangle,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { TIPOS_LEGISLACAO } from "@/lib/rbac-routes";
+import { useRascunhosFemurn } from "@/lib/useRascunhosFemurn";
 
 type Legislacao = {
     id: string;
@@ -45,7 +47,9 @@ export default function LegislacaoAdminPage() {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
+    const [alertRefresh, setAlertRefresh] = useState(0);
     const limit = 25;
+    const rascunhosFemurnCount = useRascunhosFemurn(true, alertRefresh);
 
     const fetchLegislacoes = useCallback(async () => {
         setLoading(true);
@@ -90,6 +94,7 @@ export default function LegislacaoAdminPage() {
             });
             if (res.ok) {
                 toast.success("Ato normativo excluído com sucesso!");
+                setAlertRefresh((n) => n + 1);
                 fetchLegislacoes();
             } else {
                 const err = await res.json().catch(() => ({}));
@@ -111,6 +116,7 @@ export default function LegislacaoAdminPage() {
                 toast.success(
                     !item.ativo ? "Ato publicado no portal!" : "Ato ocultado do portal."
                 );
+                setAlertRefresh((n) => n + 1);
                 fetchLegislacoes();
             } else {
                 toast.error("Erro ao alterar status da norma.");
@@ -182,6 +188,46 @@ export default function LegislacaoAdminPage() {
                 </div>
             </div>
 
+            {/* Alerta visual de rascunhos FEMURN aguardando aprovação */}
+            {rascunhosFemurnCount > 0 && (
+                <div
+                    role="alert"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-red-50 border border-red-300 text-red-900 px-5 py-4 rounded-2xl shadow-sm"
+                >
+                    <div className="flex items-start sm:items-center gap-3">
+                        <span className="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0 animate-pulse">
+                            <FiAlertTriangle size={18} />
+                        </span>
+                        <div>
+                            <p className="text-sm font-bold text-red-900">
+                                {rascunhosFemurnCount === 1
+                                    ? "1 ato da FEMURN aguardando aprovação em rascunho"
+                                    : `${rascunhosFemurnCount} atos da FEMURN aguardando aprovação em rascunho`}
+                            </p>
+                            <p className="text-xs text-red-700">
+                                Revise e publique os rascunhos para que fiquem visíveis no Portal da Transparência.
+                            </p>
+                        </div>
+                    </div>
+                    {!rascunhosFemurn && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setRascunhosFemurn(true);
+                                setTipoFilter("");
+                                setAnoFilter("");
+                                setSearchQuery("");
+                                setVigenciaFilter("");
+                                setPage(1);
+                            }}
+                            className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm"
+                        >
+                            Ver Rascunhos ({rascunhosFemurnCount})
+                        </button>
+                    )}
+                </div>
+            )}
+
             {/* Atalhos Rápidos por Categoria de Ato */}
             <div className="flex flex-wrap gap-2">
                 <button
@@ -205,13 +251,24 @@ export default function LegislacaoAdminPage() {
                         setVigenciaFilter("");
                         setPage(1);
                     }}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-colors ${
+                    className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-colors ${
                         rascunhosFemurn
-                            ? "bg-blue-600 text-white border-blue-600"
-                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                            ? "bg-red-600 text-white border-red-600"
+                            : rascunhosFemurnCount > 0
+                                ? "bg-red-50 text-red-700 border-red-300 hover:bg-red-100"
+                                : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
                     }`}
                 >
-                    Rascunhos FEMURN
+                    <span>Rascunhos FEMURN</span>
+                    {rascunhosFemurnCount > 0 && (
+                        <span
+                            className={`px-1.5 py-0.5 rounded-full text-[10px] font-black leading-none ${
+                                rascunhosFemurn ? "bg-white text-red-600" : "bg-red-600 text-white"
+                            }`}
+                        >
+                            {rascunhosFemurnCount}
+                        </span>
+                    )}
                 </button>
                 {TIPOS_LEGISLACAO.map((t) => (
                     <button
