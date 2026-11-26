@@ -195,6 +195,7 @@ model Diaria {
   situacaoPublicacao     String    @default("publicado")
   criterioPntp           String?   @default("7.1")
   criadoEm               DateTime  @default(now())
+  femurn                 DiariaFemurn?
 }
 
 model Servidor {
@@ -522,6 +523,17 @@ model LegislacaoFemurn {
   codigo         String     @id
   legislacaoId   String     @unique
   legislacao     Legislacao @relation(fields: [legislacaoId], references: [id], onDelete: Cascade)
+  checksumMd5    String
+  publicadoEm    DateTime
+  orgao          String
+  edicao         String
+  pdf            Bytes
+}
+
+model DiariaFemurn {
+  codigo         String   @id
+  diariaId       String   @unique
+  diaria         Diaria   @relation(fields: [diariaId], references: [id], onDelete: Cascade)
   checksumMd5    String
   publicadoEm    DateTime
   orgao          String

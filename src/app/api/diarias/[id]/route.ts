@@ -9,6 +9,7 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
     try {
         const item = await prisma.diaria.findUnique({
             where: { id: params.id },
+            include: { femurn: { select: { codigo: true, edicao: true, publicadoEm: true, orgao: true } } },
         });
         if (!item) return jsonNoStore({ error: "Não encontrado" }, { status: 404 });
         return jsonNoStore(item);

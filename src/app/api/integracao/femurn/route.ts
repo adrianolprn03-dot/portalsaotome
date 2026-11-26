@@ -3,6 +3,11 @@ import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import {
+    buscarTextoMateriaFemurn,
+    ehPortariaConcessaoDeslocamento,
+    extrairDadosDiariaFemurn,
+} from "@/lib/femurn-diaria";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -19,6 +24,7 @@ const documento = z.object({
     data_ato: z.union([date, z.literal("")]),
     publicado_em: date,
     ementa: z.string().trim().max(4000),
+    texto: z.string().max(40000).optional(),
     orgao: z.string().trim().min(1).max(250),
     edicao: z.string().regex(/^\d{1,12}$/),
 });
@@ -72,17 +78,26 @@ function autorizar(req: Request) {
 }
 
 async function consultar(cod: string) {
-    return prisma.legislacaoFemurn.findUnique({
-        where: { codigo: cod },
-        select: { legislacaoId: true, checksumMd5: true },
-    });
+    const [leg, diaria] = await Promise.all([
+        prisma.legislacaoFemurn.findUnique({
+            where: { codigo: cod },
+            select: { legislacaoId: true, checksumMd5: true },
+        }),
+        prisma.diariaFemurn.findUnique({
+            where: { codigo: cod },
+            select: { diariaId: true, checksumMd5: true },
+        }),
+    ]);
+    if (leg) return { id: leg.legislacaoId, checksumMd5: leg.checksumMd5, modulo: "legislacao" as const };
+    if (diaria) return { id: diaria.diariaId, checksumMd5: diaria.checksumMd5, modulo: "diarias" as const };
+    return null;
 }
 
 function existente(registro: NonNullable<Awaited<ReturnType<typeof consultar>>>, md5: string) {
     if (registro.checksumMd5 === md5) {
-        return json({ ok: true, processar: false, resultado: "ja_processado", id: registro.legislacaoId });
+        return json({ ok: true, processar: false, resultado: "ja_processado", modulo: registro.modulo, id: registro.id });
     }
-    return json({ processar: false, conflito: true, resultado: "conflito_revisao", id: registro.legislacaoId });
+    return json({ processar: false, conflito: true, resultado: "conflito_revisao", modulo: registro.modulo, id: registro.id });
 }
 
 export async function GET(req: Request) {
@@ -100,7 +115,7 @@ export async function GET(req: Request) {
     }
     const registro = await consultar(cod.data);
     return registro
-        ? json({ ok: true, processar: false, resultado: "ja_processado", id: registro.legislacaoId, checksum_md5: registro.checksumMd5 })
+        ? json({ ok: true, processar: false, resultado: "ja_processado", modulo: registro.modulo, id: registro.id, checksum_md5: registro.checksumMd5 })
         : json({ processar: true });
 }
 
@@ -143,6 +158,49 @@ export async function POST(req: Request) {
 
     const atual = await consultar(doc.codigo);
     if (atual) return existente(atual, doc.checksum_md5);
+
+    const ehPortaria = doc.tipo === "PORTARIA" || doc.tipo === "PORTARIA_DIARIA";
+    const textoMateria = ehPortaria ? (doc.texto?.trim() || (await buscarTextoMateriaFemurn(doc.codigo))) : "";
+    if (ehPortariaConcessaoDeslocamento(doc.tipo, doc.ementa, textoMateria)) {
+        const dadosDiaria = extrairDadosDiariaFemurn(textoMateria, doc);
+        try {
+            return await prisma.$transaction(async (tx) => {
+                const existentePorCodigo = await tx.diaria.findFirst({
+                    where: { codigoPermanente: doc.codigo },
+                    select: { id: true },
+                });
+                if (existentePorCodigo) {
+                    return json({ ok: true, processar: false, resultado: "ja_processado", modulo: "diarias", id: existentePorCodigo.id });
+                }
+                const diaria = await tx.diaria.create({
+                    data: {
+                        ...dadosDiaria,
+                        femurn: {
+                            create: {
+                                codigo: doc.codigo,
+                                checksumMd5: doc.checksum_md5,
+                                publicadoEm: new Date(doc.publicado_em),
+                                orgao: doc.orgao,
+                                edicao: doc.edicao,
+                                pdf,
+                            },
+                        },
+                    },
+                    select: { id: true },
+                });
+                return json({ ok: true, resultado: "criado", modulo: "diarias", id: diaria.id }, 201);
+            }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError && ["P2002", "P2034"].includes(error.code)) {
+                const registro = await consultar(doc.codigo);
+                if (registro) return existente(registro, doc.checksum_md5);
+                return json({ erro: "Gravação concorrente. Execute novamente." }, 409);
+            }
+            console.error("Falha na importação FEMURN (Diárias)", doc.codigo, error instanceof Error ? error.name : "Erro");
+            return json({ erro: "Falha na importação FEMURN" }, 500);
+        }
+    }
+
     const tipo = doc.tipo.toLowerCase();
     const ano = Number((doc.data_ato || doc.publicado_em).slice(0, 4));
     try {
