@@ -63,6 +63,8 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
         }
     }, [params.id, router]);
 
+    const arquivoFemurn = femurn && arquivo === `/api/legislacao/femurn/${femurn.codigo}`;
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -335,9 +337,9 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
                             <div className="h-full flex items-center">
                                 <input
                                     type="url"
-                                    value={arquivo}
+                                    value={arquivoFemurn ? "" : arquivo}
                                     onChange={(e) => setArquivo(e.target.value)}
-                                    placeholder="https://exemplo.com/arquivo.pdf"
+                                    placeholder={arquivoFemurn ? "Informe uma URL externa para substituir o PDF da FEMURN" : "https://exemplo.com/arquivo.pdf"}
                                     className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                 />
                             </div>
@@ -347,7 +349,12 @@ export default function EditarLegislacaoPage({ params }: { params: { id: string 
                     {arquivo && (
                         <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded-xl break-all flex justify-between items-center">
                             <span>
-                                <strong>Arquivo vinculado:</strong> {arquivo}
+                                <strong>Arquivo vinculado:</strong>{" "}
+                                {arquivoFemurn ? (
+                                    <a href={arquivo} target="_blank" rel="noreferrer" className="underline">
+                                        Abrir PDF da FEMURN
+                                    </a>
+                                ) : arquivo}
                             </span>
                             <button
                                 type="button"

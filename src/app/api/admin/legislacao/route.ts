@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import { NextRequest } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireServerAuth } from "@/lib/rbac";
 import { jsonNoStore, revalidatePaths, REVALIDATE_GROUPS } from "@/lib/revalidate-site";
@@ -52,16 +53,21 @@ export async function GET(request: NextRequest) {
     const q = searchParams.get("q")?.trim();
     const situacaoVigencia = searchParams.get("situacaoVigencia");
     const ativoParam = searchParams.get("ativo");
+    const rascunhosFemurn = searchParams.get("rascunhosFemurn") === "true";
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "25", 10)));
     const skip = (page - 1) * limit;
 
-    const where: Record<string, unknown> = {};
+    const where: Prisma.LegislacaoWhereInput = {};
     if (tipo) where.tipo = tipo;
     if (ano && !Number.isNaN(parseInt(ano, 10))) where.ano = parseInt(ano, 10);
     if (situacaoVigencia) where.situacaoVigencia = situacaoVigencia;
     if (ativoParam === "true") where.ativo = true;
     if (ativoParam === "false") where.ativo = false;
+    if (rascunhosFemurn) {
+        where.ativo = false;
+        where.femurn = { isNot: null };
+    }
 
     if (q) {
         where.OR = [
@@ -69,16 +75,19 @@ export async function GET(request: NextRequest) {
             { ementa: { contains: q, mode: "insensitive" } },
             { categoria: { contains: q, mode: "insensitive" } },
             { orgaoResponsavel: { contains: q, mode: "insensitive" } },
+            { femurn: { is: { codigo: { contains: q, mode: "insensitive" } } } },
         ];
     }
 
     const allItems = await prisma.legislacao.findMany({
         where,
         include: { femurn: { select: { codigo: true } } },
-        orderBy: [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }],
+        orderBy: rascunhosFemurn
+            ? [{ criadoEm: "desc" }, { id: "desc" }]
+            : [{ ano: "desc" }, { dataAto: "desc" }, { criadoEm: "desc" }],
     });
 
-    allItems.sort(compareLegislacaoDesc);
+    if (!rascunhosFemurn) allItems.sort(compareLegislacaoDesc);
     const total = allItems.length;
     const items = allItems.slice(skip, skip + limit);
 

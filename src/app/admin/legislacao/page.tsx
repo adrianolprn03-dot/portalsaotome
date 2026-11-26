@@ -37,6 +37,7 @@ type Legislacao = {
 export default function LegislacaoAdminPage() {
     const [legislacoes, setLegislacoes] = useState<Legislacao[]>([]);
     const [loading, setLoading] = useState(true);
+    const [rascunhosFemurn, setRascunhosFemurn] = useState(false);
     const [tipoFilter, setTipoFilter] = useState("");
     const [anoFilter, setAnoFilter] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -50,6 +51,7 @@ export default function LegislacaoAdminPage() {
         setLoading(true);
         try {
             const query = new URLSearchParams();
+            if (rascunhosFemurn) query.set("rascunhosFemurn", "true");
             if (tipoFilter) query.append("tipo", tipoFilter);
             if (anoFilter) query.append("ano", anoFilter);
             if (searchQuery.trim()) query.append("q", searchQuery.trim());
@@ -70,7 +72,7 @@ export default function LegislacaoAdminPage() {
         } finally {
             setLoading(false);
         }
-    }, [tipoFilter, anoFilter, searchQuery, vigenciaFilter, page]);
+    }, [rascunhosFemurn, tipoFilter, anoFilter, searchQuery, vigenciaFilter, page]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -183,14 +185,33 @@ export default function LegislacaoAdminPage() {
             {/* Atalhos Rápidos por Categoria de Ato */}
             <div className="flex flex-wrap gap-2">
                 <button
-                    onClick={() => { setTipoFilter(""); setPage(1); }}
+                    onClick={() => { setRascunhosFemurn(false); setTipoFilter(""); setPage(1); }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                        tipoFilter === ""
+                        !rascunhosFemurn && tipoFilter === ""
                             ? "bg-blue-600 text-white border-blue-600 shadow-xs"
                             : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
                     }`}
                 >
                     Todos os Atos
+                </button>
+                <button
+                    type="button"
+                    aria-pressed={rascunhosFemurn}
+                    onClick={() => {
+                        setRascunhosFemurn(true);
+                        setTipoFilter("");
+                        setAnoFilter("");
+                        setSearchQuery("");
+                        setVigenciaFilter("");
+                        setPage(1);
+                    }}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-colors ${
+                        rascunhosFemurn
+                            ? "bg-blue-600 text-white border-blue-600"
+                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                    }`}
+                >
+                    Rascunhos FEMURN
                 </button>
                 {TIPOS_LEGISLACAO.map((t) => (
                     <button
@@ -211,7 +232,7 @@ export default function LegislacaoAdminPage() {
             <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
                 <div className="md:col-span-5">
                     <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
-                        Pesquisar por Número, Ementa ou Assunto
+                        Pesquisar por Número, Ementa, Assunto ou Código FEMURN
                     </label>
                     <div className="relative">
                         <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -291,7 +312,9 @@ export default function LegislacaoAdminPage() {
                 </div>
             ) : legislacoes.length === 0 ? (
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center text-gray-500">
-                    Nenhuma norma encontrada para os filtros selecionados. Clique em &quot;Incluir Nova Norma&quot; para cadastrar.
+                    {rascunhosFemurn
+                        ? "Nenhum rascunho da FEMURN encontrado para os filtros selecionados."
+                        : "Nenhuma norma encontrada para os filtros selecionados."}
                 </div>
             ) : (
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -325,6 +348,7 @@ export default function LegislacaoAdminPage() {
                                                     </div>
                                                     <div className="text-xs text-gray-500 flex items-center gap-2 mt-0.5">
                                                         <span>Exercício: {item.ano}</span>
+                                                        {item.femurn && <span>FEMURN: {item.femurn.codigo}</span>}
                                                         {item.categoria && (
                                                             <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-semibold text-[10px]">
                                                                 {item.categoria}
